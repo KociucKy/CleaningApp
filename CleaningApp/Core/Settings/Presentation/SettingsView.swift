@@ -1,8 +1,6 @@
 import SwiftUI
 import NavigationKit
 
-// MARK: - SettingsView
-
 struct SettingsView: View {
 
     // MARK: - Properties

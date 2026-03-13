@@ -1,8 +1,6 @@
 import SwiftUI
 import NavigationKit
 
-// MARK: - HomeView
-
 struct HomeView: View {
 
     // MARK: - Properties

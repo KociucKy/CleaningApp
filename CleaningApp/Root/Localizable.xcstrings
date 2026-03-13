@@ -17,6 +17,39 @@
           }
         }
       }
+    },
+    "CleaningApp" : {
+
+    },
+    "Close" : {
+
+    },
+    "Dev Settings" : {
+
+    },
+    "Finish" : {
+
+    },
+    "Get started" : {
+
+    },
+    "Get started to set up your profile." : {
+
+    },
+    "Home" : {
+
+    },
+    "Rooms" : {
+
+    },
+    "Settings" : {
+
+    },
+    "Setup complete!" : {
+
+    },
+    "You're all set and ready to go." : {
+
     }
   },
   "version" : "1.0"

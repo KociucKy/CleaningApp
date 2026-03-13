@@ -1,5 +1,5 @@
 {
-  "originHash" : "8dfc2716185e929abaf6b2e41704810cfeef0a1981729f5e26086c19671cd948",
+  "originHash" : "fcb628c740f139496e958e346367a338b4ae90e5ddfcf7b8de7de69a42f0ae88",
   "pins" : [
     {
       "identity" : "fulhamkit",
@@ -44,15 +44,6 @@
       "state" : {
         "branch" : "master",
         "revision" : "03e100f1d98bd42bbcc693ea5bc15b0554385b93"
-      }
-    },
-    {
-      "identity" : "sfsymbolskit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/KociucKy/SFSymbolsKit",
-      "state" : {
-        "branch" : "master",
-        "revision" : "122746d0f7c56b60798fc00be5ed42cad96df19f"
       }
     },
     {

@@ -48,6 +48,9 @@ targets:
           - package: LogKit
           - package: LocalNotificationKit
           - package: SFSymbolsKit
+            product: SFSymbolsKitCore
+          - package: SFSymbolsKit
+            product: SFSymbolsKitUI
           - package: UserDefaultsKit
     info:
       path: CleaningApp/Info.plist
