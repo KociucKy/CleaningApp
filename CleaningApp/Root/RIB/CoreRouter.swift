@@ -45,4 +45,22 @@ struct CoreRouter {
 			builder.reviewKitDebugView()
 		}
 	}
+
+	func presentUserDefaultsDebugView() {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.userDefaultsDebugView()
+		}
+	}
+
+	func presentLocalNotificationDebugView() {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.localNotificationsDebugView()
+		}
+	}
+
+	func presentDeviceDebugView() {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.deviceDebugView()
+		}
+	}
 }

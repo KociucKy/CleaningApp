@@ -1,6 +1,9 @@
 import NavigationKit
 import SwiftUI
 import ReviewKit
+import DeviceKitUI
+import UserDefaultsKitUI
+import LocalNotificationKitDebugUI
 
 typealias RouterView = NavigationKit.RouterView
 
@@ -95,11 +98,19 @@ struct CoreBuilder: Builder {
 		)
 	}
 
-//	func userDefaultsDebugView() -> some View {
-//		UserDefaultsDevSettingsView()
-//	}
+	func userDefaultsDebugView() -> some View {
+		UserDefaultsDevSettingsView(entries: [.bool(.init("showOnboarding", defaultValue: false), label: "showOnboarding")])
+	}
 
 	func reviewKitDebugView() -> some View {
 		ReviewKitDebugView()
+	}
+
+	func localNotificationsDebugView() -> some View {
+		NotificationDebugView()
+	}
+
+	func deviceDebugView() -> some View {
+		DeviceInfoView()
 	}
 }

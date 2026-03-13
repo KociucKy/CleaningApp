@@ -30,6 +30,9 @@
     "Dev Settings" : {
 
     },
+    "Device Info" : {
+
+    },
     "Finish" : {
 
     },
@@ -42,6 +45,9 @@
     "Home" : {
 
     },
+    "Local Notifications" : {
+
+    },
     "Rooms" : {
 
     },
@@ -49,6 +55,9 @@
 
     },
     "Setup complete!" : {
+
+    },
+    "UserDefaults" : {
 
     },
     "You're all set and ready to go." : {

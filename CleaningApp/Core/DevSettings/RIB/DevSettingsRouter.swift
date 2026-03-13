@@ -6,6 +6,9 @@ import NavigationKit
 @MainActor
 protocol DevSettingsRouter {
 	func presentReviewKitDebugView()
+	func presentUserDefaultsDebugView()
+	func presentLocalNotificationDebugView()
+	func presentDeviceDebugView()
 	func dismissScreen()
 }
 

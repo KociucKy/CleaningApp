@@ -10,7 +10,10 @@ struct DevSettingsView: View {
 
 	var body: some View {
 		List {
-			Button("App Store Review", action: presenter.presentReviewKitDebugView)
+			Button("App Store Review", action: presenter.pushReviewKitDebugView)
+			Button("Device Info", action: presenter.pushDeviceDebugView)
+			Button("Local Notifications", action: presenter.pushLocalNotificationDebugView)
+			Button("UserDefaults", action: presenter.pushUserDefaultsDebugView)
 		}
 		.navigationTitle("Dev Settings")
 		.navigationBarTitleDisplayMode(.inline)

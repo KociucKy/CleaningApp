@@ -5,26 +5,37 @@ import Foundation
 @Observable
 @MainActor
 final class DevSettingsPresenter {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	private let interactor: any DevSettingsInteractor
+	private let router: any DevSettingsRouter
 
-    private let interactor: any DevSettingsInteractor
-    private let router: any DevSettingsRouter
+	// MARK: - Init
 
-    // MARK: - Init
+	init(interactor: any DevSettingsInteractor, router: any DevSettingsRouter) {
+		self.interactor = interactor
+		self.router = router
+	}
 
-    init(interactor: any DevSettingsInteractor, router: any DevSettingsRouter) {
-        self.interactor = interactor
-        self.router = router
-    }
+	// MARK: - Actions
 
-    // MARK: - Actions
+	func dismiss() {
+		router.dismissScreen()
+	}
 
-    func dismiss() {
-        router.dismissScreen()
-    }
-
-	func presentReviewKitDebugView() {
+	func pushReviewKitDebugView() {
 		router.presentReviewKitDebugView()
+	}
+
+	func pushUserDefaultsDebugView() {
+		router.presentUserDefaultsDebugView()
+	}
+
+	func pushLocalNotificationDebugView() {
+		router.presentLocalNotificationDebugView()
+	}
+
+	func pushDeviceDebugView() {
+		router.presentDeviceDebugView()
 	}
 }
