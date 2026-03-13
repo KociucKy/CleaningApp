@@ -1,0 +1,189 @@
+name: CleaningApp
+options:
+  bundleIdPrefix: com.jakubkociucki
+  deploymentTarget:
+    iOS: "18.0"
+  xcodeVersion: "16.0"
+  swiftVersion: "6.0"
+packages:
+  NavigationKit:
+    url: https://github.com/KociucKy/NavigationKit
+    branch: "master"
+  FulhamKit:
+    url: https://github.com/KociucKy/FulhamKit
+    branch: "master"
+  UtilitiesKit:
+    url: https://github.com/KociucKy/UtilitiesKit
+    branch: "master"
+  ReviewKit:
+    url: https://github.com/KociucKy/ReviewKit
+    branch: "master"
+  LogKit:
+    url: https://github.com/KociucKy/LogKit
+    branch: "master"
+  LocalNotificationKit:
+    url: https://github.com/KociucKy/LocalNotificationKit
+    branch: "master"
+  SFSymbolsKit:
+    url: https://github.com/KociucKy/SFSymbolsKit
+    branch: "master"
+  UserDefaultsKit:
+    url: https://github.com/KociucKy/UserDefaultsKit
+    branch: "master"
+targets:
+  CleaningApp:
+    type: application
+    platform: iOS
+    deploymentTarget:
+      iOS: "18.0"
+    sources:
+      - path: CleaningApp
+    resources:
+      - path: CleaningApp/Assets.xcassets
+    dependencies:
+          - package: NavigationKit
+          - package: FulhamKit
+          - package: UtilitiesKit
+          - package: ReviewKit
+          - package: LogKit
+          - package: LocalNotificationKit
+          - package: SFSymbolsKit
+          - package: UserDefaultsKit
+    info:
+      path: CleaningApp/Info.plist
+      properties:
+        CFBundleDisplayName: "$(BUNDLE_DISPLAY_NAME)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    settings:
+      base:
+        SWIFT_VERSION: 6.0
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+        CODE_SIGN_STYLE: Automatic
+      configs:
+        Mock:
+          PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp.mock
+          BUNDLE_DISPLAY_NAME: "CleaningApp - Mock"
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp.dev
+          BUNDLE_DISPLAY_NAME: "CleaningApp - Dev"
+        Release:
+          PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp
+          BUNDLE_DISPLAY_NAME: "CleaningApp"
+    preBuildScripts:
+      - name: SwiftLint
+        script: |
+          if which swiftlint > /dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+        basedOnDependencyAnalysis: false
+      - name: SwiftFormat
+        script: |
+          if which swiftformat > /dev/null; then
+            swiftformat .
+          else
+            echo "warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat"
+          fi
+        basedOnDependencyAnalysis: false
+  CleaningAppTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget:
+      iOS: "18.0"
+    sources:
+      - path: CleaningAppTests
+    dependencies:
+      - target: CleaningApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp.tests
+        SWIFT_VERSION: 6.0
+
+schemes:
+  CleaningApp - Mock:
+    build:
+      targets:
+        CleaningApp: all
+    test:
+      config: Mock
+      targets:
+        - CleaningAppTests
+    run:
+      config: Mock
+    profile:
+      config: Mock
+    analyze:
+      config: Mock
+    archive:
+      config: Mock
+
+  CleaningApp - Dev:
+    build:
+      targets:
+        CleaningApp: all
+    test:
+      config: Debug
+    run:
+      config: Debug
+    profile:
+      config: Debug
+    analyze:
+      config: Debug
+    archive:
+      config: Debug
+
+  CleaningApp - Prod:
+    build:
+      targets:
+        CleaningApp: all
+    test:
+      config: Release
+    run:
+      config: Release
+      debugEnabled: false
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+configs:
+  Mock: debug
+  Debug: debug
+  Release: release
+
+settings:
+  configs:
+    Mock:
+      base:
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: MOCK
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+    Debug:
+      base:
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEV
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_EMIT_LOC_STRINGS: YES
+    Release:
+      base:
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: ""
+        ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: YES
+        SWIFT_EMIT_LOC_STRINGS: NO

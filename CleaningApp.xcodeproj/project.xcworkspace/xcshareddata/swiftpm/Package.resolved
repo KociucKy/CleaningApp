@@ -1,0 +1,15 @@
+{
+  "originHash" : "32966858c810a72cceb1367d683e8c85b2929a8ae29423c37026240cf9a12b57",
+  "pins" : [
+    {
+      "identity" : "navigationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/NavigationKit",
+      "state" : {
+        "revision" : "7244c9ec5273c7668c465164ed3e72308cc38951",
+        "version" : "1.1.1"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -1,0 +1,11 @@
+excluded:
+  - .build
+  - Packages
+
+opt_in_rules:
+  - empty_count
+  - closure_spacing
+  - force_unwrapping
+
+analyzer_rules:
+  - unused_import
