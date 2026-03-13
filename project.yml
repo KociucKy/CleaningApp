@@ -24,9 +24,6 @@ packages:
   LocalNotificationKit:
     url: https://github.com/KociucKy/LocalNotificationKit
     branch: "master"
-  SFSymbolsKit:
-    url: https://github.com/KociucKy/SFSymbolsKit
-    branch: "master"
   UserDefaultsKit:
     url: https://github.com/KociucKy/UserDefaultsKit
     branch: "master"
@@ -44,14 +41,18 @@ targets:
           - package: NavigationKit
           - package: FulhamKit
           - package: UtilitiesKit
+          - package: UtilitiesKit
+            product: DeviceKit
+          - package: UtilitiesKit
+            product: DeviceKitUI
           - package: ReviewKit
           - package: LogKit
           - package: LocalNotificationKit
-          - package: SFSymbolsKit
-            product: SFSymbolsKitCore
-          - package: SFSymbolsKit
-            product: SFSymbolsKitUI
+          - package: LocalNotificationKit
+            product: LocalNotificationKitDebugUI
           - package: UserDefaultsKit
+          - package: UserDefaultsKit
+            product: UserDefaultsKitUI
     info:
       path: CleaningApp/Info.plist
       properties:
