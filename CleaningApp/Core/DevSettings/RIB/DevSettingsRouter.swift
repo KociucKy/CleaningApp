@@ -5,7 +5,8 @@ import NavigationKit
 
 @MainActor
 protocol DevSettingsRouter {
-    func dismissDevSettings()
+	func presentReviewKitDebugView()
+	func dismissScreen()
 }
 
 extension CoreRouter: DevSettingsRouter {}

@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "App Store Review" : {
+
+    },
     "app_name" : {
       "extractionState" : "manual",
       "localizations" : {

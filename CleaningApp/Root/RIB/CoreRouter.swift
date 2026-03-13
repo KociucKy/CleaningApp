@@ -1,44 +1,48 @@
-import SwiftUI
 import NavigationKit
+import SwiftUI
 
 // MARK: - CoreRouter
 
 @MainActor
 struct CoreRouter {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	let router: Router
+	let builder: CoreBuilder
 
-    let router: Router
-    let builder: CoreBuilder
+	// MARK: - Navigation
 
-    // MARK: - Navigation
+	func dismissScreen() {
+		router.dismissScreen()
+	}
 
-    func dismissScreen() {
-        router.dismissScreen()
-    }
+	func popToRoot() {
+		router.popToRoot()
+	}
 
-    func popToRoot() {
-        router.popToRoot()
-    }
+	func dismissToRoot() {
+		router.dismissToRoot()
+	}
 
-    func dismissToRoot() {
-        router.dismissToRoot()
-    }
+	func dismissModal() {
+		router.dismissModal()
+	}
 
-    func dismissModal() {
-        router.dismissModal()
-    }
+	func dismissAlert() {
+		router.dismissAlert()
+	}
 
-    func dismissAlert() {
-        router.dismissAlert()
-    }
-    func presentDevSettings() {
-        router.showScreen(.sheet, onDismiss: nil) { router in
-            builder.devSettingsView(router: router)
-        }
-    }
+	// MARK: - Dev Settings
 
-    func dismissDevSettings() {
-        router.dismissScreen()
-    }
+	func presentDevSettings() {
+		router.showScreen(.sheet, onDismiss: nil) { router in
+			builder.devSettingsView(router: router)
+		}
+	}
+
+	func presentReviewKitDebugView() {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.reviewKitDebugView()
+		}
+	}
 }

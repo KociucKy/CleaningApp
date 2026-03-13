@@ -21,6 +21,10 @@ final class DevSettingsPresenter {
     // MARK: - Actions
 
     func dismiss() {
-        router.dismissDevSettings()
+        router.dismissScreen()
     }
+
+	func presentReviewKitDebugView() {
+		router.presentReviewKitDebugView()
+	}
 }
