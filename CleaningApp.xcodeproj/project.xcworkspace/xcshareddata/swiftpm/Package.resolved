@@ -1,13 +1,76 @@
 {
-  "originHash" : "32966858c810a72cceb1367d683e8c85b2929a8ae29423c37026240cf9a12b57",
+  "originHash" : "8dfc2716185e929abaf6b2e41704810cfeef0a1981729f5e26086c19671cd948",
   "pins" : [
+    {
+      "identity" : "fulhamkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/FulhamKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "226879202ed0963531fc3ff8803659198f9317bc"
+      }
+    },
+    {
+      "identity" : "localnotificationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/LocalNotificationKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "f40fd11617d2da038b214353c0be026d551d7372"
+      }
+    },
+    {
+      "identity" : "logkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/LogKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "688c60f3f55e5cb5307aba6f0e0739ed5b264b9e"
+      }
+    },
     {
       "identity" : "navigationkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/KociucKy/NavigationKit",
       "state" : {
-        "revision" : "7244c9ec5273c7668c465164ed3e72308cc38951",
-        "version" : "1.1.1"
+        "branch" : "master",
+        "revision" : "ddb9e26a032a78e5a56abd21271b61d08c375e61"
+      }
+    },
+    {
+      "identity" : "reviewkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/ReviewKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "03e100f1d98bd42bbcc693ea5bc15b0554385b93"
+      }
+    },
+    {
+      "identity" : "sfsymbolskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/SFSymbolsKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "122746d0f7c56b60798fc00be5ed42cad96df19f"
+      }
+    },
+    {
+      "identity" : "userdefaultskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/UserDefaultsKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "58ae747a4fd21daead7a0df628bc412ee678fe9d"
+      }
+    },
+    {
+      "identity" : "utilitieskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/KociucKy/UtilitiesKit",
+      "state" : {
+        "branch" : "master",
+        "revision" : "5a9d4c188dfe28116b93df6ec1ed4de50c02bca9"
       }
     }
   ],
