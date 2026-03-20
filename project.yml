@@ -120,6 +120,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp.tests
         SWIFT_VERSION: 6.0
+        GENERATE_INFOPLIST_FILE: YES
 
 schemes:
   CleaningApp - Mock:

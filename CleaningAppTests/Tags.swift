@@ -16,6 +16,10 @@ extension Tag {
 	@Tag static var editing: Self
 	@Tag static var navigation: Self
 
+	// MARK: - Layer Tags
+
+	@Tag static var persistence: Self
+
 	// MARK: - Priority Tags
 
 	@Tag static var critical: Self
