@@ -13,7 +13,7 @@ final class RoomTaskManager {
 	init(
 		taskRepository: any RoomTaskRepository,
 		roomRepository: any RoomRepository,
-		mapper: RoomTaskMapper
+		mapper: RoomTaskMapper = RoomTaskMapper()
 	) {
 		self.taskRepository = taskRepository
 		self.roomRepository = roomRepository

@@ -18,20 +18,67 @@ struct Dependencies {
 	// MARK: - Init
 
 	init(config: BuildConfiguration) {
-		let modelContainer = try! ModelContainer(for: RoomEntity.self)
-		let dependencyContainer = DependencyContainer()
-		let roomManager = switch config {
+		let roomManager: RoomManager
+		let roomTaskManager: RoomTaskManager
+		let completedTaskManager: CompletedTaskManager
+		let skippedTaskManager: SkippedTaskManager
+		let modelContainer = try! ModelContainer(
+			for: RoomEntity.self,
+			RoomTaskEntity.self,
+			SkippedTaskEntity.self,
+			CompletedTaskEntity.self
+		)
+
+		switch config {
 		case .mock:
-			RoomManager(
+			roomManager = RoomManager(
 				repository: MockRoomRepository()
 			)
-		case .dev, .prod:
-			RoomManager(
+			roomTaskManager = RoomTaskManager(
+				taskRepository: MockRoomTaskRepository(),
+				roomRepository: MockRoomRepository()
+			)
+			completedTaskManager = CompletedTaskManager(
+				repository: MockCompletedTaskRepository()
+			)
+			skippedTaskManager = SkippedTaskManager(
+				repository: MockSkippedTaskRepository()
+			)
+		case .dev:
+			roomManager = RoomManager(
 				repository: SwiftDataRoomRepository(container: modelContainer)
+			)
+			roomTaskManager = RoomTaskManager(
+				taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
+				roomRepository: SwiftDataRoomRepository(container: modelContainer)
+			)
+			completedTaskManager = CompletedTaskManager(
+				repository: SwiftDataCompletedTaskRepository(container: modelContainer)
+			)
+			skippedTaskManager = SkippedTaskManager(
+				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
+			)
+		case .prod:
+			roomManager = RoomManager(
+				repository: SwiftDataRoomRepository(container: modelContainer)
+			)
+			roomTaskManager = RoomTaskManager(
+				taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
+				roomRepository: SwiftDataRoomRepository(container: modelContainer)
+			)
+			completedTaskManager = CompletedTaskManager(
+				repository: SwiftDataCompletedTaskRepository(container: modelContainer)
+			)
+			skippedTaskManager = SkippedTaskManager(
+				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
 			)
 		}
 
+		let dependencyContainer = DependencyContainer()
 		dependencyContainer.register(RoomManager.self, service: roomManager)
+		dependencyContainer.register(RoomTaskManager.self, service: roomTaskManager)
+		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
+		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
 		self.dependencyContainer = dependencyContainer
 	}
 }
@@ -47,18 +94,34 @@ final class DevPreview {
 	// MARK: - Properties
 
 	let roomManager: RoomManager
+	let roomTaskManager: RoomTaskManager
+	let completedTaskManager: CompletedTaskManager
+	let skippedTaskManager: SkippedTaskManager
 
 	var container: DependencyContainer {
 		let container = DependencyContainer()
 		container.register(RoomManager.self, service: roomManager)
+		container.register(RoomTaskManager.self, service: roomTaskManager)
+		container.register(CompletedTaskManager.self, service: completedTaskManager)
+		container.register(SkippedTaskManager.self, service: skippedTaskManager)
 		return container
 	}
 
 	// MARK: - Init
 
 	init() {
-		roomManager = RoomManager(
+		self.roomManager = RoomManager(
 			repository: MockRoomRepository()
+		)
+		self.roomTaskManager = RoomTaskManager(
+			taskRepository: MockRoomTaskRepository(),
+			roomRepository: MockRoomRepository()
+		)
+		self.completedTaskManager = CompletedTaskManager(
+			repository: MockCompletedTaskRepository()
+		)
+		self.skippedTaskManager = SkippedTaskManager(
+			repository: MockSkippedTaskRepository()
 		)
 	}
 }
