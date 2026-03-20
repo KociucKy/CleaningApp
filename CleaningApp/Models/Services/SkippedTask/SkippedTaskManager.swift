@@ -6,7 +6,6 @@ final class SkippedTaskManager {
 
 	private let repository: any SkippedTaskRepository
 	private let mapper: SkippedTaskMapper
-	
 
 	// MARK: - Init
 
@@ -22,14 +21,12 @@ final class SkippedTaskManager {
 
 	func fetchAll() throws -> [SkippedTask] {
 		let entities = try repository.fetchAll()
-		let models = entities.map(mapper.toDomain)
-		return models
+		return entities.map(mapper.toDomain)
 	}
 
 	func fetchAll(for taskId: UUID) throws -> [SkippedTask] {
 		let entities = try repository.fetchAll(for: taskId)
-		let models = entities.map(mapper.toDomain)
-		return models
+		return entities.map(mapper.toDomain)
 	}
 
 	func save(_ item: SkippedTask) throws {

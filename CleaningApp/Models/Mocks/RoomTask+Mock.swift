@@ -41,6 +41,8 @@
 	// MARK: - Frequency + Mock
 
 	extension Frequency {
-		static var weekly: Frequency { .timesPerWeek(1) }
+		static var weekly: Frequency {
+			.timesPerWeek(1)
+		}
 	}
 #endif

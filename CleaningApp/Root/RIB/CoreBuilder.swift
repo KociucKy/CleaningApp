@@ -103,7 +103,11 @@ struct CoreBuilder: Builder {
 	}
 
 	func reviewKitDebugView() -> some View {
-		ReviewKitDebugView()
+		#if DEBUG
+			ReviewKitDebugView()
+		#else
+			EmptyView()
+		#endif
 	}
 
 	func localNotificationsDebugView() -> some View {

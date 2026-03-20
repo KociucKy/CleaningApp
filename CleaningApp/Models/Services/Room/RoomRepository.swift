@@ -28,8 +28,7 @@ final class SwiftDataRoomRepository: RoomRepository {
 
 	func fetchAll() throws -> [RoomEntity] {
 		let descriptor = FetchDescriptor<RoomEntity>(sortBy: [SortDescriptor(\.createdAt)])
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+		return try mainContext.fetch(descriptor)
 	}
 
 	func fetch(by id: UUID) throws -> RoomEntity? {
@@ -37,8 +36,7 @@ final class SwiftDataRoomRepository: RoomRepository {
 			predicate: #Predicate { $0.id == id },
 			sortBy: [SortDescriptor(\.createdAt)]
 		)
-		let entity = try mainContext.fetch(descriptor).first
-		return entity
+		return try mainContext.fetch(descriptor).first
 	}
 
 	func save(_ entity: RoomEntity) throws {

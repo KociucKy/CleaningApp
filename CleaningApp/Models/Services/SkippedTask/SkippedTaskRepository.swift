@@ -28,8 +28,7 @@ final class SwiftDataSkippedTaskRepository: SkippedTaskRepository {
 
 	func fetchAll() throws -> [SkippedTaskEntity] {
 		let descriptor = FetchDescriptor<SkippedTaskEntity>(sortBy: [SortDescriptor(\.skippedAt)])
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+		return try mainContext.fetch(descriptor)
 	}
 
 	func fetchAll(for id: UUID) throws -> [SkippedTaskEntity] {
@@ -37,8 +36,7 @@ final class SwiftDataSkippedTaskRepository: SkippedTaskRepository {
 			predicate: #Predicate { $0.id == id },
 			sortBy: [SortDescriptor(\.skippedAt)]
 		)
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+		return try mainContext.fetch(descriptor)
 	}
 
 	func save(_ entity: SkippedTaskEntity) throws {

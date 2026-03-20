@@ -2,7 +2,6 @@ import Foundation
 
 @MainActor
 final class RoomManager {
-
 	// MARK: - Properties
 
 	private let repository: any RoomRepository
@@ -22,8 +21,7 @@ final class RoomManager {
 
 	func fetchAll() throws -> [Room] {
 		let entities = try repository.fetchAll()
-		let models = entities.map(mapper.toDomain)
-		return models
+		return entities.map(mapper.toDomain)
 	}
 
 	func save(_ item: Room) throws {

@@ -22,6 +22,7 @@ struct Dependencies {
 		let roomTaskManager: RoomTaskManager
 		let completedTaskManager: CompletedTaskManager
 		let skippedTaskManager: SkippedTaskManager
+		// swiftlint:disable:next force_try
 		let modelContainer = try! ModelContainer(
 			for: RoomEntity.self,
 			RoomTaskEntity.self,
@@ -110,17 +111,17 @@ final class DevPreview {
 	// MARK: - Init
 
 	init() {
-		self.roomManager = RoomManager(
+		roomManager = RoomManager(
 			repository: MockRoomRepository()
 		)
-		self.roomTaskManager = RoomTaskManager(
+		roomTaskManager = RoomTaskManager(
 			taskRepository: MockRoomTaskRepository(),
 			roomRepository: MockRoomRepository()
 		)
-		self.completedTaskManager = CompletedTaskManager(
+		completedTaskManager = CompletedTaskManager(
 			repository: MockCompletedTaskRepository()
 		)
-		self.skippedTaskManager = SkippedTaskManager(
+		skippedTaskManager = SkippedTaskManager(
 			repository: MockSkippedTaskRepository()
 		)
 	}

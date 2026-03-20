@@ -10,6 +10,7 @@
 		036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D69DE434EC1AC78114225DB /* RoomRepository.swift */; };
 		03C9F87F67A8344A95F0A667 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAF75EB0EA1F15F9069C0DFD /* NavigationKit */; };
 		06478080EBDB7AE9B66F24CD /* CompletedTask+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */; };
+		0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4C15493B2B8E405BBD5DA4 /* RoomTaskEntity+Mock.swift */; };
 		1D97EC665660AFA851BBA56C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36804C9A9E2645C5D4A1FE98 /* Room.swift */; };
 		21C1BB28AFF5DE48DA36AE20 /* FulhamKit in Frameworks */ = {isa = PBXBuildFile; productRef = 125EFD511D0A1D887E4567A1 /* FulhamKit */; };
 		22965D8F0CE14CAFD433B941 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142A3A1F7E7A3FC23A915A5 /* HomePresenter.swift */; };
@@ -19,6 +20,7 @@
 		2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */; };
 		2D13E6436B82606AEC79C42D /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = B1EF4BEA6AC9CE10727551D4 /* DeviceKit */; };
 		36A47369ED0088DF2C941642 /* MockSkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D848D3402978105382264E4 /* MockSkippedTaskRepository.swift */; };
+		382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD74458F72229A3BDA2080 /* SkippedTaskEntity+Mock.swift */; };
 		3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629102C8551A4E9CC65038E /* RoomEntity.swift */; };
 		3E25499452BF7E95FA91FBCF /* RoomsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECF267DAA633770548AEE70 /* RoomsInteractor.swift */; };
 		49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E6F8B4B46C24198BE2F9F /* SkippedTaskEntity.swift */; };
@@ -34,6 +36,7 @@
 		6479FA8E05C766D75E540438 /* CompletedTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7136DD168952F121FE91E27 /* CompletedTaskMapper.swift */; };
 		660D48547BDC931810ED5C5B /* RoomsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0AC0E23A9B8115A456660C /* RoomsPresenter.swift */; };
 		66A8BF445AA2908B69FE2A23 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D8476AF41A889E1E0EA066 /* Tags.swift */; };
+		66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */; };
 		69534D7AFD21A196EE86962E /* LogKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65750B7A5986D2A2D68B50C2 /* LogKit */; };
 		705F9EA71A291971BF243EEE /* UserDefaultsKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = A638A932DB0BC851620820DF /* UserDefaultsKitUI */; };
 		719A3716C8C8798E37664570 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412CB179AA27D706A4C3A4A3 /* HomeView.swift */; };
@@ -57,6 +60,7 @@
 		ADFB02F71345BA9CF174B950 /* RoomTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C8757BA68B8BF8415B51 /* RoomTaskMapper.swift */; };
 		AFD89361F952EA57A94F3D38 /* TaskDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 163982E8B3A67F0B83FFCA8B /* TaskDuration.swift */; };
 		B12EB2311370F2A1FB098ECC /* LocalNotificationKitDebugUI in Frameworks */ = {isa = PBXBuildFile; productRef = 91C41AE78F486DFDB6CA42A2 /* LocalNotificationKitDebugUI */; };
+		B1CCE19E38B4EE82E32A0F36 /* CompletedTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E59399FDFF2BEACDCC6B223 /* CompletedTaskEntity+Mock.swift */; };
 		B3BA9D3493C330DC700727B8 /* OnboardingCompletedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA067C54CB4B4ACC98142F7 /* OnboardingCompletedPresenter.swift */; };
 		B7C357817D7C89F9216801F7 /* DeviceKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1FAD389BC66971909F12E65C /* DeviceKitUI */; };
 		B9BF82809AC51778770B42BC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2B24DB25513A066A7DB241C3 /* Localizable.xcstrings */; };
@@ -139,6 +143,7 @@
 		77F8AE788BE2C115414BB53E /* OnboardingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractor.swift; sourceTree = "<group>"; };
 		78D8476AF41A889E1E0EA066 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		7B92F3E0C05B0A7A4DE2859A /* RoomIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomIcon.swift; sourceTree = "<group>"; };
+		7E59399FDFF2BEACDCC6B223 /* CompletedTaskEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedTaskEntity+Mock.swift"; sourceTree = "<group>"; };
 		82AF2621099823CB83B58C83 /* CoreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreInteractor.swift; sourceTree = "<group>"; };
 		87032E920792FA6C55583745 /* Room+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Room+Mock.swift"; sourceTree = "<group>"; };
 		8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
@@ -147,6 +152,7 @@
 		8D545ADCE72D97A5C1DA5951 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
 		939A5996CA25F9ABBE00EB05 /* AppViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewBuilder.swift; sourceTree = "<group>"; };
 		93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskRepository.swift; sourceTree = "<group>"; };
+		94CD74458F72229A3BDA2080 /* SkippedTaskEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkippedTaskEntity+Mock.swift"; sourceTree = "<group>"; };
 		980C93F8E1DFDEE582165063 /* RoomTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskManager.swift; sourceTree = "<group>"; };
 		9956CE55B0B1AFF931AA160B /* CompletedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskManager.swift; sourceTree = "<group>"; };
 		9BE954167DC229FDECAA376A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 		A4046350F129E3D75E9E9E7A /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
 		A457688452077C69D253D2D9 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingState.swift; sourceTree = "<group>"; };
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		BE4C15493B2B8E405BBD5DA4 /* RoomTaskEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomTaskEntity+Mock.swift"; sourceTree = "<group>"; };
 		C09733DEB16715CB8DBC6098 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		C1C2330F027287AA4ECB1B54 /* Frequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
 		C629102C8551A4E9CC65038E /* RoomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEntity.swift; sourceTree = "<group>"; };
@@ -164,6 +171,7 @@
 		CB3CAD2A2CB071FB03C8A7F9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D1B895D2F6B55966FBDCCFD8 /* FrequencyEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyEncoder.swift; sourceTree = "<group>"; };
 		D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedTask+Mock.swift"; sourceTree = "<group>"; };
+		DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomEntity+Mock.swift"; sourceTree = "<group>"; };
 		DBFD30CCAA82A3C08CE78EB3 /* RoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskRepository.swift; sourceTree = "<group>"; };
 		DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomTaskRepository.swift; sourceTree = "<group>"; };
 		E142A3A1F7E7A3FC23A915A5 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
@@ -459,10 +467,14 @@
 			isa = PBXGroup;
 			children = (
 				D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */,
+				7E59399FDFF2BEACDCC6B223 /* CompletedTaskEntity+Mock.swift */,
 				E7F8BB9667E129602A1179F7 /* Date+Mock.swift */,
 				87032E920792FA6C55583745 /* Room+Mock.swift */,
+				DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */,
 				0131CBDD97DCE485D442B8F0 /* RoomTask+Mock.swift */,
+				BE4C15493B2B8E405BBD5DA4 /* RoomTaskEntity+Mock.swift */,
 				55937F18BF17745177679BFE /* SkippedTask+Mock.swift */,
+				94CD74458F72229A3BDA2080 /* SkippedTaskEntity+Mock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -559,7 +571,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_72958A30-00F0-451D-8EBA-CF3811A7823A" /* Shared */ = {
+		"TEMP_0CE31C11-A03E-44A7-ADB5-C9F381B91DC1" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -735,6 +747,7 @@
 				F65F3C97A4F30FE0F46BE971 /* Builder.swift in Sources */,
 				06478080EBDB7AE9B66F24CD /* CompletedTask+Mock.swift in Sources */,
 				E7A59BA1D50DEF6B096FA234 /* CompletedTask.swift in Sources */,
+				B1CCE19E38B4EE82E32A0F36 /* CompletedTaskEntity+Mock.swift in Sources */,
 				4B0B4F9D215259B312B46DC3 /* CompletedTaskEntity.swift in Sources */,
 				BC018A8B2096464741E6C46F /* CompletedTaskManager.swift in Sources */,
 				6479FA8E05C766D75E540438 /* CompletedTaskMapper.swift in Sources */,
@@ -767,6 +780,7 @@
 				D259031F274518977EC57557 /* OnboardingState.swift in Sources */,
 				E164CD2C78747647D3957F92 /* Room+Mock.swift in Sources */,
 				1D97EC665660AFA851BBA56C /* Room.swift in Sources */,
+				66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */,
 				3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */,
 				9DB1283F2B5875C8DA3D2017 /* RoomIcon.swift in Sources */,
 				55279F25D24801001992D565 /* RoomManager.swift in Sources */,
@@ -774,6 +788,7 @@
 				036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */,
 				E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */,
 				E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */,
+				0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */,
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,
 				E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */,
 				ADFB02F71345BA9CF174B950 /* RoomTaskMapper.swift in Sources */,
@@ -788,6 +803,7 @@
 				ED1D59F87167E393AC90C389 /* SettingsView.swift in Sources */,
 				A13717E8F3F42DF8615BF890 /* SkippedTask+Mock.swift in Sources */,
 				EF77B6D3CD4F5C3EE96F2112 /* SkippedTask.swift in Sources */,
+				382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */,
 				49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */,
 				9D7A5059B5AD6E3500490283 /* SkippedTaskManager.swift in Sources */,
 				DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */,
@@ -983,7 +999,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1007,7 +1023,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1107,7 +1123,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

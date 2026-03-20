@@ -28,8 +28,7 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 
 	func fetchAll() throws -> [CompletedTaskEntity] {
 		let descriptor = FetchDescriptor<CompletedTaskEntity>(sortBy: [SortDescriptor(\.completedAt)])
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+		return try mainContext.fetch(descriptor)
 	}
 
 	func fetchAll(for id: UUID) throws -> [CompletedTaskEntity] {
@@ -37,9 +36,9 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 			predicate: #Predicate { $0.id == id },
 			sortBy: [SortDescriptor(
 				\.completedAt
-			)])
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+			)]
+		)
+		return try mainContext.fetch(descriptor)
 	}
 
 	func save(_ entity: CompletedTaskEntity) throws {

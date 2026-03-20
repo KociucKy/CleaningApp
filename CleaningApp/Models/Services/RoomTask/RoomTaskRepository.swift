@@ -1,7 +1,6 @@
 import Foundation
 import SwiftData
 
-
 @MainActor
 protocol RoomTaskRepository {
 	func fetchAll() throws -> [RoomTaskEntity]
@@ -31,8 +30,7 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 		let descriptor = FetchDescriptor<RoomTaskEntity>(
 			sortBy: [SortDescriptor(\.createdAt)]
 		)
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+		return try mainContext.fetch(descriptor)
 	}
 
 	func fetchAll(for roomId: UUID) throws -> [RoomTaskEntity] {
@@ -40,8 +38,7 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 			predicate: #Predicate { $0.room?.id == roomId },
 			sortBy: [SortDescriptor(\.createdAt)]
 		)
-		let entities = try mainContext.fetch(descriptor)
-		return entities
+		return try mainContext.fetch(descriptor)
 	}
 
 	func save(_ entity: RoomTaskEntity) throws {

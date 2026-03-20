@@ -24,14 +24,12 @@ final class RoomTaskManager {
 
 	func fetchAll() throws -> [RoomTask] {
 		let entities = try taskRepository.fetchAll()
-		let models = entities.map(mapper.toDomain)
-		return models
+		return entities.map(mapper.toDomain)
 	}
 
 	func fetchAll(for roomId: UUID) throws -> [RoomTask] {
 		let entities = try taskRepository.fetchAll(for: roomId)
-		let models = entities.map(mapper.toDomain)
-		return models
+		return entities.map(mapper.toDomain)
 	}
 
 	func save(_ model: RoomTask) throws {

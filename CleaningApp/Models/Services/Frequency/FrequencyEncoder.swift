@@ -9,20 +9,20 @@ struct FrequencyEncoder {
 			"daily"
 		case .everyOtherDay:
 			"everyOtherDay"
-		case let .everyXDays(x):
-			"everyXDays(\(x))"
-		case let .timesPerWeek(x):
-			"timesPerWeek(\(x))"
+		case let .everyXDays(count):
+			"everyXDays(\(count))"
+		case let .timesPerWeek(count):
+			"timesPerWeek(\(count))"
 		case .everyOtherWeek:
 			"everyOtherWeek"
-		case let .everyXWeeks(x):
-			"everyXWeeks(\(x))"
-		case let .timesPerMonth(x):
-			"timesPerMonth(\(x))"
+		case let .everyXWeeks(count):
+			"everyXWeeks(\(count))"
+		case let .timesPerMonth(count):
+			"timesPerMonth(\(count))"
 		case .monthly:
 			"monthly"
-		case let .everyXMonths(x):
-			"everyXMonths(\(x))"
+		case let .everyXMonths(count):
+			"everyXMonths(\(count))"
 		case .quarterly:
 			"quarterly"
 		case .biannually:
@@ -41,13 +41,13 @@ struct FrequencyEncoder {
 		if raw == "biannually" { return .biannually }
 		if raw == "yearly" { return .yearly }
 
-		if let x = extractInt(from: raw, prefix: "everyXDays") { return .everyXDays(x) }
-		if let x = extractInt(from: raw, prefix: "timesPerWeek") { return .timesPerWeek(x) }
-		if let x = extractInt(from: raw, prefix: "everyXWeeks") { return .everyXWeeks(x) }
-		if let x = extractInt(from: raw, prefix: "timesPerMonth") { return .timesPerMonth(x) }
-		if let x = extractInt(from: raw, prefix: "everyXMonths") { return .everyXMonths(x) }
+		if let count = extractInt(from: raw, prefix: "everyXDays") { return .everyXDays(count) }
+		if let count = extractInt(from: raw, prefix: "timesPerWeek") { return .timesPerWeek(count) }
+		if let count = extractInt(from: raw, prefix: "everyXWeeks") { return .everyXWeeks(count) }
+		if let count = extractInt(from: raw, prefix: "timesPerMonth") { return .timesPerMonth(count) }
+		if let count = extractInt(from: raw, prefix: "everyXMonths") { return .everyXMonths(count) }
 
-		return .weekly
+		return .timesPerWeek(1)
 	}
 
 	// MARK: - Private
@@ -56,13 +56,5 @@ struct FrequencyEncoder {
 		guard raw.hasPrefix("\(prefix)("), raw.hasSuffix(")") else { return nil }
 		let inner = raw.dropFirst("\(prefix)(".count).dropLast()
 		return Int(inner)
-	}
-}
-
-// MARK: - Frequency + weekly fallback
-
-private extension Frequency {
-	static var weekly: Frequency {
-		.timesPerWeek(1)
 	}
 }
