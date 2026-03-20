@@ -4,13 +4,14 @@ import SwiftUI
 struct HomeView: View {
 	// MARK: - Properties
 
-	@State var presenter: HomePresenter
+	@State var presenter: HomeViewPresenter
 
 	// MARK: - Body
 
 	var body: some View {
-		Text("Home")
+		Text("Rooms count: \(presenter.rooms.count)")
 			.navigationTitle("Home")
+			.onAppear(perform: presenter.fetchAllRooms)
 			.toolbar {
 				#if DEV || MOCK
 					ToolbarItem(placement: .topBarTrailing) {

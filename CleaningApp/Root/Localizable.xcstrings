@@ -51,6 +51,9 @@
     "Rooms" : {
 
     },
+    "Rooms count: %lld" : {
+
+    },
     "Settings" : {
 
     },

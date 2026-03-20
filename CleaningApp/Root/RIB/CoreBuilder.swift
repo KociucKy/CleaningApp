@@ -64,7 +64,7 @@ struct CoreBuilder: Builder {
 
 	func homeView(router: Router) -> some View {
 		HomeView(
-			presenter: HomePresenter(
+			presenter: HomeViewPresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self)
 			)
