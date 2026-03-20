@@ -7,7 +7,7 @@ final class RoomTaskEntity {
 
 	var id: UUID
 	var name: String
-	var room: RoomEntity
+	var room: RoomEntity?
 	var frequencyEncoded: String
 	var estimatedDuration: Int
 	var createdAt: Date
@@ -17,7 +17,7 @@ final class RoomTaskEntity {
 	init(
 		id: UUID = UUID(),
 		name: String,
-		room: RoomEntity,
+		room: RoomEntity? = nil,
 		frequencyEncoded: String,
 		estimatedDuration: Int,
 		createdAt: Date = Date()

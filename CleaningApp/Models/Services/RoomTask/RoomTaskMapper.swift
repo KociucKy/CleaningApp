@@ -13,7 +13,7 @@ struct RoomTaskMapper {
 		RoomTask(
 			id: entity.id,
 			name: entity.name,
-			roomId: entity.room.id,
+			roomId: entity.room?.id ?? UUID(),
 			frequency: frequencyEncoder.decode(entity.frequencyEncoded),
 			estimatedDuration: TaskDuration(rawValue: entity.estimatedDuration) ?? .fifteenMinutes,
 			createdAt: entity.createdAt

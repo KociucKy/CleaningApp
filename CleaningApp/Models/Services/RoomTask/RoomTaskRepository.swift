@@ -37,7 +37,7 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 
 	func fetchAll(for roomId: UUID) throws -> [RoomTaskEntity] {
 		let descriptor = FetchDescriptor<RoomTaskEntity>(
-			predicate: #Predicate { $0.id == roomId },
+			predicate: #Predicate { $0.room?.id == roomId },
 			sortBy: [SortDescriptor(\.createdAt)]
 		)
 		let entities = try mainContext.fetch(descriptor)
@@ -50,7 +50,7 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 	}
 
 	func delete(_ entity: RoomTaskEntity) throws {
-		guard let existingEntity = try fetchAll(for: entity.room.id).first else {
+		guard let existingEntity = try fetchAll(for: entity.id).first else {
 			return
 		}
 		mainContext.delete(existingEntity)
