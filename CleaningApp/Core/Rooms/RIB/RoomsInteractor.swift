@@ -5,7 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol RoomsInteractor {
-    // TODO: Define Rooms interactor methods
+	// TODO: Define Rooms interactor methods
 }
 
 extension CoreInteractor: RoomsInteractor {}

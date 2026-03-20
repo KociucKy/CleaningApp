@@ -1,40 +1,39 @@
-import SwiftUI
 import NavigationKit
+import SwiftUI
 
 // MARK: - OnboardingBuilder
 
 @MainActor
 struct OnboardingBuilder: Builder {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	let interactor: OnboardingInteractor
 
-    let interactor: OnboardingInteractor
+	// MARK: - Builder
 
-    // MARK: - Builder
+	func build() -> AnyView {
+		welcomeView().any()
+	}
 
-    func build() -> AnyView {
-        welcomeView().any()
-    }
+	// MARK: - Views
 
-    // MARK: - Views
+	func welcomeView() -> some View {
+		RouterView { router in
+			WelcomeView(
+				presenter: WelcomePresenter(
+					interactor: interactor,
+					router: OnboardingRouter(router: router, builder: self)
+				)
+			)
+		}
+	}
 
-    func welcomeView() -> some View {
-        RouterView { router in
-            WelcomeView(
-                presenter: WelcomePresenter(
-                    interactor: interactor,
-                    router: OnboardingRouter(router: router, builder: self)
-                )
-            )
-        }
-    }
-
-    func onboardingCompletedView(router: Router) -> some View {
-        OnboardingCompletedView(
-            presenter: OnboardingCompletedPresenter(
-                interactor: interactor,
-                router: OnboardingRouter(router: router, builder: self)
-            )
-        )
-    }
+	func onboardingCompletedView(router: Router) -> some View {
+		OnboardingCompletedView(
+			presenter: OnboardingCompletedPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
 }

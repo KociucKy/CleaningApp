@@ -5,22 +5,21 @@ import Foundation
 @Observable
 @MainActor
 final class HomePresenter {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	private let interactor: any HomeInteractor
+	private let router: any HomeRouter
 
-    private let interactor: any HomeInteractor
-    private let router: any HomeRouter
+	// MARK: - Init
 
-    // MARK: - Init
+	init(interactor: any HomeInteractor, router: any HomeRouter) {
+		self.interactor = interactor
+		self.router = router
+	}
 
-    init(interactor: any HomeInteractor, router: any HomeRouter) {
-        self.interactor = interactor
-        self.router = router
-    }
+	// MARK: - Dev Settings
 
-    // MARK: - Dev Settings
-
-    func showDevSettings() {
-        router.presentDevSettings()
-    }
+	func showDevSettings() {
+		router.presentDevSettings()
+	}
 }

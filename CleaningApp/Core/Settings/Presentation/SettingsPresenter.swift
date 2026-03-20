@@ -5,16 +5,15 @@ import Foundation
 @Observable
 @MainActor
 final class SettingsPresenter {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	private let interactor: any SettingsInteractor
+	private let router: any SettingsRouter
 
-    private let interactor: any SettingsInteractor
-    private let router: any SettingsRouter
+	// MARK: - Init
 
-    // MARK: - Init
-
-    init(interactor: any SettingsInteractor, router: any SettingsRouter) {
-        self.interactor = interactor
-        self.router = router
-    }
+	init(interactor: any SettingsInteractor, router: any SettingsRouter) {
+		self.interactor = interactor
+		self.router = router
+	}
 }

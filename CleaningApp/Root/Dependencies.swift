@@ -4,65 +4,61 @@ import SwiftData
 // MARK: - BuildConfiguration
 
 enum BuildConfiguration {
-    case mock, dev, prod
+	case mock, dev, prod
 }
 
 // MARK: - Dependencies
 
 @MainActor
 struct Dependencies {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	let dependencyContainer: DependencyContainer
 
-    let dependencyContainer: DependencyContainer
+	// MARK: - Init
 
-    // MARK: - Init
+	init(config: BuildConfiguration) {
+		let modelContainer = try! ModelContainer(for: RoomEntity.self)
+		let dependencyContainer = DependencyContainer()
+		let roomManager = switch config {
+		case .mock:
+			RoomManager(
+				repository: MockRoomRepository()
+			)
+		case .dev, .prod:
+			RoomManager(
+				repository: SwiftDataRoomRepository(container: modelContainer)
+			)
+		}
 
-    init(config: BuildConfiguration) {
-        let modelContainer = try! ModelContainer(for: RoomEntity.self)
-        let dependencyContainer = DependencyContainer()
-        let roomManager: RoomManager
-
-        switch config {
-        case .mock:
-            roomManager = RoomManager(
-                repository: MockRoomRepository()
-            )
-        case .dev, .prod:
-            roomManager = RoomManager(
-                repository: SwiftDataRoomRepository(container: modelContainer)
-            )
-        }
-
-        dependencyContainer.register(RoomManager.self, service: roomManager)
-        self.dependencyContainer = dependencyContainer
-    }
+		dependencyContainer.register(RoomManager.self, service: roomManager)
+		self.dependencyContainer = dependencyContainer
+	}
 }
 
 // MARK: - DevPreview
 
 @MainActor
 final class DevPreview {
+	// MARK: - Shared
 
-    // MARK: - Shared
+	static let shared = DevPreview()
 
-    static let shared = DevPreview()
+	// MARK: - Properties
 
-    // MARK: - Properties
+	let roomManager: RoomManager
 
-    let roomManager: RoomManager
+	var container: DependencyContainer {
+		let container = DependencyContainer()
+		container.register(RoomManager.self, service: roomManager)
+		return container
+	}
 
-    var container: DependencyContainer {
-        let container = DependencyContainer()
-        container.register(RoomManager.self, service: roomManager)
-        return container
-    }
+	// MARK: - Init
 
-    // MARK: - Init
-
-    init() {
-        self.roomManager = RoomManager(
-            repository: MockRoomRepository()
-        )
-    }
+	init() {
+		roomManager = RoomManager(
+			repository: MockRoomRepository()
+		)
+	}
 }

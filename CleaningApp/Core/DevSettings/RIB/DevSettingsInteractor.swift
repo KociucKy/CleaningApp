@@ -5,7 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol DevSettingsInteractor {
-    // TODO: Define DevSettings interactor methods
+	// TODO: Define DevSettings interactor methods
 }
 
 extension CoreInteractor: DevSettingsInteractor {}

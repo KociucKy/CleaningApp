@@ -1,9 +1,9 @@
-import NavigationKit
-import SwiftUI
-import ReviewKit
 import DeviceKitUI
-import UserDefaultsKitUI
 import LocalNotificationKitDebugUI
+import NavigationKit
+import ReviewKit
+import SwiftUI
+import UserDefaultsKitUI
 
 typealias RouterView = NavigationKit.RouterView
 
@@ -55,7 +55,7 @@ struct CoreBuilder: Builder {
 						}
 						.any()
 					}
-				)
+				),
 			]
 		)
 	}

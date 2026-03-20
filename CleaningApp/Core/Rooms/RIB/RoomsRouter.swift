@@ -5,7 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol RoomsRouter {
-    func dismissScreen()
+	func dismissScreen()
 }
 
 extension CoreRouter: RoomsRouter {}

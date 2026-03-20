@@ -5,7 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol SettingsRouter {
-    func dismissScreen()
+	func dismissScreen()
 }
 
 extension CoreRouter: SettingsRouter {}

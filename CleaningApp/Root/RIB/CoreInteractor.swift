@@ -4,14 +4,13 @@ import Foundation
 
 @MainActor
 struct CoreInteractor {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	private let container: DependencyContainer
 
-    private let container: DependencyContainer
+	// MARK: - Init
 
-    // MARK: - Init
-
-    init(container: DependencyContainer) {
-        self.container = container
-    }
+	init(container: DependencyContainer) {
+		self.container = container
+	}
 }

@@ -5,7 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol HomeInteractor {
-    // TODO: Define Home interactor methods
+	// TODO: Define Home interactor methods
 }
 
 extension CoreInteractor: HomeInteractor {}
