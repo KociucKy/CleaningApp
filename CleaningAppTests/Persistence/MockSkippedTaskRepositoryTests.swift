@@ -26,7 +26,7 @@ struct MockSkippedTaskRepositoryTests {
 
 	@Test func fetchAllForTask_returnsItemsMatchingTaskId() throws {
 		let repo = MockSkippedTaskRepository()
-		let result = try repo.fetchAll(for: RoomTaskEntity.mockId)
+		let result = try repo.fetchAllForTaskId(RoomTaskEntity.mockId)
 		// Both seeded entries reference RoomTaskEntity.mockId
 		#expect(result.count == 2)
 		#expect(result.allSatisfy { $0.taskId == RoomTaskEntity.mockId })
@@ -34,7 +34,7 @@ struct MockSkippedTaskRepositoryTests {
 
 	@Test func fetchAllForTask_returnsEmptyForUnknownTaskId() throws {
 		let repo = MockSkippedTaskRepository()
-		let result = try repo.fetchAll(for: UUID())
+		let result = try repo.fetchAllForTaskId(UUID())
 		#expect(result.isEmpty)
 	}
 

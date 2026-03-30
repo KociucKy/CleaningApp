@@ -4,7 +4,8 @@ import SwiftData
 @MainActor
 protocol CompletedTaskRepository {
 	func fetchAll() throws -> [CompletedTaskEntity]
-	func fetchAll(for taskId: UUID) throws -> [CompletedTaskEntity]
+	func fetchAllForTaskId(_ id: UUID) throws -> [CompletedTaskEntity]
+	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity?
 	func save(_ item: CompletedTaskEntity) throws
 	func delete(_ item: CompletedTaskEntity) throws
 }
@@ -31,14 +32,22 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 		return try mainContext.fetch(descriptor)
 	}
 
-	func fetchAll(for id: UUID) throws -> [CompletedTaskEntity] {
+	func fetchAllForTaskId(_ id: UUID) throws -> [CompletedTaskEntity] {
 		let descriptor = FetchDescriptor<CompletedTaskEntity>(
-			predicate: #Predicate { $0.id == id },
+			predicate: #Predicate { $0.taskId == id },
 			sortBy: [SortDescriptor(
 				\.completedAt
 			)]
 		)
 		return try mainContext.fetch(descriptor)
+	}
+
+	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity? {
+		let descriptor = FetchDescriptor<CompletedTaskEntity>(
+			predicate: #Predicate { $0.id == id },
+			sortBy: [SortDescriptor(\.completedAt)]
+		)
+		return try mainContext.fetch(descriptor).first
 	}
 
 	func save(_ entity: CompletedTaskEntity) throws {
@@ -47,7 +56,7 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 	}
 
 	func delete(_ entity: CompletedTaskEntity) throws {
-		guard let existingEntity = try fetchAll(for: entity.id).first else {
+		guard let existingEntity = try fetchSingle(for: entity.id) else {
 			return
 		}
 		mainContext.delete(existingEntity)

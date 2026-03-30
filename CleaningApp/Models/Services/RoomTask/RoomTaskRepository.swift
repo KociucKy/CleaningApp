@@ -47,10 +47,17 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 	}
 
 	func delete(_ entity: RoomTaskEntity) throws {
-		guard let existingEntity = try fetchAll(for: entity.id).first else {
+		guard let existingEntity = try fetch(by: entity.id) else {
 			return
 		}
 		mainContext.delete(existingEntity)
 		try mainContext.save()
+	}
+
+	private func fetch(by id: UUID) throws -> RoomTaskEntity? {
+		let descriptor = FetchDescriptor<RoomTaskEntity>(
+			predicate: #Predicate { $0.id == id }
+		)
+		return try mainContext.fetch(descriptor).first
 	}
 }

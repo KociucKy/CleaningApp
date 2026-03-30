@@ -4,7 +4,8 @@ import SwiftData
 @MainActor
 protocol SkippedTaskRepository {
 	func fetchAll() throws -> [SkippedTaskEntity]
-	func fetchAll(for taskId: UUID) throws -> [SkippedTaskEntity]
+	func fetchAllForTaskId(_ id: UUID) throws -> [SkippedTaskEntity]
+	func fetchSingle(for id: UUID) throws -> SkippedTaskEntity?
 	func save(_ item: SkippedTaskEntity) throws
 	func delete(_ item: SkippedTaskEntity) throws
 }
@@ -31,12 +32,20 @@ final class SwiftDataSkippedTaskRepository: SkippedTaskRepository {
 		return try mainContext.fetch(descriptor)
 	}
 
-	func fetchAll(for id: UUID) throws -> [SkippedTaskEntity] {
+	func fetchAllForTaskId(_ id: UUID) throws -> [SkippedTaskEntity] {
+		let descriptor = FetchDescriptor<SkippedTaskEntity>(
+			predicate: #Predicate { $0.taskId == id },
+			sortBy: [SortDescriptor(\.skippedAt)]
+		)
+		return try mainContext.fetch(descriptor)
+	}
+
+	func fetchSingle(for id: UUID) throws -> SkippedTaskEntity? {
 		let descriptor = FetchDescriptor<SkippedTaskEntity>(
 			predicate: #Predicate { $0.id == id },
 			sortBy: [SortDescriptor(\.skippedAt)]
 		)
-		return try mainContext.fetch(descriptor)
+		return try mainContext.fetch(descriptor).first
 	}
 
 	func save(_ entity: SkippedTaskEntity) throws {
@@ -45,7 +54,7 @@ final class SwiftDataSkippedTaskRepository: SkippedTaskRepository {
 	}
 
 	func delete(_ entity: SkippedTaskEntity) throws {
-		guard let existingEntity = try fetchAll(for: entity.id).first else {
+		guard let existingEntity = try fetchSingle(for: entity.id) else {
 			return
 		}
 		mainContext.delete(existingEntity)

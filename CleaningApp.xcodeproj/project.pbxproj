@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,7 +14,6 @@
 		0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4C15493B2B8E405BBD5DA4 /* RoomTaskEntity+Mock.swift */; };
 		1D97EC665660AFA851BBA56C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36804C9A9E2645C5D4A1FE98 /* Room.swift */; };
 		21C1BB28AFF5DE48DA36AE20 /* FulhamKit in Frameworks */ = {isa = PBXBuildFile; productRef = 125EFD511D0A1D887E4567A1 /* FulhamKit */; };
-		22965D8F0CE14CAFD433B941 /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142A3A1F7E7A3FC23A915A5 /* HomeViewPresenter.swift */; };
 		238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09733DEB16715CB8DBC6098 /* HomeRouter.swift */; };
 		25491FD14B4A6F667DBBEC16 /* DevSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D83865EC65889C8B49CF196 /* DevSettingsPresenter.swift */; };
 		28387D997FACADC98053400E /* DevSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */; };
@@ -70,6 +69,7 @@
 		B12EB2311370F2A1FB098ECC /* LocalNotificationKitDebugUI in Frameworks */ = {isa = PBXBuildFile; productRef = 91C41AE78F486DFDB6CA42A2 /* LocalNotificationKitDebugUI */; };
 		B1CCE19E38B4EE82E32A0F36 /* CompletedTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E59399FDFF2BEACDCC6B223 /* CompletedTaskEntity+Mock.swift */; };
 		B3BA9D3493C330DC700727B8 /* OnboardingCompletedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA067C54CB4B4ACC98142F7 /* OnboardingCompletedPresenter.swift */; };
+		B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */; };
 		B7C357817D7C89F9216801F7 /* DeviceKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1FAD389BC66971909F12E65C /* DeviceKitUI */; };
 		B9BF82809AC51778770B42BC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2B24DB25513A066A7DB241C3 /* Localizable.xcstrings */; };
 		BC018A8B2096464741E6C46F /* CompletedTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9956CE55B0B1AFF931AA160B /* CompletedTaskManager.swift */; };
@@ -144,6 +144,7 @@
 		408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskEntity.swift; sourceTree = "<group>"; };
 		412CB179AA27D706A4C3A4A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsRouter.swift; sourceTree = "<group>"; };
+		4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		4C109F851D85BF8C30524F32 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
 		4D83865EC65889C8B49CF196 /* DevSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsPresenter.swift; sourceTree = "<group>"; };
 		4D848D3402978105382264E4 /* MockSkippedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSkippedTaskRepository.swift; sourceTree = "<group>"; };
@@ -199,10 +200,9 @@
 		DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomEntity+Mock.swift"; sourceTree = "<group>"; };
 		DBFD30CCAA82A3C08CE78EB3 /* RoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskRepository.swift; sourceTree = "<group>"; };
 		DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomTaskRepository.swift; sourceTree = "<group>"; };
-		E142A3A1F7E7A3FC23A915A5 /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		E7136DD168952F121FE91E27 /* CompletedTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskMapper.swift; sourceTree = "<group>"; };
 		E7F8BB9667E129602A1179F7 /* Date+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Mock.swift"; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F86AC4AEA1AD192DB3785306 /* RoomTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTask.swift; sourceTree = "<group>"; };
 		F93126C7994D919E714D9C25 /* SkippedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskManager.swift; sourceTree = "<group>"; };
@@ -612,10 +612,17 @@
 		FD55E5D4A0BB408704BA6DD9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				E142A3A1F7E7A3FC23A915A5 /* HomeViewPresenter.swift */,
 				412CB179AA27D706A4C3A4A3 /* HomeView.swift */,
+				4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		"TEMP_8ABC0EF5-EF57-46AC-9EB1-CD7566DB073A" /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -705,6 +712,7 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -817,9 +825,9 @@
 				ED1F039D90DB269B7A8E9551 /* Frequency.swift in Sources */,
 				625410DE84D0CF20F20E25B1 /* FrequencyEncoder.swift in Sources */,
 				5E303E39EEC1FBD73AB1FCA5 /* HomeInteractor.swift in Sources */,
-				22965D8F0CE14CAFD433B941 /* HomeViewPresenter.swift in Sources */,
 				238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */,
 				719A3716C8C8798E37664570 /* HomeView.swift in Sources */,
+				B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */,
 				8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */,
 				9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */,
 				79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */,
