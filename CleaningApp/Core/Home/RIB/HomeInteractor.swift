@@ -5,7 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol HomeInteractor {
-    // TODO: Define Home interactor methods
+	func fetchAllRooms() throws -> [Room]
 }
 
 extension CoreInteractor: HomeInteractor {}

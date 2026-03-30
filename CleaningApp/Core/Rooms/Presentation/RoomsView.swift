@@ -1,29 +1,28 @@
-import SwiftUI
 import NavigationKit
+import SwiftUI
 
 // MARK: - RoomsView
 
 struct RoomsView: View {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	@State var presenter: RoomsPresenter
 
-    @State var presenter: RoomsPresenter
+	// MARK: - Body
 
-    // MARK: - Body
-
-    var body: some View {
-        Text("Rooms")
-            .navigationTitle("Rooms")
-    }
+	var body: some View {
+		Text("Rooms")
+			.navigationTitle("Rooms")
+	}
 }
 
 // MARK: - Preview
 
 #Preview {
-    let container = DevPreview.shared.container
-    let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+	let container = DevPreview.shared.container
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
-    return RouterView { router in
-        builder.roomsView(router: router)
-    }
+	return RouterView { router in
+		builder.roomsView(router: router)
+	}
 }

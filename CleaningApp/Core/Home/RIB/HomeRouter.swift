@@ -5,8 +5,8 @@ import NavigationKit
 
 @MainActor
 protocol HomeRouter {
-    func dismissScreen()
-    func presentDevSettings()
+	func dismissScreen()
+	func presentDevSettings()
 }
 
 extension CoreRouter: HomeRouter {}

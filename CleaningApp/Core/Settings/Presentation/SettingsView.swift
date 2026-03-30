@@ -1,27 +1,26 @@
-import SwiftUI
 import NavigationKit
+import SwiftUI
 
 struct SettingsView: View {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	@State var presenter: SettingsPresenter
 
-    @State var presenter: SettingsPresenter
+	// MARK: - Body
 
-    // MARK: - Body
-
-    var body: some View {
-        Text("Settings")
-            .navigationTitle("Settings")
-    }
+	var body: some View {
+		Text("Settings")
+			.navigationTitle("Settings")
+	}
 }
 
 // MARK: - Preview
 
 #Preview {
-    let container = DevPreview.shared.container
-    let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+	let container = DevPreview.shared.container
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
-    return RouterView { router in
-        builder.settingsView(router: router)
-    }
+	return RouterView { router in
+		builder.settingsView(router: router)
+	}
 }

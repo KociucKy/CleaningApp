@@ -4,5 +4,5 @@ import SwiftUI
 
 @MainActor
 protocol Builder {
-    func build() -> AnyView
+	func build() -> AnyView
 }

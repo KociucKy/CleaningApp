@@ -5,16 +5,15 @@ import Foundation
 @Observable
 @MainActor
 final class RoomsPresenter {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	private let interactor: any RoomsInteractor
+	private let router: any RoomsRouter
 
-    private let interactor: any RoomsInteractor
-    private let router: any RoomsRouter
+	// MARK: - Init
 
-    // MARK: - Init
-
-    init(interactor: any RoomsInteractor, router: any RoomsRouter) {
-        self.interactor = interactor
-        self.router = router
-    }
+	init(interactor: any RoomsInteractor, router: any RoomsRouter) {
+		self.interactor = interactor
+		self.router = router
+	}
 }

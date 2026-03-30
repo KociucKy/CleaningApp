@@ -4,20 +4,19 @@ import Foundation
 
 @MainActor
 struct OnboardingInteractor {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	private let appState: OnboardingState
 
-    private let appState: OnboardingState
+	// MARK: - Init
 
-    // MARK: - Init
+	init(container: DependencyContainer) {
+		appState = container.resolve(OnboardingState.self)!
+	}
 
-    init(container: DependencyContainer) {
-        self.appState = container.resolve(OnboardingState.self)!
-    }
+	// MARK: - App State
 
-    // MARK: - App State
-
-    func completeOnboarding() {
-        appState.updateViewState(showOnboarding: false)
-    }
+	func completeOnboarding() {
+		appState.updateViewState(showOnboarding: false)
+	}
 }

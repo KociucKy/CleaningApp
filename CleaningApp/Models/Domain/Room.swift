@@ -1,18 +1,24 @@
 import Foundation
 
-// MARK: - Room
-
 struct Room: Identifiable, Equatable {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	let id: UUID
+	var name: String
+	var icon: RoomIcon
+	let createdAt: Date
 
-    let id: UUID
-    var createdAt: Date
+	// MARK: - Init
 
-    // MARK: - Init
-
-    init(id: UUID = UUID(), createdAt: Date = Date()) {
-        self.id = id
-        self.createdAt = createdAt
-    }
+	init(
+		id: UUID = UUID(),
+		name: String,
+		icon: RoomIcon,
+		createdAt: Date = Date()
+	) {
+		self.id = id
+		self.name = name
+		self.icon = icon
+		self.createdAt = createdAt
+	}
 }

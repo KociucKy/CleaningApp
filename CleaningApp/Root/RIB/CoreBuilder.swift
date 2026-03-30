@@ -1,9 +1,9 @@
-import NavigationKit
-import SwiftUI
-import ReviewKit
 import DeviceKitUI
-import UserDefaultsKitUI
 import LocalNotificationKitDebugUI
+import NavigationKit
+import ReviewKit
+import SwiftUI
+import UserDefaultsKitUI
 
 typealias RouterView = NavigationKit.RouterView
 
@@ -55,7 +55,7 @@ struct CoreBuilder: Builder {
 						}
 						.any()
 					}
-				)
+				),
 			]
 		)
 	}
@@ -64,7 +64,7 @@ struct CoreBuilder: Builder {
 
 	func homeView(router: Router) -> some View {
 		HomeView(
-			presenter: HomePresenter(
+			presenter: HomeViewPresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self)
 			)
@@ -103,7 +103,11 @@ struct CoreBuilder: Builder {
 	}
 
 	func reviewKitDebugView() -> some View {
-		ReviewKitDebugView()
+		#if DEBUG
+			ReviewKitDebugView()
+		#else
+			EmptyView()
+		#endif
 	}
 
 	func localNotificationsDebugView() -> some View {

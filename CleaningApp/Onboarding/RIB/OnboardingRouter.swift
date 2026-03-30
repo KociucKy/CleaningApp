@@ -5,17 +5,16 @@ import NavigationKit
 
 @MainActor
 struct OnboardingRouter {
+	// MARK: - Properties
 
-    // MARK: - Properties
+	let router: Router
+	let builder: OnboardingBuilder
 
-    let router: Router
-    let builder: OnboardingBuilder
+	// MARK: - Navigation
 
-    // MARK: - Navigation
-
-    func showOnboardingCompletedView() {
-        router.showScreen(.push, onDismiss: nil) { router in
-            builder.onboardingCompletedView(router: router)
-        }
-    }
+	func showOnboardingCompletedView() {
+		router.showScreen(.push, onDismiss: nil) { router in
+			builder.onboardingCompletedView(router: router)
+		}
+	}
 }
