@@ -14,10 +14,10 @@ struct CoreInteractor {
 	// MARK: - Init
 
 	init(container: DependencyContainer) {
-		self.roomManager = container.resolve(RoomManager.self)!
-		self.roomTaskManager = container.resolve(RoomTaskManager.self)!
-		self.completedTaskManager = container.resolve(CompletedTaskManager.self)!
-		self.skippedTaskManager = container.resolve(SkippedTaskManager.self)!
+		roomManager = container.resolve(RoomManager.self)!
+		roomTaskManager = container.resolve(RoomTaskManager.self)!
+		completedTaskManager = container.resolve(CompletedTaskManager.self)!
+		skippedTaskManager = container.resolve(SkippedTaskManager.self)!
 	}
 
 	// MARK: - Room Manager

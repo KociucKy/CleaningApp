@@ -129,7 +129,6 @@ struct OnbWelcomeView: View {
 
 	// MARK: - Methods
 
-	@ViewBuilder
 	private func featureRow(symbol: String, title: LocalizedStringKey, description: LocalizedStringKey) -> some View {
 		HStack(spacing: FKSpacing.large) {
 			Image(systemName: symbol)
@@ -156,7 +155,7 @@ struct OnbWelcomeView: View {
 	let container = DevPreview.shared.container
 	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: container))
 
-	RouterView { router in
+	RouterView { _ in
 		builder.welcomeView()
 	}
 }

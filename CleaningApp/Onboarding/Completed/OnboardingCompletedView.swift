@@ -1,5 +1,5 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 // MARK: - OnboardingCompletedView
 

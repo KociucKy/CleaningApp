@@ -1,5 +1,5 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct OnbTaskSelectionView: View {
 	@State var presenter: OnbTaskSelectionPresenter

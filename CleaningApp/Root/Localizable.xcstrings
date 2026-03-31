@@ -222,12 +222,6 @@
         }
       }
     },
-    "Next" : {
-
-    },
-    "Notifcation Enabling View" : {
-
-    },
     "onb_completed.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -258,6 +252,159 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Konfiguracja gotowa!"
+          }
+        }
+      }
+    },
+    "onb_notification.benefit.reminders.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A gentle nudge so nothing slips through the cracks."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delikatne przypomnienie, żeby nic nie umknęło."
+          }
+        }
+      }
+    },
+    "onb_notification.benefit.reminders.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily reminders"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codzienne przypomnienia"
+          }
+        }
+      }
+    },
+    "onb_notification.benefit.streaks.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay on top of your streak and never miss a day."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dbaj o swoją serię i nie opuść żadnego dnia."
+          }
+        }
+      }
+    },
+    "onb_notification.benefit.streaks.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak protection"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ochrona serii"
+          }
+        }
+      }
+    },
+    "onb_notification.benefit.weekly.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See what's coming up so you can plan ahead."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdź, co nadchodzi, i planuj z wyprzedzeniem."
+          }
+        }
+      }
+    },
+    "onb_notification.benefit.weekly.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly preview"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podgląd tygodnia"
+          }
+        }
+      }
+    },
+    "onb_notification.cta.allow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow notifications"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zezwól na powiadomienia"
+          }
+        }
+      }
+    },
+    "onb_notification.hero.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get timely reminders so your cleaning\nroutine stays effortless."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otrzymuj przypomnienia na czas, żeby sprzątanie\nprzebiegało bez wysiłku."
+          }
+        }
+      }
+    },
+    "onb_notification.hero.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stay on track"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trzymaj się planu"
           }
         }
       }
@@ -483,9 +630,6 @@
         }
       }
     },
-    "Paywall" : {
-
-    },
     "rooms.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -570,9 +714,6 @@
           }
         }
       }
-    },
-    "Task Selection View" : {
-
     }
   },
   "version" : "1.0"

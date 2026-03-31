@@ -1,5 +1,5 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct OnbPaywallView: View {
 	@State var presenter: OnbPaywallPresenter

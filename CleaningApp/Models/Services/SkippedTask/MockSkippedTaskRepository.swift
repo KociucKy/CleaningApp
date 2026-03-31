@@ -1,4 +1,4 @@
- import Foundation
+import Foundation
 
 @MainActor
 final class MockSkippedTaskRepository: SkippedTaskRepository {
