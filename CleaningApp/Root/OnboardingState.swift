@@ -1,4 +1,5 @@
 import SwiftUI
+import UserDefaultsKit
 
 // MARK: - OnboardingState
 
@@ -8,13 +9,13 @@ final class OnboardingState {
 
 	private(set) var showOnboarding: Bool {
 		didSet {
-			UserDefaults.showOnboarding = showOnboarding
+			UserDefaultsStore.standard.set(showOnboarding, for: .showOnboarding)
 		}
 	}
 
 	// MARK: - Init
 
-	init(showOnboarding: Bool = UserDefaults.showOnboarding) {
+	init(showOnboarding: Bool = UserDefaultsStore.standard.get(.showOnboarding)) {
 		self.showOnboarding = showOnboarding
 	}
 
@@ -22,18 +23,5 @@ final class OnboardingState {
 
 	func updateViewState(showOnboarding: Bool) {
 		self.showOnboarding = showOnboarding
-	}
-}
-
-// MARK: - UserDefaults
-
-private extension UserDefaults {
-	private enum Keys {
-		static let showOnboarding = "showOnboarding"
-	}
-
-	static var showOnboarding: Bool {
-		get { standard.object(forKey: Keys.showOnboarding) as? Bool ?? true }
-		set { standard.set(newValue, forKey: Keys.showOnboarding) }
 	}
 }
