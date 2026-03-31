@@ -30,6 +30,12 @@ struct OnboardingRouter {
 		}
 	}
 
+	func showOnboardingPaywallView() {
+		router.showScreen(.push, onDismiss: nil) { router in
+			builder.paywallView(router: router)
+		}
+	}
+
 	func showOnboardingCompletedView() {
 		router.showScreen(.push, onDismiss: nil) { router in
 			builder.onboardingCompletedView(router: router)

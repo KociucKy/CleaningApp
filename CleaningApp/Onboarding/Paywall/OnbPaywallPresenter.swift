@@ -2,7 +2,7 @@ import Foundation
 
 @Observable
 @MainActor
-final class OnbNotificationPresenter {
+final class OnbPaywallPresenter {
 	// MARK: - Properties
 	
 	private let interactor: OnboardingInteractor
@@ -19,6 +19,6 @@ final class OnbNotificationPresenter {
 	}
 
 	func onNextButtonPressed() {
-		router.showOnboardingPaywallView()
+		router.showOnboardingCompletedView()
 	}
 }

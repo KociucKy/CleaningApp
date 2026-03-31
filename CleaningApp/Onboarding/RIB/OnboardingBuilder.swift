@@ -55,6 +55,15 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
+	func paywallView(router: Router) -> some View {
+		OnbPaywallView(
+			presenter: OnbPaywallPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
 	func onboardingCompletedView(router: Router) -> some View {
 		OnboardingCompletedView(
 			presenter: OnboardingCompletedPresenter(

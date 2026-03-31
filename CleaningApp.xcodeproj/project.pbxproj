@@ -54,6 +54,8 @@
 		881DCED52F7C02A100B85022 /* OnbTaskSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */; };
 		881DCED82F7C050900B85022 /* OnbNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED72F7C050900B85022 /* OnbNotificationView.swift */; };
 		881DCEDA2F7C055C00B85022 /* OnbNotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */; };
+		881DCEDE2F7C065900B85022 /* OnbPaywallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */; };
+		881DCEE02F7C067F00B85022 /* OnbPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
 		8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */; };
@@ -181,6 +183,8 @@
 		881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionView.swift; sourceTree = "<group>"; };
 		881DCED72F7C050900B85022 /* OnbNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationView.swift; sourceTree = "<group>"; };
 		881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationPresenter.swift; sourceTree = "<group>"; };
+		881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallPresenter.swift; sourceTree = "<group>"; };
+		881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D545ADCE72D97A5C1DA5951 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
@@ -417,6 +421,15 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		881DCEDC2F7C065000B85022 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */,
+				881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */,
+			);
+			path = Paywall;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +530,7 @@
 				881DCECB2F7BF4EE00B85022 /* RoomSelection */,
 				881DCED12F7C027D00B85022 /* TaskSelection */,
 				881DCED62F7C04F800B85022 /* Notifications */,
+				881DCEDC2F7C065000B85022 /* Paywall */,
 				F49241E7396E4BEA125F80A7 /* Completed */,
 				64128F3AE1F464219E589A7B /* RIB */,
 			);
@@ -851,6 +865,7 @@
 				C11EC5F388F1EB129E2619AE /* CoreInteractor.swift in Sources */,
 				FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */,
 				F7CD1C424A4859850CCD8C7D /* Date+Mock.swift in Sources */,
+				881DCEE02F7C067F00B85022 /* OnbPaywallView.swift in Sources */,
 				928DE63BA7E470BE18F00E7F /* Dependencies.swift in Sources */,
 				881DCED82F7C050900B85022 /* OnbNotificationView.swift in Sources */,
 				CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */,
@@ -912,6 +927,7 @@
 				AFD89361F952EA57A94F3D38 /* TaskDuration.swift in Sources */,
 				569F0568EE4D3E4F65EFB675 /* OnbWelcomePresenter.swift in Sources */,
 				C5B19C725AD7BC5B1C0C4260 /* OnbWelcomeView.swift in Sources */,
+				881DCEDE2F7C065900B85022 /* OnbPaywallPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
