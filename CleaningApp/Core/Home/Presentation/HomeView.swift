@@ -9,8 +9,8 @@ struct HomeView: View {
 	// MARK: - Body
 
 	var body: some View {
-		Text("Rooms count: \(presenter.rooms.count)")
-			.navigationTitle("Home")
+		Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
+			.navigationTitle("home.nav_title")
 			.onAppear(perform: presenter.fetchAllRooms)
 			.toolbar {
 				#if DEV || MOCK

@@ -12,10 +12,10 @@ struct OnboardingCompletedView: View {
 
 	var body: some View {
 		VStack(alignment: .leading, spacing: 12) {
-			Text("Setup complete!")
+			Text("onb_completed.title")
 				.font(.largeTitle)
 				.fontWeight(.semibold)
-			Text("You're all set and ready to go.")
+			Text("onb_completed.subtitle")
 				.font(.title3)
 				.fontWeight(.medium)
 				.foregroundStyle(.secondary)
@@ -35,7 +35,7 @@ struct OnboardingCompletedView: View {
 		Button {
 			presenter.onFinishButtonPressed()
 		} label: {
-			Text("Finish")
+			Text("common.action.finish")
 				.font(FKTypography.ctaLabel)
 				.foregroundStyle(.white)
 				.frame(maxWidth: .infinity)

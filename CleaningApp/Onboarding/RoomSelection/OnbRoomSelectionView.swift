@@ -20,16 +20,16 @@ struct OnbRoomSelectionView: View {
 			.padding(.horizontal, FKSpacing.large)
 			.padding(.top, FKSpacing.large)
 		}
-		.navigationTitle("Select rooms")
+		.navigationTitle("onb_room_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				Button("Skip", action: presenter.onSkipButtonPressed)
+				Button("common.action.skip", action: presenter.onSkipButtonPressed)
 			}
 			if presenter.selectedRooms.isNotEmpty {
 				ToolbarItem(placement: .topBarLeading) {
-					Button("Clear", action: presenter.onClearButtonPressed)
+					Button("common.action.clear", action: presenter.onClearButtonPressed)
 				}
 			}
 		}
@@ -44,7 +44,7 @@ struct OnbRoomSelectionView: View {
 		Button {
 			presenter.onNextButtonPressed()
 		} label: {
-			Text("Next")
+			Text("common.action.next")
 				.font(FKTypography.ctaLabel)
 				.foregroundStyle(.white)
 				.frame(maxWidth: .infinity)

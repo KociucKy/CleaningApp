@@ -26,9 +26,9 @@ struct CoreBuilder: Builder {
 	func tabBarView() -> some View {
 		TabBarView(
 			tabs: [
-				TabBarScreen(
-					title: "Home",
-					systemImage: "square.grid.2x2.fill",
+			TabBarScreen(
+				title: String(localized: "tab.home"),
+				systemImage: "square.grid.2x2.fill",
 					screen: {
 						RouterView { router in
 							homeView(router: router)
@@ -36,9 +36,9 @@ struct CoreBuilder: Builder {
 						.any()
 					}
 				),
-				TabBarScreen(
-					title: "Rooms",
-					systemImage: "house.fill",
+			TabBarScreen(
+				title: String(localized: "tab.rooms"),
+				systemImage: "house.fill",
 					screen: {
 						RouterView { router in
 							roomsView(router: router)
@@ -46,9 +46,9 @@ struct CoreBuilder: Builder {
 						.any()
 					}
 				),
-				TabBarScreen(
-					title: "Settings",
-					systemImage: "gearshape.fill",
+			TabBarScreen(
+				title: String(localized: "tab.settings"),
+				systemImage: "gearshape.fill",
 					screen: {
 						RouterView { router in
 							settingsView(router: router)
