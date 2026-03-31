@@ -24,9 +24,6 @@ struct OnbRoomSelectionView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
 		.toolbar {
-			ToolbarItem(placement: .primaryAction) {
-				Button("common.action.skip", action: presenter.onSkipButtonPressed)
-			}
 			if presenter.selectedRooms.isNotEmpty {
 				ToolbarItem(placement: .topBarLeading) {
 					Button("common.action.clear", action: presenter.onClearButtonPressed)
@@ -41,24 +38,31 @@ struct OnbRoomSelectionView: View {
 	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
-		Button {
-			presenter.onNextButtonPressed()
-		} label: {
-			Text("common.action.next")
-				.font(FKTypography.ctaLabel)
-				.foregroundStyle(.white)
-				.frame(maxWidth: .infinity)
-				.frame(height: 50)
+		VStack(spacing: FKSpacing.medium) {
+			Button {
+				FKHaptics.impact(.medium)
+				presenter.onNextButtonPressed()
+			} label: {
+				Text("common.action.next")
+					.font(FKTypography.ctaLabel)
+					.foregroundStyle(.white)
+					.frame(maxWidth: .infinity)
+					.frame(height: 50)
+			}
+			.buttonStyle(.glassProminent)
+			.padding([.horizontal, .top], FKSpacing.large)
+			.disabled(presenter.selectedRooms.isEmpty)
+			Button("common.action.skip", action: presenter.onSkipButtonPressed)
+				.font(FKTypography.secondaryLabel)
+				.foregroundStyle(FKColor.Label.secondary)
 		}
-		.buttonStyle(.glassProminent)
-		.padding([.horizontal, .top], FKSpacing.large)
-		.disabled(presenter.selectedRooms.isEmpty)
 	}
 
 	@ViewBuilder
 	private func roomCell(_ room: RoomIcon) -> some View {
 		let isSelected = presenter.selectedRooms.contains(room)
 		Button {
+			FKHaptics.selection()
 			presenter.onRoomCardViewPressed(room: room)
 		} label: {
 			FKCardView(showBorder: false) {
