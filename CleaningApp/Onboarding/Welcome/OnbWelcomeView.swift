@@ -9,7 +9,8 @@ struct OnbWelcomeView: View {
 
 	private enum Constants {
 		static let heroCircleSize: CGFloat = 120
-		static let heroCircleOpacity: CGFloat = 0.12
+		static let lightHeroCircleOpacity: CGFloat = 0.12
+		static let darkHeroCircleOpacity: CGFloat = 0.2
 		static let heroSymbolSize: CGFloat = 52
 		static let heroEntryScale: CGFloat = 0.6
 		static let titleEntryOffset: CGFloat = 12
@@ -21,6 +22,7 @@ struct OnbWelcomeView: View {
 
 	// MARK: - Properties
 
+	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: OnbWelcomePresenter
 
 	// MARK: - Body
@@ -47,7 +49,9 @@ struct OnbWelcomeView: View {
 		VStack(spacing: FKSpacing.medium) {
 			ZStack {
 				Circle()
-					.fill(Color.accentColor.opacity(Constants.heroCircleOpacity))
+					.fill(
+						Color.accentColor.opacity(colorScheme == .light ? Constants.lightHeroCircleOpacity : Constants.darkHeroCircleOpacity)
+					)
 					.frame(width: Constants.heroCircleSize, height: Constants.heroCircleSize)
 				Image(systemName: "sparkles")
 					.font(.system(size: Constants.heroSymbolSize, weight: .light))
