@@ -12,6 +12,12 @@ struct OnboardingRouter {
 
 	// MARK: - Navigation
 
+	func showOnboardingRoomSelectionView() {
+		router.showScreen(.push, onDismiss: nil) { router in
+			builder.roomSelectionView()
+		}
+	}
+
 	func showOnboardingCompletedView() {
 		router.showScreen(.push, onDismiss: nil) { router in
 			builder.onboardingCompletedView(router: router)
