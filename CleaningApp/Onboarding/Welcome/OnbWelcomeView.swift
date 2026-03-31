@@ -1,11 +1,10 @@
 import SwiftUI
+import FulhamKit
 
-// MARK: - WelcomeView
-
-struct WelcomeView: View {
+struct OnbWelcomeView: View {
 	// MARK: - Properties
 
-	@State var presenter: WelcomePresenter
+	@State var presenter: OnbWelcomePresenter
 
 	// MARK: - Body
 
@@ -14,11 +13,12 @@ struct WelcomeView: View {
 			Spacer()
 			titleSection
 			Spacer()
-			getStartedButton
-				.padding(.horizontal, 24)
-				.padding(.bottom, 48)
 		}
 		.navigationBarHidden(true)
+		.safeAreaInset(edge: .bottom) {
+			getStartedButton
+				.padding(.horizontal, 24)
+		}
 	}
 
 	// MARK: - Title Section
@@ -43,12 +43,7 @@ struct WelcomeView: View {
 			presenter.onGetStartedPressed()
 		} label: {
 			Text("Get started")
-				.font(.headline)
-				.foregroundStyle(.white)
-				.frame(maxWidth: .infinity)
-				.frame(height: 55)
-				.background(.tint)
-				.clipShape(RoundedRectangle(cornerRadius: 16))
+				.callToActionButton()
 		}
 	}
 }

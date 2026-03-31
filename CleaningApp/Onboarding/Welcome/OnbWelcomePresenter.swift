@@ -4,7 +4,7 @@ import Foundation
 
 @Observable
 @MainActor
-final class WelcomePresenter {
+final class OnbWelcomePresenter {
 	// MARK: - Properties
 
 	private let interactor: OnboardingInteractor

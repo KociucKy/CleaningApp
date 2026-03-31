@@ -19,8 +19,8 @@ struct OnboardingBuilder: Builder {
 
 	func welcomeView() -> some View {
 		RouterView { router in
-			WelcomeView(
-				presenter: WelcomePresenter(
+			OnbWelcomeView(
+				presenter: OnbWelcomePresenter(
 					interactor: interactor,
 					router: OnboardingRouter(router: router, builder: self)
 				)
