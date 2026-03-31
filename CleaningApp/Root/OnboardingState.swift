@@ -25,9 +25,3 @@ final class OnboardingState {
 		self.showOnboarding = showOnboarding
 	}
 }
-
-// MARK: - UserDefaultsKey
-
-private extension UserDefaultsKey where Value == Bool {
-	static let showOnboarding = UserDefaultsKey("showOnboarding", defaultValue: true)
-}
