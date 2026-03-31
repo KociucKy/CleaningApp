@@ -1,39 +1,103 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
+// MARK: - OnbWelcomeView
+
+@MainActor
 struct OnbWelcomeView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbWelcomePresenter
 
+	@State private var heroVisible = false
+	@State private var titleVisible = false
+	@State private var featuresVisible = false
+	@State private var buttonVisible = false
+
 	// MARK: - Body
 
 	var body: some View {
-		VStack(spacing: 16) {
+		VStack(spacing: 0) {
 			Spacer()
-			titleSection
+			heroSection
+			Spacer()
+			featuresSection
 			Spacer()
 		}
 		.navigationBarHidden(true)
 		.safeAreaInset(edge: .bottom) {
 			getStartedButton
-				.padding(.horizontal, 24)
+				.padding(.horizontal, FKSpacing.large)
+		}
+		.onAppear {
+			animateEntrance()
 		}
 	}
 
-	// MARK: - Title Section
+	// MARK: - Hero Section
 
-	private var titleSection: some View {
-		VStack(spacing: 8) {
-			Text("CleaningApp")
-				.font(.largeTitle)
-				.fontWeight(.semibold)
-			Text("Get started to set up your profile.")
-				.font(.subheadline)
-				.foregroundStyle(.secondary)
+	private var heroSection: some View {
+		VStack(spacing: FKSpacing.medium) {
+			ZStack {
+				Circle()
+					.fill(Color.accentColor.opacity(0.12))
+					.frame(width: 120, height: 120)
+				Image(systemName: "sparkles")
+					.font(.system(size: 52, weight: .light))
+					.foregroundStyle(Color.accentColor)
+			}
+			.scaleEffect(heroVisible ? 1 : 0.6)
+			.opacity(heroVisible ? 1 : 0)
+
+			VStack(spacing: FKSpacing.small) {
+				Text("Clean smarter,")
+					.font(FKTypography.statValue)
+					.foregroundStyle(FKColor.Label.primary)
+				Text("not harder.")
+					.font(FKTypography.statValue)
+					.foregroundStyle(Color.accentColor)
+			}
+			.opacity(titleVisible ? 1 : 0)
+			.offset(y: titleVisible ? 0 : 12)
+
+			Text("A structured weekly plan so you always\nknow what to clean today — nothing more.")
+				.font(FKTypography.secondaryLabel)
+				.foregroundStyle(FKColor.Label.secondary)
 				.multilineTextAlignment(.center)
-				.padding(.horizontal, 32)
+				.padding(.horizontal, FKSpacing.extraLarge)
+				.opacity(titleVisible ? 1 : 0)
+				.offset(y: titleVisible ? 0 : 8)
 		}
+	}
+
+	// MARK: - Features Section
+
+	private var featuresSection: some View {
+		VStack(spacing: FKSpacing.medium) {
+			featureRow(
+				symbol: "calendar.badge.checkmark",
+				title: "Daily plan",
+				description: "Only what needs doing today — no overwhelming backlogs."
+			)
+			featureRow(
+				symbol: "clock",
+				title: "Time estimates",
+				description: "Know upfront how long cleaning will take."
+			)
+			featureRow(
+				symbol: "chart.bar.fill",
+				title: "Balanced weeks",
+				description: "Tasks spread evenly so no single day feels too heavy."
+			)
+			featureRow(
+				symbol: "flame.fill",
+				title: "Streaks & progress",
+				description: "Stay motivated with daily streaks and a weekly activity overview."
+			)
+		}
+		.padding(.horizontal, FKSpacing.large)
+		.opacity(featuresVisible ? 1 : 0)
+		.offset(y: featuresVisible ? 0 : 16)
 	}
 
 	// MARK: - Get Started Button
@@ -46,11 +110,51 @@ struct OnbWelcomeView: View {
 				.font(FKTypography.ctaLabel)
 				.foregroundStyle(.white)
 				.frame(maxWidth: .infinity)
-				.frame(height: 50)
+				.frame(height: 45)
 		}
 		.buttonStyle(.glassProminent)
+		.opacity(buttonVisible ? 1 : 0)
+		.offset(y: buttonVisible ? 0 : 12)
+	}
+
+	// MARK: - Methods
+
+	@ViewBuilder
+	private func featureRow(symbol: String, title: String, description: String) -> some View {
+		HStack(spacing: FKSpacing.large) {
+			Image(systemName: symbol)
+				.font(.title3)
+				.foregroundStyle(Color.accentColor)
+				.frame(width: 32)
+			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
+				Text(title)
+					.font(FKTypography.bodyBold)
+					.foregroundStyle(FKColor.Label.primary)
+				Text(description)
+					.font(FKTypography.caption)
+					.foregroundStyle(FKColor.Label.secondary)
+			}
+			Spacer()
+		}
+	}
+
+	private func animateEntrance() {
+		withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.1)) {
+			heroVisible = true
+		}
+		withAnimation(.easeOut(duration: 0.4).delay(0.35)) {
+			titleVisible = true
+		}
+		withAnimation(.easeOut(duration: 0.4).delay(0.55)) {
+			featuresVisible = true
+		}
+		withAnimation(.easeOut(duration: 0.4).delay(0.7)) {
+			buttonVisible = true
+		}
 	}
 }
+
+// MARK: - Preview
 
 #Preview {
 	let container = DevPreview.shared.container
