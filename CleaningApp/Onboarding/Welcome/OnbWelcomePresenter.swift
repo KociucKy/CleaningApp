@@ -1,7 +1,5 @@
 import Foundation
 
-// MARK: - WelcomePresenter
-
 @Observable
 @MainActor
 final class OnbWelcomePresenter {
@@ -20,6 +18,6 @@ final class OnbWelcomePresenter {
 	// MARK: - Actions
 
 	func onGetStartedPressed() {
-		router.showOnboardingCompletedView()
+		router.showOnboardingRoomSelectionView()
 	}
 }
