@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "A structured weekly plan so you always\nknow what to clean today — nothing more." : {
+
+    },
     "App Store Review" : {
 
     },
@@ -21,7 +24,7 @@
         }
       }
     },
-    "CleaningApp" : {
+    "Clean smarter," : {
 
     },
     "Clear" : {
@@ -42,9 +45,6 @@
     "Get started" : {
 
     },
-    "Get started to set up your profile." : {
-
-    },
     "Home" : {
 
     },
@@ -52,6 +52,9 @@
 
     },
     "Next" : {
+
+    },
+    "not harder." : {
 
     },
     "Notifcation Enabling View" : {

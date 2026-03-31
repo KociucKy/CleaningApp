@@ -9,11 +9,6 @@ struct OnbWelcomeView: View {
 
 	@State var presenter: OnbWelcomePresenter
 
-	@State private var heroVisible = false
-	@State private var titleVisible = false
-	@State private var featuresVisible = false
-	@State private var buttonVisible = false
-
 	// MARK: - Body
 
 	var body: some View {
@@ -29,9 +24,7 @@ struct OnbWelcomeView: View {
 			getStartedButton
 				.padding(.horizontal, FKSpacing.large)
 		}
-		.onAppear {
-			animateEntrance()
-		}
+		.onAppear(perform: presenter.animateEntrance)
 	}
 
 	// MARK: - Hero Section
@@ -46,8 +39,8 @@ struct OnbWelcomeView: View {
 					.font(.system(size: 52, weight: .light))
 					.foregroundStyle(Color.accentColor)
 			}
-			.scaleEffect(heroVisible ? 1 : 0.6)
-			.opacity(heroVisible ? 1 : 0)
+			.scaleEffect(presenter.heroVisible ? 1 : 0.6)
+			.opacity(presenter.heroVisible ? 1 : 0)
 
 			VStack(spacing: FKSpacing.small) {
 				Text("Clean smarter,")
@@ -57,16 +50,16 @@ struct OnbWelcomeView: View {
 					.font(FKTypography.statValue)
 					.foregroundStyle(Color.accentColor)
 			}
-			.opacity(titleVisible ? 1 : 0)
-			.offset(y: titleVisible ? 0 : 12)
+			.opacity(presenter.titleVisible ? 1 : 0)
+			.offset(y: presenter.titleVisible ? 0 : 12)
 
 			Text("A structured weekly plan so you always\nknow what to clean today — nothing more.")
 				.font(FKTypography.secondaryLabel)
 				.foregroundStyle(FKColor.Label.secondary)
 				.multilineTextAlignment(.center)
 				.padding(.horizontal, FKSpacing.extraLarge)
-				.opacity(titleVisible ? 1 : 0)
-				.offset(y: titleVisible ? 0 : 8)
+				.opacity(presenter.titleVisible ? 1 : 0)
+				.offset(y: presenter.titleVisible ? 0 : 8)
 		}
 	}
 
@@ -96,8 +89,8 @@ struct OnbWelcomeView: View {
 			)
 		}
 		.padding(.horizontal, FKSpacing.large)
-		.opacity(featuresVisible ? 1 : 0)
-		.offset(y: featuresVisible ? 0 : 16)
+		.opacity(presenter.featuresVisible ? 1 : 0)
+		.offset(y: presenter.featuresVisible ? 0 : 16)
 	}
 
 	// MARK: - Get Started Button
@@ -113,8 +106,8 @@ struct OnbWelcomeView: View {
 				.frame(height: 45)
 		}
 		.buttonStyle(.glassProminent)
-		.opacity(buttonVisible ? 1 : 0)
-		.offset(y: buttonVisible ? 0 : 12)
+		.opacity(presenter.buttonVisible ? 1 : 0)
+		.offset(y: presenter.buttonVisible ? 0 : 12)
 	}
 
 	// MARK: - Methods
@@ -123,7 +116,8 @@ struct OnbWelcomeView: View {
 	private func featureRow(symbol: String, title: String, description: String) -> some View {
 		HStack(spacing: FKSpacing.large) {
 			Image(systemName: symbol)
-				.font(.title3)
+				.font(FKTypography.sectionHeader)
+				.fontWeight(.regular)
 				.foregroundStyle(Color.accentColor)
 				.frame(width: 32)
 			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
@@ -135,21 +129,6 @@ struct OnbWelcomeView: View {
 					.foregroundStyle(FKColor.Label.secondary)
 			}
 			Spacer()
-		}
-	}
-
-	private func animateEntrance() {
-		withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.1)) {
-			heroVisible = true
-		}
-		withAnimation(.easeOut(duration: 0.4).delay(0.35)) {
-			titleVisible = true
-		}
-		withAnimation(.easeOut(duration: 0.4).delay(0.55)) {
-			featuresVisible = true
-		}
-		withAnimation(.easeOut(duration: 0.4).delay(0.7)) {
-			buttonVisible = true
 		}
 	}
 }
