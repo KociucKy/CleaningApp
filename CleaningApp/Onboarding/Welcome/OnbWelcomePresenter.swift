@@ -8,7 +8,6 @@ final class OnbWelcomePresenter {
 	var heroVisible = false
 	var titleVisible = false
 	var featuresVisible = false
-	var buttonVisible = false
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
 
@@ -30,9 +29,6 @@ final class OnbWelcomePresenter {
 		}
 		withAnimation(.easeOut(duration: 0.4).delay(0.55)) {
 			featuresVisible = true
-		}
-		withAnimation(.easeOut(duration: 0.4).delay(0.7)) {
-			buttonVisible = true
 		}
 	}
 

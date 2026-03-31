@@ -15,7 +15,6 @@ struct OnbWelcomeView: View {
 		static let titleEntryOffset: CGFloat = 12
 		static let subtitleEntryOffset: CGFloat = 8
 		static let featuresSectionEntryOffset: CGFloat = 16
-		static let buttonEntryOffset: CGFloat = 12
 		static let buttonHeight: CGFloat = 45
 		static let featureSymbolWidth: CGFloat = 32
 	}
@@ -112,6 +111,7 @@ struct OnbWelcomeView: View {
 
 	private var getStartedButton: some View {
 		Button {
+			FKHaptics.impact(.medium)
 			presenter.onGetStartedPressed()
 		} label: {
 			Text("Get started")
@@ -121,8 +121,6 @@ struct OnbWelcomeView: View {
 				.frame(height: Constants.buttonHeight)
 		}
 		.buttonStyle(.glassProminent)
-		.opacity(presenter.buttonVisible ? 1 : 0)
-		.offset(y: presenter.buttonVisible ? 0 : Constants.buttonEntryOffset)
 	}
 
 	// MARK: - Methods
