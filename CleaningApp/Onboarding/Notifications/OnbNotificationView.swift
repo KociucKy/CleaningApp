@@ -11,7 +11,6 @@ struct OnbNotificationView: View {
 		static let titleEntryOffset: CGFloat = 12
 		static let benefitsEntryOffset: CGFloat = 16
 		static let buttonHeight: CGFloat = 45
-		static let benefitSymbolWidth: CGFloat = 32
 	}
 
 	// MARK: - Properties
@@ -64,17 +63,17 @@ struct OnbNotificationView: View {
 
 	private var benefitsSection: some View {
 		VStack(spacing: FKSpacing.medium) {
-			benefitRow(
+			OnbLabelRowView(
 				symbol: "bell.fill",
 				title: "onb_notification.benefit.reminders.title",
 				description: "onb_notification.benefit.reminders.description"
 			)
-			benefitRow(
+			OnbLabelRowView(
 				symbol: "flame.fill",
 				title: "onb_notification.benefit.streaks.title",
 				description: "onb_notification.benefit.streaks.description"
 			)
-			benefitRow(
+			OnbLabelRowView(
 				symbol: "calendar",
 				title: "onb_notification.benefit.weekly.title",
 				description: "onb_notification.benefit.weekly.description"
@@ -116,31 +115,6 @@ struct OnbNotificationView: View {
 		}
 		.buttonStyle(.glassProminent)
 		.disabled(presenter.isRequestingPermission)
-	}
-
-	// MARK: - Methods
-
-	private func benefitRow(
-		symbol: String,
-		title: LocalizedStringKey,
-		description: LocalizedStringKey
-	) -> some View {
-		HStack(spacing: FKSpacing.large) {
-			Image(systemName: symbol)
-				.font(FKTypography.sectionHeader)
-				.fontWeight(.regular)
-				.foregroundStyle(Color.accentColor)
-				.frame(width: Constants.benefitSymbolWidth)
-			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
-				Text(title)
-					.font(FKTypography.bodyBold)
-					.foregroundStyle(FKColor.Label.primary)
-				Text(description)
-					.font(FKTypography.caption)
-					.foregroundStyle(FKColor.Label.secondary)
-			}
-			Spacer()
-		}
 	}
 }
 

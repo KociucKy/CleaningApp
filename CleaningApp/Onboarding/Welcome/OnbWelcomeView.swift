@@ -12,7 +12,6 @@ struct OnbWelcomeView: View {
 		static let subtitleEntryOffset: CGFloat = 8
 		static let featuresSectionEntryOffset: CGFloat = 16
 		static let buttonHeight: CGFloat = 45
-		static let featureSymbolWidth: CGFloat = 32
 	}
 
 	// MARK: - Properties
@@ -71,22 +70,22 @@ struct OnbWelcomeView: View {
 
 	private var featuresSection: some View {
 		VStack(spacing: FKSpacing.medium) {
-			featureRow(
+			OnbLabelRowView(
 				symbol: "calendar.badge.checkmark",
 				title: "onb_welcome.feature.daily_plan.title",
 				description: "onb_welcome.feature.daily_plan.description"
 			)
-			featureRow(
+			OnbLabelRowView(
 				symbol: "clock",
 				title: "onb_welcome.feature.time_estimates.title",
 				description: "onb_welcome.feature.time_estimates.description"
 			)
-			featureRow(
+			OnbLabelRowView(
 				symbol: "chart.bar.fill",
 				title: "onb_welcome.feature.balanced_weeks.title",
 				description: "onb_welcome.feature.balanced_weeks.description"
 			)
-			featureRow(
+			OnbLabelRowView(
 				symbol: "flame.fill",
 				title: "onb_welcome.feature.streaks.title",
 				description: "onb_welcome.feature.streaks.description"
@@ -111,31 +110,6 @@ struct OnbWelcomeView: View {
 				.frame(height: Constants.buttonHeight)
 		}
 		.buttonStyle(.glassProminent)
-	}
-
-	// MARK: - Methods
-
-	private func featureRow(
-		symbol: String,
-		title: LocalizedStringKey,
-		description: LocalizedStringKey
-	) -> some View {
-		HStack(spacing: FKSpacing.large) {
-			Image(systemName: symbol)
-				.font(FKTypography.sectionHeader)
-				.fontWeight(.regular)
-				.foregroundStyle(Color.accentColor)
-				.frame(width: Constants.featureSymbolWidth)
-			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
-				Text(title)
-					.font(FKTypography.bodyBold)
-					.foregroundStyle(FKColor.Label.primary)
-				Text(description)
-					.font(FKTypography.caption)
-					.foregroundStyle(FKColor.Label.secondary)
-			}
-			Spacer()
-		}
 	}
 }
 
