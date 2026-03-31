@@ -8,11 +8,6 @@ struct OnbNotificationView: View {
 	// MARK: - Constants
 
 	private enum Constants {
-		static let iconCircleSize: CGFloat = 120
-		static let lightIconCircleOpacity: CGFloat = 0.12
-		static let darkIconCircleOpacity: CGFloat = 0.2
-		static let iconSymbolSize: CGFloat = 52
-		static let iconEntryScale: CGFloat = 0.6
 		static let titleEntryOffset: CGFloat = 12
 		static let benefitsEntryOffset: CGFloat = 16
 		static let buttonHeight: CGFloat = 45
@@ -46,20 +41,10 @@ struct OnbNotificationView: View {
 
 	private var iconSection: some View {
 		VStack(spacing: FKSpacing.medium) {
-			ZStack {
-				Circle()
-					.fill(
-						Color.accentColor.opacity(colorScheme == .light ? Constants.lightIconCircleOpacity : Constants.darkIconCircleOpacity)
-					)
-					.frame(width: Constants.iconCircleSize, height: Constants.iconCircleSize)
-				Image(systemName: "bell.badge.fill")
-					.font(.system(size: Constants.iconSymbolSize, weight: .light))
-					.foregroundStyle(Color.accentColor)
-					.symbolEffect(.bounce, options: .nonRepeating, isActive: presenter.iconVisible)
-			}
-			.scaleEffect(presenter.iconVisible ? 1 : Constants.iconEntryScale)
-			.opacity(presenter.iconVisible ? 1 : 0)
-
+			OnbHeroIconView(
+				systemName: "bell.badge.fill",
+				iconVisible: presenter.iconVisible
+			)
 			VStack(spacing: FKSpacing.small) {
 				Text("onb_notification.hero.title")
 					.font(FKTypography.statValue)
@@ -135,7 +120,11 @@ struct OnbNotificationView: View {
 
 	// MARK: - Methods
 
-	private func benefitRow(symbol: String, title: LocalizedStringKey, description: LocalizedStringKey) -> some View {
+	private func benefitRow(
+		symbol: String,
+		title: LocalizedStringKey,
+		description: LocalizedStringKey
+	) -> some View {
 		HStack(spacing: FKSpacing.large) {
 			Image(systemName: symbol)
 				.font(FKTypography.sectionHeader)

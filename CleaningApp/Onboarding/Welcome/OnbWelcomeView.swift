@@ -8,11 +8,6 @@ struct OnbWelcomeView: View {
 	// MARK: - Constants
 
 	private enum Constants {
-		static let heroCircleSize: CGFloat = 120
-		static let lightHeroCircleOpacity: CGFloat = 0.12
-		static let darkHeroCircleOpacity: CGFloat = 0.2
-		static let heroSymbolSize: CGFloat = 52
-		static let heroEntryScale: CGFloat = 0.6
 		static let titleEntryOffset: CGFloat = 12
 		static let subtitleEntryOffset: CGFloat = 8
 		static let featuresSectionEntryOffset: CGFloat = 16
@@ -47,19 +42,10 @@ struct OnbWelcomeView: View {
 
 	private var heroSection: some View {
 		VStack(spacing: FKSpacing.medium) {
-			ZStack {
-				Circle()
-					.fill(
-						Color.accentColor.opacity(colorScheme == .light ? Constants.lightHeroCircleOpacity : Constants.darkHeroCircleOpacity)
-					)
-					.frame(width: Constants.heroCircleSize, height: Constants.heroCircleSize)
-				Image(systemName: "sparkles")
-					.font(.system(size: Constants.heroSymbolSize, weight: .light))
-					.foregroundStyle(Color.accentColor)
-			}
-			.scaleEffect(presenter.heroVisible ? 1 : Constants.heroEntryScale)
-			.opacity(presenter.heroVisible ? 1 : 0)
-
+			OnbHeroIconView(
+				systemName: "bubbles.and.sparkles.fill",
+				iconVisible: presenter.heroVisible
+			)
 			VStack(spacing: FKSpacing.small) {
 				Text("onb_welcome.hero.title_line1")
 					.font(FKTypography.statValue)
@@ -129,7 +115,11 @@ struct OnbWelcomeView: View {
 
 	// MARK: - Methods
 
-	private func featureRow(symbol: String, title: LocalizedStringKey, description: LocalizedStringKey) -> some View {
+	private func featureRow(
+		symbol: String,
+		title: LocalizedStringKey,
+		description: LocalizedStringKey
+	) -> some View {
 		HStack(spacing: FKSpacing.large) {
 			Image(systemName: symbol)
 				.font(FKTypography.sectionHeader)

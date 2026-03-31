@@ -222,6 +222,9 @@
         }
       }
     },
+    "Next" : {
+
+    },
     "onb_completed.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -630,6 +633,9 @@
         }
       }
     },
+    "Paywall" : {
+
+    },
     "rooms.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -714,6 +720,9 @@
           }
         }
       }
+    },
+    "Task Selection View" : {
+
     }
   },
   "version" : "1.0"
