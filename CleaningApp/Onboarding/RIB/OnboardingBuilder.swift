@@ -46,6 +46,15 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
+	func notificationView(router: Router) -> some View {
+		OnbNotificationView(
+			presenter: OnbNotificationPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
 	func onboardingCompletedView(router: Router) -> some View {
 		OnboardingCompletedView(
 			presenter: OnboardingCompletedPresenter(

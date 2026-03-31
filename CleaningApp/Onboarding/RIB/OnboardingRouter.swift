@@ -23,6 +23,12 @@ struct OnboardingRouter {
 			builder.taskSelectionView(router: router)
 		}
 	}
+	
+	func showOnboardingNotificationView() {
+		router.showScreen(.push, onDismiss: nil) { router in
+			builder.notificationView(router: router)
+		}
+	}
 
 	func showOnboardingCompletedView() {
 		router.showScreen(.push, onDismiss: nil) { router in

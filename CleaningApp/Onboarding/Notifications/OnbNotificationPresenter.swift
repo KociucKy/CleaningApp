@@ -2,7 +2,7 @@ import Foundation
 
 @Observable
 @MainActor
-final class OnbTaskSelectionPresenter {
+final class OnbNotificationPresenter {
 	// MARK: - Properties
 	
 	private let interactor: OnboardingInteractor
@@ -19,6 +19,6 @@ final class OnbTaskSelectionPresenter {
 	}
 
 	func onNextButtonPressed() {
-		router.showOnboardingNotificationView()
+		router.showOnboardingCompletedView()
 	}
 }
