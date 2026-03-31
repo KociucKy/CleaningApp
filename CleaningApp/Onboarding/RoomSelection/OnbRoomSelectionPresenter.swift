@@ -12,7 +12,10 @@ final class OnbRoomSelectionPresenter {
 
 	// MARK: - Init
 
-	init(interactor: OnboardingInteractor, router: OnboardingRouter) {
+	init(
+		interactor: OnboardingInteractor,
+		router: OnboardingRouter
+	) {
 		self.interactor = interactor
 		self.router = router
 	}
@@ -20,7 +23,7 @@ final class OnbRoomSelectionPresenter {
 	// MARK: - Actions
 
 	func onNextButtonPressed() {
-		router.showOnboardingCompletedView()
+		router.showOnboardingTaskSelectionView()
 	}
 
 	func onSkipButtonPressed() {

@@ -43,8 +43,12 @@ struct OnbWelcomeView: View {
 			presenter.onGetStartedPressed()
 		} label: {
 			Text("Get started")
-				.callToActionButton()
+				.font(FKTypography.ctaLabel)
+				.foregroundStyle(.white)
+				.frame(maxWidth: .infinity)
+				.frame(height: 50)
 		}
+		.buttonStyle(.glassProminent)
 	}
 }
 

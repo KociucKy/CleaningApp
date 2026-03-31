@@ -1,4 +1,5 @@
 import SwiftUI
+import FulhamKit
 
 // MARK: - OnboardingCompletedView
 
@@ -35,12 +36,11 @@ struct OnboardingCompletedView: View {
 			presenter.onFinishButtonPressed()
 		} label: {
 			Text("Finish")
-				.font(.headline)
+				.font(FKTypography.ctaLabel)
 				.foregroundStyle(.white)
 				.frame(maxWidth: .infinity)
-				.frame(height: 55)
-				.background(.tint)
-				.clipShape(RoundedRectangle(cornerRadius: 16))
+				.frame(height: 50)
 		}
+		.buttonStyle(.glassProminent)
 	}
 }

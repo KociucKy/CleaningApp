@@ -4,6 +4,7 @@ import UtilitiesKit
 
 struct OnbRoomSelectionView: View {
 	// MARK: - Properties
+
 	@State var presenter: OnbRoomSelectionPresenter
 	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
@@ -36,23 +37,22 @@ struct OnbRoomSelectionView: View {
 			controlButtonsView
 		}
 	}
-	
+
 	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
-		VStack {
-			Button {
-				presenter.onNextButtonPressed()
-			} label: {
-				Text("Next")
-					.font(FKTypography.ctaLabel)
-					.foregroundStyle(.white)
-					.frame(maxWidth: .infinity)
-					.frame(height: 55)
-			}
-			.buttonStyle(.glassProminent)
+		Button {
+			presenter.onNextButtonPressed()
+		} label: {
+			Text("Next")
+				.font(FKTypography.ctaLabel)
+				.foregroundStyle(.white)
+				.frame(maxWidth: .infinity)
+				.frame(height: 50)
 		}
+		.buttonStyle(.glassProminent)
 		.padding([.horizontal, .top], FKSpacing.large)
+		.disabled(presenter.selectedRooms.isEmpty)
 	}
 
 	@ViewBuilder

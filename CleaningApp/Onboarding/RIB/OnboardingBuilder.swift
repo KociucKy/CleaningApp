@@ -37,6 +37,15 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
+	func taskSelectionView(router: Router) -> some View {
+		OnbTaskSelectionView(
+			presenter: OnbTaskSelectionPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
 	func onboardingCompletedView(router: Router) -> some View {
 		OnboardingCompletedView(
 			presenter: OnboardingCompletedPresenter(
