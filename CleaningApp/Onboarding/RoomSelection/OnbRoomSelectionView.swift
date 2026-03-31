@@ -4,9 +4,7 @@ import UtilitiesKit
 
 struct OnbRoomSelectionView: View {
 	// MARK: - Properties
-	@Environment(\.colorScheme) private var colorScheme
-	@State private var selectedRooms: Set<RoomIcon> = []
-
+	@State var presenter: OnbRoomSelectionPresenter
 	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
 	// MARK: - Body
@@ -23,15 +21,14 @@ struct OnbRoomSelectionView: View {
 		}
 		.navigationTitle("Select rooms")
 		.navigationBarTitleDisplayMode(.inline)
+		.navigationBarBackButtonHidden()
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				Button("Skip") {}
+				Button("Skip", action: presenter.onSkipButtonPressed)
 			}
-			if selectedRooms.isNotEmpty {
+			if presenter.selectedRooms.isNotEmpty {
 				ToolbarItem(placement: .topBarLeading) {
-					Button("Clear") {
-						selectedRooms = []
-					}
+					Button("Clear", action: presenter.onClearButtonPressed)
 				}
 			}
 		}
@@ -39,10 +36,14 @@ struct OnbRoomSelectionView: View {
 			controlButtonsView
 		}
 	}
+	
+	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
 		VStack {
-			Button {} label: {
+			Button {
+				presenter.onNextButtonPressed()
+			} label: {
 				Text("Next")
 					.font(FKTypography.ctaLabel)
 					.foregroundStyle(.white)
@@ -54,24 +55,11 @@ struct OnbRoomSelectionView: View {
 		.padding([.horizontal, .top], FKSpacing.large)
 	}
 
-	// MARK: - Actions
-
-	private func toggleSelection(for room: RoomIcon) {
-		if selectedRooms.contains(room) {
-			selectedRooms.remove(room)
-		} else {
-			selectedRooms.insert(room)
-		}
-		FKHaptics.selection()
-	}
-
-	// MARK: - Methods
-
 	@ViewBuilder
 	private func roomCell(_ room: RoomIcon) -> some View {
-		let isSelected = selectedRooms.contains(room)
+		let isSelected = presenter.selectedRooms.contains(room)
 		Button {
-			toggleSelection(for: room)
+			presenter.onRoomCardViewPressed(room: room)
 		} label: {
 			FKCardView(showBorder: false) {
 				VStack(spacing: FKSpacing.medium) {
@@ -81,12 +69,12 @@ struct OnbRoomSelectionView: View {
 						.symbolEffect(
 							.bounce,
 							options: .nonRepeating,
-							isActive: selectedRooms.contains(room)
+							isActive: isSelected
 						)
 					Text(room.rawValue.capitalized)
 						.font(FKTypography.secondaryLabel)
 						.multilineTextAlignment(.center)
-						.bold(selectedRooms.contains(room))
+						.bold(isSelected)
 				}
 				.frame(maxWidth: .infinity)
 				.padding(.vertical, FKSpacing.extraLarge)
@@ -107,7 +95,7 @@ struct OnbRoomSelectionView: View {
 	let container = DevPreview.shared.container
 	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: container))
 
-	RouterView { _ in
-		builder.roomSelectionView()
+	RouterView { router in
+		builder.roomSelectionView(router: router)
 	}
 }

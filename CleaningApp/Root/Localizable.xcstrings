@@ -24,6 +24,9 @@
     "CleaningApp" : {
 
     },
+    "Clear" : {
+
+    },
     "Close" : {
 
     },
@@ -42,13 +45,13 @@
     "Get started to set up your profile." : {
 
     },
-    "Hello, World!" : {
-
-    },
     "Home" : {
 
     },
     "Local Notifications" : {
+
+    },
+    "Next" : {
 
     },
     "Rooms" : {
@@ -57,10 +60,16 @@
     "Rooms count: %lld" : {
 
     },
+    "Select rooms" : {
+
+    },
     "Settings" : {
 
     },
     "Setup complete!" : {
+
+    },
+    "Skip" : {
 
     },
     "UserDefaults" : {

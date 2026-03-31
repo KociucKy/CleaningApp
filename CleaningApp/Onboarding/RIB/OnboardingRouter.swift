@@ -14,7 +14,7 @@ struct OnboardingRouter {
 
 	func showOnboardingRoomSelectionView() {
 		router.showScreen(.push, onDismiss: nil) { router in
-			builder.roomSelectionView()
+			builder.roomSelectionView(router: router)
 		}
 	}
 

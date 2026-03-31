@@ -1,10 +1,12 @@
 import Foundation
+import FulhamKit
 
 @Observable
 @MainActor
 final class OnbRoomSelectionPresenter {
 	// MARK: - Properties
 
+	var selectedRooms: Set<RoomIcon> = []
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
 
@@ -17,7 +19,24 @@ final class OnbRoomSelectionPresenter {
 
 	// MARK: - Actions
 
-	func onGetStartedPressed() {
-		router.showOnboardingRoomSelectionView()
+	func onNextButtonPressed() {
+		router.showOnboardingCompletedView()
+	}
+
+	func onSkipButtonPressed() {
+		router.showOnboardingCompletedView()
+	}
+
+	func onClearButtonPressed() {
+		selectedRooms = []
+	}
+
+	func onRoomCardViewPressed(room: RoomIcon) {
+		if selectedRooms.contains(room) {
+			selectedRooms.remove(room)
+		} else {
+			selectedRooms.insert(room)
+		}
+		FKHaptics.selection()
 	}
 }

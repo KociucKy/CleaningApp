@@ -28,8 +28,13 @@ struct OnboardingBuilder: Builder {
 		}
 	}
 
-	func roomSelectionView() -> some View {
-		OnbRoomSelectionView()
+	func roomSelectionView(router: Router) -> some View {
+		OnbRoomSelectionView(
+			presenter: OnbRoomSelectionPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
 	}
 
 	func onboardingCompletedView(router: Router) -> some View {
