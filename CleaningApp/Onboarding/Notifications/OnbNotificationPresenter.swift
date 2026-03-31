@@ -45,7 +45,7 @@ final class OnbNotificationPresenter {
 
 	func onAllowNotificationsPressed() {
 		isRequestingPermission = true
-		Task {
+		Task { @MainActor in
 			_ = try? await notificationManager.requestAuthorization(options: [.alert, .sound, .badge])
 			isRequestingPermission = false
 			router.showOnboardingPaywallView()
