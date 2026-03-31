@@ -1,6 +1,10 @@
 import Foundation
 
-enum RoomIcon: String, CaseIterable, Codable {
+enum RoomIcon: String, CaseIterable, Codable, Identifiable {
+	var id: Self {
+		self
+	}
+
 	case kitchen
 	case livingRoom
 	case bedroom
