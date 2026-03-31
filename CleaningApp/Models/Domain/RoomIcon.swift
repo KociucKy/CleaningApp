@@ -1,16 +1,20 @@
 import Foundation
 
-enum RoomIcon: String, CaseIterable, Codable {
-	case kitchen
-	case livingRoom
-	case bedroom
-	case bathroom
-	case hallway
-	case office
-	case garage
-	case laundry
-	case toilet
-	case custom
+enum RoomIcon: String, CaseIterable, Codable, Identifiable {
+	var id: Self {
+		self
+	}
+
+	case kitchen = "Kitchen"
+	case livingRoom = "Living Room"
+	case bedroom = "Bedroom"
+	case bathroom = "Bathroom"
+	case hallway = "Hallway"
+	case office = "Office"
+	case garage = "Garage"
+	case laundry = "Laundry"
+	case toilet = "Toilet"
+	case custom = "Custom"
 
 	var symbolName: String {
 		switch self {

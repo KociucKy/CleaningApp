@@ -24,6 +24,9 @@
     "CleaningApp" : {
 
     },
+    "Clear" : {
+
+    },
     "Close" : {
 
     },
@@ -48,16 +51,34 @@
     "Local Notifications" : {
 
     },
+    "Next" : {
+
+    },
+    "Notifcation Enabling View" : {
+
+    },
+    "Paywall" : {
+
+    },
     "Rooms" : {
 
     },
     "Rooms count: %lld" : {
 
     },
+    "Select rooms" : {
+
+    },
     "Settings" : {
 
     },
     "Setup complete!" : {
+
+    },
+    "Skip" : {
+
+    },
+    "Task Selection View" : {
 
     },
     "UserDefaults" : {

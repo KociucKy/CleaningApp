@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -30,7 +30,7 @@
 		4FFEACF1DEF53F01BAB3B139 /* UtilitiesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50C35C1D0A50BF62E9B47A4D /* UtilitiesKit */; };
 		55279F25D24801001992D565 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09540A2A6E9909C793768656 /* RoomManager.swift */; };
 		56011B88B335A95A59AE97DC /* SkippedTaskMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436FDACB6DF5492119B6B52 /* SkippedTaskMapperTests.swift */; };
-		569F0568EE4D3E4F65EFB675 /* WelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4046350F129E3D75E9E9E7A /* WelcomePresenter.swift */; };
+		569F0568EE4D3E4F65EFB675 /* OnbWelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4046350F129E3D75E9E9E7A /* OnbWelcomePresenter.swift */; };
 		5773D60406AFB1D38BEAC261 /* FrequencyEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BC308754144AC38F25F1 /* FrequencyEncoderTests.swift */; };
 		5A9A6932D3BCAAA765310A22 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C109F851D85BF8C30524F32 /* SettingsRouter.swift */; };
 		5D033838673F21DDFEAFD981 /* RoomMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C7EEAC663DF55BAAF10FBC /* RoomMapperTests.swift */; };
@@ -48,6 +48,14 @@
 		7618351340E86EE3F26E8917 /* CompletedTaskMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4B641320ABE196ADACC20 /* CompletedTaskMapperTests.swift */; };
 		79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */; };
 		86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */; };
+		881DCECD2F7BF5E000B85022 /* OnbRoomSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCECC2F7BF5E000B85022 /* OnbRoomSelectionView.swift */; };
+		881DCECF2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCECE2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift */; };
+		881DCED32F7C028600B85022 /* OnbTaskSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED22F7C028600B85022 /* OnbTaskSelectionPresenter.swift */; };
+		881DCED52F7C02A100B85022 /* OnbTaskSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */; };
+		881DCED82F7C050900B85022 /* OnbNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED72F7C050900B85022 /* OnbNotificationView.swift */; };
+		881DCEDA2F7C055C00B85022 /* OnbNotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */; };
+		881DCEDE2F7C065900B85022 /* OnbPaywallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */; };
+		881DCEE02F7C067F00B85022 /* OnbPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
 		8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */; };
@@ -77,7 +85,7 @@
 		C11EC5F388F1EB129E2619AE /* CoreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF2621099823CB83B58C83 /* CoreInteractor.swift */; };
 		C4B1DE558EBE6056FC179C9C /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */; };
 		C589D0BF066519D02DE035B4 /* MockCompletedTaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897E3D4639DDD283BA97D15 /* MockCompletedTaskRepositoryTests.swift */; };
-		C5B19C725AD7BC5B1C0C4260 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3CAD2A2CB071FB03C8A7F9 /* WelcomeView.swift */; };
+		C5B19C725AD7BC5B1C0C4260 /* OnbWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3CAD2A2CB071FB03C8A7F9 /* OnbWelcomeView.swift */; };
 		C8634A6248FC6139588DF63E /* OnboardingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0980ED17BFFE8F6E1DCCAC /* OnboardingBuilder.swift */; };
 		CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9E29C111325DB3C5415DE8 /* DependencyContainer.swift */; };
 		D1A83954BD8F824CAEB896D6 /* ReviewKit in Frameworks */ = {isa = PBXBuildFile; productRef = DCC157BFE6E2215B638BF770 /* ReviewKit */; };
@@ -169,6 +177,14 @@
 		82AF2621099823CB83B58C83 /* CoreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreInteractor.swift; sourceTree = "<group>"; };
 		87032E920792FA6C55583745 /* Room+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Room+Mock.swift"; sourceTree = "<group>"; };
 		8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
+		881DCECC2F7BF5E000B85022 /* OnbRoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionView.swift; sourceTree = "<group>"; };
+		881DCECE2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
+		881DCED22F7C028600B85022 /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
+		881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionView.swift; sourceTree = "<group>"; };
+		881DCED72F7C050900B85022 /* OnbNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationView.swift; sourceTree = "<group>"; };
+		881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationPresenter.swift; sourceTree = "<group>"; };
+		881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallPresenter.swift; sourceTree = "<group>"; };
+		881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D545ADCE72D97A5C1DA5951 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
@@ -182,8 +198,8 @@
 		9BE954167DC229FDECAA376A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BF4CDCFB9913569B8260D02 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepository.swift; sourceTree = "<group>"; };
-		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4046350F129E3D75E9E9E7A /* WelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePresenter.swift; sourceTree = "<group>"; };
+		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4046350F129E3D75E9E9E7A /* OnbWelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomePresenter.swift; sourceTree = "<group>"; };
 		A457688452077C69D253D2D9 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingState.swift; sourceTree = "<group>"; };
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSkippedTaskRepositoryTests.swift; sourceTree = "<group>"; };
@@ -193,7 +209,7 @@
 		C629102C8551A4E9CC65038E /* RoomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEntity.swift; sourceTree = "<group>"; };
 		C7C0C7E2AC9B4EEF84A61209 /* SkippedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTask.swift; sourceTree = "<group>"; };
 		CA894069343CD75ADCEE6E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CB3CAD2A2CB071FB03C8A7F9 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		CB3CAD2A2CB071FB03C8A7F9 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
 		D1B895D2F6B55966FBDCCFD8 /* FrequencyEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyEncoder.swift; sourceTree = "<group>"; };
 		D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedTask+Mock.swift"; sourceTree = "<group>"; };
 		D897E3D4639DDD283BA97D15 /* MockCompletedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepositoryTests.swift; sourceTree = "<group>"; };
@@ -202,7 +218,7 @@
 		DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomTaskRepository.swift; sourceTree = "<group>"; };
 		E7136DD168952F121FE91E27 /* CompletedTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskMapper.swift; sourceTree = "<group>"; };
 		E7F8BB9667E129602A1179F7 /* Date+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Mock.swift"; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F86AC4AEA1AD192DB3785306 /* RoomTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTask.swift; sourceTree = "<group>"; };
 		F93126C7994D919E714D9C25 /* SkippedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskManager.swift; sourceTree = "<group>"; };
@@ -378,6 +394,42 @@
 			path = Rooms;
 			sourceTree = "<group>";
 		};
+		881DCECB2F7BF4EE00B85022 /* RoomSelection */ = {
+			isa = PBXGroup;
+			children = (
+				881DCECC2F7BF5E000B85022 /* OnbRoomSelectionView.swift */,
+				881DCECE2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift */,
+			);
+			path = RoomSelection;
+			sourceTree = "<group>";
+		};
+		881DCED12F7C027D00B85022 /* TaskSelection */ = {
+			isa = PBXGroup;
+			children = (
+				881DCED22F7C028600B85022 /* OnbTaskSelectionPresenter.swift */,
+				881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */,
+			);
+			path = TaskSelection;
+			sourceTree = "<group>";
+		};
+		881DCED62F7C04F800B85022 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				881DCED72F7C050900B85022 /* OnbNotificationView.swift */,
+				881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		881DCEDC2F7C065000B85022 /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */,
+				881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */,
+			);
+			path = Paywall;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,8 +517,8 @@
 		AE3910755F3C673F9BDF91E6 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				A4046350F129E3D75E9E9E7A /* WelcomePresenter.swift */,
-				CB3CAD2A2CB071FB03C8A7F9 /* WelcomeView.swift */,
+				A4046350F129E3D75E9E9E7A /* OnbWelcomePresenter.swift */,
+				CB3CAD2A2CB071FB03C8A7F9 /* OnbWelcomeView.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -474,9 +526,13 @@
 		B2F382377896C7139DE455BE /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				AE3910755F3C673F9BDF91E6 /* Welcome */,
+				881DCECB2F7BF4EE00B85022 /* RoomSelection */,
+				881DCED12F7C027D00B85022 /* TaskSelection */,
+				881DCED62F7C04F800B85022 /* Notifications */,
+				881DCEDC2F7C065000B85022 /* Paywall */,
 				F49241E7396E4BEA125F80A7 /* Completed */,
 				64128F3AE1F464219E589A7B /* RIB */,
-				AE3910755F3C673F9BDF91E6 /* Welcome */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -618,13 +674,6 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_8ABC0EF5-EF57-46AC-9EB1-CD7566DB073A" /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -712,7 +761,6 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -801,6 +849,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				881DCED52F7C02A100B85022 /* OnbTaskSelectionView.swift in Sources */,
 				7545DC1B6D5BA2C8F583B8D0 /* AppDelegate.swift in Sources */,
 				C4B1DE558EBE6056FC179C9C /* AppEntryPoint.swift in Sources */,
 				EA8868DEEA28534A4BD3AA7D /* AppViewBuilder.swift in Sources */,
@@ -816,7 +865,9 @@
 				C11EC5F388F1EB129E2619AE /* CoreInteractor.swift in Sources */,
 				FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */,
 				F7CD1C424A4859850CCD8C7D /* Date+Mock.swift in Sources */,
+				881DCEE02F7C067F00B85022 /* OnbPaywallView.swift in Sources */,
 				928DE63BA7E470BE18F00E7F /* Dependencies.swift in Sources */,
+				881DCED82F7C050900B85022 /* OnbNotificationView.swift in Sources */,
 				CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */,
 				A742C422242C715055B8F275 /* DevSettingsInteractor.swift in Sources */,
 				25491FD14B4A6F667DBBEC16 /* DevSettingsPresenter.swift in Sources */,
@@ -828,6 +879,7 @@
 				238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */,
 				719A3716C8C8798E37664570 /* HomeView.swift in Sources */,
 				B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */,
+				881DCECF2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift in Sources */,
 				8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */,
 				9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */,
 				79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */,
@@ -846,6 +898,7 @@
 				55279F25D24801001992D565 /* RoomManager.swift in Sources */,
 				A34805429F822001BC54028F /* RoomMapper.swift in Sources */,
 				036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */,
+				881DCED32F7C028600B85022 /* OnbTaskSelectionPresenter.swift in Sources */,
 				E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */,
 				E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */,
 				0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */,
@@ -855,6 +908,7 @@
 				D3361A174D0921DD7AF1FB5F /* RoomTaskRepository.swift in Sources */,
 				3E25499452BF7E95FA91FBCF /* RoomsInteractor.swift in Sources */,
 				660D48547BDC931810ED5C5B /* RoomsPresenter.swift in Sources */,
+				881DCEDA2F7C055C00B85022 /* OnbNotificationPresenter.swift in Sources */,
 				FFE747391A6D57EA4A0660C4 /* RoomsRouter.swift in Sources */,
 				89DC31823EE76FF28881636B /* RoomsView.swift in Sources */,
 				8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */,
@@ -867,11 +921,13 @@
 				49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */,
 				9D7A5059B5AD6E3500490283 /* SkippedTaskManager.swift in Sources */,
 				DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */,
+				881DCECD2F7BF5E000B85022 /* OnbRoomSelectionView.swift in Sources */,
 				86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */,
 				D51191FEAE209E4EE95EF76E /* TabBarView.swift in Sources */,
 				AFD89361F952EA57A94F3D38 /* TaskDuration.swift in Sources */,
-				569F0568EE4D3E4F65EFB675 /* WelcomePresenter.swift in Sources */,
-				C5B19C725AD7BC5B1C0C4260 /* WelcomeView.swift in Sources */,
+				569F0568EE4D3E4F65EFB675 /* OnbWelcomePresenter.swift in Sources */,
+				C5B19C725AD7BC5B1C0C4260 /* OnbWelcomeView.swift in Sources */,
+				881DCEDE2F7C065900B85022 /* OnbPaywallPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,8 +1117,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1085,8 +1143,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1186,8 +1246,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

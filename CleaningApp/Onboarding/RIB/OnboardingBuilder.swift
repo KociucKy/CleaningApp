@@ -19,13 +19,49 @@ struct OnboardingBuilder: Builder {
 
 	func welcomeView() -> some View {
 		RouterView { router in
-			WelcomeView(
-				presenter: WelcomePresenter(
+			OnbWelcomeView(
+				presenter: OnbWelcomePresenter(
 					interactor: interactor,
 					router: OnboardingRouter(router: router, builder: self)
 				)
 			)
 		}
+	}
+
+	func roomSelectionView(router: Router) -> some View {
+		OnbRoomSelectionView(
+			presenter: OnbRoomSelectionPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
+	func taskSelectionView(router: Router) -> some View {
+		OnbTaskSelectionView(
+			presenter: OnbTaskSelectionPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
+	func notificationView(router: Router) -> some View {
+		OnbNotificationView(
+			presenter: OnbNotificationPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
+	func paywallView(router: Router) -> some View {
+		OnbPaywallView(
+			presenter: OnbPaywallPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
 	}
 
 	func onboardingCompletedView(router: Router) -> some View {
