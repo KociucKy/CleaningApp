@@ -61,17 +61,17 @@ struct OnbWelcomeView: View {
 			.opacity(presenter.heroVisible ? 1 : 0)
 
 			VStack(spacing: FKSpacing.small) {
-				Text("Clean smarter,")
+				Text("onb_welcome.hero.title_line1")
 					.font(FKTypography.statValue)
 					.foregroundStyle(FKColor.Label.primary)
-				Text("not harder.")
+				Text("onb_welcome.hero.title_line2")
 					.font(FKTypography.statValue)
 					.foregroundStyle(Color.accentColor)
 			}
 			.opacity(presenter.titleVisible ? 1 : 0)
 			.offset(y: presenter.titleVisible ? 0 : Constants.titleEntryOffset)
 
-			Text("A structured weekly plan so you always\nknow what to clean today — nothing more.")
+			Text("onb_welcome.hero.subtitle")
 				.font(FKTypography.secondaryLabel)
 				.foregroundStyle(FKColor.Label.secondary)
 				.multilineTextAlignment(.center)
@@ -87,23 +87,23 @@ struct OnbWelcomeView: View {
 		VStack(spacing: FKSpacing.medium) {
 			featureRow(
 				symbol: "calendar.badge.checkmark",
-				title: "Daily plan",
-				description: "Only what needs doing today — no overwhelming backlogs."
+				title: "onb_welcome.feature.daily_plan.title",
+				description: "onb_welcome.feature.daily_plan.description"
 			)
 			featureRow(
 				symbol: "clock",
-				title: "Time estimates",
-				description: "Know upfront how long cleaning will take."
+				title: "onb_welcome.feature.time_estimates.title",
+				description: "onb_welcome.feature.time_estimates.description"
 			)
 			featureRow(
 				symbol: "chart.bar.fill",
-				title: "Balanced weeks",
-				description: "Tasks spread evenly so no single day feels too heavy."
+				title: "onb_welcome.feature.balanced_weeks.title",
+				description: "onb_welcome.feature.balanced_weeks.description"
 			)
 			featureRow(
 				symbol: "flame.fill",
-				title: "Streaks & progress",
-				description: "Stay motivated with daily streaks and a weekly activity overview."
+				title: "onb_welcome.feature.streaks.title",
+				description: "onb_welcome.feature.streaks.description"
 			)
 		}
 		.padding(.horizontal, FKSpacing.large)
@@ -118,7 +118,7 @@ struct OnbWelcomeView: View {
 			FKHaptics.impact(.medium)
 			presenter.onGetStartedPressed()
 		} label: {
-			Text("Get started")
+			Text("onb_welcome.cta")
 				.font(FKTypography.ctaLabel)
 				.foregroundStyle(.white)
 				.frame(maxWidth: .infinity)
@@ -130,7 +130,7 @@ struct OnbWelcomeView: View {
 	// MARK: - Methods
 
 	@ViewBuilder
-	private func featureRow(symbol: String, title: String, description: String) -> some View {
+	private func featureRow(symbol: String, title: LocalizedStringKey, description: LocalizedStringKey) -> some View {
 		HStack(spacing: FKSpacing.large) {
 			Image(systemName: symbol)
 				.font(FKTypography.sectionHeader)
