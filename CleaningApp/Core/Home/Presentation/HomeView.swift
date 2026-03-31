@@ -11,6 +11,7 @@ struct HomeView: View {
 	var body: some View {
 		Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
 			.navigationTitle("home.nav_title")
+			.navigationBarTitleDisplayMode(.large)
 			.onAppear(perform: presenter.fetchAllRooms)
 			.toolbar {
 				#if DEV || MOCK

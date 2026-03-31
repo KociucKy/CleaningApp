@@ -13,6 +13,7 @@ struct RoomsView: View {
 	var body: some View {
 		Text("rooms.nav_title")
 			.navigationTitle("rooms.nav_title")
+			.navigationBarTitleDisplayMode(.large)
 	}
 }
 

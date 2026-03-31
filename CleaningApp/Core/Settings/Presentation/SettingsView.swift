@@ -11,6 +11,7 @@ struct SettingsView: View {
 	var body: some View {
 		Text("settings.nav_title")
 			.navigationTitle("settings.nav_title")
+			.navigationBarTitleDisplayMode(.large)
 	}
 }
 

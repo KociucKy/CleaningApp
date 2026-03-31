@@ -1,10 +1,11 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct OnbLabelRowView: View {
 	private enum Constants {
 		static let symbolWidth: CGFloat = 32
 	}
+
 	let symbol: String
 	let title: LocalizedStringKey
 	let description: LocalizedStringKey

@@ -13,12 +13,12 @@ struct AppViewBuilder<MainView: View, OnboardingView: View>: View {
 
 	var body: some View {
 		ZStack {
+			mainView()
+
 			if showOnboarding {
 				onboardingView()
 					.transition(.move(edge: .leading))
-			} else {
-				mainView()
-					.transition(.move(edge: .trailing))
+					.zIndex(1)
 			}
 		}
 		.animation(.smooth, value: showOnboarding)
