@@ -1,5 +1,6 @@
 import SwiftUI
 import FulhamKit
+import NavigationKit
 
 struct OnbWelcomeView: View {
 	// MARK: - Properties
@@ -45,5 +46,14 @@ struct OnbWelcomeView: View {
 			Text("Get started")
 				.callToActionButton()
 		}
+	}
+}
+
+#Preview {
+	let container = DevPreview.shared.container
+	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: container))
+
+	RouterView { router in
+		builder.welcomeView()
 	}
 }

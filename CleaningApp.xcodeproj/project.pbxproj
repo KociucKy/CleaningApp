@@ -378,6 +378,13 @@
 			path = Rooms;
 			sourceTree = "<group>";
 		};
+		881DCECB2F7BF4EE00B85022 /* RoomSelection */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RoomSelection;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -475,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				AE3910755F3C673F9BDF91E6 /* Welcome */,
+				881DCECB2F7BF4EE00B85022 /* RoomSelection */,
 				F49241E7396E4BEA125F80A7 /* Completed */,
 				64128F3AE1F464219E589A7B /* RIB */,
 			);

@@ -22,6 +22,7 @@ struct Dependencies {
 		let roomTaskManager: RoomTaskManager
 		let completedTaskManager: CompletedTaskManager
 		let skippedTaskManager: SkippedTaskManager
+		let onboardingState: OnboardingState
 		// swiftlint:disable:next force_try
 		let modelContainer = try! ModelContainer(
 			for: RoomEntity.self,
@@ -45,6 +46,7 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: MockSkippedTaskRepository()
 			)
+			onboardingState = OnboardingState()
 		case .dev:
 			roomManager = RoomManager(
 				repository: SwiftDataRoomRepository(container: modelContainer)
@@ -59,6 +61,7 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
 			)
+			onboardingState = OnboardingState()
 		case .prod:
 			roomManager = RoomManager(
 				repository: SwiftDataRoomRepository(container: modelContainer)
@@ -73,6 +76,7 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
 			)
+			onboardingState = OnboardingState()
 		}
 
 		let dependencyContainer = DependencyContainer()
@@ -80,6 +84,7 @@ struct Dependencies {
 		dependencyContainer.register(RoomTaskManager.self, service: roomTaskManager)
 		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
 		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
+		dependencyContainer.register(OnboardingState.self, service: onboardingState)
 		self.dependencyContainer = dependencyContainer
 	}
 }
@@ -98,6 +103,7 @@ final class DevPreview {
 	let roomTaskManager: RoomTaskManager
 	let completedTaskManager: CompletedTaskManager
 	let skippedTaskManager: SkippedTaskManager
+	let onboardingState: OnboardingState
 
 	var container: DependencyContainer {
 		let container = DependencyContainer()
@@ -105,6 +111,7 @@ final class DevPreview {
 		container.register(RoomTaskManager.self, service: roomTaskManager)
 		container.register(CompletedTaskManager.self, service: completedTaskManager)
 		container.register(SkippedTaskManager.self, service: skippedTaskManager)
+		container.register(OnboardingState.self, service: onboardingState)
 		return container
 	}
 
@@ -124,5 +131,6 @@ final class DevPreview {
 		skippedTaskManager = SkippedTaskManager(
 			repository: MockSkippedTaskRepository()
 		)
+		onboardingState = OnboardingState(showOnboarding: true)
 	}
 }
