@@ -5,6 +5,21 @@ import SwiftUI
 
 @MainActor
 struct OnbWelcomeView: View {
+	// MARK: - Constants
+
+	private enum Constants {
+		static let heroCircleSize: CGFloat = 120
+		static let heroCircleOpacity: CGFloat = 0.12
+		static let heroSymbolSize: CGFloat = 52
+		static let heroEntryScale: CGFloat = 0.6
+		static let titleEntryOffset: CGFloat = 12
+		static let subtitleEntryOffset: CGFloat = 8
+		static let featuresSectionEntryOffset: CGFloat = 16
+		static let buttonEntryOffset: CGFloat = 12
+		static let buttonHeight: CGFloat = 45
+		static let featureSymbolWidth: CGFloat = 32
+	}
+
 	// MARK: - Properties
 
 	@State var presenter: OnbWelcomePresenter
@@ -33,13 +48,13 @@ struct OnbWelcomeView: View {
 		VStack(spacing: FKSpacing.medium) {
 			ZStack {
 				Circle()
-					.fill(Color.accentColor.opacity(0.12))
-					.frame(width: 120, height: 120)
+					.fill(Color.accentColor.opacity(Constants.heroCircleOpacity))
+					.frame(width: Constants.heroCircleSize, height: Constants.heroCircleSize)
 				Image(systemName: "sparkles")
-					.font(.system(size: 52, weight: .light))
+					.font(.system(size: Constants.heroSymbolSize, weight: .light))
 					.foregroundStyle(Color.accentColor)
 			}
-			.scaleEffect(presenter.heroVisible ? 1 : 0.6)
+			.scaleEffect(presenter.heroVisible ? 1 : Constants.heroEntryScale)
 			.opacity(presenter.heroVisible ? 1 : 0)
 
 			VStack(spacing: FKSpacing.small) {
@@ -51,7 +66,7 @@ struct OnbWelcomeView: View {
 					.foregroundStyle(Color.accentColor)
 			}
 			.opacity(presenter.titleVisible ? 1 : 0)
-			.offset(y: presenter.titleVisible ? 0 : 12)
+			.offset(y: presenter.titleVisible ? 0 : Constants.titleEntryOffset)
 
 			Text("A structured weekly plan so you always\nknow what to clean today — nothing more.")
 				.font(FKTypography.secondaryLabel)
@@ -59,7 +74,7 @@ struct OnbWelcomeView: View {
 				.multilineTextAlignment(.center)
 				.padding(.horizontal, FKSpacing.extraLarge)
 				.opacity(presenter.titleVisible ? 1 : 0)
-				.offset(y: presenter.titleVisible ? 0 : 8)
+				.offset(y: presenter.titleVisible ? 0 : Constants.subtitleEntryOffset)
 		}
 	}
 
@@ -90,7 +105,7 @@ struct OnbWelcomeView: View {
 		}
 		.padding(.horizontal, FKSpacing.large)
 		.opacity(presenter.featuresVisible ? 1 : 0)
-		.offset(y: presenter.featuresVisible ? 0 : 16)
+		.offset(y: presenter.featuresVisible ? 0 : Constants.featuresSectionEntryOffset)
 	}
 
 	// MARK: - Get Started Button
@@ -103,11 +118,11 @@ struct OnbWelcomeView: View {
 				.font(FKTypography.ctaLabel)
 				.foregroundStyle(.white)
 				.frame(maxWidth: .infinity)
-				.frame(height: 45)
+				.frame(height: Constants.buttonHeight)
 		}
 		.buttonStyle(.glassProminent)
 		.opacity(presenter.buttonVisible ? 1 : 0)
-		.offset(y: presenter.buttonVisible ? 0 : 12)
+		.offset(y: presenter.buttonVisible ? 0 : Constants.buttonEntryOffset)
 	}
 
 	// MARK: - Methods
@@ -119,7 +134,7 @@ struct OnbWelcomeView: View {
 				.font(FKTypography.sectionHeader)
 				.fontWeight(.regular)
 				.foregroundStyle(Color.accentColor)
-				.frame(width: 32)
+				.frame(width: Constants.featureSymbolWidth)
 			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
 				Text(title)
 					.font(FKTypography.bodyBold)
