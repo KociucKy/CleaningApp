@@ -71,7 +71,7 @@ struct OnbRoomSelectionView: View {
 							options: .nonRepeating,
 							isActive: isSelected
 						)
-					Text(room.rawValue.capitalized)
+					Text(room.rawValue)
 						.font(FKTypography.secondaryLabel)
 						.multilineTextAlignment(.center)
 						.bold(isSelected)
