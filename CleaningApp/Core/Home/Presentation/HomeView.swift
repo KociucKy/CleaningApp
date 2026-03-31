@@ -9,7 +9,7 @@ struct HomeView: View {
 	// MARK: - Body
 
 	var body: some View {
-		Text(String(format: String(localized: "home.rooms_count"), presenter.rooms.count))
+		Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
 			.navigationTitle("home.nav_title")
 			.onAppear(perform: presenter.fetchAllRooms)
 			.toolbar {
