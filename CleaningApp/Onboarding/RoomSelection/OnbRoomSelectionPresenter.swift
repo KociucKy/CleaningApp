@@ -1,5 +1,4 @@
 import Foundation
-import FulhamKit
 
 @Observable
 @MainActor
@@ -40,6 +39,5 @@ final class OnbRoomSelectionPresenter {
 		} else {
 			selectedRooms.insert(room)
 		}
-		FKHaptics.selection()
 	}
 }

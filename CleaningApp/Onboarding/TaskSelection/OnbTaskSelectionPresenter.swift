@@ -4,7 +4,7 @@ import Foundation
 @MainActor
 final class OnbTaskSelectionPresenter {
 	// MARK: - Properties
-	
+
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
 

@@ -8,16 +8,10 @@ struct OnbWelcomeView: View {
 	// MARK: - Constants
 
 	private enum Constants {
-		static let heroCircleSize: CGFloat = 120
-		static let lightHeroCircleOpacity: CGFloat = 0.12
-		static let darkHeroCircleOpacity: CGFloat = 0.2
-		static let heroSymbolSize: CGFloat = 52
-		static let heroEntryScale: CGFloat = 0.6
 		static let titleEntryOffset: CGFloat = 12
 		static let subtitleEntryOffset: CGFloat = 8
 		static let featuresSectionEntryOffset: CGFloat = 16
 		static let buttonHeight: CGFloat = 45
-		static let featureSymbolWidth: CGFloat = 32
 	}
 
 	// MARK: - Properties
@@ -47,19 +41,10 @@ struct OnbWelcomeView: View {
 
 	private var heroSection: some View {
 		VStack(spacing: FKSpacing.medium) {
-			ZStack {
-				Circle()
-					.fill(
-						Color.accentColor.opacity(colorScheme == .light ? Constants.lightHeroCircleOpacity : Constants.darkHeroCircleOpacity)
-					)
-					.frame(width: Constants.heroCircleSize, height: Constants.heroCircleSize)
-				Image(systemName: "sparkles")
-					.font(.system(size: Constants.heroSymbolSize, weight: .light))
-					.foregroundStyle(Color.accentColor)
-			}
-			.scaleEffect(presenter.heroVisible ? 1 : Constants.heroEntryScale)
-			.opacity(presenter.heroVisible ? 1 : 0)
-
+			OnbHeroIconView(
+				systemName: "bubbles.and.sparkles.fill",
+				iconVisible: presenter.heroVisible
+			)
 			VStack(spacing: FKSpacing.small) {
 				Text("onb_welcome.hero.title_line1")
 					.font(FKTypography.statValue)
@@ -85,22 +70,22 @@ struct OnbWelcomeView: View {
 
 	private var featuresSection: some View {
 		VStack(spacing: FKSpacing.medium) {
-			featureRow(
+			OnbLabelRowView(
 				symbol: "calendar.badge.checkmark",
 				title: "onb_welcome.feature.daily_plan.title",
 				description: "onb_welcome.feature.daily_plan.description"
 			)
-			featureRow(
+			OnbLabelRowView(
 				symbol: "clock",
 				title: "onb_welcome.feature.time_estimates.title",
 				description: "onb_welcome.feature.time_estimates.description"
 			)
-			featureRow(
+			OnbLabelRowView(
 				symbol: "chart.bar.fill",
 				title: "onb_welcome.feature.balanced_weeks.title",
 				description: "onb_welcome.feature.balanced_weeks.description"
 			)
-			featureRow(
+			OnbLabelRowView(
 				symbol: "flame.fill",
 				title: "onb_welcome.feature.streaks.title",
 				description: "onb_welcome.feature.streaks.description"
@@ -126,28 +111,6 @@ struct OnbWelcomeView: View {
 		}
 		.buttonStyle(.glassProminent)
 	}
-
-	// MARK: - Methods
-
-	@ViewBuilder
-	private func featureRow(symbol: String, title: LocalizedStringKey, description: LocalizedStringKey) -> some View {
-		HStack(spacing: FKSpacing.large) {
-			Image(systemName: symbol)
-				.font(FKTypography.sectionHeader)
-				.fontWeight(.regular)
-				.foregroundStyle(Color.accentColor)
-				.frame(width: Constants.featureSymbolWidth)
-			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
-				Text(title)
-					.font(FKTypography.bodyBold)
-					.foregroundStyle(FKColor.Label.primary)
-				Text(description)
-					.font(FKTypography.caption)
-					.foregroundStyle(FKColor.Label.secondary)
-			}
-			Spacer()
-		}
-	}
 }
 
 // MARK: - Preview
@@ -156,7 +119,7 @@ struct OnbWelcomeView: View {
 	let container = DevPreview.shared.container
 	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: container))
 
-	RouterView { router in
+	RouterView { _ in
 		builder.welcomeView()
 	}
 }

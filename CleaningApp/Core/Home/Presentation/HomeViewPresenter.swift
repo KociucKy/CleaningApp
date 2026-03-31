@@ -29,8 +29,6 @@ final class HomeViewPresenter {
 	func fetchAllRooms() {
 		do {
 			rooms = try interactor.fetchAllRooms()
-		} catch {
-			
-		}
+		} catch {}
 	}
 }
