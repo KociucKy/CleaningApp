@@ -15,7 +15,6 @@ struct OnbNotificationView: View {
 
 	// MARK: - Properties
 
-	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: OnbNotificationPresenter
 
 	// MARK: - Body
