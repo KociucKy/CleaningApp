@@ -14,19 +14,19 @@ extension RoomEntity {
 			RoomEntity(
 				id: mockId,
 				name: "Living Room",
-				icon: "livingRoom",
+				icon: "Living Room",
 				createdAt: .mock
 			),
 			RoomEntity(
 				id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
 				name: "Kitchen",
-				icon: "kitchen",
+				icon: "Kitchen",
 				createdAt: .mock
 			),
 			RoomEntity(
 				id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!,
 				name: "Bedroom",
-				icon: "bedroom",
+				icon: "Bedroom",
 				createdAt: .mock
 			),
 		]

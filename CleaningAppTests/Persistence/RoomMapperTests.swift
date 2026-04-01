@@ -24,7 +24,7 @@ struct RoomMapperTests {
 		let entity = RoomEntity(
 			id: UUID(),
 			name: "Kitchen",
-			icon: "kitchen",
+			icon: "Kitchen",
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)

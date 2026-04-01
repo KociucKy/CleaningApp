@@ -429,6 +429,23 @@
         }
       }
     },
+    "onb_task_selection.nav_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select tasks"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz zadania"
+          }
+        }
+      }
+    },
     "onb_welcome.cta" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -720,9 +737,6 @@
           }
         }
       }
-    },
-    "Task Selection View" : {
-
     }
   },
   "version" : "1.0"
