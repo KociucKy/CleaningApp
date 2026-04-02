@@ -16,25 +16,38 @@ struct OnbTaskSelectionView: View {
 	// MARK: - Body
 
 	var body: some View {
-		List(presenter.selectedRooms) { room in
-			roomSection(room)
+		ScrollView {
+			LazyVStack(spacing: FKSpacing.medium) {
+				ForEach(Array(presenter.selectedRooms.enumerated()), id: \.element) { index, room in
+					roomSection(room, index: index)
+				}
+			}
+			.padding(.horizontal, FKSpacing.large)
+			.padding(.top, FKSpacing.large)
 		}
+		.background(FKColor.Background.primary)
 		.navigationTitle("onb_task_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
+				.opacity(presenter.buttonVisible ? 1 : 0)
+				.offset(y: presenter.buttonVisible ? 0 : 16)
 		}
+		.onAppear(perform: presenter.animateEntrance)
 	}
 
 	// MARK: - SubViews
 
-	private func roomSection(_ room: RoomType) -> some View {
+	private func roomSection(_ room: RoomType, index: Int) -> some View {
 		let isCollapsed = collapsedRooms.contains(room)
-		return Section {
+		let isVisible = index < presenter.visibleSectionCount
+		return VStack(spacing: 0) {
+			roomSectionHeader(room, isCollapsed: isCollapsed)
 			if !isCollapsed {
 				let tasks = presenter.suggestedTasks(for: room)
 				let lastTaskId = tasks.last?.id
 				VStack(spacing: FKSpacing.medium) {
+					Divider()
 					ForEach(tasks) { task in
 						taskRow(task, room: room)
 						if task.id != lastTaskId {
@@ -42,13 +55,16 @@ struct OnbTaskSelectionView: View {
 						}
 					}
 				}
+				.padding(.top, FKSpacing.small)
 				.transition(
 					.opacity.combined(with: .scale(scale: 0.96, anchor: .top))
 				)
 			}
-		} header: {
-			roomSectionHeader(room, isCollapsed: isCollapsed)
 		}
+		.padding(FKSpacing.medium)
+		.background(FKColor.Background.canvas, in: RoundedRectangle(cornerRadius: FKRadius.medium))
+		.opacity(isVisible ? 1 : 0)
+		.offset(y: isVisible ? 0 : 20)
 	}
 
 	private func roomSectionHeader(_ room: RoomType, isCollapsed: Bool) -> some View {

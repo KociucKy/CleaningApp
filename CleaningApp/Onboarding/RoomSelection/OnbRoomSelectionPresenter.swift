@@ -12,6 +12,7 @@ final class OnbRoomSelectionPresenter {
 
 	var visibleCellCount = 0
 	private var entranceAnimationIndex = 0
+	var buttonVisible = false
 
 	var selectedRooms: [RoomType] {
 		interactor.selectedRooms
@@ -46,6 +47,9 @@ final class OnbRoomSelectionPresenter {
 			entranceAnimationIndex += 1
 			if entranceAnimationIndex >= count {
 				timer.invalidate()
+				withAnimation(.easeOut(duration: 0.35)) {
+					buttonVisible = true
+				}
 			}
 		}
 	}

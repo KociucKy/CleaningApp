@@ -31,6 +31,8 @@ struct OnbNotificationView: View {
 		.safeAreaInset(edge: .bottom) {
 			bottomBar
 				.padding(.horizontal, FKSpacing.large)
+				.opacity(presenter.buttonVisible ? 1 : 0)
+				.offset(y: presenter.buttonVisible ? 0 : 16)
 		}
 		.onAppear(perform: presenter.animateEntrance)
 	}

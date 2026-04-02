@@ -1,5 +1,5 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct OnbControlButtonsView: View {
 	let buttonLabel: LocalizedStringKey
@@ -7,7 +7,7 @@ struct OnbControlButtonsView: View {
 	var isPrimaryButtonDisabled = false
 	let primaryAction: () -> Void
 	var skipAction: (() -> Void)?
-	
+
 	var body: some View {
 		VStack(spacing: FKSpacing.medium) {
 			Button {
@@ -23,7 +23,7 @@ struct OnbControlButtonsView: View {
 			.buttonStyle(.glassProminent)
 			.padding([.horizontal, .top], FKSpacing.large)
 			.disabled(isPrimaryButtonDisabled)
-			if let skipAction = skipAction, showSkipButton {
+			if let skipAction, showSkipButton {
 				Button("common.action.skip", action: skipAction)
 					.font(FKTypography.secondaryLabel)
 					.foregroundStyle(FKColor.Label.secondary)

@@ -32,6 +32,8 @@ struct OnbRoomSelectionView: View {
 		}
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
+				.opacity(presenter.buttonVisible ? 1 : 0)
+				.offset(y: presenter.buttonVisible ? 0 : 16)
 		}
 		.onAppear {
 			presenter.animateEntrance()

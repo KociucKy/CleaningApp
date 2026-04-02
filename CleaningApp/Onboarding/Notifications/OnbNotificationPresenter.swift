@@ -11,6 +11,7 @@ final class OnbNotificationPresenter {
 	var iconVisible = false
 	var titleVisible = false
 	var benefitsVisible = false
+	var buttonVisible = false
 	var isRequestingPermission = false
 
 	private let interactor: OnboardingInteractor
@@ -40,6 +41,9 @@ final class OnbNotificationPresenter {
 		}
 		withAnimation(.easeOut(duration: 0.4).delay(0.55)) {
 			benefitsVisible = true
+		}
+		withAnimation(.easeOut(duration: 0.35).delay(0.75)) {
+			buttonVisible = true
 		}
 	}
 
