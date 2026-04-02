@@ -16,7 +16,7 @@ struct HomeView: View {
 		.navigationTitle("home.nav_title")
 		.navigationBarTitleDisplayMode(.large)
 		.onAppear(perform: presenter.fetchAllRooms)
-		.onChange(of: presenter.onboardingCompletionToken) {
+		.onChange(of: presenter.onboardingCompletionToken) { _, _ in
 			presenter.fetchAllRooms()
 		}
 		.toolbar {
