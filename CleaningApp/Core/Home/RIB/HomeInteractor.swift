@@ -6,6 +6,7 @@ import NavigationKit
 @MainActor
 protocol HomeInteractor {
 	func fetchAllRooms() throws -> [Room]
+	func fetchAllRoomTasks() throws -> [RoomTask]
 }
 
 extension CoreInteractor: HomeInteractor {}

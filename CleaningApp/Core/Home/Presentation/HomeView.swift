@@ -9,7 +9,10 @@ struct HomeView: View {
 	// MARK: - Body
 
 	var body: some View {
-		Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
+		VStack {
+			Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
+			Text("Tasks: \(presenter.tasks.count)")
+		}
 			.navigationTitle("home.nav_title")
 			.navigationBarTitleDisplayMode(.large)
 			.onAppear(perform: presenter.fetchAllRooms)
