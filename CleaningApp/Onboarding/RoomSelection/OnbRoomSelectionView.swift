@@ -24,7 +24,7 @@ struct OnbRoomSelectionView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
 		.toolbar {
-			if presenter.selectedRooms.isNotEmpty {
+			if presenter.hasSelection {
 				ToolbarItem(placement: .topBarLeading) {
 					Button("common.action.clear", action: presenter.onClearButtonPressed)
 				}
@@ -51,7 +51,7 @@ struct OnbRoomSelectionView: View {
 			}
 			.buttonStyle(.glassProminent)
 			.padding([.horizontal, .top], FKSpacing.large)
-			.disabled(presenter.selectedRooms.isEmpty)
+			.disabled(!presenter.hasSelection)
 			Button("common.action.skip", action: presenter.onSkipButtonPressed)
 				.font(FKTypography.secondaryLabel)
 				.foregroundStyle(FKColor.Label.secondary)
@@ -60,7 +60,7 @@ struct OnbRoomSelectionView: View {
 
 	@ViewBuilder
 	private func roomCell(_ room: RoomIcon) -> some View {
-		let isSelected = presenter.selectedRooms.contains(room)
+		let isSelected = presenter.isRoomSelected(room)
 		Button {
 			FKHaptics.selection()
 			presenter.onRoomCardViewPressed(room: room)

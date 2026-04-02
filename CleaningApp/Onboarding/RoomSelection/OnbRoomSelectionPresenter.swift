@@ -1,13 +1,22 @@
 import Foundation
 
+// MARK: - OnbRoomSelectionPresenter
+
 @Observable
 @MainActor
 final class OnbRoomSelectionPresenter {
 	// MARK: - Properties
 
-	var selectedRooms: Set<RoomIcon> = []
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
+
+	var selectedRooms: [RoomIcon] {
+		interactor.selectedRooms
+	}
+
+	var hasSelection: Bool {
+		!interactor.selectedRooms.isEmpty
+	}
 
 	// MARK: - Init
 
@@ -26,18 +35,18 @@ final class OnbRoomSelectionPresenter {
 	}
 
 	func onSkipButtonPressed() {
-		router.showOnboardingCompletedView()
+		router.showOnboardingNotificationView()
 	}
 
 	func onClearButtonPressed() {
-		selectedRooms = []
+		interactor.clearRooms()
 	}
 
 	func onRoomCardViewPressed(room: RoomIcon) {
-		if selectedRooms.contains(room) {
-			selectedRooms.remove(room)
-		} else {
-			selectedRooms.insert(room)
-		}
+		interactor.toggleRoom(room)
+	}
+
+	func isRoomSelected(_ room: RoomIcon) -> Bool {
+		interactor.isRoomSelected(room)
 	}
 }
