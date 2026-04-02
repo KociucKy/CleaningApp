@@ -44,6 +44,10 @@ final class OnbTaskSelectionPresenter {
 		interactor.isTaskSelected(task, for: room)
 	}
 
+	func selectedTaskCount(for room: RoomType) -> Int {
+		interactor.selectedTasks(for: room).count
+	}
+
 	func onTaskRowPressed(_ task: RoomTask, for room: RoomType) {
 		interactor.toggleTask(task, for: room)
 	}

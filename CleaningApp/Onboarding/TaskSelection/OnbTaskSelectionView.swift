@@ -11,6 +11,7 @@ struct OnbTaskSelectionView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbTaskSelectionPresenter
+	@State private var collapsedRooms: Set<RoomType> = []
 
 	// MARK: - Body
 
@@ -28,32 +29,68 @@ struct OnbTaskSelectionView: View {
 	// MARK: - SubViews
 
 	private func roomSection(_ room: RoomType) -> some View {
-		Section {
-			let tasks = presenter.suggestedTasks(for: room)
-			VStack(spacing: FKSpacing.medium) {
-				ForEach(tasks) { task in
-					taskRow(task, room: room)
-					if task.id != tasks.last?.id {
-						Divider()
+		let isCollapsed = collapsedRooms.contains(room)
+		return Section {
+			if !isCollapsed {
+				let tasks = presenter.suggestedTasks(for: room)
+				VStack(spacing: FKSpacing.medium) {
+					ForEach(tasks) { task in
+						taskRow(task, room: room)
+						if task.id != tasks.last?.id {
+							Divider()
+						}
 					}
 				}
+				.transition(
+					.opacity.combined(with: .scale(scale: 0.96, anchor: .top))
+				)
 			}
 		} header: {
-			roomSectionHeader(room)
+			roomSectionHeader(room, isCollapsed: isCollapsed)
 		}
 	}
 
-	private func roomSectionHeader(_ room: RoomType) -> some View {
-		HStack(spacing: FKSpacing.small) {
-			Image(systemName: room.symbolName)
-				.font(FKTypography.bodyBold)
-				.foregroundStyle(Color.accentColor)
-			Text(room.rawValue)
-				.font(FKTypography.bodyBold)
-				.foregroundStyle(FKColor.Label.primary)
-			Spacer()
+	private func roomSectionHeader(_ room: RoomType, isCollapsed: Bool) -> some View {
+		Button {
+			FKHaptics.selection()
+			withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+				if isCollapsed {
+					collapsedRooms.remove(room)
+				} else {
+					collapsedRooms.insert(room)
+				}
+			}
+		} label: {
+			HStack(spacing: FKSpacing.small) {
+				Image(systemName: room.symbolName)
+					.font(FKTypography.bodyBold)
+					.foregroundStyle(Color.accentColor)
+				Text(room.rawValue)
+					.font(FKTypography.bodyBold)
+					.foregroundStyle(FKColor.Label.primary)
+				Spacer()
+				if isCollapsed {
+					let count = presenter.selectedTaskCount(for: room)
+					Text(
+						String.localizedStringWithFormat(
+							String(localized: "onb_task_selection.selected_tasks_count"),
+							Int64(count)
+						)
+					)
+					.font(FKTypography.caption)
+					.foregroundStyle(FKColor.Label.secondary)
+					.transition(.opacity.combined(with: .scale(scale: 0.9)))
+				}
+				Image(systemName: "chevron.down")
+					.font(FKTypography.caption)
+					.foregroundStyle(FKColor.Label.secondary)
+					.rotationEffect(.degrees(isCollapsed ? -90 : 0))
+					.animation(.spring(response: 0.35, dampingFraction: 0.8), value: isCollapsed)
+			}
+			.padding(.vertical, FKSpacing.small)
+			.contentShape(.rect)
 		}
-		.padding(.vertical, FKSpacing.small)
+		.buttonStyle(.plain)
 	}
 
 	private func taskRow(_ task: RoomTask, room: RoomType) -> some View {
