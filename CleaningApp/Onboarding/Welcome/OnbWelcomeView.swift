@@ -99,17 +99,10 @@ struct OnbWelcomeView: View {
 	// MARK: - Get Started Button
 
 	private var getStartedButton: some View {
-		Button {
-			FKHaptics.impact(.medium)
-			presenter.onGetStartedPressed()
-		} label: {
-			Text("onb_welcome.cta")
-				.font(FKTypography.ctaLabel)
-				.foregroundStyle(.white)
-				.frame(maxWidth: .infinity)
-				.frame(height: Constants.buttonHeight)
-		}
-		.buttonStyle(.glassProminent)
+		OnbControlButtonsView(
+			buttonLabel: "onb_welcome.cta",
+			primaryAction: presenter.onGetStartedPressed
+		)
 	}
 }
 

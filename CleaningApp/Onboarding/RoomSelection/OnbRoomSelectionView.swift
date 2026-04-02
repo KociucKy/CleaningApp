@@ -41,24 +41,13 @@ struct OnbRoomSelectionView: View {
 	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
-		VStack(spacing: FKSpacing.medium) {
-			Button {
-				FKHaptics.impact(.medium)
-				presenter.onNextButtonPressed()
-			} label: {
-				Text("common.action.next")
-					.font(FKTypography.ctaLabel)
-					.foregroundStyle(.white)
-					.frame(maxWidth: .infinity)
-					.frame(height: 50)
-			}
-			.buttonStyle(.glassProminent)
-			.padding([.horizontal, .top], FKSpacing.large)
-			.disabled(!presenter.hasSelection)
-			Button("common.action.skip", action: presenter.onSkipButtonPressed)
-				.font(FKTypography.secondaryLabel)
-				.foregroundStyle(FKColor.Label.secondary)
-		}
+		OnbControlButtonsView(
+			buttonLabel: "common.action.next",
+			showSkipButton: true,
+			isPrimaryButtonDisabled: !presenter.hasSelection,
+			primaryAction: presenter.onNextButtonPressed,
+			skipAction: presenter.onSkipButtonPressed
+		)
 	}
 
 	@ViewBuilder
