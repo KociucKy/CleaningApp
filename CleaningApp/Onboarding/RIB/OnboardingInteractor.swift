@@ -56,6 +56,14 @@ struct OnboardingInteractor {
 		flowState.selectedTasks[room] ?? []
 	}
 
+	var selectedRoomsCount: Int {
+		flowState.selectedRooms.count
+	}
+
+	var selectedTasksCount: Int {
+		flowState.selectedTasks.values.reduce(0) { $0 + $1.count }
+	}
+
 	// MARK: - Persistence
 
 	/// Saves all selected rooms and their tasks to SwiftData, then marks
