@@ -5,7 +5,7 @@ struct RoomMapper {
 		Room(
 			id: entity.id,
 			name: entity.name,
-			icon: RoomIcon(rawValue: entity.icon) ?? .custom,
+			kind: RoomType(rawValue: entity.icon) ?? .custom,
 			createdAt: entity.createdAt
 		)
 	}
@@ -14,7 +14,7 @@ struct RoomMapper {
 		RoomEntity(
 			id: domain.id,
 			name: domain.name,
-			icon: domain.icon.rawValue,
+			icon: domain.kind.rawValue,
 			createdAt: domain.createdAt
 		)
 	}

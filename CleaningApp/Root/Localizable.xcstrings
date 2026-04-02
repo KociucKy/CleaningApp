@@ -429,6 +429,76 @@
         }
       }
     },
+    "onb_task_selection.nav_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select tasks"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz zadania"
+          }
+        }
+      }
+    },
+    "onb_task_selection.selected_tasks_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld task selected"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tasks selected"
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld zadanie wybrane"
+                }
+              },
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld zadania wybrane"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld zadań wybranych"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld zadania wybrane"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "onb_welcome.cta" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -720,9 +790,6 @@
           }
         }
       }
-    },
-    "Task Selection View" : {
-
     }
   },
   "version" : "1.0"

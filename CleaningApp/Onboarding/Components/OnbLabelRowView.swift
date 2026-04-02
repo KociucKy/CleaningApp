@@ -16,6 +16,7 @@ struct OnbLabelRowView: View {
 				.font(FKTypography.sectionHeader)
 				.fontWeight(.regular)
 				.foregroundStyle(Color.accentColor)
+				.symbolRenderingMode(.palette)
 				.frame(width: Constants.symbolWidth)
 			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
 				Text(title)

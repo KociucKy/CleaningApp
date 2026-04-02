@@ -1,5 +1,7 @@
 import Foundation
 
+// MARK: - OnbTaskSelectionPresenter
+
 @Observable
 @MainActor
 final class OnbTaskSelectionPresenter {
@@ -7,6 +9,10 @@ final class OnbTaskSelectionPresenter {
 
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
+
+	var selectedRooms: [RoomType] {
+		interactor.selectedRooms
+	}
 
 	// MARK: - Init
 
@@ -18,7 +24,31 @@ final class OnbTaskSelectionPresenter {
 		self.router = router
 	}
 
+	// MARK: - Actions
+
 	func onNextButtonPressed() {
 		router.showOnboardingNotificationView()
+	}
+
+	func onSkipButtonPressed() {
+		router.showOnboardingNotificationView()
+	}
+
+	// MARK: - Methods
+
+	func suggestedTasks(for room: RoomType) -> [RoomTask] {
+		interactor.suggestedTasks(for: room)
+	}
+
+	func isTaskSelected(_ task: RoomTask, for room: RoomType) -> Bool {
+		interactor.isTaskSelected(task, for: room)
+	}
+
+	func selectedTaskCount(for room: RoomType) -> Int {
+		interactor.selectedTasks(for: room).count
+	}
+
+	func onTaskRowPressed(_ task: RoomTask, for room: RoomType) {
+		interactor.toggleTask(task, for: room)
 	}
 }

@@ -3,19 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D69DE434EC1AC78114225DB /* RoomRepository.swift */; };
 		03C9F87F67A8344A95F0A667 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAF75EB0EA1F15F9069C0DFD /* NavigationKit */; };
 		06478080EBDB7AE9B66F24CD /* CompletedTask+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */; };
+		07A42F5D1C458C48C22E4658 /* OnbLabelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */; };
 		0E6A959ED97732DB1B17158F /* CompletedTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183D23C0C9EEF4955C9CFF81 /* CompletedTaskManagerTests.swift */; };
 		0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE4C15493B2B8E405BBD5DA4 /* RoomTaskEntity+Mock.swift */; };
+		189272202A59928D54E6C5CA /* OnbHeroIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB867D6283A05A88FE3F082 /* OnbHeroIconView.swift */; };
+		191A338092B50EA8AC5FE1A5 /* RoomType+SuggestedTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC81A8C2F7665AF3CAA8A3AE /* RoomType+SuggestedTasks.swift */; };
 		1D97EC665660AFA851BBA56C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36804C9A9E2645C5D4A1FE98 /* Room.swift */; };
 		21C1BB28AFF5DE48DA36AE20 /* FulhamKit in Frameworks */ = {isa = PBXBuildFile; productRef = 125EFD511D0A1D887E4567A1 /* FulhamKit */; };
 		238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09733DEB16715CB8DBC6098 /* HomeRouter.swift */; };
 		25491FD14B4A6F667DBBEC16 /* DevSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D83865EC65889C8B49CF196 /* DevSettingsPresenter.swift */; };
+		26C0F12C4CDF6C8FF1E11ABB /* OnbPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */; };
 		28387D997FACADC98053400E /* DevSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */; };
 		2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */; };
 		2D13E6436B82606AEC79C42D /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = B1EF4BEA6AC9CE10727551D4 /* DeviceKit */; };
@@ -24,13 +28,16 @@
 		382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD74458F72229A3BDA2080 /* SkippedTaskEntity+Mock.swift */; };
 		3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629102C8551A4E9CC65038E /* RoomEntity.swift */; };
 		3E25499452BF7E95FA91FBCF /* RoomsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECF267DAA633770548AEE70 /* RoomsInteractor.swift */; };
+		48668AC67D4AEE75279DAB5E /* OnbTaskSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */; };
 		49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 145E6F8B4B46C24198BE2F9F /* SkippedTaskEntity.swift */; };
+		4A1320385989A820848021B9 /* OnbPaywallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0F67406F1BF4472558190 /* OnbPaywallPresenter.swift */; };
 		4B0B4F9D215259B312B46DC3 /* CompletedTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E66FB96D40865EF4BB3857F /* CompletedTaskEntity.swift */; };
 		4C10BD2E8BEE3402236EE439 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA894069343CD75ADCEE6E28 /* Assets.xcassets */; };
+		4E0D6E16C2CF49BD6C4E5DBE /* OnboardingFlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6659749A775BE740EE83556A /* OnboardingFlowState.swift */; };
 		4FFEACF1DEF53F01BAB3B139 /* UtilitiesKit in Frameworks */ = {isa = PBXBuildFile; productRef = 50C35C1D0A50BF62E9B47A4D /* UtilitiesKit */; };
+		550DC677AAFFD98CB7843423 /* OnbTaskSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF40B92CCF38074D175B4EF /* OnbTaskSelectionView.swift */; };
 		55279F25D24801001992D565 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09540A2A6E9909C793768656 /* RoomManager.swift */; };
 		56011B88B335A95A59AE97DC /* SkippedTaskMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6436FDACB6DF5492119B6B52 /* SkippedTaskMapperTests.swift */; };
-		569F0568EE4D3E4F65EFB675 /* OnbWelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4046350F129E3D75E9E9E7A /* OnbWelcomePresenter.swift */; };
 		5773D60406AFB1D38BEAC261 /* FrequencyEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E9BC308754144AC38F25F1 /* FrequencyEncoderTests.swift */; };
 		5A9A6932D3BCAAA765310A22 /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C109F851D85BF8C30524F32 /* SettingsRouter.swift */; };
 		5D033838673F21DDFEAFD981 /* RoomMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C7EEAC663DF55BAAF10FBC /* RoomMapperTests.swift */; };
@@ -38,33 +45,27 @@
 		5E303E39EEC1FBD73AB1FCA5 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1279A0D9A3A7F31788C38276 /* HomeInteractor.swift */; };
 		625410DE84D0CF20F20E25B1 /* FrequencyEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B895D2F6B55966FBDCCFD8 /* FrequencyEncoder.swift */; };
 		6479FA8E05C766D75E540438 /* CompletedTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7136DD168952F121FE91E27 /* CompletedTaskMapper.swift */; };
+		64DC84D0DE1D3E689AD0071A /* OnbWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */; };
 		660D48547BDC931810ED5C5B /* RoomsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0AC0E23A9B8115A456660C /* RoomsPresenter.swift */; };
 		66A8BF445AA2908B69FE2A23 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D8476AF41A889E1E0EA066 /* Tags.swift */; };
 		66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */; };
 		69534D7AFD21A196EE86962E /* LogKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65750B7A5986D2A2D68B50C2 /* LogKit */; };
+		69F3FEC4D16414E30CA72F77 /* OnbNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FEC69AB80185DCF65F978C /* OnbNotificationView.swift */; };
 		705F9EA71A291971BF243EEE /* UserDefaultsKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = A638A932DB0BC851620820DF /* UserDefaultsKitUI */; };
 		719A3716C8C8798E37664570 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412CB179AA27D706A4C3A4A3 /* HomeView.swift */; };
 		7545DC1B6D5BA2C8F583B8D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE954167DC229FDECAA376A /* AppDelegate.swift */; };
+		75D48A415F3009BF499932A3 /* OnbNotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC155750B7014F0A41C2CBE /* OnbNotificationPresenter.swift */; };
 		7618351340E86EE3F26E8917 /* CompletedTaskMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4B641320ABE196ADACC20 /* CompletedTaskMapperTests.swift */; };
+		77C0D5902876F8474A3BC312 /* OnbWelcomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C916ABBFC3791208B79BCF65 /* OnbWelcomePresenter.swift */; };
 		79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */; };
+		84107A9C6340714D62902177 /* OnbRoomSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */; };
 		86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */; };
-		881DCECD2F7BF5E000B85022 /* OnbRoomSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCECC2F7BF5E000B85022 /* OnbRoomSelectionView.swift */; };
-		881DCECF2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCECE2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift */; };
-		881DCED32F7C028600B85022 /* OnbTaskSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED22F7C028600B85022 /* OnbTaskSelectionPresenter.swift */; };
-		881DCED52F7C02A100B85022 /* OnbTaskSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */; };
-		881DCED82F7C050900B85022 /* OnbNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED72F7C050900B85022 /* OnbNotificationView.swift */; };
-		881DCEDA2F7C055C00B85022 /* OnbNotificationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */; };
-		881DCEDE2F7C065900B85022 /* OnbPaywallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */; };
-		881DCEE02F7C067F00B85022 /* OnbPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */; };
-		881DCEE32F7C0CDA00B85022 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEE22F7C0CDA00B85022 /* UserDefaultsKeys.swift */; };
-		881DCEE62F7C412700B85022 /* OnbHeroIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEE52F7C412700B85022 /* OnbHeroIconView.swift */; };
-		881DCEE82F7C441100B85022 /* OnbLabelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881DCEE72F7C441100B85022 /* OnbLabelRowView.swift */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
 		8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */; };
 		928DE63BA7E470BE18F00E7F /* Dependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DAE0D40E06A812553C5159 /* Dependencies.swift */; };
+		94682685827112BBEBE86047 /* RoomType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF60569305F41DA586B68136 /* RoomType.swift */; };
 		9D7A5059B5AD6E3500490283 /* SkippedTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93126C7994D919E714D9C25 /* SkippedTaskManager.swift */; };
-		9DB1283F2B5875C8DA3D2017 /* RoomIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B92F3E0C05B0A7A4DE2859A /* RoomIcon.swift */; };
 		9EE46BCE1DFE31D05D7F5D86 /* CompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253ACAE1CDAA9681FB41FFC9 /* CompletedTaskRepository.swift */; };
 		9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078B1CC09D006F6B699705F3 /* MockRoomRepository.swift */; };
 		A13717E8F3F42DF8615BF890 /* SkippedTask+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55937F18BF17745177679BFE /* SkippedTask+Mock.swift */; };
@@ -88,7 +89,6 @@
 		C11EC5F388F1EB129E2619AE /* CoreInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AF2621099823CB83B58C83 /* CoreInteractor.swift */; };
 		C4B1DE558EBE6056FC179C9C /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */; };
 		C589D0BF066519D02DE035B4 /* MockCompletedTaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897E3D4639DDD283BA97D15 /* MockCompletedTaskRepositoryTests.swift */; };
-		C5B19C725AD7BC5B1C0C4260 /* OnbWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB3CAD2A2CB071FB03C8A7F9 /* OnbWelcomeView.swift */; };
 		C8634A6248FC6139588DF63E /* OnboardingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0980ED17BFFE8F6E1DCCAC /* OnboardingBuilder.swift */; };
 		CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9E29C111325DB3C5415DE8 /* DependencyContainer.swift */; };
 		D1A83954BD8F824CAEB896D6 /* ReviewKit in Frameworks */ = {isa = PBXBuildFile; productRef = DCC157BFE6E2215B638BF770 /* ReviewKit */; };
@@ -97,6 +97,7 @@
 		D51191FEAE209E4EE95EF76E /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32392E1421A41F17385F5113 /* TabBarView.swift */; };
 		D5694E4D6BEA6214883C1168 /* MockSkippedTaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */; };
 		DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB43F7A91758B963D81751 /* SkippedTaskMapper.swift */; };
+		DC02F98566436257122AF3F5 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */; };
 		E164CD2C78747647D3957F92 /* Room+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87032E920792FA6C55583745 /* Room+Mock.swift */; };
 		E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86AC4AEA1AD192DB3785306 /* RoomTask.swift */; };
 		E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980C93F8E1DFDEE582165063 /* RoomTaskManager.swift */; };
@@ -115,6 +116,7 @@
 		F7CD1C424A4859850CCD8C7D /* Date+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8BB9667E129602A1179F7 /* Date+Mock.swift */; };
 		FCF5B26D24CAA016CDC05DCE /* MockRoomRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABC8C62B23EDC507697F22 /* MockRoomRepositoryTests.swift */; };
 		FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A9C576A7C640EB96E1125 /* CoreRouter.swift */; };
+		FE317141715EFB0A57B22C11 /* OnbRoomSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */; };
 		FFE747391A6D57EA4A0660C4 /* RoomsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A859856B0C63D7A70EB6B /* RoomsRouter.swift */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +156,7 @@
 		3F0AC0E23A9B8115A456660C /* RoomsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsPresenter.swift; sourceTree = "<group>"; };
 		408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskEntity.swift; sourceTree = "<group>"; };
 		412CB179AA27D706A4C3A4A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsRouter.swift; sourceTree = "<group>"; };
 		4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		4C109F851D85BF8C30524F32 /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
@@ -167,35 +170,30 @@
 		51DB43F7A91758B963D81751 /* SkippedTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskMapper.swift; sourceTree = "<group>"; };
 		55937F18BF17745177679BFE /* SkippedTask+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkippedTask+Mock.swift"; sourceTree = "<group>"; };
 		59DAE0D40E06A812553C5159 /* Dependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependencies.swift; sourceTree = "<group>"; };
+		5AB867D6283A05A88FE3F082 /* OnbHeroIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbHeroIconView.swift; sourceTree = "<group>"; };
 		5BD5F4A7D8285B6B89C62F14 /* SkippedTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskManagerTests.swift; sourceTree = "<group>"; };
 		5E66FB96D40865EF4BB3857F /* CompletedTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskEntity.swift; sourceTree = "<group>"; };
 		6436FDACB6DF5492119B6B52 /* SkippedTaskMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskMapperTests.swift; sourceTree = "<group>"; };
+		6659749A775BE740EE83556A /* OnboardingFlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowState.swift; sourceTree = "<group>"; };
 		6D69DE434EC1AC78114225DB /* RoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRepository.swift; sourceTree = "<group>"; };
 		6F9E29C111325DB3C5415DE8 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		77F8AE788BE2C115414BB53E /* OnboardingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractor.swift; sourceTree = "<group>"; };
 		78D8476AF41A889E1E0EA066 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		79ABC8C62B23EDC507697F22 /* MockRoomRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomRepositoryTests.swift; sourceTree = "<group>"; };
-		7B92F3E0C05B0A7A4DE2859A /* RoomIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomIcon.swift; sourceTree = "<group>"; };
 		7E59399FDFF2BEACDCC6B223 /* CompletedTaskEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedTaskEntity+Mock.swift"; sourceTree = "<group>"; };
 		82AF2621099823CB83B58C83 /* CoreInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreInteractor.swift; sourceTree = "<group>"; };
+		82FEC69AB80185DCF65F978C /* OnbNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationView.swift; sourceTree = "<group>"; };
 		87032E920792FA6C55583745 /* Room+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Room+Mock.swift"; sourceTree = "<group>"; };
 		8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
-		881DCECC2F7BF5E000B85022 /* OnbRoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionView.swift; sourceTree = "<group>"; };
-		881DCECE2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
-		881DCED22F7C028600B85022 /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
-		881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionView.swift; sourceTree = "<group>"; };
-		881DCED72F7C050900B85022 /* OnbNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationView.swift; sourceTree = "<group>"; };
-		881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationPresenter.swift; sourceTree = "<group>"; };
-		881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallPresenter.swift; sourceTree = "<group>"; };
-		881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
-		881DCEE22F7C0CDA00B85022 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
-		881DCEE52F7C412700B85022 /* OnbHeroIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbHeroIconView.swift; sourceTree = "<group>"; };
-		881DCEE72F7C441100B85022 /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
+		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
+		8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
 		8D545ADCE72D97A5C1DA5951 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
 		8E4767ACD3FB04C230D7563A /* RoomTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskManagerTests.swift; sourceTree = "<group>"; };
 		939A5996CA25F9ABBE00EB05 /* AppViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewBuilder.swift; sourceTree = "<group>"; };
+		93A0F67406F1BF4472558190 /* OnbPaywallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallPresenter.swift; sourceTree = "<group>"; };
 		93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskRepository.swift; sourceTree = "<group>"; };
 		94CD74458F72229A3BDA2080 /* SkippedTaskEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SkippedTaskEntity+Mock.swift"; sourceTree = "<group>"; };
 		97C7EEAC663DF55BAAF10FBC /* RoomMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomMapperTests.swift; sourceTree = "<group>"; };
@@ -203,28 +201,34 @@
 		9956CE55B0B1AFF931AA160B /* CompletedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskManager.swift; sourceTree = "<group>"; };
 		9BE954167DC229FDECAA376A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BF4CDCFB9913569B8260D02 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionView.swift; sourceTree = "<group>"; };
 		A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepository.swift; sourceTree = "<group>"; };
-		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A4046350F129E3D75E9E9E7A /* OnbWelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomePresenter.swift; sourceTree = "<group>"; };
+		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A457688452077C69D253D2D9 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingState.swift; sourceTree = "<group>"; };
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
 		B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSkippedTaskRepositoryTests.swift; sourceTree = "<group>"; };
+		BBF40B92CCF38074D175B4EF /* OnbTaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionView.swift; sourceTree = "<group>"; };
 		BE4C15493B2B8E405BBD5DA4 /* RoomTaskEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomTaskEntity+Mock.swift"; sourceTree = "<group>"; };
 		C09733DEB16715CB8DBC6098 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		C1C2330F027287AA4ECB1B54 /* Frequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
 		C629102C8551A4E9CC65038E /* RoomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEntity.swift; sourceTree = "<group>"; };
 		C7C0C7E2AC9B4EEF84A61209 /* SkippedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTask.swift; sourceTree = "<group>"; };
+		C916ABBFC3791208B79BCF65 /* OnbWelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomePresenter.swift; sourceTree = "<group>"; };
 		CA894069343CD75ADCEE6E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CB3CAD2A2CB071FB03C8A7F9 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
+		CC81A8C2F7665AF3CAA8A3AE /* RoomType+SuggestedTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomType+SuggestedTasks.swift"; sourceTree = "<group>"; };
+		CF60569305F41DA586B68136 /* RoomType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomType.swift; sourceTree = "<group>"; };
 		D1B895D2F6B55966FBDCCFD8 /* FrequencyEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequencyEncoder.swift; sourceTree = "<group>"; };
 		D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CompletedTask+Mock.swift"; sourceTree = "<group>"; };
 		D897E3D4639DDD283BA97D15 /* MockCompletedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepositoryTests.swift; sourceTree = "<group>"; };
 		DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RoomEntity+Mock.swift"; sourceTree = "<group>"; };
 		DBFD30CCAA82A3C08CE78EB3 /* RoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskRepository.swift; sourceTree = "<group>"; };
+		DCC155750B7014F0A41C2CBE /* OnbNotificationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbNotificationPresenter.swift; sourceTree = "<group>"; };
 		DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomTaskRepository.swift; sourceTree = "<group>"; };
 		E7136DD168952F121FE91E27 /* CompletedTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskMapper.swift; sourceTree = "<group>"; };
 		E7F8BB9667E129602A1179F7 /* Date+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Mock.swift"; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F86AC4AEA1AD192DB3785306 /* RoomTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTask.swift; sourceTree = "<group>"; };
 		F93126C7994D919E714D9C25 /* SkippedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskManager.swift; sourceTree = "<group>"; };
@@ -292,14 +296,24 @@
 			path = RIB;
 			sourceTree = "<group>";
 		};
+		29FE87D4876C2488BE525953 /* RoomSelection */ = {
+			isa = PBXGroup;
+			children = (
+				888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */,
+				9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */,
+			);
+			path = RoomSelection;
+			sourceTree = "<group>";
+		};
 		3D81188EC3FB42F207B36E82 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
 				1885B56676DDC46DF719E694 /* CompletedTask.swift */,
 				C1C2330F027287AA4ECB1B54 /* Frequency.swift */,
 				36804C9A9E2645C5D4A1FE98 /* Room.swift */,
-				7B92F3E0C05B0A7A4DE2859A /* RoomIcon.swift */,
 				F86AC4AEA1AD192DB3785306 /* RoomTask.swift */,
+				CF60569305F41DA586B68136 /* RoomType.swift */,
+				CC81A8C2F7665AF3CAA8A3AE /* RoomType+SuggestedTasks.swift */,
 				C7C0C7E2AC9B4EEF84A61209 /* SkippedTask.swift */,
 				163982E8B3A67F0B83FFCA8B /* TaskDuration.swift */,
 			);
@@ -400,57 +414,13 @@
 			path = Rooms;
 			sourceTree = "<group>";
 		};
-		881DCECB2F7BF4EE00B85022 /* RoomSelection */ = {
+		86A31FF073FA26EB664BEA70 /* TaskSelection */ = {
 			isa = PBXGroup;
 			children = (
-				881DCECC2F7BF5E000B85022 /* OnbRoomSelectionView.swift */,
-				881DCECE2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift */,
-			);
-			path = RoomSelection;
-			sourceTree = "<group>";
-		};
-		881DCED12F7C027D00B85022 /* TaskSelection */ = {
-			isa = PBXGroup;
-			children = (
-				881DCED22F7C028600B85022 /* OnbTaskSelectionPresenter.swift */,
-				881DCED42F7C02A100B85022 /* OnbTaskSelectionView.swift */,
+				8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */,
+				BBF40B92CCF38074D175B4EF /* OnbTaskSelectionView.swift */,
 			);
 			path = TaskSelection;
-			sourceTree = "<group>";
-		};
-		881DCED62F7C04F800B85022 /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				881DCED72F7C050900B85022 /* OnbNotificationView.swift */,
-				881DCED92F7C055C00B85022 /* OnbNotificationPresenter.swift */,
-			);
-			path = Notifications;
-			sourceTree = "<group>";
-		};
-		881DCEDC2F7C065000B85022 /* Paywall */ = {
-			isa = PBXGroup;
-			children = (
-				881DCEDD2F7C065900B85022 /* OnbPaywallPresenter.swift */,
-				881DCEDF2F7C067F00B85022 /* OnbPaywallView.swift */,
-			);
-			path = Paywall;
-			sourceTree = "<group>";
-		};
-		881DCEE12F7C0CBD00B85022 /* UserDefaults */ = {
-			isa = PBXGroup;
-			children = (
-				881DCEE22F7C0CDA00B85022 /* UserDefaultsKeys.swift */,
-			);
-			path = UserDefaults;
-			sourceTree = "<group>";
-		};
-		881DCEE42F7C411500B85022 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				881DCEE52F7C412700B85022 /* OnbHeroIconView.swift */,
-				881DCEE72F7C441100B85022 /* OnbLabelRowView.swift */,
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
@@ -519,6 +489,15 @@
 			path = Room;
 			sourceTree = "<group>";
 		};
+		A18CF8CBE5844832D7060E79 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5AB867D6283A05A88FE3F082 /* OnbHeroIconView.swift */,
+				F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		A8FEAD0162D037CF710CE7DA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,8 +519,8 @@
 		AE3910755F3C673F9BDF91E6 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
-				A4046350F129E3D75E9E9E7A /* OnbWelcomePresenter.swift */,
-				CB3CAD2A2CB071FB03C8A7F9 /* OnbWelcomeView.swift */,
+				C916ABBFC3791208B79BCF65 /* OnbWelcomePresenter.swift */,
+				8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */,
 			);
 			path = Welcome;
 			sourceTree = "<group>";
@@ -549,16 +528,26 @@
 		B2F382377896C7139DE455BE /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				881DCEE42F7C411500B85022 /* Components */,
-				AE3910755F3C673F9BDF91E6 /* Welcome */,
-				881DCECB2F7BF4EE00B85022 /* RoomSelection */,
-				881DCED12F7C027D00B85022 /* TaskSelection */,
-				881DCED62F7C04F800B85022 /* Notifications */,
-				881DCEDC2F7C065000B85022 /* Paywall */,
+				6659749A775BE740EE83556A /* OnboardingFlowState.swift */,
 				F49241E7396E4BEA125F80A7 /* Completed */,
+				A18CF8CBE5844832D7060E79 /* Components */,
+				DA6EA52FBF83E4E9DDDCE5AA /* Notifications */,
+				B3B41FCD11609E4E160ED58D /* Paywall */,
 				64128F3AE1F464219E589A7B /* RIB */,
+				29FE87D4876C2488BE525953 /* RoomSelection */,
+				86A31FF073FA26EB664BEA70 /* TaskSelection */,
+				AE3910755F3C673F9BDF91E6 /* Welcome */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		B3B41FCD11609E4E160ED58D /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				93A0F67406F1BF4472558190 /* OnbPaywallPresenter.swift */,
+				B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */,
+			);
+			path = Paywall;
 			sourceTree = "<group>";
 		};
 		B742D65009F4DDA564FC9FBE /* TabBar */ = {
@@ -621,6 +610,23 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		D7A8A9FE137F3527D7188F6D /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		DA6EA52FBF83E4E9DDDCE5AA /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				DCC155750B7014F0A41C2CBE /* OnbNotificationPresenter.swift */,
+				82FEC69AB80185DCF65F978C /* OnbNotificationView.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
 		DCFAF6700F88C26F24746153 /* RIB */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,7 +665,7 @@
 				4012D82FFDF821FDA9DB405A /* Entities */,
 				C9566E55B39871CAA65FF050 /* Mocks */,
 				BD8938A874A7E4B4136CBF72 /* Services */,
-				881DCEE12F7C0CBD00B85022 /* UserDefaults */,
+				D7A8A9FE137F3527D7188F6D /* UserDefaults */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -697,6 +703,13 @@
 				4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		"TEMP_169719E6-FB3E-40F2-BC24-16DD0F879790" /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -786,6 +799,7 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
+			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -874,7 +888,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				881DCED52F7C02A100B85022 /* OnbTaskSelectionView.swift in Sources */,
 				7545DC1B6D5BA2C8F583B8D0 /* AppDelegate.swift in Sources */,
 				C4B1DE558EBE6056FC179C9C /* AppEntryPoint.swift in Sources */,
 				EA8868DEEA28534A4BD3AA7D /* AppViewBuilder.swift in Sources */,
@@ -890,10 +903,7 @@
 				C11EC5F388F1EB129E2619AE /* CoreInteractor.swift in Sources */,
 				FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */,
 				F7CD1C424A4859850CCD8C7D /* Date+Mock.swift in Sources */,
-				881DCEE62F7C412700B85022 /* OnbHeroIconView.swift in Sources */,
-				881DCEE02F7C067F00B85022 /* OnbPaywallView.swift in Sources */,
 				928DE63BA7E470BE18F00E7F /* Dependencies.swift in Sources */,
-				881DCED82F7C050900B85022 /* OnbNotificationView.swift in Sources */,
 				CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */,
 				A742C422242C715055B8F275 /* DevSettingsInteractor.swift in Sources */,
 				25491FD14B4A6F667DBBEC16 /* DevSettingsPresenter.swift in Sources */,
@@ -905,14 +915,26 @@
 				238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */,
 				719A3716C8C8798E37664570 /* HomeView.swift in Sources */,
 				B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */,
-				881DCECF2F7BF67E00B85022 /* OnbRoomSelectionPresenter.swift in Sources */,
 				8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */,
 				9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */,
 				79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */,
 				36A47369ED0088DF2C941642 /* MockSkippedTaskRepository.swift in Sources */,
+				189272202A59928D54E6C5CA /* OnbHeroIconView.swift in Sources */,
+				07A42F5D1C458C48C22E4658 /* OnbLabelRowView.swift in Sources */,
+				75D48A415F3009BF499932A3 /* OnbNotificationPresenter.swift in Sources */,
+				69F3FEC4D16414E30CA72F77 /* OnbNotificationView.swift in Sources */,
+				4A1320385989A820848021B9 /* OnbPaywallPresenter.swift in Sources */,
+				26C0F12C4CDF6C8FF1E11ABB /* OnbPaywallView.swift in Sources */,
+				FE317141715EFB0A57B22C11 /* OnbRoomSelectionPresenter.swift in Sources */,
+				84107A9C6340714D62902177 /* OnbRoomSelectionView.swift in Sources */,
+				48668AC67D4AEE75279DAB5E /* OnbTaskSelectionPresenter.swift in Sources */,
+				550DC677AAFFD98CB7843423 /* OnbTaskSelectionView.swift in Sources */,
+				77C0D5902876F8474A3BC312 /* OnbWelcomePresenter.swift in Sources */,
+				64DC84D0DE1D3E689AD0071A /* OnbWelcomeView.swift in Sources */,
 				C8634A6248FC6139588DF63E /* OnboardingBuilder.swift in Sources */,
 				B3BA9D3493C330DC700727B8 /* OnboardingCompletedPresenter.swift in Sources */,
 				A716F4A26BAD2184EE0D8C52 /* OnboardingCompletedView.swift in Sources */,
+				4E0D6E16C2CF49BD6C4E5DBE /* OnboardingFlowState.swift in Sources */,
 				5DBA4E7C03C3324C2275BD44 /* OnboardingInteractor.swift in Sources */,
 				F1BE66D69425DCC8F8DD848B /* OnboardingRouter.swift in Sources */,
 				D259031F274518977EC57557 /* OnboardingState.swift in Sources */,
@@ -920,22 +942,20 @@
 				1D97EC665660AFA851BBA56C /* Room.swift in Sources */,
 				66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */,
 				3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */,
-				9DB1283F2B5875C8DA3D2017 /* RoomIcon.swift in Sources */,
 				55279F25D24801001992D565 /* RoomManager.swift in Sources */,
 				A34805429F822001BC54028F /* RoomMapper.swift in Sources */,
 				036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */,
-				881DCED32F7C028600B85022 /* OnbTaskSelectionPresenter.swift in Sources */,
 				E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */,
 				E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */,
-				881DCEE32F7C0CDA00B85022 /* UserDefaultsKeys.swift in Sources */,
 				0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */,
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,
 				E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */,
 				ADFB02F71345BA9CF174B950 /* RoomTaskMapper.swift in Sources */,
 				D3361A174D0921DD7AF1FB5F /* RoomTaskRepository.swift in Sources */,
+				191A338092B50EA8AC5FE1A5 /* RoomType+SuggestedTasks.swift in Sources */,
+				94682685827112BBEBE86047 /* RoomType.swift in Sources */,
 				3E25499452BF7E95FA91FBCF /* RoomsInteractor.swift in Sources */,
 				660D48547BDC931810ED5C5B /* RoomsPresenter.swift in Sources */,
-				881DCEDA2F7C055C00B85022 /* OnbNotificationPresenter.swift in Sources */,
 				FFE747391A6D57EA4A0660C4 /* RoomsRouter.swift in Sources */,
 				89DC31823EE76FF28881636B /* RoomsView.swift in Sources */,
 				8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */,
@@ -948,14 +968,10 @@
 				49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */,
 				9D7A5059B5AD6E3500490283 /* SkippedTaskManager.swift in Sources */,
 				DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */,
-				881DCECD2F7BF5E000B85022 /* OnbRoomSelectionView.swift in Sources */,
 				86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */,
 				D51191FEAE209E4EE95EF76E /* TabBarView.swift in Sources */,
 				AFD89361F952EA57A94F3D38 /* TaskDuration.swift in Sources */,
-				569F0568EE4D3E4F65EFB675 /* OnbWelcomePresenter.swift in Sources */,
-				C5B19C725AD7BC5B1C0C4260 /* OnbWelcomeView.swift in Sources */,
-				881DCEE82F7C441100B85022 /* OnbLabelRowView.swift in Sources */,
-				881DCEDE2F7C065900B85022 /* OnbPaywallPresenter.swift in Sources */,
+				DC02F98566436257122AF3F5 /* UserDefaultsKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,7 +1074,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1123,7 +1139,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1145,10 +1161,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1171,10 +1185,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1234,7 +1246,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1274,10 +1286,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

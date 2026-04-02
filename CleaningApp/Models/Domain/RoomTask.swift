@@ -27,4 +27,10 @@ struct RoomTask: Identifiable, Equatable {
 		self.estimatedDuration = estimatedDuration
 		self.createdAt = createdAt
 	}
+
+	// MARK: - Equatable
+
+	static func == (lhs: RoomTask, rhs: RoomTask) -> Bool {
+		lhs.id == rhs.id
+	}
 }

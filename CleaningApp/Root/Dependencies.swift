@@ -23,6 +23,7 @@ struct Dependencies {
 		let completedTaskManager: CompletedTaskManager
 		let skippedTaskManager: SkippedTaskManager
 		let onboardingState: OnboardingState
+		let onboardingFlowState = OnboardingFlowState()
 		// swiftlint:disable:next force_try
 		let modelContainer = try! ModelContainer(
 			for: RoomEntity.self,
@@ -85,6 +86,7 @@ struct Dependencies {
 		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
 		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
 		dependencyContainer.register(OnboardingState.self, service: onboardingState)
+		dependencyContainer.register(OnboardingFlowState.self, service: onboardingFlowState)
 		self.dependencyContainer = dependencyContainer
 	}
 }
@@ -104,6 +106,7 @@ final class DevPreview {
 	let completedTaskManager: CompletedTaskManager
 	let skippedTaskManager: SkippedTaskManager
 	let onboardingState: OnboardingState
+	let onboardingFlowState: OnboardingFlowState
 
 	var container: DependencyContainer {
 		let container = DependencyContainer()
@@ -112,6 +115,7 @@ final class DevPreview {
 		container.register(CompletedTaskManager.self, service: completedTaskManager)
 		container.register(SkippedTaskManager.self, service: skippedTaskManager)
 		container.register(OnboardingState.self, service: onboardingState)
+		container.register(OnboardingFlowState.self, service: onboardingFlowState)
 		return container
 	}
 
@@ -132,5 +136,6 @@ final class DevPreview {
 			repository: MockSkippedTaskRepository()
 		)
 		onboardingState = OnboardingState(showOnboarding: true)
+		onboardingFlowState = OnboardingFlowState()
 	}
 }

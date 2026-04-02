@@ -1,6 +1,6 @@
 import Foundation
 
-enum RoomIcon: String, CaseIterable, Codable, Identifiable {
+enum RoomType: String, CaseIterable, Codable, Identifiable {
 	var id: Self {
 		self
 	}

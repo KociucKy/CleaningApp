@@ -2,7 +2,7 @@ name: CleaningApp
 options:
   bundleIdPrefix: com.jakubkociucki
   deploymentTarget:
-    iOS: "18.0"
+    iOS: "26.0"
   xcodeVersion: "16.0"
   swiftVersion: "6.0"
 packages:
@@ -32,7 +32,7 @@ targets:
     type: application
     platform: iOS
     deploymentTarget:
-      iOS: "18.0"
+      iOS: "26.0"
     sources:
       - path: CleaningApp
     resources:
@@ -111,7 +111,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget:
-      iOS: "18.0"
+      iOS: "26.0"
     sources:
       - path: CleaningAppTests
     dependencies:
