@@ -5,6 +5,7 @@ import NavigationKit
 
 @MainActor
 protocol HomeInteractor {
+	var onboardingCompletionToken: Int { get }
 	func fetchAllRooms() throws -> [Room]
 	func fetchAllRoomTasks() throws -> [RoomTask]
 }

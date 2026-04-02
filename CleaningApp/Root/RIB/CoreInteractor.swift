@@ -10,6 +10,11 @@ struct CoreInteractor {
 	private let roomTaskManager: RoomTaskManager
 	private let completedTaskManager: CompletedTaskManager
 	private let skippedTaskManager: SkippedTaskManager
+	private let onboardingState: OnboardingState
+
+	var onboardingCompletionToken: Int {
+		onboardingState.completionToken
+	}
 
 	// MARK: - Init
 
@@ -18,6 +23,7 @@ struct CoreInteractor {
 		roomTaskManager = container.resolve(RoomTaskManager.self)!
 		completedTaskManager = container.resolve(CompletedTaskManager.self)!
 		skippedTaskManager = container.resolve(SkippedTaskManager.self)!
+		onboardingState = container.resolve(OnboardingState.self)!
 	}
 
 	// MARK: - Room Manager

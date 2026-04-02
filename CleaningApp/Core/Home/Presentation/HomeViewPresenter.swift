@@ -12,6 +12,10 @@ final class HomeViewPresenter {
 	private let interactor: any HomeInteractor
 	private let router: any HomeRouter
 
+	var onboardingCompletionToken: Int {
+		interactor.onboardingCompletionToken
+	}
+
 	// MARK: - Init
 
 	init(interactor: any HomeInteractor, router: any HomeRouter) {

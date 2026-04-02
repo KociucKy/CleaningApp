@@ -13,6 +13,8 @@ final class OnboardingState {
 		}
 	}
 
+	private(set) var completionToken = 0
+
 	// MARK: - Init
 
 	init(showOnboarding: Bool = UserDefaultsStore.standard.get(.showOnboarding)) {
@@ -23,5 +25,8 @@ final class OnboardingState {
 
 	func updateViewState(showOnboarding: Bool) {
 		self.showOnboarding = showOnboarding
+		if !showOnboarding {
+			completionToken += 1
+		}
 	}
 }
