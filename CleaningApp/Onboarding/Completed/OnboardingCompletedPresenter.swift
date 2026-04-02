@@ -20,6 +20,6 @@ final class OnboardingCompletedPresenter {
 	// MARK: - Actions
 
 	func onFinishButtonPressed() {
-		interactor.completeOnboarding()
+		interactor.saveAndCompleteOnboarding()
 	}
 }
