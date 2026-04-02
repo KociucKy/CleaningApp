@@ -2,6 +2,12 @@ import FulhamKit
 import SwiftUI
 
 struct OnbTaskSelectionView: View {
+	// MARK: - Constants
+
+	private enum Constants {
+		static let unselectedTaskRowOpacity: CGFloat = 0.3
+	}
+
 	// MARK: - Properties
 
 	@State var presenter: OnbTaskSelectionPresenter
@@ -65,6 +71,7 @@ struct OnbTaskSelectionView: View {
 						.font(FKTypography.caption)
 						.foregroundStyle(FKColor.Label.secondary)
 				}
+				.opacity(isSelected ? 1 : Constants.unselectedTaskRowOpacity)
 				Spacer()
 				Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
 					.font(FKTypography.sectionHeader)
