@@ -27,13 +27,14 @@ struct OnbTaskSelectionView: View {
 	private func roomSection(_ room: RoomType) -> some View {
 		Section {
 			let tasks = presenter.suggestedTasks(for: room)
-			VStack(spacing: 0) {
-				ForEach(Array(tasks.enumerated()), id: \.element.id) { index, task in
-					taskRow(task, room: room, isFirst: index == 0, isLast: index == tasks.count - 1)
+			VStack(spacing: FKSpacing.medium) {
+				ForEach(tasks) { task in
+					taskRow(task, room: room)
+					if task.id != tasks.last?.id {
+						Divider()
+					}
 				}
 			}
-//			.clipShape(RoundedRectangle(cornerRadius: FKRadius.medium))
-//			.fkBorder(cornerRadius: FKRadius.medium, lineWidth: FKBorder.thin, color: Color(FKColor.Separator.default))
 		} header: {
 			roomSectionHeader(room)
 		}
@@ -52,7 +53,7 @@ struct OnbTaskSelectionView: View {
 		.padding(.vertical, FKSpacing.small)
 	}
 
-	private func taskRow(_ task: RoomTask, room: RoomType, isFirst: Bool, isLast: Bool) -> some View {
+	private func taskRow(_ task: RoomTask, room: RoomType) -> some View {
 		let isSelected = presenter.isTaskSelected(task, for: room)
 		return Button {
 			FKHaptics.selection()
@@ -72,14 +73,6 @@ struct OnbTaskSelectionView: View {
 					.font(FKTypography.body)
 					.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
 					.contentTransition(.symbolEffect(.replace))
-			}
-			.padding(.top, isFirst ? 0 : FKSpacing.medium)
-			.padding(.bottom, isLast ? 0 : FKSpacing.medium)
-			.overlay(alignment: .bottom) {
-				if !isLast {
-					Divider()
-						.padding(.leading, FKSpacing.medium)
-				}
 			}
 			.contentShape(.rect)
 		}
