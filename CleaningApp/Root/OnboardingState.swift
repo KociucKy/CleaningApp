@@ -24,9 +24,9 @@ final class OnboardingState {
 	// MARK: - Update
 
 	func updateViewState(showOnboarding: Bool) {
-		self.showOnboarding = showOnboarding
-		if !showOnboarding {
+		if self.showOnboarding, !showOnboarding {
 			completionToken += 1
 		}
+		self.showOnboarding = showOnboarding
 	}
 }
