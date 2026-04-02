@@ -12,18 +12,11 @@ struct OnbTaskSelectionView: View {
 	// MARK: - Body
 
 	var body: some View {
-		ScrollView {
-			LazyVStack(spacing: FKSpacing.large, pinnedViews: .sectionHeaders) {
-				ForEach(presenter.selectedRooms) { room in
-					roomSection(room)
-				}
-			}
-			.padding(.horizontal, FKSpacing.large)
-			.padding(.vertical, FKSpacing.large)
+		List(presenter.selectedRooms) { room in
+			roomSection(room)
 		}
 		.navigationTitle("onb_task_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
-		.navigationBarBackButtonHidden()
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
 		}
@@ -36,11 +29,11 @@ struct OnbTaskSelectionView: View {
 			let tasks = presenter.suggestedTasks(for: room)
 			VStack(spacing: 0) {
 				ForEach(Array(tasks.enumerated()), id: \.element.id) { index, task in
-					taskRow(task, room: room, isLast: index == tasks.count - 1)
+					taskRow(task, room: room, isFirst: index == 0, isLast: index == tasks.count - 1)
 				}
 			}
-			.clipShape(RoundedRectangle(cornerRadius: FKRadius.medium))
-			.fkBorder(cornerRadius: FKRadius.medium, lineWidth: FKBorder.thin, color: Color(FKColor.Separator.default))
+//			.clipShape(RoundedRectangle(cornerRadius: FKRadius.medium))
+//			.fkBorder(cornerRadius: FKRadius.medium, lineWidth: FKBorder.thin, color: Color(FKColor.Separator.default))
 		} header: {
 			roomSectionHeader(room)
 		}
@@ -57,10 +50,9 @@ struct OnbTaskSelectionView: View {
 			Spacer()
 		}
 		.padding(.vertical, FKSpacing.small)
-		.background(.background)
 	}
 
-	private func taskRow(_ task: RoomTask, room: RoomType, isLast: Bool) -> some View {
+	private func taskRow(_ task: RoomTask, room: RoomType, isFirst: Bool, isLast: Bool) -> some View {
 		let isSelected = presenter.isTaskSelected(task, for: room)
 		return Button {
 			FKHaptics.selection()
@@ -79,19 +71,19 @@ struct OnbTaskSelectionView: View {
 				Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
 					.font(FKTypography.body)
 					.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
-					.animation(.interactiveSpring, value: isSelected)
+					.contentTransition(.symbolEffect(.replace))
 			}
-			.padding(.horizontal, FKSpacing.medium)
-			.padding(.vertical, FKSpacing.medium)
-			.background(Color(FKColor.Background.primary))
+			.padding(.top, isFirst ? 0 : FKSpacing.medium)
+			.padding(.bottom, isLast ? 0 : FKSpacing.medium)
 			.overlay(alignment: .bottom) {
 				if !isLast {
 					Divider()
 						.padding(.leading, FKSpacing.medium)
 				}
 			}
+			.contentShape(.rect)
 		}
-		.buttonStyle(.plain)
+		.buttonStyle(.fkFade)
 	}
 
 	private var controlButtonsView: some View {
@@ -118,10 +110,15 @@ struct OnbTaskSelectionView: View {
 // MARK: - Preview
 
 #Preview {
-	let container = DevPreview.shared.container
-	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: container))
+	let devPreview = DevPreview.shared
+	let builder: OnboardingBuilder = {
+		devPreview.onboardingFlowState.toggleRoom(.kitchen)
+		devPreview.onboardingFlowState.toggleRoom(.bedroom)
+		return OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
+	}()
 
 	RouterView { router in
 		builder.taskSelectionView(router: router)
 	}
 }
+
