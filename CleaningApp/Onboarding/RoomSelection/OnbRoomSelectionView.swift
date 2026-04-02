@@ -13,8 +13,8 @@ struct OnbRoomSelectionView: View {
 	var body: some View {
 		ScrollView {
 			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-				ForEach(RoomType.allCases) { room in
-					roomCell(room)
+				ForEach(Array(RoomType.allCases.enumerated()), id: \.element) { index, room in
+					roomCell(room, index: index)
 				}
 			}
 			.padding(.horizontal, FKSpacing.large)
@@ -32,6 +32,9 @@ struct OnbRoomSelectionView: View {
 		}
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
+		}
+		.onAppear {
+			presenter.animateEntrance()
 		}
 	}
 
@@ -59,8 +62,9 @@ struct OnbRoomSelectionView: View {
 	}
 
 	@ViewBuilder
-	private func roomCell(_ room: RoomType) -> some View {
+	private func roomCell(_ room: RoomType, index: Int) -> some View {
 		let isSelected = presenter.isRoomSelected(room)
+		let isVisible = index < presenter.visibleCellCount
 		Button {
 			FKHaptics.selection()
 			presenter.onRoomCardViewPressed(room: room)
@@ -91,6 +95,8 @@ struct OnbRoomSelectionView: View {
 			)
 		}
 		.buttonStyle(.fkPressable)
+		.opacity(isVisible ? 1 : 0)
+		.offset(y: isVisible ? 0 : 20)
 		.animation(.interactiveSpring, value: isSelected)
 	}
 }
