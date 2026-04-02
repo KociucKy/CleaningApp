@@ -31,7 +31,7 @@ struct OnbTaskSelectionView: View {
 
 	// MARK: - SubViews
 
-	private func roomSection(_ room: RoomIcon) -> some View {
+	private func roomSection(_ room: RoomType) -> some View {
 		Section {
 			let tasks = presenter.suggestedTasks(for: room)
 			VStack(spacing: 0) {
@@ -46,7 +46,7 @@ struct OnbTaskSelectionView: View {
 		}
 	}
 
-	private func roomSectionHeader(_ room: RoomIcon) -> some View {
+	private func roomSectionHeader(_ room: RoomType) -> some View {
 		HStack(spacing: FKSpacing.small) {
 			Image(systemName: room.symbolName)
 				.font(FKTypography.bodyBold)
@@ -60,7 +60,7 @@ struct OnbTaskSelectionView: View {
 		.background(.background)
 	}
 
-	private func taskRow(_ task: RoomTask, room: RoomIcon, isLast: Bool) -> some View {
+	private func taskRow(_ task: RoomTask, room: RoomType, isLast: Bool) -> some View {
 		let isSelected = presenter.isTaskSelected(task, for: room)
 		return Button {
 			FKHaptics.selection()

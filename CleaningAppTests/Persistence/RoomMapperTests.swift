@@ -28,7 +28,7 @@ struct RoomMapperTests {
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)
-		#expect(domain.icon == .kitchen)
+		#expect(domain.kind == .kitchen)
 	}
 
 	@Test func toDomain_unknownIconFallsBackToCustom() {
@@ -39,14 +39,14 @@ struct RoomMapperTests {
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)
-		#expect(domain.icon == .custom)
+		#expect(domain.kind == .custom)
 	}
 
 	@Test func toDomain_allKnownIcons() {
-		for icon in RoomIcon.allCases {
-			let entity = RoomEntity(id: UUID(), name: "Room", icon: icon.rawValue, createdAt: .mock)
+		for kind in RoomType.allCases {
+			let entity = RoomEntity(id: UUID(), name: "Room", icon: kind.rawValue, createdAt: .mock)
 			let domain = mapper.toDomain(entity)
-			#expect(domain.icon == icon)
+			#expect(domain.kind == kind)
 		}
 	}
 
@@ -65,11 +65,11 @@ struct RoomMapperTests {
 		let domain = Room(
 			id: UUID(),
 			name: "Bathroom",
-			icon: .bathroom,
+			kind: .bathroom,
 			createdAt: .mock
 		)
 		let entity = mapper.toEntity(domain)
-		#expect(entity.icon == RoomIcon.bathroom.rawValue)
+		#expect(entity.icon == RoomType.bathroom.rawValue)
 	}
 
 	// MARK: - Round-trip
@@ -81,7 +81,7 @@ struct RoomMapperTests {
 
 		#expect(restored.id == original.id)
 		#expect(restored.name == original.name)
-		#expect(restored.icon == original.icon)
+		#expect(restored.kind == original.kind)
 		#expect(restored.createdAt == original.createdAt)
 	}
 

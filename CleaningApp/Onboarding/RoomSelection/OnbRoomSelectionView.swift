@@ -13,7 +13,7 @@ struct OnbRoomSelectionView: View {
 	var body: some View {
 		ScrollView {
 			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-				ForEach(RoomIcon.allCases) { room in
+				ForEach(RoomType.allCases) { room in
 					roomCell(room)
 				}
 			}
@@ -59,7 +59,7 @@ struct OnbRoomSelectionView: View {
 	}
 
 	@ViewBuilder
-	private func roomCell(_ room: RoomIcon) -> some View {
+	private func roomCell(_ room: RoomType) -> some View {
 		let isSelected = presenter.isRoomSelected(room)
 		Button {
 			FKHaptics.selection()

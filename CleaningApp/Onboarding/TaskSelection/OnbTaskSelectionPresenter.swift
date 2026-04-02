@@ -10,7 +10,7 @@ final class OnbTaskSelectionPresenter {
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
 
-	var selectedRooms: [RoomIcon] {
+	var selectedRooms: [RoomType] {
 		interactor.selectedRooms
 	}
 
@@ -36,15 +36,15 @@ final class OnbTaskSelectionPresenter {
 
 	// MARK: - Methods
 
-	func suggestedTasks(for room: RoomIcon) -> [RoomTask] {
+	func suggestedTasks(for room: RoomType) -> [RoomTask] {
 		interactor.suggestedTasks(for: room)
 	}
 
-	func isTaskSelected(_ task: RoomTask, for room: RoomIcon) -> Bool {
+	func isTaskSelected(_ task: RoomTask, for room: RoomType) -> Bool {
 		interactor.isTaskSelected(task, for: room)
 	}
 
-	func onTaskRowPressed(_ task: RoomTask, for room: RoomIcon) {
+	func onTaskRowPressed(_ task: RoomTask, for room: RoomType) {
 		interactor.toggleTask(task, for: room)
 	}
 }

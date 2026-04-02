@@ -1,8 +1,8 @@
 import Foundation
 
-// MARK: - RoomIcon + SuggestedTasks
+// MARK: - RoomType + SuggestedTasks
 
-extension RoomIcon {
+extension RoomType {
 	// MARK: - Suggested Tasks
 
 	/// Returns a list of pre-populated `RoomTask` values for this room type.

@@ -10,7 +10,7 @@ final class OnbRoomSelectionPresenter {
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
 
-	var selectedRooms: [RoomIcon] {
+	var selectedRooms: [RoomType] {
 		interactor.selectedRooms
 	}
 
@@ -42,11 +42,11 @@ final class OnbRoomSelectionPresenter {
 		interactor.clearRooms()
 	}
 
-	func onRoomCardViewPressed(room: RoomIcon) {
+	func onRoomCardViewPressed(room: RoomType) {
 		interactor.toggleRoom(room)
 	}
 
-	func isRoomSelected(_ room: RoomIcon) -> Bool {
+	func isRoomSelected(_ room: RoomType) -> Bool {
 		interactor.isRoomSelected(room)
 	}
 }
