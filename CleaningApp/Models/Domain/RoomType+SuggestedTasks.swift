@@ -6,82 +6,360 @@ extension RoomType {
 	// MARK: - Suggested Tasks
 
 	/// Returns a list of pre-populated `RoomTask` values for this room type.
-	/// The `roomId` is a placeholder (`UUID()`) — callers must replace it with
-	/// the real room ID before persisting.
+	/// Task `id`s are stable hardcoded UUIDs so identity is preserved across
+	/// multiple calls (required for selection state matching).
+	/// The `roomId` is a placeholder — callers must replace it before persisting.
 	var suggestedTasks: [RoomTask] {
-		switch self {
+		let placeholder = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
+		return switch self {
 		case .kitchen:
 			[
-				RoomTask(name: "Wipe countertops", roomId: UUID(), frequency: .daily, estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Clean hob", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Empty bin", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Clean sink", roomId: UUID(), frequency: .timesPerWeek(3), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Wipe appliances", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Clean oven", roomId: UUID(), frequency: .monthly, estimatedDuration: .thirtyMinutes),
-				RoomTask(name: "Defrost freezer", roomId: UUID(), frequency: .quarterly, estimatedDuration: .sixtyMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000001")!,
+					name: "Wipe countertops",
+					roomId: placeholder,
+					frequency: .daily,
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000002")!,
+					name: "Clean hob",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000003")!,
+					name: "Empty bin",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000004")!,
+					name: "Clean sink",
+					roomId: placeholder,
+					frequency: .timesPerWeek(3),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000005")!,
+					name: "Wipe appliances",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000006")!,
+					name: "Clean oven",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .thirtyMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000007")!,
+					name: "Defrost freezer",
+					roomId: placeholder,
+					frequency: .quarterly,
+					estimatedDuration: .sixtyMinutes
+				),
 			]
 		case .livingRoom:
 			[
-				RoomTask(name: "Vacuum", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Dust surfaces", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Wipe TV screen", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Tidy cushions", roomId: UUID(), frequency: .daily, estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Clean windows", roomId: UUID(), frequency: .monthly, estimatedDuration: .thirtyMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000001")!,
+					name: "Vacuum",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000002")!,
+					name: "Dust surfaces",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000003")!,
+					name: "Wipe TV screen",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000004")!,
+					name: "Tidy cushions",
+					roomId: placeholder,
+					frequency: .daily,
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000005")!,
+					name: "Clean windows",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .thirtyMinutes
+				),
 			]
 		case .bedroom:
 			[
-				RoomTask(name: "Make bed", roomId: UUID(), frequency: .daily, estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Vacuum", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Dust surfaces", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Change bed linen", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Tidy wardrobe", roomId: UUID(), frequency: .monthly, estimatedDuration: .thirtyMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000001")!,
+					name: "Make bed",
+					roomId: placeholder,
+					frequency: .daily,
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000002")!,
+					name: "Vacuum",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000003")!,
+					name: "Dust surfaces",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000004")!,
+					name: "Change bed linen",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000005")!,
+					name: "Tidy wardrobe",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .thirtyMinutes
+				),
 			]
 		case .bathroom:
 			[
-				RoomTask(name: "Clean toilet", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Wipe sink", roomId: UUID(), frequency: .timesPerWeek(3), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Clean shower / bath", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Mop floor", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Wipe mirror", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Descale taps", roomId: UUID(), frequency: .monthly, estimatedDuration: .fifteenMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000001")!,
+					name: "Clean toilet",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000002")!,
+					name: "Wipe sink",
+					roomId: placeholder,
+					frequency: .timesPerWeek(3),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000003")!,
+					name: "Clean shower / bath",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000004")!,
+					name: "Mop floor",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000005")!,
+					name: "Wipe mirror",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000006")!,
+					name: "Descale taps",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .fifteenMinutes
+				),
 			]
 		case .hallway:
 			[
-				RoomTask(name: "Vacuum / sweep", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Wipe door handles", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Organise shoes", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Dust shelves", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Clean front door", roomId: UUID(), frequency: .monthly, estimatedDuration: .fifteenMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000001")!,
+					name: "Vacuum / sweep",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000002")!,
+					name: "Wipe door handles",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000003")!,
+					name: "Organise shoes",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000004")!,
+					name: "Dust shelves",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000005")!,
+					name: "Clean front door",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .fifteenMinutes
+				),
 			]
 		case .office:
 			[
-				RoomTask(name: "Wipe desk", roomId: UUID(), frequency: .daily, estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Dust monitor & keyboard", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Vacuum", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Tidy cables", roomId: UUID(), frequency: .monthly, estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Clean windows", roomId: UUID(), frequency: .monthly, estimatedDuration: .thirtyMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000001")!,
+					name: "Wipe desk",
+					roomId: placeholder,
+					frequency: .daily,
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000002")!,
+					name: "Dust monitor & keyboard",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000003")!,
+					name: "Vacuum",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000004")!,
+					name: "Tidy cables",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000005")!,
+					name: "Clean windows",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .thirtyMinutes
+				),
 			]
 		case .garage:
 			[
-				RoomTask(name: "Sweep floor", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fifteenMinutes),
-				RoomTask(name: "Organise tools", roomId: UUID(), frequency: .monthly, estimatedDuration: .thirtyMinutes),
-				RoomTask(name: "Remove rubbish", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Wipe shelves", roomId: UUID(), frequency: .monthly, estimatedDuration: .fifteenMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000001")!,
+					name: "Sweep floor",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000002")!,
+					name: "Organise tools",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .thirtyMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000003")!,
+					name: "Remove rubbish",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000004")!,
+					name: "Wipe shelves",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .fifteenMinutes
+				),
 			]
 		case .laundry:
 			[
-				RoomTask(name: "Wipe washing machine drum", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Clean lint filter", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Descale washing machine", roomId: UUID(), frequency: .monthly, estimatedDuration: .tenMinutes),
-				RoomTask(name: "Sweep floor", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000001")!,
+					name: "Wipe washing machine drum",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000002")!,
+					name: "Clean lint filter",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000003")!,
+					name: "Descale washing machine",
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000004")!,
+					name: "Sweep floor",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
 			]
 		case .toilet:
 			[
-				RoomTask(name: "Clean toilet bowl", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Wipe seat & lid", roomId: UUID(), frequency: .timesPerWeek(3), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Wipe sink", roomId: UUID(), frequency: .timesPerWeek(2), estimatedDuration: .fiveMinutes),
-				RoomTask(name: "Mop floor", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .tenMinutes),
-				RoomTask(name: "Restock supplies", roomId: UUID(), frequency: .timesPerWeek(1), estimatedDuration: .fiveMinutes),
+				RoomTask(
+					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000001")!,
+					name: "Clean toilet bowl",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000002")!,
+					name: "Wipe seat & lid",
+					roomId: placeholder,
+					frequency: .timesPerWeek(3),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000003")!,
+					name: "Wipe sink",
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000004")!,
+					name: "Mop floor",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000005")!,
+					name: "Restock supplies",
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .fiveMinutes
+				),
 			]
 		case .custom:
 			[]

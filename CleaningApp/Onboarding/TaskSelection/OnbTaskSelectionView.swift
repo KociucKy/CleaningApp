@@ -107,15 +107,14 @@ struct OnbTaskSelectionView: View {
 // MARK: - Preview
 
 #Preview {
-	let devPreview = DevPreview.shared
-	let builder: OnboardingBuilder = {
+	let devPreview = DevPreview()
+	let _ = {
 		devPreview.onboardingFlowState.toggleRoom(.kitchen)
 		devPreview.onboardingFlowState.toggleRoom(.bedroom)
-		return OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
 	}()
+	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
 
 	RouterView { router in
 		builder.taskSelectionView(router: router)
 	}
 }
-

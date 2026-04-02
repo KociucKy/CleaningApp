@@ -25,7 +25,7 @@ final class OnboardingFlowState {
 			selectedTasks.removeValue(forKey: room)
 		} else {
 			selectedRooms.append(room)
-			selectedTasks[room] = room.suggestedTasks
+			selectedTasks[room] = Array(room.suggestedTasks.prefix(3))
 		}
 	}
 
