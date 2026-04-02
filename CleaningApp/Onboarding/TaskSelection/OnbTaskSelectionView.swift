@@ -33,10 +33,11 @@ struct OnbTaskSelectionView: View {
 		return Section {
 			if !isCollapsed {
 				let tasks = presenter.suggestedTasks(for: room)
+				let lastTaskId = tasks.last?.id
 				VStack(spacing: FKSpacing.medium) {
 					ForEach(tasks) { task in
 						taskRow(task, room: room)
-						if task.id != tasks.last?.id {
+						if task.id != lastTaskId {
 							Divider()
 						}
 					}
