@@ -1,9 +1,6 @@
 import FulhamKit
 import SwiftUI
 
-// MARK: - OnbTaskSelectionView
-
-@MainActor
 struct OnbTaskSelectionView: View {
 	// MARK: - Properties
 
@@ -70,7 +67,7 @@ struct OnbTaskSelectionView: View {
 				}
 				Spacer()
 				Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-					.font(FKTypography.body)
+					.font(FKTypography.sectionHeader)
 					.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
 					.contentTransition(.symbolEffect(.replace))
 			}
