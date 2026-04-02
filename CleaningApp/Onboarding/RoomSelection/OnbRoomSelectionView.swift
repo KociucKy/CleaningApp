@@ -13,8 +13,8 @@ struct OnbRoomSelectionView: View {
 	var body: some View {
 		ScrollView {
 			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-				ForEach(RoomType.allCases) { room in
-					roomCell(room)
+				ForEach(Array(RoomType.allCases.enumerated()), id: \.element) { index, room in
+					roomCell(room, index: index)
 				}
 			}
 			.padding(.horizontal, FKSpacing.large)
@@ -32,35 +32,30 @@ struct OnbRoomSelectionView: View {
 		}
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
+				.opacity(presenter.buttonVisible ? 1 : 0)
+				.offset(y: presenter.buttonVisible ? 0 : 16)
+		}
+		.onAppear {
+			presenter.animateEntrance()
 		}
 	}
 
 	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
-		VStack(spacing: FKSpacing.medium) {
-			Button {
-				FKHaptics.impact(.medium)
-				presenter.onNextButtonPressed()
-			} label: {
-				Text("common.action.next")
-					.font(FKTypography.ctaLabel)
-					.foregroundStyle(.white)
-					.frame(maxWidth: .infinity)
-					.frame(height: 50)
-			}
-			.buttonStyle(.glassProminent)
-			.padding([.horizontal, .top], FKSpacing.large)
-			.disabled(!presenter.hasSelection)
-			Button("common.action.skip", action: presenter.onSkipButtonPressed)
-				.font(FKTypography.secondaryLabel)
-				.foregroundStyle(FKColor.Label.secondary)
-		}
+		OnbControlButtonsView(
+			buttonLabel: "common.action.next",
+			showSkipButton: true,
+			isPrimaryButtonDisabled: !presenter.hasSelection,
+			primaryAction: presenter.onNextButtonPressed,
+			skipAction: presenter.onSkipButtonPressed
+		)
 	}
 
 	@ViewBuilder
-	private func roomCell(_ room: RoomType) -> some View {
+	private func roomCell(_ room: RoomType, index: Int) -> some View {
 		let isSelected = presenter.isRoomSelected(room)
+		let isVisible = index < presenter.visibleCellCount
 		Button {
 			FKHaptics.selection()
 			presenter.onRoomCardViewPressed(room: room)
@@ -91,6 +86,8 @@ struct OnbRoomSelectionView: View {
 			)
 		}
 		.buttonStyle(.fkPressable)
+		.opacity(isVisible ? 1 : 0)
+		.offset(y: isVisible ? 0 : 20)
 		.animation(.interactiveSpring, value: isSelected)
 	}
 }

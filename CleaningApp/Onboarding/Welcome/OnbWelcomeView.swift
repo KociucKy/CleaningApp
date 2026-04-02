@@ -33,6 +33,8 @@ struct OnbWelcomeView: View {
 		.safeAreaInset(edge: .bottom) {
 			getStartedButton
 				.padding(.horizontal, FKSpacing.large)
+				.opacity(presenter.buttonVisible ? 1 : 0)
+				.offset(y: presenter.buttonVisible ? 0 : 16)
 		}
 		.onAppear(perform: presenter.animateEntrance)
 	}
@@ -99,17 +101,10 @@ struct OnbWelcomeView: View {
 	// MARK: - Get Started Button
 
 	private var getStartedButton: some View {
-		Button {
-			FKHaptics.impact(.medium)
-			presenter.onGetStartedPressed()
-		} label: {
-			Text("onb_welcome.cta")
-				.font(FKTypography.ctaLabel)
-				.foregroundStyle(.white)
-				.frame(maxWidth: .infinity)
-				.frame(height: Constants.buttonHeight)
-		}
-		.buttonStyle(.glassProminent)
+		OnbControlButtonsView(
+			buttonLabel: "onb_welcome.cta",
+			primaryAction: presenter.onGetStartedPressed
+		)
 	}
 }
 

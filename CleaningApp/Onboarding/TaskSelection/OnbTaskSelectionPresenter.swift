@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 // MARK: - OnbTaskSelectionPresenter
 
@@ -9,6 +9,10 @@ final class OnbTaskSelectionPresenter {
 
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
+
+	var buttonVisible = false
+	var visibleSectionCount = 0
+	private var entranceAnimationIndex = 0
 
 	var selectedRooms: [RoomType] {
 		interactor.selectedRooms
@@ -25,6 +29,26 @@ final class OnbTaskSelectionPresenter {
 	}
 
 	// MARK: - Actions
+
+	func animateEntrance() {
+		let count = interactor.selectedRooms.count
+		Timer.scheduledTimer(withTimeInterval: 0.06, repeats: true) { [weak self] timer in
+			guard let self else {
+				timer.invalidate()
+				return
+			}
+			withAnimation(.spring(response: 0.45, dampingFraction: 0.75)) {
+				visibleSectionCount = entranceAnimationIndex + 1
+			}
+			entranceAnimationIndex += 1
+			if entranceAnimationIndex >= count {
+				timer.invalidate()
+				withAnimation(.easeOut(duration: 0.35)) {
+					buttonVisible = true
+				}
+			}
+		}
+	}
 
 	func onNextButtonPressed() {
 		router.showOnboardingNotificationView()
