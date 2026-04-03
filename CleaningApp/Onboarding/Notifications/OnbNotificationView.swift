@@ -113,8 +113,7 @@ struct OnbNotificationView: View {
 						.foregroundStyle(.white)
 				}
 			}
-			.frame(maxWidth: .infinity)
-			.frame(height: buttonHeight)
+			.frame(maxWidth: .infinity, minHeight: buttonHeight)
 		}
 		.buttonStyle(.glassProminent)
 		.disabled(presenter.isRequestingPermission)

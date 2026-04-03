@@ -19,8 +19,7 @@ struct OnbControlButtonsView: View {
 				Text(buttonLabel)
 					.font(FKTypography.ctaLabel)
 					.foregroundStyle(.white)
-					.frame(maxWidth: .infinity)
-					.frame(height: buttonHeight)
+					.frame(maxWidth: .infinity, minHeight: buttonHeight)
 			}
 			.buttonStyle(.glassProminent)
 			.padding([.horizontal, .top], FKSpacing.large)
