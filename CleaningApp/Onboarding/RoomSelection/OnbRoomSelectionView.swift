@@ -7,6 +7,7 @@ struct OnbRoomSelectionView: View {
 
 	@State var presenter: OnbRoomSelectionPresenter
 	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
+	@ScaledMetric private var roomSymbolSize: CGFloat = 32
 
 	// MARK: - Body
 
@@ -63,13 +64,14 @@ struct OnbRoomSelectionView: View {
 			FKCardView(showBorder: false) {
 				VStack(spacing: FKSpacing.medium) {
 					Image(systemName: room.symbolName)
-						.font(.system(size: 32))
+						.font(.system(size: roomSymbolSize))
 						.frame(height: 40)
 						.symbolEffect(
 							.bounce,
 							options: .nonRepeating,
 							isActive: isSelected
 						)
+						.accessibilityHidden(true)
 					Text(room.localizedName)
 						.font(FKTypography.secondaryLabel)
 						.multilineTextAlignment(.center)
@@ -85,6 +87,7 @@ struct OnbRoomSelectionView: View {
 				color: isSelected ? .accentColor : Color(FKColor.Separator.default)
 			)
 		}
+		.accessibilityAddTraits(isSelected ? .isSelected : [])
 		.buttonStyle(.fkPressable)
 		.opacity(isVisible ? 1 : 0)
 		.offset(y: isVisible ? 0 : 20)

@@ -55,6 +55,7 @@ struct OnbWelcomeView: View {
 					.font(FKTypography.statValue)
 					.foregroundStyle(Color.accentColor)
 			}
+			.accessibilityElement(children: .combine)
 			.opacity(presenter.titleVisible ? 1 : 0)
 			.offset(y: presenter.titleVisible ? 0 : Constants.titleEntryOffset)
 

@@ -16,6 +16,7 @@ struct OnbNotificationView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbNotificationPresenter
+	@ScaledMetric private var buttonHeight: CGFloat = Constants.buttonHeight
 
 	// MARK: - Body
 
@@ -105,6 +106,7 @@ struct OnbNotificationView: View {
 				if presenter.isRequestingPermission {
 					ProgressView()
 						.tint(.white)
+						.accessibilityLabel(Text("onb_notification.cta.allow"))
 				} else {
 					Text("onb_notification.cta.allow")
 						.font(FKTypography.ctaLabel)
@@ -112,7 +114,7 @@ struct OnbNotificationView: View {
 				}
 			}
 			.frame(maxWidth: .infinity)
-			.frame(height: Constants.buttonHeight)
+			.frame(height: buttonHeight)
 		}
 		.buttonStyle(.glassProminent)
 		.disabled(presenter.isRequestingPermission)
