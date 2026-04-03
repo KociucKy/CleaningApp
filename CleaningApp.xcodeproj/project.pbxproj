@@ -773,6 +773,7 @@
 			);
 			name = CleaningAppTests;
 			packageProductDependencies = (
+				88B6E1832F801944000BCE23 /* SnapshotTesting */,
 			);
 			productName = CleaningAppTests;
 			productReference = 0AEC8D5C588F4E317D95E72C /* CleaningAppTests.xctest */;
@@ -811,6 +812,7 @@
 				E881116C75E1D691759A8D6A /* XCRemoteSwiftPackageReference "ReviewKit" */,
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
+				88B6E1822F801944000BCE23 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 			);
 			projectDirPath = "";
 			projectRoot = "";
@@ -1372,6 +1374,14 @@
 				kind = branch;
 			};
 		};
+		88B6E1822F801944000BCE23 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.19.2;
+			};
+		};
 		C5B096717C4A1E8B50790846 /* XCRemoteSwiftPackageReference "FulhamKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/KociucKy/FulhamKit";
@@ -1444,6 +1454,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F9B23D114DD79AF836878481 /* XCRemoteSwiftPackageReference "LogKit" */;
 			productName = LogKit;
+		};
+		88B6E1832F801944000BCE23 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 88B6E1822F801944000BCE23 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
 		};
 		91C41AE78F486DFDB6CA42A2 /* LocalNotificationKitDebugUI */ = {
 			isa = XCSwiftPackageProductDependency;
