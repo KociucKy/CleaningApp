@@ -8,6 +8,8 @@ struct OnbControlButtonsView: View {
 	let primaryAction: () -> Void
 	var skipAction: (() -> Void)?
 
+	@ScaledMetric private var buttonHeight: CGFloat = 50
+
 	var body: some View {
 		VStack(spacing: FKSpacing.medium) {
 			Button {
@@ -18,7 +20,7 @@ struct OnbControlButtonsView: View {
 					.font(FKTypography.ctaLabel)
 					.foregroundStyle(.white)
 					.frame(maxWidth: .infinity)
-					.frame(height: 50)
+					.frame(height: buttonHeight)
 			}
 			.buttonStyle(.glassProminent)
 			.padding([.horizontal, .top], FKSpacing.large)

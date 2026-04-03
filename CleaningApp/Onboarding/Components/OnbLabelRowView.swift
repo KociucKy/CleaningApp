@@ -18,6 +18,7 @@ struct OnbLabelRowView: View {
 				.foregroundStyle(Color.accentColor)
 				.symbolRenderingMode(.palette)
 				.frame(width: Constants.symbolWidth)
+				.accessibilityHidden(true)
 			VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
 				Text(title)
 					.font(FKTypography.bodyBold)
@@ -28,6 +29,7 @@ struct OnbLabelRowView: View {
 			}
 			Spacer()
 		}
+		.accessibilityElement(children: .combine)
 	}
 }
 
