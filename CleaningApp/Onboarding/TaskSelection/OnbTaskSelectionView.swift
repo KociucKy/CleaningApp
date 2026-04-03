@@ -82,7 +82,7 @@ struct OnbTaskSelectionView: View {
 				Image(systemName: room.symbolName)
 					.font(FKTypography.bodyBold)
 					.foregroundStyle(Color.accentColor)
-				Text(room.rawValue)
+				Text(room.localizedName)
 					.font(FKTypography.bodyBold)
 					.foregroundStyle(FKColor.Label.primary)
 				Spacer()

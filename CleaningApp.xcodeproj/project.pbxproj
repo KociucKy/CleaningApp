@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -210,7 +210,7 @@
 		9BF4CDCFB9913569B8260D02 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionView.swift; sourceTree = "<group>"; };
 		A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepository.swift; sourceTree = "<group>"; };
-		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A457688452077C69D253D2D9 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingState.swift; sourceTree = "<group>"; };
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		B06AF8CB201F1768C153A84F /* RoomTypeSuggestedTasksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTypeSuggestedTasksTests.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		DD9E2DAC505EC8F1FB6CB854 /* MockRoomTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomTaskRepository.swift; sourceTree = "<group>"; };
 		E7136DD168952F121FE91E27 /* CompletedTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskMapper.swift; sourceTree = "<group>"; };
 		E7F8BB9667E129602A1179F7 /* Date+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Mock.swift"; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F86AC4AEA1AD192DB3785306 /* RoomTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTask.swift; sourceTree = "<group>"; };
@@ -725,13 +725,6 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_14ECDDAB-D6C7-4D56-884E-0D52DB5AF073" /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -819,7 +812,6 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1185,6 +1177,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1209,6 +1202,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1310,6 +1304,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Y8FFN6N8G;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CleaningApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
