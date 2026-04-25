@@ -37,15 +37,15 @@
 
 ## 5. Custom Room Creation UI Components
 
-- [ ] 5.1 Create `OnbCustomRoomSheetView.swift` in `Onboarding/Components/`
-- [ ] 5.2 Create `OnbCustomRoomSheetPresenter.swift` in `Onboarding/Components/`
-- [ ] 5.3 Implement name input step with TextField, auto-focus, character limit (30 chars)
-- [ ] 5.4 Implement "Next" button (disabled if name empty)
-- [ ] 5.5 Create `OnbIconPickerView.swift` component for icon selection
-- [ ] 5.6 Define curated icon list (15-20 SF Symbols: `house`, `dumbbell`, `book`, `paintpalette`, `leaf`, etc.)
-- [ ] 5.7 Implement icon grid with selection state
-- [ ] 5.8 Add default icon fallback (`square.grid.2x2`)
-- [ ] 5.9 Implement sheet dismissal on icon selection
+- [x] 5.1 Create `OnbCustomRoomSheetView.swift` in `Onboarding/Components/`
+- [x] 5.2 Create `OnbCustomRoomSheetPresenter.swift` in `Onboarding/Components/`
+- [x] 5.3 Implement name input step with TextField, auto-focus, character limit (30 chars)
+- [x] 5.4 Implement "Next" button (disabled if name empty)
+- [x] 5.5 Create `OnbIconPickerView.swift` component for icon selection
+- [x] 5.6 Define curated icon list (15-20 SF Symbols: `house`, `dumbbell`, `book`, `paintpalette`, `leaf`, etc.)
+- [x] 5.7 Implement icon grid with selection state
+- [x] 5.8 Add default icon fallback (`square.grid.2x2`)
+- [x] 5.9 Implement sheet dismissal on icon selection
 
 ## 6. Room Selection View Updates
 
@@ -79,12 +79,14 @@
 ## 9. Localization
 
 - [x] 9.1 Add `"room_type.dining_room"` key to `Localizable.xcstrings` (EN: "Dining Room", PL: "Jadalnia")
-- [ ] 9.2 Add `"onb_custom_room.sheet_title"` for sheet header
-- [ ] 9.3 Add `"onb_custom_room.name_placeholder"` for text field
-- [ ] 9.4 Add `"onb_custom_room.icon_title"` for icon selection header
-- [ ] 9.5 Add `"onb_custom_room.button_next"` for navigation button
+- [x] 9.2 Add `"onb_custom_room.sheet_title"` for sheet header
+- [x] 9.3 Add `"onb_custom_room.name_placeholder"` for text field
+- [x] 9.4 Add `"onb_custom_room.icon_title"` for icon selection header
+- [x] 9.5 Add `"onb_custom_room.button_next"` for navigation button
 - [x] 9.6 Add dining room task names (`task.wipe_table`, `task.clean_light_fixtures`, `task.polish_furniture` + reused `task.vacuum_sweep`, `task.dust_surfaces`)
 - [x] 9.7 Add `"room_type.custom_room"` key (EN: "Custom Room", PL: "Własny pokój")
+- [x] 9.8 Add `"common.action.cancel"` key (EN: "Cancel", PL: "Anuluj")
+- [x] 9.9 Add `"onb_custom_room.name_hint"` for character limit hint
 
 ## 10. Testing
 
