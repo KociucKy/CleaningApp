@@ -15,18 +15,24 @@ extension Room {
 				id: mockId,
 				name: "Living Room",
 				kind: .livingRoom,
+				isCustom: false,
+				customIcon: nil,
 				createdAt: .mock
 			),
 			Room(
 				id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
 				name: "Kitchen",
 				kind: .kitchen,
+				isCustom: false,
+				customIcon: nil,
 				createdAt: .mock
 			),
 			Room(
 				id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!,
 				name: "Bedroom",
 				kind: .bedroom,
+				isCustom: false,
+				customIcon: nil,
 				createdAt: .mock
 			),
 		]

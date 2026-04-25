@@ -1067,19 +1067,36 @@
         }
       }
     },
-    "room_type.custom" : {
+    "room_type.custom_room" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Custom"
+            "value" : "Custom Room"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Własny"
+            "value" : "Własny pokój"
+          }
+        }
+      }
+    },
+    "room_type.dining_room" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dining Room"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jadalnia"
           }
         }
       }
@@ -1454,6 +1471,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wyczyść okna"
+          }
+        }
+      }
+    },
+    "task.clean_light_fixtures" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean light fixtures"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyczyść lampy"
+          }
+        }
+      }
+    },
+    "task.polish_furniture" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polish furniture"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypoleruj meble"
+          }
+        }
+      }
+    },
+    "task.wipe_table" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wipe table"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wytrzyj stół"
           }
         }
       }

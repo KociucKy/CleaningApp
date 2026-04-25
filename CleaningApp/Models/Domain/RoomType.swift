@@ -14,7 +14,8 @@ enum RoomType: String, CaseIterable, Codable, Identifiable {
 	case garage = "Garage"
 	case laundry = "Laundry"
 	case toilet = "Toilet"
-	case custom = "Custom"
+	case diningRoom = "Dining Room"
+	case customRoom = "Custom Room"
 
 	var localizedName: String {
 		switch self {
@@ -27,7 +28,8 @@ enum RoomType: String, CaseIterable, Codable, Identifiable {
 		case .garage: String(localized: "room_type.garage")
 		case .laundry: String(localized: "room_type.laundry")
 		case .toilet: String(localized: "room_type.toilet")
-		case .custom: String(localized: "room_type.custom")
+		case .diningRoom: String(localized: "room_type.dining_room")
+		case .customRoom: String(localized: "room_type.custom_room")
 		}
 	}
 
@@ -42,7 +44,8 @@ enum RoomType: String, CaseIterable, Codable, Identifiable {
 		case .garage: "car"
 		case .laundry: "washer"
 		case .toilet: "toilet"
-		case .custom: "square.grid.2x2"
+		case .diningRoom: "fork.knife.circle"
+		case .customRoom: "square.grid.2x2"
 		}
 	}
 }
