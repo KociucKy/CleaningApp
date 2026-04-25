@@ -27,7 +27,7 @@ struct OnbIconPickerView: View {
 		"figure.walk",
 		"tshirt.fill",
 		"cup.and.saucer.fill",
-		"square.grid.2x2"
+		"square.grid.2x2",
 	]
 
 	private let defaultIcon = "square.grid.2x2"
@@ -47,9 +47,9 @@ struct OnbIconPickerView: View {
 				.fontWeight(.semibold)
 				.frame(maxWidth: .infinity, alignment: .leading)
 
-		LazyVGrid(columns: [
-			GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16)
-		], spacing: 16) {
+			LazyVGrid(columns: [
+				GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16),
+			], spacing: 16) {
 				ForEach(icons, id: \.self) { icon in
 					IconButton(iconName: icon) {
 						onIconSelected(icon)

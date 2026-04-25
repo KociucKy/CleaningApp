@@ -49,32 +49,32 @@
 
 ## 6. Room Selection View Updates
 
-- [ ] 6.1 Add `@State var showCustomRoomSheet = false` to `OnbRoomSelectionView`
-- [ ] 6.2 Add `ToolbarItem` with "+" button in `.topBarTrailing` placement
-- [ ] 6.3 Add `.sheet(isPresented:)` modifier presenting `OnbCustomRoomSheetView`
-- [ ] 6.4 Update `ForEach` to include both `RoomType.allCases` (excluding `.customRoom`) and custom rooms
-- [ ] 6.5 Render custom room cards with user-provided name and icon
-- [ ] 6.6 Update `visibleCellCount` calculation to account for custom rooms (predefined count + custom count)
-- [ ] 6.7 Ensure staggered animation works with dynamic room count
+- [x] 6.1 Add `@State var showCustomRoomSheet = false` to `OnbRoomSelectionView`
+- [x] 6.2 Add `ToolbarItem` with "+" button in `.topBarTrailing` placement
+- [x] 6.3 Add `.sheet(isPresented:)` modifier presenting `OnbCustomRoomSheetView`
+- [x] 6.4 Update `ForEach` to include both `RoomType.allCases` (excluding `.customRoom`) and custom rooms
+- [x] 6.5 Render custom room cards with user-provided name and icon
+- [x] 6.6 Update `visibleCellCount` calculation to account for custom rooms (predefined count + custom count)
+- [x] 6.7 Ensure staggered animation works with dynamic room count
 
 ## 7. Room Selection Presenter Updates
 
-- [ ] 7.1 Add `onAddCustomRoomPressed()` action to set `showCustomRoomSheet = true`
-- [ ] 7.2 Add `onCustomRoomCreated(name: String, icon: String)` action
-- [ ] 7.3 Call `interactor.addCustomRoom(name:icon:)` in `onCustomRoomCreated`
-- [ ] 7.4 Add `onCustomRoomCardPressed(id: UUID)` action for toggling custom room selection
-- [ ] 7.5 Add `isCustomRoomSelected(_ id: UUID) -> Bool` forwarding to interactor
-- [ ] 7.6 Expose `customRooms` from interactor for rendering
+- [x] 7.1 Add `onAddCustomRoomPressed()` action to set `showCustomRoomSheet = true` - Implemented inline in toolbar button
+- [x] 7.2 Add `onCustomRoomCreated(name: String, icon: String)` action
+- [x] 7.3 Call `interactor.addCustomRoom(name:icon:)` in `onCustomRoomCreated`
+- [x] 7.4 Add `onCustomRoomCardPressed(id: UUID)` action for toggling custom room selection
+- [x] 7.5 Add `isCustomRoomSelected(_ id: UUID) -> Bool` forwarding to interactor
+- [x] 7.6 Expose `customRooms` from interactor for rendering
 
 ## 8. Onboarding Interactor Updates
 
-- [ ] 8.1 Add `func addCustomRoom(name: String, icon: String)` to `OnboardingInteractor`
-- [ ] 8.2 Create `CustomRoomSelection` and call `flowState.addCustomRoom(_:)`
-- [ ] 8.3 Add `func toggleCustomRoom(id: UUID)` for selection toggling
-- [ ] 8.4 Add `isCustomRoomSelected(id:)` forwarding to flow state
-- [ ] 8.5 Expose `customRooms` computed property from flow state
-- [ ] 8.6 Update `saveAndCompleteOnboarding()` to persist custom rooms
-- [ ] 8.7 Loop through `flowState.customRooms` and save as `Room(isCustom: true, kind: .customRoom, customIcon: icon)`
+- [x] 8.1 Add `func addCustomRoom(name: String, icon: String)` to `OnboardingInteractor`
+- [x] 8.2 Create `CustomRoomSelection` and call `flowState.addCustomRoom(_:)` - Done in FlowState
+- [x] 8.3 Add `func toggleCustomRoom(id: UUID)` for selection toggling
+- [x] 8.4 Add `isCustomRoomSelected(id:)` forwarding to flow state
+- [x] 8.5 Expose `customRooms` computed property from flow state
+- [x] 8.6 Update `saveAndCompleteOnboarding()` to persist custom rooms
+- [x] 8.7 Loop through `flowState.customRooms` and save as `Room(isCustom: true, kind: .customRoom, customIcon: icon)`
 
 ## 9. Localization
 

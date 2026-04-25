@@ -49,6 +49,12 @@ final class OnboardingFlowState {
 		customRooms.append(customRoom)
 	}
 
+	func toggleCustomRoom(id: UUID) {
+		if customRooms.contains(where: { $0.id == id }) {
+			removeCustomRoom(id: id)
+		}
+	}
+
 	func removeCustomRoom(id: UUID) {
 		customRooms.removeAll { $0.id == id }
 	}

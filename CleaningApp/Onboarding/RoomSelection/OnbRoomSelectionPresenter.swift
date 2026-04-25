@@ -19,7 +19,11 @@ final class OnbRoomSelectionPresenter {
 	}
 
 	var hasSelection: Bool {
-		!interactor.selectedRooms.isEmpty
+		!interactor.selectedRooms.isEmpty || !interactor.customRooms.isEmpty
+	}
+
+	var customRooms: [CustomRoomSelection] {
+		interactor.customRooms
 	}
 
 	// MARK: - Init
@@ -35,7 +39,8 @@ final class OnbRoomSelectionPresenter {
 	// MARK: - Actions
 
 	func animateEntrance() {
-		let count = RoomType.allCases.count
+		let predefinedCount = RoomType.allCases.count(where: { $0 != .customRoom })
+		let totalCount = predefinedCount + interactor.customRooms.count
 		Timer.scheduledTimer(withTimeInterval: 0.04, repeats: true) { [weak self] timer in
 			guard let self else {
 				timer.invalidate()
@@ -45,7 +50,7 @@ final class OnbRoomSelectionPresenter {
 				visibleCellCount = entranceAnimationIndex + 1
 			}
 			entranceAnimationIndex += 1
-			if entranceAnimationIndex >= count {
+			if entranceAnimationIndex >= totalCount {
 				timer.invalidate()
 				withAnimation(.easeOut(duration: 0.35)) {
 					buttonVisible = true
@@ -72,5 +77,17 @@ final class OnbRoomSelectionPresenter {
 
 	func isRoomSelected(_ room: RoomType) -> Bool {
 		interactor.isRoomSelected(room)
+	}
+
+	func onCustomRoomCreated(name: String, icon: String) {
+		interactor.addCustomRoom(name: name, icon: icon)
+	}
+
+	func onCustomRoomCardPressed(id: UUID) {
+		interactor.toggleCustomRoom(id: id)
+	}
+
+	func isCustomRoomSelected(_ id: UUID) -> Bool {
+		interactor.isCustomRoomSelected(id: id)
 	}
 }
