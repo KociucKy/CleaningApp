@@ -16,49 +16,49 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000001")!,
-					name: "Wipe countertops",
+					name: String(localized: "task.wipe_countertops"),
 					roomId: placeholder,
 					frequency: .daily,
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000002")!,
-					name: "Clean hob",
+					name: String(localized: "task.clean_hob"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000003")!,
-					name: "Empty bin",
+					name: String(localized: "task.empty_bin"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000004")!,
-					name: "Clean sink",
+					name: String(localized: "task.clean_sink"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(3),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000005")!,
-					name: "Wipe appliances",
+					name: String(localized: "task.wipe_appliances"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000006")!,
-					name: "Clean oven",
+					name: String(localized: "task.clean_oven"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A1000000-0000-0000-0000-000000000007")!,
-					name: "Defrost freezer",
+					name: String(localized: "task.defrost_freezer"),
 					roomId: placeholder,
 					frequency: .quarterly,
 					estimatedDuration: .sixtyMinutes
@@ -68,35 +68,35 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000001")!,
-					name: "Vacuum",
+					name: String(localized: "task.vacuum"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000002")!,
-					name: "Dust surfaces",
+					name: String(localized: "task.dust_surfaces"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000003")!,
-					name: "Wipe TV screen",
+					name: String(localized: "task.wipe_tv_screen"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000004")!,
-					name: "Tidy cushions",
+					name: String(localized: "task.tidy_cushions"),
 					roomId: placeholder,
 					frequency: .daily,
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A2000000-0000-0000-0000-000000000005")!,
-					name: "Clean windows",
+					name: String(localized: "task.clean_windows"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
@@ -106,35 +106,35 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000001")!,
-					name: "Make bed",
+					name: String(localized: "task.make_bed"),
 					roomId: placeholder,
 					frequency: .daily,
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000002")!,
-					name: "Vacuum",
+					name: String(localized: "task.vacuum"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000003")!,
-					name: "Dust surfaces",
+					name: String(localized: "task.dust_surfaces"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000004")!,
-					name: "Change bed linen",
+					name: String(localized: "task.change_bed_linen"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A3000000-0000-0000-0000-000000000005")!,
-					name: "Tidy wardrobe",
+					name: String(localized: "task.tidy_wardrobe"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
@@ -144,42 +144,42 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000001")!,
-					name: "Clean toilet",
+					name: String(localized: "task.clean_toilet"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000002")!,
-					name: "Wipe sink",
+					name: String(localized: "task.wipe_sink"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(3),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000003")!,
-					name: "Clean shower / bath",
+					name: String(localized: "task.clean_shower_bath"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000004")!,
-					name: "Mop floor",
+					name: String(localized: "task.mop_floor"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000005")!,
-					name: "Wipe mirror",
+					name: String(localized: "task.wipe_mirror"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A4000000-0000-0000-0000-000000000006")!,
-					name: "Descale taps",
+					name: String(localized: "task.descale_taps"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
@@ -189,35 +189,35 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000001")!,
-					name: "Vacuum / sweep",
+					name: String(localized: "task.vacuum_sweep"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000002")!,
-					name: "Wipe door handles",
+					name: String(localized: "task.wipe_door_handles"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000003")!,
-					name: "Organise shoes",
+					name: String(localized: "task.organise_shoes"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000004")!,
-					name: "Dust shelves",
+					name: String(localized: "task.dust_shelves"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A5000000-0000-0000-0000-000000000005")!,
-					name: "Clean front door",
+					name: String(localized: "task.clean_front_door"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
@@ -227,35 +227,35 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000001")!,
-					name: "Wipe desk",
+					name: String(localized: "task.wipe_desk"),
 					roomId: placeholder,
 					frequency: .daily,
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000002")!,
-					name: "Dust monitor & keyboard",
+					name: String(localized: "task.dust_monitor_keyboard"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000003")!,
-					name: "Vacuum",
+					name: String(localized: "task.vacuum"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000004")!,
-					name: "Tidy cables",
+					name: String(localized: "task.tidy_cables"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A6000000-0000-0000-0000-000000000005")!,
-					name: "Clean windows",
+					name: String(localized: "task.clean_windows"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
@@ -265,28 +265,28 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000001")!,
-					name: "Sweep floor",
+					name: String(localized: "task.sweep_floor"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fifteenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000002")!,
-					name: "Organise tools",
+					name: String(localized: "task.organise_tools"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000003")!,
-					name: "Remove rubbish",
+					name: String(localized: "task.remove_rubbish"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A7000000-0000-0000-0000-000000000004")!,
-					name: "Wipe shelves",
+					name: String(localized: "task.wipe_shelves"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
@@ -296,28 +296,28 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000001")!,
-					name: "Wipe washing machine drum",
+					name: String(localized: "task.wipe_washing_machine_drum"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000002")!,
-					name: "Clean lint filter",
+					name: String(localized: "task.clean_lint_filter"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000003")!,
-					name: "Descale washing machine",
+					name: String(localized: "task.descale_washing_machine"),
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A8000000-0000-0000-0000-000000000004")!,
-					name: "Sweep floor",
+					name: String(localized: "task.sweep_floor"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
@@ -327,35 +327,35 @@ extension RoomType {
 			[
 				RoomTask(
 					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000001")!,
-					name: "Clean toilet bowl",
+					name: String(localized: "task.clean_toilet_bowl"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000002")!,
-					name: "Wipe seat & lid",
+					name: String(localized: "task.wipe_seat_lid"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(3),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000003")!,
-					name: "Wipe sink",
+					name: String(localized: "task.wipe_sink"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(2),
 					estimatedDuration: .fiveMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000004")!,
-					name: "Mop floor",
+					name: String(localized: "task.mop_floor"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
 				),
 				RoomTask(
 					id: UUID(uuidString: "A9000000-0000-0000-0000-000000000005")!,
-					name: "Restock supplies",
+					name: String(localized: "task.restock_supplies"),
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes

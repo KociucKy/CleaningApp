@@ -10,6 +10,8 @@ struct OnbHeroIconView: View {
 	}
 
 	@Environment(\.colorScheme) private var colorScheme
+	@ScaledMetric private var iconCircleSize = Constants.iconCircleSize
+	@ScaledMetric private var iconSymbolSize = Constants.iconSymbolSize
 	var systemName: String
 	var iconVisible: Bool
 
@@ -19,14 +21,15 @@ struct OnbHeroIconView: View {
 				.fill(
 					Color.accentColor.opacity(colorScheme == .light ? Constants.lightIconCircleOpacity : Constants.darkIconCircleOpacity)
 				)
-				.frame(width: Constants.iconCircleSize, height: Constants.iconCircleSize)
+				.frame(width: iconCircleSize, height: iconCircleSize)
 			Image(systemName: systemName)
-				.font(.system(size: Constants.iconSymbolSize, weight: .light))
+				.font(.system(size: iconSymbolSize, weight: .light))
 				.foregroundStyle(Color.accentColor)
 				.symbolEffect(.bounce, options: .nonRepeating, isActive: iconVisible)
 		}
 		.scaleEffect(iconVisible ? 1 : Constants.iconEntryScale)
 		.opacity(iconVisible ? 1 : 0)
+		.accessibilityHidden(true)
 	}
 }
 

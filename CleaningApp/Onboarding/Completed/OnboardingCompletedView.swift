@@ -19,6 +19,7 @@ struct OnboardingCompletedView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnboardingCompletedPresenter
+	@ScaledMetric private var buttonHeight: CGFloat = Constants.buttonHeight
 
 	// MARK: - Body
 
@@ -89,6 +90,7 @@ struct OnboardingCompletedView: View {
 			Image(systemName: symbol)
 				.font(FKTypography.bodyBold)
 				.foregroundStyle(Color.accentColor)
+				.accessibilityHidden(true)
 			Text(value)
 				.font(FKTypography.bodyBold)
 				.foregroundStyle(FKColor.Label.primary)
@@ -99,6 +101,7 @@ struct OnboardingCompletedView: View {
 			Color.accentColor.opacity(0.1),
 			in: RoundedRectangle(cornerRadius: Constants.statPillCornerRadius)
 		)
+		.accessibilityElement(children: .combine)
 	}
 
 	// MARK: - Finish Button
@@ -112,14 +115,14 @@ struct OnboardingCompletedView: View {
 				if presenter.isSaving {
 					ProgressView()
 						.tint(.white)
+						.accessibilityLabel(Text("common.action.finish"))
 				} else {
 					Text("common.action.finish")
 						.font(FKTypography.ctaLabel)
 						.foregroundStyle(.white)
 				}
 			}
-			.frame(maxWidth: .infinity)
-			.frame(height: Constants.buttonHeight)
+			.frame(maxWidth: .infinity, minHeight: buttonHeight)
 		}
 		.buttonStyle(.glassProminent)
 		.disabled(presenter.isSaving)

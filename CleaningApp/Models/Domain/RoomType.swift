@@ -16,6 +16,21 @@ enum RoomType: String, CaseIterable, Codable, Identifiable {
 	case toilet = "Toilet"
 	case custom = "Custom"
 
+	var localizedName: String {
+		switch self {
+		case .kitchen: String(localized: "room_type.kitchen")
+		case .livingRoom: String(localized: "room_type.living_room")
+		case .bedroom: String(localized: "room_type.bedroom")
+		case .bathroom: String(localized: "room_type.bathroom")
+		case .hallway: String(localized: "room_type.hallway")
+		case .office: String(localized: "room_type.office")
+		case .garage: String(localized: "room_type.garage")
+		case .laundry: String(localized: "room_type.laundry")
+		case .toilet: String(localized: "room_type.toilet")
+		case .custom: String(localized: "room_type.custom")
+		}
+	}
+
 	var symbolName: String {
 		switch self {
 		case .kitchen: "fork.knife"

@@ -82,7 +82,8 @@ struct OnbTaskSelectionView: View {
 				Image(systemName: room.symbolName)
 					.font(FKTypography.bodyBold)
 					.foregroundStyle(Color.accentColor)
-				Text(room.rawValue)
+					.accessibilityHidden(true)
+				Text(room.localizedName)
 					.font(FKTypography.bodyBold)
 					.foregroundStyle(FKColor.Label.primary)
 				Spacer()
@@ -97,12 +98,14 @@ struct OnbTaskSelectionView: View {
 					.font(FKTypography.caption)
 					.foregroundStyle(FKColor.Label.secondary)
 					.transition(.opacity.combined(with: .scale(scale: 0.9)))
+					.accessibilityHidden(true)
 				}
 				Image(systemName: "chevron.down")
 					.font(FKTypography.caption)
 					.foregroundStyle(FKColor.Label.secondary)
 					.rotationEffect(.degrees(isCollapsed ? -90 : 0))
 					.animation(.spring(response: 0.35, dampingFraction: 0.8), value: isCollapsed)
+					.accessibilityHidden(true)
 			}
 			.padding(.vertical, FKSpacing.small)
 			.contentShape(.rect)
@@ -131,9 +134,11 @@ struct OnbTaskSelectionView: View {
 					.font(FKTypography.sectionHeader)
 					.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
 					.contentTransition(.symbolEffect(.replace))
+					.accessibilityHidden(true)
 			}
 			.contentShape(.rect)
 		}
+		.accessibilityAddTraits(isSelected ? .isSelected : [])
 		.buttonStyle(.fkFade)
 	}
 

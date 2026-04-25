@@ -27,6 +27,9 @@ packages:
   UserDefaultsKit:
     url: https://github.com/KociucKy/UserDefaultsKit
     branch: "master"
+  SnapshotTesting:
+    url: https://github.com/pointfreeco/swift-snapshot-testing
+    exactVersion: "1.19.2"
 targets:
   CleaningApp:
     type: application
@@ -116,6 +119,7 @@ targets:
       - path: CleaningAppTests
     dependencies:
       - target: CleaningApp
+      - package: SnapshotTesting
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp.tests
