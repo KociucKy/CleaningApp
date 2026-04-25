@@ -58,15 +58,16 @@ private func makeOnboardingRouter(for interactor: OnboardingInteractor) -> Onboa
 	)
 }
 
-/// Wraps a view so that all SwiftUI animations (including `withAnimation` blocks
-/// triggered by `onAppear`) execute immediately with no interpolation, ensuring
-/// snapshot tests capture the fully-visible final state.
+/// Wraps a view in a NavigationStack so that navigation modifiers render correctly,
+/// then disables animations and forces light mode to ensure snapshot consistency.
 @MainActor
 private func snap(_ view: some View) -> AnyView {
 	AnyView(
-		view
-			.transaction { $0.disablesAnimations = true }
-			.preferredColorScheme(.light)
+		NavigationStack {
+			view
+		}
+		.transaction { $0.disablesAnimations = true }
+		.preferredColorScheme(.light)
 	)
 }
 
