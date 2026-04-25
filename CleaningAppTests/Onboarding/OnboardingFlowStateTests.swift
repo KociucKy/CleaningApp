@@ -100,13 +100,16 @@ struct OnboardingFlowStateTests {
 	@Test(.tags(.adding)) func toggleTask_addsTaskForRoom() {
 		let state = OnboardingFlowState()
 		state.toggleRoom(.kitchen)
-		let task = RoomType.kitchen.suggestedTasks[0]
-		let initialCount = state.selectedTasks[.kitchen]?.count ?? 0
-		// Ensure task is not already selected before toggling on
-		if !state.isTaskSelected(task, for: .kitchen) {
-			state.toggleTask(task, for: .kitchen)
-			#expect((state.selectedTasks[.kitchen]?.count ?? 0) == initialCount + 1)
+		// Use a task outside the pre-populated set (prefix(3) = indices 0,1,2)
+		let allTasks = RoomType.kitchen.suggestedTasks
+		let prePopulated = state.selectedTasks[.kitchen] ?? []
+		guard let unpopulatedTask = allTasks.first(where: { !prePopulated.contains($0) }) else {
+			Issue.record("Kitchen has no unpopulated tasks to test")
+			return
 		}
+		let initialCount = prePopulated.count
+		state.toggleTask(unpopulatedTask, for: .kitchen)
+		#expect((state.selectedTasks[.kitchen]?.count ?? 0) == initialCount + 1)
 	}
 
 	@Test(.tags(.deleting)) func toggleTask_removesAlreadySelectedTask() {
