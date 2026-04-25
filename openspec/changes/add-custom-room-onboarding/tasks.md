@@ -1,39 +1,39 @@
 ## 1. Domain Model Changes
 
-- [ ] 1.1 Add `isCustom: Bool` field to `Room` struct in `Models/Domain/Room.swift`
-- [ ] 1.2 Add `customIcon: String?` field to `Room` struct
-- [ ] 1.3 Update `Room` init to include new fields with defaults (`isCustom = false`, `customIcon = nil`)
-- [ ] 1.4 Replace `.custom` case with `.diningRoom` in `RoomType` enum in `Models/Domain/RoomType.swift`
-- [ ] 1.5 Add `.customRoom` sentinel case to `RoomType` enum
-- [ ] 1.6 Add `diningRoom` localized name in `RoomType.localizedName` computed property
-- [ ] 1.7 Add `diningRoom` SF Symbol (`fork.knife.circle` or `table.furniture`) in `RoomType.symbolName`
-- [ ] 1.8 Add `.customRoom` to `localizedName` and `symbolName` (fallback values, never shown in UI)
+- [x] 1.1 Add `isCustom: Bool` field to `Room` struct in `Models/Domain/Room.swift`
+- [x] 1.2 Add `customIcon: String?` field to `Room` struct
+- [x] 1.3 Update `Room` init to include new fields with defaults (`isCustom = false`, `customIcon = nil`)
+- [x] 1.4 Replace `.custom` case with `.diningRoom` in `RoomType` enum in `Models/Domain/RoomType.swift`
+- [x] 1.5 Add `.customRoom` sentinel case to `RoomType` enum
+- [x] 1.6 Add `diningRoom` localized name in `RoomType.localizedName` computed property
+- [x] 1.7 Add `diningRoom` SF Symbol (`fork.knife.circle` or `table.furniture`) in `RoomType.symbolName`
+- [x] 1.8 Add `.customRoom` to `localizedName` and `symbolName` (fallback values, never shown in UI)
 
 ## 2. Suggested Tasks for Dining Room
 
-- [ ] 2.1 Remove `.custom` case from `RoomType+SuggestedTasks.swift`
-- [ ] 2.2 Add `.diningRoom` case to `suggestedTasks` computed property
-- [ ] 2.3 Define 4-5 tasks for dining room (set table, clear table, wipe table, vacuum floor, dust shelves)
-- [ ] 2.4 Assign stable UUIDs for dining room tasks (e.g., `DA000000-0000-0000-0000-000000000001`)
-- [ ] 2.5 Add `.customRoom` case returning empty array (`[]`)
+- [x] 2.1 Remove `.custom` case from `RoomType+SuggestedTasks.swift`
+- [x] 2.2 Add `.diningRoom` case to `suggestedTasks` computed property
+- [x] 2.3 Define 4-5 tasks for dining room (wipe table, vacuum/sweep, dust surfaces, clean light fixtures, polish furniture)
+- [x] 2.4 Assign stable UUIDs for dining room tasks (used prefix `AA000000-0000-0000-0000-00000000000X`)
+- [x] 2.5 Add `.customRoom` case returning empty array (`[]`)
 
 ## 3. Persistence Layer Updates
 
-- [ ] 3.1 Add `isCustom: Bool` field to `RoomEntity` in `Models/Entities/RoomEntity.swift`
-- [ ] 3.2 Add `customIcon: String?` field to `RoomEntity`
-- [ ] 3.3 Update `RoomEntity` init to include new fields
-- [ ] 3.4 Update `RoomMapper.toDomain()` to map `isCustom` and `customIcon` fields
-- [ ] 3.5 Update `RoomMapper.toEntity()` to handle custom rooms (map `.customRoom` kind, store `customIcon`)
-- [ ] 3.6 Test SwiftData schema migration (existing rooms default to `isCustom = false`)
+- [x] 3.1 Add `isCustom: Bool` field to `RoomEntity` in `Models/Entities/RoomEntity.swift`
+- [x] 3.2 Add `customIcon: String?` field to `RoomEntity`
+- [x] 3.3 Update `RoomEntity` init to include new fields
+- [x] 3.4 Update `RoomMapper.toDomain()` to map `isCustom` and `customIcon` fields
+- [x] 3.5 Update `RoomMapper.toEntity()` to handle custom rooms (map `.customRoom` kind, store `customIcon`)
+- [x] 3.6 Test SwiftData schema migration (existing rooms default to `isCustom = false`) - Updated mocks and mapper tests
 
 ## 4. Onboarding Flow State Updates
 
-- [ ] 4.1 Create `CustomRoomSelection` struct in `Onboarding/OnboardingFlowState.swift` with `id`, `name`, `icon` properties
-- [ ] 4.2 Add `customRooms: [CustomRoomSelection]` array to `OnboardingFlowState`
-- [ ] 4.3 Add `addCustomRoom(_:)` method to append to `customRooms` array
-- [ ] 4.4 Add `removeCustomRoom(id:)` method to remove custom room by UUID
-- [ ] 4.5 Add `isCustomRoomSelected(id:)` method to check custom room selection state
-- [ ] 4.6 Update `clearRooms()` to also clear `customRooms` array
+- [x] 4.1 Create `CustomRoomSelection` struct in `Onboarding/OnboardingFlowState.swift` with `id`, `name`, `icon` properties
+- [x] 4.2 Add `customRooms: [CustomRoomSelection]` array to `OnboardingFlowState`
+- [x] 4.3 Add `addCustomRoom(_:)` method to append to `customRooms` array
+- [x] 4.4 Add `removeCustomRoom(id:)` method to remove custom room by UUID
+- [x] 4.5 Add `isCustomRoomSelected(id:)` method to check custom room selection state
+- [x] 4.6 Update `clearRooms()` to also clear `customRooms` array
 
 ## 5. Custom Room Creation UI Components
 
@@ -78,25 +78,26 @@
 
 ## 9. Localization
 
-- [ ] 9.1 Add `"room_type.dining_room"` key to `Localizable.xcstrings`
+- [x] 9.1 Add `"room_type.dining_room"` key to `Localizable.xcstrings` (EN: "Dining Room", PL: "Jadalnia")
 - [ ] 9.2 Add `"onb_custom_room.sheet_title"` for sheet header
 - [ ] 9.3 Add `"onb_custom_room.name_placeholder"` for text field
 - [ ] 9.4 Add `"onb_custom_room.icon_title"` for icon selection header
 - [ ] 9.5 Add `"onb_custom_room.button_next"` for navigation button
-- [ ] 9.6 Add dining room task names (e.g., `"task.set_table"`, `"task.clear_table"`)
+- [x] 9.6 Add dining room task names (`task.wipe_table`, `task.clean_light_fixtures`, `task.polish_furniture` + reused `task.vacuum_sweep`, `task.dust_surfaces`)
+- [x] 9.7 Add `"room_type.custom_room"` key (EN: "Custom Room", PL: "Własny pokój")
 
 ## 10. Testing
 
-- [ ] 10.1 Add test for `Room` with `isCustom = true` and custom icon
-- [ ] 10.2 Test `RoomMapper` correctly maps custom rooms to/from entity
+- [x] 10.1 Add test for `Room` with `isCustom = true` and custom icon - Updated `Room+Mock.swift`
+- [x] 10.2 Test `RoomMapper` correctly maps custom rooms to/from entity - Updated `RoomMapperTests.swift` (all fields including `isCustom` and `customIcon`)
 - [ ] 10.3 Test `OnboardingFlowState.addCustomRoom()` appends to array
 - [ ] 10.4 Test `OnboardingFlowState.customRooms` persistence through onboarding flow
 - [ ] 10.5 Test `OnboardingInteractor.saveAndCompleteOnboarding()` saves custom rooms to SwiftData
 - [ ] 10.6 Test mixed selection of predefined + custom rooms
 - [ ] 10.7 Test custom room with empty name is rejected
 - [ ] 10.8 Test custom room cards render in grid with correct styling
-- [ ] 10.9 Test `.diningRoom` has suggested tasks
-- [ ] 10.10 Test `.customRoom` case not shown in room selection grid
+- [x] 10.9 Test `.diningRoom` has suggested tasks - Updated `RoomTypeSuggestedTasksTests.swift`
+- [x] 10.10 Test `.customRoom` case not shown in room selection grid - Updated test to exclude `.customRoom` instead of `.custom`
 
 ## 11. Code Quality
 
