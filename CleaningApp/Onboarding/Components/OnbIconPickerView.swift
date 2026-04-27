@@ -6,60 +6,34 @@ import SwiftUI
 struct OnbIconPickerView: View {
 	// MARK: - Properties
 
-	private let onIconSelected: (String) -> Void
-
-	private let icons: [String] = [
-		"house.fill",
-		"bed.double.fill",
-		"dumbbell",
-		"book.fill",
-		"paintpalette.fill",
-		"leaf.fill",
-		"wrench.and.screwdriver.fill",
-		"music.note",
-		"gamecontroller.fill",
-		"laptopcomputer",
-		"tv.fill",
-		"car.fill",
-		"cart.fill",
-		"tent.fill",
-		"pawprint.fill",
-		"figure.walk",
-		"tshirt.fill",
-		"cup.and.saucer.fill",
-		"square.grid.2x2",
-	]
-
-	private let defaultIcon = "square.grid.2x2"
-
-	// MARK: - Init
-
-	init(onIconSelected: @escaping (String) -> Void) {
-		self.onIconSelected = onIconSelected
-	}
+	@State var presenter: OnbIconPickerPresenter
 
 	// MARK: - Body
 
 	var body: some View {
-		VStack(spacing: 20) {
-			Text(LocalizedStringKey("onb_custom_room.icon_title"))
-				.font(.title2)
-				.fontWeight(.semibold)
-				.frame(maxWidth: .infinity, alignment: .leading)
+		ScrollView {
+			VStack(spacing: 20) {
+				Text(LocalizedStringKey("onb_custom_room.icon_title"))
+					.font(.title2)
+					.fontWeight(.semibold)
+					.frame(maxWidth: .infinity, alignment: .leading)
 
-			LazyVGrid(columns: [
-				GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16),
-			], spacing: 16) {
-				ForEach(icons, id: \.self) { icon in
-					IconButton(iconName: icon) {
-						onIconSelected(icon)
+				LazyVGrid(columns: [
+					GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16),
+				], spacing: 16) {
+					ForEach(presenter.icons, id: \.self) { icon in
+						IconButton(iconName: icon) {
+							presenter.onIconSelected(icon)
+						}
 					}
 				}
 			}
+			.padding(.horizontal, 24)
+			.padding(.top, 32)
+			.padding(.bottom, 48)
 		}
-		.padding(.horizontal, 24)
-		.padding(.top, 32)
-		.padding(.bottom, 48)
+		.navigationTitle(LocalizedStringKey("onb_custom_room.icon_picker_title"))
+		.navigationBarTitleDisplayMode(.inline)
 	}
 }
 
@@ -85,7 +59,13 @@ private struct IconButton: View {
 // MARK: - Preview
 
 #Preview {
-	OnbIconPickerView { icon in
-		print("Selected icon: \(icon)")
+	let container = DevPreview.shared.container
+	let interactor = OnboardingInteractor(container: container)
+	let builder = OnboardingBuilder(interactor: interactor)
+
+	RouterView { router in
+		NavigationStack {
+			builder.iconPickerView(sheetRouter: OnboardingRouter(router: router, builder: builder), roomName: "My Custom Room")
+		}
 	}
 }
