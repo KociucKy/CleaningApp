@@ -13,20 +13,29 @@ struct OnbRoomSelectionView: View {
 
 	var body: some View {
 		ScrollView {
-			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-				// Predefined rooms (excluding .customRoom sentinel)
-				ForEach(Array(RoomType.allCases.filter { $0 != .customRoom }.enumerated()), id: \.element) { index, room in
-					roomCell(room, index: index)
-				}
+			ScrollViewReader { proxy in
+				LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
+					// Predefined rooms (excluding .customRoom sentinel)
+					ForEach(Array(RoomType.allCases.filter { $0 != .customRoom }.enumerated()), id: \.element) { index, room in
+						roomCell(room, index: index)
+					}
 
-				// Custom rooms
-				ForEach(Array(presenter.customRooms.enumerated()), id: \.element.id) { index, customRoom in
-					let cellIndex = RoomType.allCases.count(where: { $0 != .customRoom }) + index
-					customRoomCell(customRoom, index: cellIndex)
+					// Custom rooms
+					ForEach(Array(presenter.customRooms.enumerated()), id: \.element.id) { index, customRoom in
+						let cellIndex = RoomType.allCases.count(where: { $0 != .customRoom }) + index
+						customRoomCell(customRoom, index: cellIndex)
+							.id(customRoom.id)
+					}
+				}
+				.padding(.horizontal, FKSpacing.large)
+				.padding(.top, FKSpacing.large)
+				.onChange(of: presenter.customRooms.count) { oldCount, newCount in
+					if newCount > oldCount, let lastRoom = presenter.customRooms.last {
+						presenter.onCustomRoomAdded()
+						presenter.scrollToNewCustomRoom(proxy, roomId: lastRoom.id)
+					}
 				}
 			}
-			.padding(.horizontal, FKSpacing.large)
-			.padding(.top, FKSpacing.large)
 		}
 		.navigationTitle("onb_room_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
@@ -52,11 +61,6 @@ struct OnbRoomSelectionView: View {
 		}
 		.onAppear {
 			presenter.animateEntrance()
-		}
-		.onChange(of: presenter.customRooms.count) { oldCount, newCount in
-			if newCount > oldCount {
-				presenter.onCustomRoomAdded()
-			}
 		}
 	}
 

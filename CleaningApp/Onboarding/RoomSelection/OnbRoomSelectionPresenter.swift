@@ -104,4 +104,13 @@ final class OnbRoomSelectionPresenter {
 			}
 		}
 	}
+
+	func scrollToNewCustomRoom(_ proxy: ScrollViewProxy, roomId: UUID) {
+		// Delay scrolling to allow the visibility animation to start first
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			withAnimation {
+				proxy.scrollTo(roomId, anchor: .bottom)
+			}
+		}
+	}
 }
