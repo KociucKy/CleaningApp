@@ -72,4 +72,23 @@ struct OnboardingBuilder: Builder {
 			)
 		)
 	}
+
+	func customRoomSheetView(router: Router) -> some View {
+		OnbCustomRoomSheetView(
+			presenter: OnbCustomRoomSheetPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self)
+			)
+		)
+	}
+
+	func iconPickerView(sheetRouter: OnboardingRouter, roomName: String) -> some View {
+		OnbIconPickerView(
+			presenter: OnbIconPickerPresenter(
+				interactor: interactor,
+				router: sheetRouter,
+				roomName: roomName
+			)
+		)
+	}
 }

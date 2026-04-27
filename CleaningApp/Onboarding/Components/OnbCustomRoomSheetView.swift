@@ -8,46 +8,31 @@ struct OnbCustomRoomSheetView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbCustomRoomSheetPresenter
-	@Environment(\.dismiss) private var dismiss
 	@FocusState private var isTextFieldFocused: Bool
 
 	// MARK: - Body
 
 	var body: some View {
-		NavigationStack {
-			VStack(spacing: 0) {
-				if presenter.showIconPicker {
-					ScrollView {
-						OnbIconPickerView { icon in
-							presenter.onIconSelected(icon)
-							dismiss()
-						}
-					}
-				} else {
-					nameInputView
-				}
-			}
+		nameInputView
 			.navigationTitle(LocalizedStringKey("onb_custom_room.sheet_title"))
 			.navigationBarTitleDisplayMode(.inline)
+			.presentationDragIndicator(.visible)
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
 					Button("common.action.cancel") {
-						dismiss()
+						presenter.onCancelButtonPressed()
 					}
 				}
-				if !presenter.showIconPicker {
-					ToolbarItem(placement: .primaryAction) {
-						Button("onb_custom_room.button_next") {
-							presenter.onNextButtonPressed()
-						}
-						.disabled(!presenter.isNameValid)
+				ToolbarItem(placement: .primaryAction) {
+					Button("onb_custom_room.button_next") {
+						presenter.onNextButtonPressed()
 					}
+					.disabled(!presenter.isNameValid)
 				}
 			}
 			.onAppear {
 				isTextFieldFocused = true
 			}
-		}
 	}
 
 	// MARK: - SubViews
@@ -80,9 +65,11 @@ struct OnbCustomRoomSheetView: View {
 // MARK: - Preview
 
 #Preview {
-	OnbCustomRoomSheetView(
-		presenter: OnbCustomRoomSheetPresenter { name, icon in
-			print("Created room: \(name), icon: \(icon)")
-		}
-	)
+	let container = DevPreview.shared.container
+	let interactor = OnboardingInteractor(container: container)
+	let builder = OnboardingBuilder(interactor: interactor)
+
+	RouterView { router in
+		builder.customRoomSheetView(router: router)
+	}
 }

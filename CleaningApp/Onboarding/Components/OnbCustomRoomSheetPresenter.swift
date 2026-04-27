@@ -7,11 +7,10 @@ import SwiftUI
 final class OnbCustomRoomSheetPresenter {
 	// MARK: - Properties
 
-	private let onRoomCreated: (String, String) -> Void
+	private let interactor: OnboardingInteractor
+	private let router: OnboardingRouter
 
 	var roomName: String = ""
-	var selectedIcon: String?
-	var showIconPicker = false
 
 	var isNameValid: Bool {
 		!roomName.trimmingCharacters(in: .whitespaces).isEmpty
@@ -19,20 +18,24 @@ final class OnbCustomRoomSheetPresenter {
 
 	// MARK: - Init
 
-	init(onRoomCreated: @escaping (String, String) -> Void) {
-		self.onRoomCreated = onRoomCreated
+	init(
+		interactor: OnboardingInteractor,
+		router: OnboardingRouter
+	) {
+		self.interactor = interactor
+		self.router = router
 	}
 
 	// MARK: - Actions
 
-	func onNextButtonPressed() {
-		guard isNameValid else { return }
-		showIconPicker = true
+	func onCancelButtonPressed() {
+		router.dismissScreen()
 	}
 
-	func onIconSelected(_ icon: String) {
+	func onNextButtonPressed() {
+		guard isNameValid else { return }
 		let trimmedName = roomName.trimmingCharacters(in: .whitespaces)
-		onRoomCreated(trimmedName, icon)
+		router.showIconPickerView(roomName: trimmedName)
 	}
 
 	func limitNameLength() {
