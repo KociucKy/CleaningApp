@@ -52,6 +52,7 @@ struct OnbRoomSelectionView: View {
 				} label: {
 					Image(systemName: "plus")
 				}
+				.accessibilityLabel(LocalizedStringKey("onb_room_selection.add_custom_room_button"))
 			}
 		}
 		.safeAreaBar(edge: .bottom) {
@@ -151,6 +152,7 @@ struct OnbRoomSelectionView: View {
 				color: isSelected ? .accentColor : Color(FKColor.Separator.default)
 			)
 		}
+		.accessibilityLabel(String(localized: "onb_room_selection.custom_room_label_\(customRoom.name)"))
 		.accessibilityAddTraits(isSelected ? .isSelected : [])
 		.buttonStyle(.fkPressable)
 		.opacity(isVisible ? 1 : 0)

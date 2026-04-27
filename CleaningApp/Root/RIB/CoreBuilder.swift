@@ -55,7 +55,7 @@ struct CoreBuilder: Builder {
 						}
 						.any()
 					}
-				),
+				)
 			]
 		)
 	}

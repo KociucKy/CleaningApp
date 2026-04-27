@@ -22,7 +22,7 @@ extension CompletedTaskEntity {
 				taskId: RoomTaskEntity.mockId,
 				completedAt: .mock.addingTimeInterval(86400),
 				measuredDuration: nil
-			),
+			)
 		]
 	}
 }

@@ -34,7 +34,7 @@ extension Room {
 				isCustom: false,
 				customIcon: nil,
 				createdAt: .mock
-			),
+			)
 		]
 	}
 }

@@ -19,7 +19,7 @@ struct OnbIconPickerView: View {
 					.frame(maxWidth: .infinity, alignment: .leading)
 
 				LazyVGrid(columns: [
-					GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16),
+					GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16)
 				], spacing: 16) {
 					ForEach(presenter.icons, id: \.self) { icon in
 						IconButton(iconName: icon) {
@@ -53,6 +53,7 @@ private struct IconButton: View {
 				.background(.quaternary)
 				.clipShape(RoundedRectangle(cornerRadius: 12))
 		}
+		.accessibilityLabel(String(localized: "onb_custom_room.icon_button_\(iconName)"))
 	}
 }
 

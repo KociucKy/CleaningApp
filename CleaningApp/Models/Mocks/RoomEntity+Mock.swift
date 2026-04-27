@@ -34,7 +34,7 @@ extension RoomEntity {
 				isCustom: false,
 				customIcon: nil,
 				createdAt: .mock
-			),
+			)
 		]
 	}
 }

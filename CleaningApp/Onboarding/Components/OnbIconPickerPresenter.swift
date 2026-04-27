@@ -30,7 +30,7 @@ final class OnbIconPickerPresenter {
 		"figure.walk",
 		"tshirt.fill",
 		"cup.and.saucer.fill",
-		"square.grid.2x2",
+		"square.grid.2x2"
 	]
 
 	// MARK: - Init

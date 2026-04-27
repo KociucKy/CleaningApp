@@ -46,6 +46,7 @@ struct OnbCustomRoomSheetView: View {
 			.textFieldStyle(.roundedBorder)
 			.font(.body)
 			.focused($isTextFieldFocused)
+			.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
 			.onChange(of: presenter.roomName) {
 				presenter.limitNameLength()
 			}

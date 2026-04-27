@@ -773,6 +773,40 @@
         }
       }
     },
+    "onb_room_selection.add_custom_room_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add custom room"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własny pokój"
+          }
+        }
+      }
+    },
+    "onb_room_selection.custom_room_label_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom room: %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny pokój: %@"
+          }
+        }
+      }
+    },
     "onb_custom_room.sheet_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -854,6 +888,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wybierz ikonę"
+          }
+        }
+      }
+    },
+    "onb_custom_room.icon_button_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon: %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikona: %@"
           }
         }
       }

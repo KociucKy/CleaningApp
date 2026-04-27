@@ -34,7 +34,7 @@ extension RoomTaskEntity {
 				frequencyEncoded: "monthly",
 				estimatedDuration: 60,
 				createdAt: .mock
-			),
+			)
 		]
 	}
 }

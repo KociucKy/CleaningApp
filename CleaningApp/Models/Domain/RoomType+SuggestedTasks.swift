@@ -62,7 +62,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .quarterly,
 					estimatedDuration: .sixtyMinutes
-				),
+				)
 			]
 		case .livingRoom:
 			[
@@ -100,7 +100,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .bedroom:
 			[
@@ -138,7 +138,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .bathroom:
 			[
@@ -183,7 +183,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
-				),
+				)
 			]
 		case .hallway:
 			[
@@ -221,7 +221,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
-				),
+				)
 			]
 		case .office:
 			[
@@ -259,7 +259,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .garage:
 			[
@@ -290,7 +290,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
-				),
+				)
 			]
 		case .laundry:
 			[
@@ -321,7 +321,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
-				),
+				)
 			]
 		case .toilet:
 			[
@@ -359,7 +359,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
-				),
+				)
 			]
 		case .diningRoom:
 			[
@@ -397,7 +397,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .customRoom:
 			[]
