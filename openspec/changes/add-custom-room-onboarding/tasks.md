@@ -92,10 +92,10 @@
 
 - [x] 10.1 Add test for `Room` with `isCustom = true` and custom icon - Updated `Room+Mock.swift`
 - [x] 10.2 Test `RoomMapper` correctly maps custom rooms to/from entity - Updated `RoomMapperTests.swift` (all fields including `isCustom` and `customIcon`)
-- [ ] 10.3 Test `OnboardingFlowState.addCustomRoom()` appends to array
-- [ ] 10.4 Test `OnboardingFlowState.customRooms` persistence through onboarding flow
-- [ ] 10.5 Test `OnboardingInteractor.saveAndCompleteOnboarding()` saves custom rooms to SwiftData
-- [ ] 10.6 Test mixed selection of predefined + custom rooms
+- [x] 10.3 Test `OnboardingFlowState.addCustomRoom()` appends to array
+- [x] 10.4 Test `OnboardingFlowState.customRooms` persistence through onboarding flow
+- [x] 10.5 Test `OnboardingInteractor.saveAndCompleteOnboarding()` saves custom rooms to SwiftData
+- [x] 10.6 Test mixed selection of predefined + custom rooms
 - [ ] 10.7 Test custom room with empty name is rejected
 - [ ] 10.8 Test custom room cards render in grid with correct styling
 - [x] 10.9 Test `.diningRoom` has suggested tasks - Updated `RoomTypeSuggestedTasksTests.swift`

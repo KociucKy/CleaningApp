@@ -109,6 +109,7 @@
 		C4B1DE558EBE6056FC179C9C /* AppEntryPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */; };
 		C589D0BF066519D02DE035B4 /* MockCompletedTaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897E3D4639DDD283BA97D15 /* MockCompletedTaskRepositoryTests.swift */; };
 		C8634A6248FC6139588DF63E /* OnboardingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0980ED17BFFE8F6E1DCCAC /* OnboardingBuilder.swift */; };
+		CAE9135F471B006AF2BDB094 /* OnboardingInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8834079B5E957AD219BD9406 /* OnboardingInteractorTests.swift */; };
 		CC678B4FE38EA2F5C1F6E846 /* test_taskSelectionView_defaultState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = D8CA0667EFA146891108FB26 /* test_taskSelectionView_defaultState.1.png */; };
 		CD170D630AFAA3D9EB2B54AD /* test_controlButtonsView_primaryOnly.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB169644796EF68182CBD5E /* test_controlButtonsView_primaryOnly.1.png */; };
 		CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F9E29C111325DB3C5415DE8 /* DependencyContainer.swift */; };
@@ -227,6 +228,7 @@
 		86F230737E115883ABCCC358 /* OnboardingFlowStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowStateTests.swift; sourceTree = "<group>"; };
 		87032E920792FA6C55583745 /* Room+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Room+Mock.swift"; sourceTree = "<group>"; };
 		8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
+		8834079B5E957AD219BD9406 /* OnboardingInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractorTests.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -777,6 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				86F230737E115883ABCCC358 /* OnboardingFlowStateTests.swift */,
+				8834079B5E957AD219BD9406 /* OnboardingInteractorTests.swift */,
 				6079C6F86C66799CC26CC9D4 /* OnboardingStateTests.swift */,
 				B06AF8CB201F1768C153A84F /* RoomTypeSuggestedTasksTests.swift */,
 				F43B00B16D2BCCA9157A7E8E /* Snapshots */,
@@ -840,7 +843,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_0AAF7951-3338-4C1C-B654-025F2200D3DD" /* Shared */ = {
+		"TEMP_93DBE0C0-9216-442F-8FB8-77A2D0C0A852" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1037,6 +1040,7 @@
 				A6C2DA68D6569A3663C852F6 /* MockRoomTaskRepositoryTests.swift in Sources */,
 				D5694E4D6BEA6214883C1168 /* MockSkippedTaskRepositoryTests.swift in Sources */,
 				32AFD350624DCA81E5E41927 /* OnboardingFlowStateTests.swift in Sources */,
+				CAE9135F471B006AF2BDB094 /* OnboardingInteractorTests.swift in Sources */,
 				79D434D5A22D027A8372BC12 /* OnboardingSnapshotTests.swift in Sources */,
 				6F7C5EDC60FBF13E4E638E1A /* OnboardingStateTests.swift in Sources */,
 				313FFFDC16B8EB7B756E4EAB /* RoomManagerTests.swift in Sources */,
