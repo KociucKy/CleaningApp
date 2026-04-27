@@ -841,6 +841,23 @@
         }
       }
     },
+    "onb_custom_room.icon_picker_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Icon"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz ikonę"
+          }
+        }
+      }
+    },
     "onb_custom_room.button_next" : {
       "extractionState" : "manual",
       "localizations" : {

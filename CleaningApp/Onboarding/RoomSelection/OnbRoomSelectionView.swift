@@ -6,7 +6,6 @@ struct OnbRoomSelectionView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbRoomSelectionPresenter
-	@State private var showCustomRoomSheet = false
 	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 	@ScaledMetric private var roomSymbolSize: CGFloat = 32
 
@@ -40,7 +39,7 @@ struct OnbRoomSelectionView: View {
 			}
 			ToolbarItem(placement: .topBarTrailing) {
 				Button {
-					showCustomRoomSheet = true
+					presenter.onAddCustomRoomPressed()
 				} label: {
 					Image(systemName: "plus")
 				}
@@ -51,15 +50,13 @@ struct OnbRoomSelectionView: View {
 				.opacity(presenter.buttonVisible ? 1 : 0)
 				.offset(y: presenter.buttonVisible ? 0 : 16)
 		}
-		.sheet(isPresented: $showCustomRoomSheet) {
-			let sheetPresenter = OnbCustomRoomSheetPresenter { name, icon in
-				presenter.onCustomRoomCreated(name: name, icon: icon)
-				showCustomRoomSheet = false
-			}
-			OnbCustomRoomSheetView(presenter: sheetPresenter)
-		}
 		.onAppear {
 			presenter.animateEntrance()
+		}
+		.onChange(of: presenter.customRooms.count) { oldCount, newCount in
+			if newCount > oldCount {
+				presenter.onCustomRoomAdded()
+			}
 		}
 	}
 

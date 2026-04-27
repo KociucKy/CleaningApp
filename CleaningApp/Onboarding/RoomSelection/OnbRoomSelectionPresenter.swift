@@ -26,6 +26,11 @@ final class OnbRoomSelectionPresenter {
 		interactor.customRooms
 	}
 
+	private var totalCellCount: Int {
+		let predefinedCount = RoomType.allCases.count(where: { $0 != .customRoom })
+		return predefinedCount + interactor.customRooms.count
+	}
+
 	// MARK: - Init
 
 	init(
@@ -39,8 +44,7 @@ final class OnbRoomSelectionPresenter {
 	// MARK: - Actions
 
 	func animateEntrance() {
-		let predefinedCount = RoomType.allCases.count(where: { $0 != .customRoom })
-		let totalCount = predefinedCount + interactor.customRooms.count
+		let totalCount = totalCellCount
 		Timer.scheduledTimer(withTimeInterval: 0.04, repeats: true) { [weak self] timer in
 			guard let self else {
 				timer.invalidate()
@@ -79,8 +83,8 @@ final class OnbRoomSelectionPresenter {
 		interactor.isRoomSelected(room)
 	}
 
-	func onCustomRoomCreated(name: String, icon: String) {
-		interactor.addCustomRoom(name: name, icon: icon)
+	func onAddCustomRoomPressed() {
+		router.presentCustomRoomSheet()
 	}
 
 	func onCustomRoomCardPressed(id: UUID) {
@@ -89,5 +93,15 @@ final class OnbRoomSelectionPresenter {
 
 	func isCustomRoomSelected(_ id: UUID) -> Bool {
 		interactor.isCustomRoomSelected(id: id)
+	}
+
+	func onCustomRoomAdded() {
+		// Ensure the newly added custom room is visible
+		let newTotalCount = totalCellCount
+		if visibleCellCount < newTotalCount {
+			withAnimation(.spring(response: 0.45, dampingFraction: 0.75)) {
+				visibleCellCount = newTotalCount
+			}
+		}
 	}
 }
