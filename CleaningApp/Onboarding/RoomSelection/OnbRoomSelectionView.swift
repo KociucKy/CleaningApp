@@ -6,8 +6,8 @@ struct OnbRoomSelectionView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbRoomSelectionPresenter
-	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 	@ScaledMetric private var roomSymbolSize: CGFloat = 32
+	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
 	// MARK: - Body
 
@@ -79,15 +79,45 @@ struct OnbRoomSelectionView: View {
 
 	@ViewBuilder
 	private func roomCell(_ room: RoomType, index: Int) -> some View {
-		let isSelected = presenter.isRoomSelected(room)
+		roomCellView(
+			icon: room.symbolName,
+			name: room.localizedName,
+			isSelected: presenter.isRoomSelected(room),
+			index: index,
+			action: { presenter.onRoomCardViewPressed(room: room) },
+			accessibilityLabel: nil
+		)
+	}
+
+	@ViewBuilder
+	private func customRoomCell(_ customRoom: CustomRoomSelection, index: Int) -> some View {
+		roomCellView(
+			icon: customRoom.icon,
+			name: customRoom.name,
+			isSelected: presenter.isCustomRoomSelected(customRoom.id),
+			index: index,
+			action: { presenter.onCustomRoomCardPressed(id: customRoom.id) },
+			accessibilityLabel: String(localized: "onb_room_selection.custom_room_label_\(customRoom.name)")
+		)
+	}
+
+	@ViewBuilder
+	private func roomCellView(
+		icon: String,
+		name: String,
+		isSelected: Bool,
+		index: Int,
+		action: @escaping () -> Void,
+		accessibilityLabel: String?
+	) -> some View {
 		let isVisible = index < presenter.visibleCellCount
 		Button {
 			FKHaptics.selection()
-			presenter.onRoomCardViewPressed(room: room)
+			action()
 		} label: {
 			FKCardView(showBorder: false) {
 				VStack(spacing: FKSpacing.medium) {
-					Image(systemName: room.symbolName)
+					Image(systemName: icon)
 						.font(.system(size: roomSymbolSize))
 						.frame(height: 40)
 						.symbolEffect(
@@ -96,13 +126,16 @@ struct OnbRoomSelectionView: View {
 							isActive: isSelected
 						)
 						.accessibilityHidden(true)
-					Text(room.localizedName)
+					Text(name)
 						.font(FKTypography.secondaryLabel)
 						.multilineTextAlignment(.center)
 						.bold(isSelected)
+						.lineLimit(1)
+						.minimumScaleFactor(0.75)
 				}
 				.frame(maxWidth: .infinity)
 				.padding(.vertical, FKSpacing.extraLarge)
+				.padding(.horizontal, FKSpacing.default)
 				.foregroundStyle(isSelected ? Color.accentColor : Color.primary)
 			}
 			.fkBorder(
@@ -111,53 +144,30 @@ struct OnbRoomSelectionView: View {
 				color: isSelected ? .accentColor : Color(FKColor.Separator.default)
 			)
 		}
+		.modifier(OptionalAccessibilityLabelModifier(label: accessibilityLabel))
 		.accessibilityAddTraits(isSelected ? .isSelected : [])
 		.buttonStyle(.fkPressable)
 		.opacity(isVisible ? 1 : 0)
 		.offset(y: isVisible ? 0 : 20)
 		.animation(.interactiveSpring, value: isSelected)
 	}
+}
 
-	@ViewBuilder
-	private func customRoomCell(_ customRoom: CustomRoomSelection, index: Int) -> some View {
-		let isSelected = presenter.isCustomRoomSelected(customRoom.id)
-		let isVisible = index < presenter.visibleCellCount
-		Button {
-			FKHaptics.selection()
-			presenter.onCustomRoomCardPressed(id: customRoom.id)
-		} label: {
-			FKCardView(showBorder: false) {
-				VStack(spacing: FKSpacing.medium) {
-					Image(systemName: customRoom.icon)
-						.font(.system(size: roomSymbolSize))
-						.frame(height: 40)
-						.symbolEffect(
-							.bounce,
-							options: .nonRepeating,
-							isActive: isSelected
-						)
-						.accessibilityHidden(true)
-					Text(customRoom.name)
-						.font(FKTypography.secondaryLabel)
-						.multilineTextAlignment(.center)
-						.bold(isSelected)
-				}
-				.frame(maxWidth: .infinity)
-				.padding(.vertical, FKSpacing.extraLarge)
-				.foregroundStyle(isSelected ? Color.accentColor : Color.primary)
-			}
-			.fkBorder(
-				cornerRadius: FKRadius.medium,
-				lineWidth: isSelected ? FKBorder.medium : FKBorder.thin,
-				color: isSelected ? .accentColor : Color(FKColor.Separator.default)
-			)
+// MARK: - OptionalAccessibilityLabelModifier
+
+private struct OptionalAccessibilityLabelModifier: ViewModifier {
+	private let label: String?
+
+	init(label: String?) {
+		self.label = label
+	}
+
+	func body(content: Content) -> some View {
+		if let label {
+			content.accessibilityLabel(label)
+		} else {
+			content
 		}
-		.accessibilityLabel(String(localized: "onb_room_selection.custom_room_label_\(customRoom.name)"))
-		.accessibilityAddTraits(isSelected ? .isSelected : [])
-		.buttonStyle(.fkPressable)
-		.opacity(isVisible ? 1 : 0)
-		.offset(y: isVisible ? 0 : 20)
-		.animation(.interactiveSpring, value: isSelected)
 	}
 }
 
