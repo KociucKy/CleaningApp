@@ -2,286 +2,343 @@
 
 ## Summary
 
-Implement the task selection step in onboarding flow, allowing users to:
-1. Select from predefined suggested tasks for each room (with default frequency/duration)
-2. **Add custom tasks** with name and frequency picker
-3. Toggle tasks on/off with visual feedback
-4. Remove custom tasks before completing onboarding
+Add custom task creation functionality to the **existing** task selection screen in onboarding, allowing users to:
+1. ✅ **(EXISTING)** Select from predefined suggested tasks for each room
+2. ➕ **(NEW)** Add custom tasks with name + frequency picker
+3. ✅ **(EXISTING)** Toggle tasks on/off with visual feedback
+4. ➕ **(NEW)** Remove custom tasks before completing onboarding
 
-This completes the onboarding flow as specified in SPEC.md (lines 228-236, 400-408).
+This extends the completed task selection feature (on `feature/onboarding-integration` branch) with custom task creation capability.
 
 ## Problem Statement
 
-Currently, `OnbTaskSelectionView` is a placeholder showing only "Task Selection View" text. The onboarding flow needs:
+The task selection screen (`OnbTaskSelectionView`) on `feature/onboarding-integration` branch is fully functional with:
+- ✅ Suggested tasks per room type loaded from `RoomType+SuggestedTasks`
+- ✅ Toggle selection with visual feedback
+- ✅ Collapsible room sections with animations
+- ✅ State management via `OnboardingFlowState`
+- ✅ Persistence to SwiftData
 
-1. **Task selection UI** displaying suggested tasks per room type from SPEC.md
-2. **Custom task creation** allowing users to add room-specific tasks not in the predefined list
-3. **State management** to pass selected rooms from RoomSelection → TaskSelection
-4. **Persistence** to save rooms and their selected tasks when user proceeds
-
-Without this, users cannot configure their cleaning tasks during onboarding, making the app non-functional.
+However, users **cannot add custom tasks** that aren't in the predefined list. If a user wants a task like "Organize pantry" for Kitchen or "Water plants" for Living Room, they're blocked.
 
 ## Proposed Solution
 
 ### Architecture Changes
 
-**1. Create OnboardingSessionManager**
+**Extend OnboardingFlowState** (existing file)
 ```swift
-// New file: Models/Services/OnboardingSessionManager.swift
-@MainActor
+// Modify: CleaningApp/Onboarding/OnboardingFlowState.swift
 @Observable
-final class OnboardingSessionManager {
-    var selectedRooms: Set<RoomIcon> = []
-    var pendingTasks: [PendingTask] = []
+@MainActor
+final class OnboardingFlowState {
+    // EXISTING properties...
+    private(set) var selectedRooms: [RoomType] = []
+    private(set) var selectedTasks: [RoomType: [RoomTask]] = [:]
+    private(set) var customRooms: [CustomRoomSelection] = []
+    
+    // NEW property for custom tasks
+    private(set) var customTasks: [RoomType: [RoomTask]] = [:]
+    
+    // NEW methods
+    func addCustomTask(_ task: RoomTask, for room: RoomType)
+    func removeCustomTask(_ task: RoomTask, for room: RoomType)
+    func allTasks(for room: RoomType) -> [RoomTask] // suggested + custom
 }
 ```
 
-This follows the existing pattern where:
-- **Manager** = stateful reference type holding session data
-- Registered in DI container (same lifetime as `OnboardingState`)
-- Shared across all onboarding screens via `OnboardingInteractor`
+This follows the existing pattern where `OnboardingFlowState` holds all onboarding session data.
 
-**2. Create PendingTask Model**
-```swift
-// New file: Models/Domain/PendingTask.swift
-struct PendingTask: Identifiable, Equatable {
-    let id: UUID
-    var name: String
-    var roomIcon: RoomIcon
-    var frequency: Frequency
-    var estimatedDuration: TaskDuration
-    var isCustom: Bool
-    var isSelected: Bool
-}
-```
+### UI Changes
 
-Temporary struct used during onboarding before rooms exist in the database.
-
-**3. Create SuggestedTasks Data Source**
-```swift
-// New file: Models/Domain/SuggestedTasks.swift
-enum SuggestedTasks {
-    static func tasks(for roomIcon: RoomIcon) -> [PendingTask]
-}
-```
-
-Implements predefined task sets from SPEC.md table (lines 400-408):
-- Kuchnia: Odkurzanie, Mycie podłogi, Czyszczenie blatu, Mycie zlewu, Mycie piekarnika
-- Łazienka: Mycie toalety, Mycie umywalki, Mycie prysznica/wanny, Mycie podłogi
-- Salon: Odkurzanie, Mycie podłogi, Ścieranie kurzu
-- Sypialnia: Odkurzanie, Zmiana pościeli, Wietrzenie
-- Korytarz: Odkurzanie, Mycie podłogi
-- Biuro: Ścieranie kurzu, Odkurzanie
-- Garaż: Zamiatanie, Porządkowanie
-- Pralnia: Pranie, Czyszczenie pralki
-
-### UI Implementation
-
-**OnbTaskSelectionView Structure:**
+**Modify OnbTaskSelectionView** (existing collapsed room sections):
 ```
 ScrollView
-└── VStack
-    ├── ForEach(selectedRooms)
-    │   ├── Room Header (name + icon)
-    │   ├── [+ Dodaj zadanie] Button
-    │   └── FKCardView (glass background)
-    │       └── VStack of TaskRow
-    │           ├── Checkmark (if selected)
-    │           ├── Task name
-    │           ├── Frequency label
-    │           └── Delete button (× if custom)
-    └── .safeAreaBar
-        └── "Dalej" Button (.glassProminent)
+└── LazyVStack
+    └── ForEach(selectedRooms)
+        └── roomSection(room)
+            ├── roomSectionHeader (EXISTING - collapsible)
+            └── if !isCollapsed:
+                ├── Divider
+                ├── ForEach(suggested tasks) - EXISTING
+                │   └── taskRow(task) - EXISTING
+                ├── Divider
+                ├── ForEach(custom tasks) - NEW
+                │   └── taskRow(task, showDelete: true) - MODIFIED
+                └── [+ Dodaj zadanie] Button - NEW
 ```
 
-**Add Custom Task Sheet:**
-```
-VStack
-├── TextField("Nazwa zadania")
-├── Picker("Częstotliwość", selection)
-│   ├── Codziennie (.daily)
-│   ├── 2× w tygodniu (.timesPerWeek(2))
-│   ├── 3× w tygodniu (.timesPerWeek(3))
-│   ├── 1× w tygodniu (.timesPerWeek(1))
-│   ├── 1× w miesiącu (.monthly)
-│   └── 1× na 2 tygodnie (.everyOtherWeek)
-├── Spacer
-└── HStack
-    ├── "Anuluj" Button
-    └── "Dodaj" Button (.glassProminent)
+**Changes needed:**
+1. Add `[+ Dodaj zadanie]` button at the bottom of each room's task list
+2. Modify `taskRow` to show delete button (×) for custom tasks
+3. Display custom tasks after suggested tasks in the same list
+4. Custom tasks use the same visual style as suggested ones
+
+**Add Custom Task Sheet** (NEW component):
+```swift
+struct OnbAddCustomTaskSheet: View {
+    @Binding var isPresented: Bool
+    let roomType: RoomType
+    let onAdd: (RoomTask) -> Void
+    
+    @State private var taskName = ""
+    @State private var selectedFrequency: Frequency = .timesPerWeek(1)
+    
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("common.label.task_name") {
+                    TextField("onb_custom_task.placeholder.task_name", text: $taskName)
+                }
+                Section("common.label.frequency") {
+                    Picker("common.label.frequency", selection: $selectedFrequency) {
+                        Text("frequency.daily").tag(Frequency.daily)
+                        Text("frequency.times_per_week_2").tag(Frequency.timesPerWeek(2))
+                        Text("frequency.times_per_week_3").tag(Frequency.timesPerWeek(3))
+                        Text("frequency.weekly").tag(Frequency.timesPerWeek(1))
+                        Text("frequency.every_other_week").tag(Frequency.everyOtherWeek)
+                        Text("frequency.monthly").tag(Frequency.monthly)
+                    }
+                }
+            }
+            .navigationTitle("onb_custom_task.title")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("common.action.cancel") {
+                        isPresented = false
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("common.action.add") {
+                        let task = RoomTask(
+                            name: taskName,
+                            roomId: UUID(), // placeholder
+                            frequency: selectedFrequency,
+                            estimatedDuration: .fifteenMinutes
+                        )
+                        onAdd(task)
+                        isPresented = false
+                    }
+                    .disabled(taskName.trimmingCharacters(in: .whitespaces).isEmpty)
+                }
+            }
+        }
+    }
+}
 ```
 
 ### User Flow
 
-1. User arrives from RoomSelection with `selectedRooms` stored in `OnboardingSessionManager`
-2. View loads suggested tasks for each selected room (auto-selected by default per SPEC.md)
-3. User can:
-   - **Toggle** suggested tasks on/off (tap task row)
-   - **Add custom task**: Tap [+ Dodaj zadanie] → Sheet opens
-     - Enter task name
-     - Select frequency from picker
-     - Default duration: 15 minutes (editable later in main app)
-   - **Delete custom task**: Tap × button (only visible for custom tasks)
-4. Tap "Dalej" → **Persistence happens**:
-   - Create and save `Room` entities from `selectedRooms`
-   - Create and save `RoomTask` entities from selected `pendingTasks`
-   - Navigate to `OnbNotificationView`
+1. User arrives at TaskSelection with suggested tasks already displayed (EXISTING)
+2. User can toggle suggested tasks on/off by tapping (EXISTING)
+3. **NEW:** User taps [+ Dodaj zadanie] button at bottom of a room section
+4. **NEW:** Sheet opens with:
+   - TextField for task name
+   - Picker for frequency (6 common options)
+   - Duration defaults to 15 minutes (not shown in onboarding)
+5. **NEW:** User enters task name and selects frequency → taps "Dodaj"
+6. **NEW:** Custom task appears in the list with same visual style as suggested
+7. **NEW:** Custom task has × delete button (suggested tasks don't)
+8. User can toggle custom task on/off like suggested tasks (EXISTING toggle logic)
+9. **NEW:** User can tap × to delete custom task
+10. User taps "Dalej" → saves rooms, suggested tasks, and custom tasks (MODIFIED save logic)
 
 ### Data Flow
 
 ```
-OnbRoomSelectionPresenter
-└── onNextButtonPressed()
-    └── sessionManager.selectedRooms = selectedRooms
-    └── router.showOnboardingTaskSelectionView()
+OnbTaskSelectionPresenter (MODIFIED)
+├── suggestedTasks(for:) - EXISTING
+├── customTasks(for:) - NEW
+├── allTasks(for:) - NEW (combines suggested + custom)
+├── onTaskRowPressed(_:for:) - EXISTING (toggle selection)
+├── onAddCustomTask(name:frequency:room:) - NEW
+│   └── interactor.addCustomTask(...)
+│       └── flowState.addCustomTask(...)
+├── onDeleteCustomTask(_:room:) - NEW
+│   └── interactor.removeCustomTask(...)
+│       └── flowState.removeCustomTask(...)
+└── onNextButtonPressed() - EXISTING
+    └── router.showNextView()
 
-OnbTaskSelectionPresenter
-├── init
-│   └── Load suggested tasks from SuggestedTasks.tasks(for: room)
-│       for each room in sessionManager.selectedRooms
-├── onToggleTask(task)
-│   └── Update task.isSelected in pendingTasks
-├── onAddCustomTask(roomIcon, name, frequency)
-│   └── Create new PendingTask(isCustom: true)
-│       → Add to pendingTasks
-├── onDeleteCustomTask(task)
-│   └── Remove from pendingTasks
-└── onNextButtonPressed()
-    ├── Call interactor.saveRoomsAndTasks(
-    │     rooms: sessionManager.selectedRooms,
-    │     tasks: pendingTasks.filter { $0.isSelected }
-    │   )
-    └── router.showOnboardingNotificationView()
+OnboardingInteractor (MODIFIED)
+├── suggestedTasks(for:) - EXISTING
+├── toggleTask(_:for:) - EXISTING
+├── addCustomTask(task, room) - NEW
+├── removeCustomTask(task, room) - NEW
+└── saveAndCompleteOnboarding() - MODIFIED
+    ├── Save predefined rooms (EXISTING)
+    ├── Save custom rooms (EXISTING)
+    └── Save tasks (MODIFIED to include custom tasks):
+        ├── For each room: get selectedTasks + customTasks
+        └── Save both suggested and custom tasks
 
-OnboardingInteractor
-└── saveRoomsAndTasks(rooms, tasks)
-    ├── For each room: create Room → roomManager.save()
-    ├── For each task: create RoomTask → roomTaskManager.save()
-    └── Clear sessionManager (optional)
+OnboardingFlowState (MODIFIED)
+├── selectedTasks: [RoomType: [RoomTask]] - EXISTING (suggested)
+├── customTasks: [RoomType: [RoomTask]] - NEW
+├── addCustomTask(_:for:) - NEW
+├── removeCustomTask(_:for:) - NEW
+├── allTasks(for:) -> [RoomTask] - NEW
+│   └── Returns selectedTasks[room] + customTasks[room]
+└── toggleTask(_:for:) - EXISTING (works for both types)
 ```
 
-### Liquid Glass Styling (iOS 26+)
+### Visual Design
 
-Following existing patterns from `OnbRoomSelectionView`:
-
+**[+ Dodaj zadanie] Button** (added after task list in each room section):
 ```swift
-// Room section card
-FKCardView(showBorder: false) {
-    VStack {
-        // tasks
+Button {
+    showingAddTaskSheet = true
+    selectedRoomForCustomTask = room
+} label: {
+    HStack(spacing: FKSpacing.small) {
+        Image(systemName: "plus.circle.fill")
+            .font(FKTypography.body)
+        Text("onb_task_selection.action.add_custom_task")
+            .font(FKTypography.body)
     }
+    .foregroundStyle(Color.accentColor)
+    .frame(maxWidth: .infinity)
     .padding(.vertical, FKSpacing.medium)
 }
-.fkBorder(
-    cornerRadius: FKRadius.medium,
-    lineWidth: FKBorder.thin,
-    color: Color(FKColor.Separator.default)
-)
+.buttonStyle(.fkFade)
+```
 
-// Task row
-HStack {
-    Image(systemName: task.isSelected ? "checkmark.circle.fill" : "circle")
-    Text(task.name)
-    Spacer()
-    Text(task.frequency.displayText)
-    if task.isCustom {
-        Button(action: onDelete) {
-            Image(systemName: "xmark.circle.fill")
+**Modified Task Row** (add optional delete button):
+```swift
+private func taskRow(_ task: RoomTask, room: RoomType, isCustom: Bool = false) -> some View {
+    let isSelected = presenter.isTaskSelected(task, for: room)
+    return HStack(spacing: 0) {
+        // EXISTING toggle button
+        Button {
+            FKHaptics.selection()
+            presenter.onTaskRowPressed(task, for: room)
+        } label: {
+            HStack(spacing: FKSpacing.medium) {
+                VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
+                    Text(task.name)
+                        .font(FKTypography.body)
+                        .foregroundStyle(FKColor.Label.primary)
+                    Text(task.frequency.displayName)
+                        .font(FKTypography.caption)
+                        .foregroundStyle(FKColor.Label.secondary)
+                }
+                .opacity(isSelected ? 1 : Constants.unselectedTaskRowOpacity)
+                Spacer()
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(FKTypography.sectionHeader)
+                    .foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
+                    .contentTransition(.symbolEffect(.replace))
+                    .accessibilityHidden(true)
+            }
+            .contentShape(.rect)
+        }
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .buttonStyle(.fkFade)
+        
+        // NEW delete button (only for custom tasks)
+        if isCustom {
+            Button {
+                FKHaptics.selection()
+                presenter.onDeleteCustomTask(task, room: room)
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(FKTypography.body)
+                    .foregroundStyle(FKColor.Label.secondary)
+                    .padding(.leading, FKSpacing.small)
+            }
+            .buttonStyle(.fkFade)
         }
     }
 }
-.padding()
-.fkBorder(
-    cornerRadius: FKRadius.small,
-    lineWidth: task.isSelected ? FKBorder.medium : FKBorder.thin,
-    color: task.isSelected ? .accentColor : Color(FKColor.Separator.default)
-)
-.animation(.interactiveSpring, value: task.isSelected)
-.buttonStyle(.fkPressable)
-
-// [+ Dodaj] button
-Button("+ Dodaj zadanie") { }
-    .font(FKTypography.secondaryLabel)
-    .buttonStyle(.fkPressable)
-
-// "Dalej" button
-.buttonStyle(.glassProminent)
 ```
 
 ## Scope
 
 ### In Scope
-- ✅ Create `OnboardingSessionManager` for state sharing
-- ✅ Create `PendingTask` domain model
-- ✅ Create `SuggestedTasks` with predefined task sets from SPEC.md
-- ✅ Implement full `OnbTaskSelectionView` UI
-- ✅ Implement `OnbTaskSelectionPresenter` logic
-- ✅ Add custom task creation sheet with name + frequency picker
-- ✅ Toggle suggested tasks on/off
-- ✅ Delete custom tasks
-- ✅ Extend `OnboardingInteractor` with save methods
-- ✅ Modify `OnbRoomSelectionPresenter` to use session manager
-- ✅ Register session manager in `Dependencies.swift`
-- ✅ Add `Frequency.displayText` extension for UI labels
+- ✅ Extend `OnboardingFlowState` with `customTasks` dictionary
+- ✅ Add methods: `addCustomTask`, `removeCustomTask`, `allTasks(for:)`
+- ✅ Create `OnbAddCustomTaskSheet` component
+- ✅ Add [+ Dodaj zadanie] button to each room section in `OnbTaskSelectionView`
+- ✅ Modify `taskRow` to show delete button for custom tasks
+- ✅ Add presenter methods: `onAddCustomTask`, `onDeleteCustomTask`
+- ✅ Extend `OnboardingInteractor` with custom task methods
+- ✅ Modify `saveAndCompleteOnboarding()` to save custom tasks
+- ✅ Add localization keys for custom task UI
 
 ### Out of Scope
-- ❌ Editing task duration during onboarding (defaults to 15 min per SPEC.md line 230)
-- ❌ Editing suggested task names/frequency (toggle only per SPEC.md)
+- ❌ Modifying suggested tasks logic (KEEP AS-IS)
+- ❌ Editing task duration during onboarding (defaults to 15 min)
+- ❌ Editing custom task after creation (must delete and re-add)
 - ❌ Reordering tasks
 - ❌ Task icons/colors
-- ❌ "Skip all tasks" option (not in SPEC.md)
-- ❌ Task search/filter
+- ❌ Bulk operations (select all, delete all custom)
+- ❌ Custom task templates/suggestions
 
 ### Future Considerations
 - Duration picker in add custom task sheet (quick to add if needed)
-- Bulk select/deselect all tasks per room
-- Task templates/categories beyond room types
+- Edit custom task functionality
+- Import/export custom task templates
+- AI-suggested custom tasks based on room type
 
 ## Files to Create
 
-1. `CleaningApp/Models/Services/OnboardingSessionManager.swift`
-2. `CleaningApp/Models/Domain/PendingTask.swift`
-3. `CleaningApp/Models/Domain/SuggestedTasks.swift`
-4. `CleaningApp/Components/Extensions/Frequency+Display.swift`
+1. `CleaningApp/Onboarding/TaskSelection/OnbAddCustomTaskSheet.swift` - Custom task creation sheet
 
 ## Files to Modify
 
-1. `CleaningApp/Onboarding/TaskSelection/OnbTaskSelectionView.swift` - Implement full UI
-2. `CleaningApp/Onboarding/TaskSelection/OnbTaskSelectionPresenter.swift` - Implement logic
-3. `CleaningApp/Onboarding/RoomSelection/OnbRoomSelectionPresenter.swift` - Use session manager
-4. `CleaningApp/Onboarding/RIB/OnboardingInteractor.swift` - Add session manager & save methods
-5. `CleaningApp/Root/Dependencies.swift` - Register `OnboardingSessionManager`
+1. `CleaningApp/Onboarding/OnboardingFlowState.swift` - Add customTasks property and methods
+2. `CleaningApp/Onboarding/TaskSelection/OnbTaskSelectionView.swift` - Add [+ Dodaj] button and delete button
+3. `CleaningApp/Onboarding/TaskSelection/OnbTaskSelectionPresenter.swift` - Add custom task methods
+4. `CleaningApp/Onboarding/RIB/OnboardingInteractor.swift` - Add custom task interactor methods and modify save logic
+5. `CleaningApp/Resources/Localizable.xcstrings` - Add localization keys
 
 ## Success Criteria
 
-1. ✅ User can see suggested tasks for each selected room
-2. ✅ User can toggle suggested tasks on/off with visual feedback
-3. ✅ User can add custom tasks with name and frequency
-4. ✅ User can delete custom tasks (but not suggested ones)
-5. ✅ Custom tasks appear identical to suggested tasks (except × button)
-6. ✅ Tapping "Dalej" creates rooms and saves selected tasks to SwiftData
-7. ✅ Navigation proceeds to notification view after successful save
-8. ✅ All predefined tasks match SPEC.md table (lines 400-408)
-9. ✅ UI follows existing Liquid Glass patterns from `OnbRoomSelectionView`
-10. ✅ No crashes when switching between rooms with different task counts
+1. ✅ [+ Dodaj zadanie] button appears at bottom of each room's task list
+2. ✅ Tapping button opens sheet with task name field and frequency picker
+3. ✅ Sheet "Dodaj" button disabled when task name is empty/whitespace
+4. ✅ Created custom task appears in the room's task list (after suggested tasks)
+5. ✅ Custom task has same visual style as suggested tasks
+6. ✅ Custom task shows × delete button; suggested tasks don't
+7. ✅ Tapping custom task toggles selection like suggested tasks
+8. ✅ Tapping × button removes custom task with confirmation haptic
+9. ✅ Custom tasks are auto-selected when created
+10. ✅ Tapping "Dalej" saves rooms + selected suggested tasks + selected custom tasks
+11. ✅ Custom tasks persist across app restarts after onboarding completion
+12. ✅ Collapsing room section shows count including custom tasks
+13. ✅ No regression in existing suggested tasks functionality
+14. ✅ No crashes when adding/deleting custom tasks
+15. ✅ Sheet dismisses properly on cancel or add
 
 ## Technical Notes
 
 ### Default Values
-Per SPEC.md line 230: tasks use default values during onboarding
-- **Duration**: All tasks default to appropriate values from SPEC.md table
-- **Selection**: All suggested tasks start **selected** (checkbox filled)
-- **Custom tasks**: Default to `.timesPerWeek(1)` and `.fifteenMinutes`
+- **Custom task duration**: 15 minutes (`.fifteenMinutes`)
+- **Custom task selection**: Auto-selected when created
+- **Custom task frequency**: Defaults to weekly (`.timesPerWeek(1)`)
+
+### Custom vs Suggested Task Identification
+Custom tasks are identified by comparing against `room.suggestedTasks`:
+```swift
+func isCustomTask(_ task: RoomTask, for room: RoomType) -> Bool {
+    !room.suggestedTasks.contains(task)
+}
+```
+
+### State Management
+- `selectedTasks` dictionary remains unchanged (only stores selected suggested tasks)
+- `customTasks` dictionary stores all custom tasks per room (selection state tracked separately)
+- When toggling a custom task, it's added/removed from both `customTasks` and potentially `selectedTasks`
 
 ### Error Handling
-- If save fails: Show alert, don't navigate
-- If no rooms selected: Should be prevented by RoomSelection screen (Next button disabled)
-- If no tasks selected: Allow (user can add tasks later in main app per SPEC.md)
+- Empty task name: "Dodaj" button disabled
+- Whitespace-only task name: Trimmed and checked
+- Save failure: Existing error handling in `saveAndCompleteOnboarding()` applies
 
 ### Performance
-- Suggested tasks loaded once on init
-- No heavy computation in view body
-- Task list should handle 50+ tasks per room smoothly
+- Custom tasks list typically small (1-3 per room)
+- No performance impact expected
+- Entrance animations apply to custom tasks too
 
 ### Accessibility
 - All interactive elements are `Button` for VoiceOver support
@@ -290,47 +347,57 @@ Per SPEC.md line 230: tasks use default values during onboarding
 
 ## Dependencies
 
-- FulhamKit (existing) - glass styling, spacing, typography
-- NavigationKit (existing) - routing
+- FulhamKit (existing) - glass styling, spacing, typography, button styles
+- NavigationKit (existing) - routing (sheet is SwiftUI native)
 - SwiftData (existing) - persistence
 - `RoomManager` (existing)
 - `RoomTaskManager` (existing)
+- `OnboardingFlowState` (existing - will be extended)
+- `RoomType+SuggestedTasks` (existing - NOT modified)
 
 ## Testing Strategy
 
 ### Unit Tests (Swift Testing)
-- `SuggestedTasks.tasks(for:)` returns correct tasks for each room type
-- `OnbTaskSelectionPresenter.onToggleTask` updates selection state
-- `OnbTaskSelectionPresenter.onAddCustomTask` creates task with correct properties
-- `OnbTaskSelectionPresenter.onDeleteCustomTask` removes only custom tasks
-- `OnboardingSessionManager` properly shares state
+- `OnboardingFlowState.addCustomTask` adds task to customTasks dictionary
+- `OnboardingFlowState.removeCustomTask` removes correct task
+- `OnboardingFlowState.allTasks(for:)` returns suggested + custom tasks
+- Custom task toggle updates selection state correctly
+- Save logic includes custom tasks in persisted data
 
 ### Integration Tests
-- Full flow: RoomSelection → TaskSelection → save → navigation
-- Custom task creation → toggle → delete
-- Save with mixed suggested + custom tasks
+- Add custom task → toggle → delete → add again
+- Add multiple custom tasks to same room
+- Add custom tasks to multiple rooms
+- Save with only custom tasks selected
+- Save with mix of suggested + custom tasks
 
 ### Manual Testing
-- Visual verification of Liquid Glass styling
-- Dynamic Type scaling
-- VoiceOver navigation
-- Light/Dark mode
+- Visual verification: custom tasks look identical (except × button)
+- Delete button only appears for custom tasks
+- Sheet keyboard handling
+- VoiceOver navigation through custom tasks
+- Dynamic Type scaling in sheet
 
-## Open Questions
-
-None - all design decisions resolved during exploration phase.
+### Regression Testing
+- **CRITICAL:** Verify suggested tasks still work exactly as before
+- Room section collapse/expand with custom tasks
+- Task selection counter includes custom tasks
+- Entrance animations work with custom tasks
+- Existing onboarding flow end-to-end
 
 ## Timeline Estimate
 
 - **Small (1-2 days)**
-  - Most architecture patterns already established
-  - UI follows existing RoomSelection patterns
-  - No complex business logic
-  - Straightforward CRUD operations
+  - Architecture is clear (extend OnboardingFlowState)
+  - UI patterns already established in existing view
+  - Sheet component is straightforward
+  - Minimal changes to existing code (mostly additions)
+  - Save logic extension is simple
 
 ## References
 
-- SPEC.md lines 228-236: Onboarding task selection requirements
-- SPEC.md lines 400-408: Predefined task sets per room
-- Existing `OnbRoomSelectionView.swift`: UI patterns to follow
-- Existing `RoomManager`/`RoomTaskManager`: Service patterns to use
+- `feature/onboarding-integration` branch: Complete suggested tasks implementation
+- `OnbTaskSelectionView.swift`: Existing UI to extend
+- `OnboardingFlowState.swift`: State management pattern to follow
+- `OnboardingInteractor.swift`: Save logic to modify
+- `RoomType+SuggestedTasks.swift`: Suggested tasks implementation (DO NOT TOUCH)
