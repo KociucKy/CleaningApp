@@ -14,21 +14,27 @@ extension RoomEntity {
 			RoomEntity(
 				id: mockId,
 				name: "Living Room",
-				icon: "livingRoom",
+				icon: "Living Room",
+				isCustom: false,
+				customIcon: nil,
 				createdAt: .mock
 			),
 			RoomEntity(
 				id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
 				name: "Kitchen",
-				icon: "kitchen",
+				icon: "Kitchen",
+				isCustom: false,
+				customIcon: nil,
 				createdAt: .mock
 			),
 			RoomEntity(
 				id: UUID(uuidString: "00000000-0000-0000-0000-000000000003")!,
 				name: "Bedroom",
-				icon: "bedroom",
+				icon: "Bedroom",
+				isCustom: false,
+				customIcon: nil,
 				createdAt: .mock
-			),
+			)
 		]
 	}
 }

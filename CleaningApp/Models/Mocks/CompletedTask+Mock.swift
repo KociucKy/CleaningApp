@@ -18,7 +18,7 @@ extension CompletedTask {
 				taskId: RoomTask.mockId,
 				completedAt: .mock.addingTimeInterval(86400),
 				measuredDuration: nil
-			),
+			)
 		]
 	}
 }

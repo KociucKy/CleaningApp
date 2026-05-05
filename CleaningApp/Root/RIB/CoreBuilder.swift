@@ -27,7 +27,7 @@ struct CoreBuilder: Builder {
 		TabBarView(
 			tabs: [
 				TabBarScreen(
-					title: "Home",
+					title: String(localized: "tab.home"),
 					systemImage: "square.grid.2x2.fill",
 					screen: {
 						RouterView { router in
@@ -37,7 +37,7 @@ struct CoreBuilder: Builder {
 					}
 				),
 				TabBarScreen(
-					title: "Rooms",
+					title: String(localized: "tab.rooms"),
 					systemImage: "house.fill",
 					screen: {
 						RouterView { router in
@@ -47,7 +47,7 @@ struct CoreBuilder: Builder {
 					}
 				),
 				TabBarScreen(
-					title: "Settings",
+					title: String(localized: "tab.settings"),
 					systemImage: "gearshape.fill",
 					screen: {
 						RouterView { router in
@@ -55,7 +55,7 @@ struct CoreBuilder: Builder {
 						}
 						.any()
 					}
-				),
+				)
 			]
 		)
 	}

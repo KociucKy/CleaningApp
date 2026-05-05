@@ -4,7 +4,7 @@ import Foundation
 @MainActor
 final class OnbPaywallPresenter {
 	// MARK: - Properties
-	
+
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
 

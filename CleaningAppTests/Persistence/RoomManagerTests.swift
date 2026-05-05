@@ -36,7 +36,7 @@ struct RoomManagerTests {
 	@Test(.tags(.adding)) func save_persistsNewRoom() throws {
 		let repo = MockRoomRepository()
 		let manager = RoomManager(repository: repo)
-		let newRoom = Room(id: UUID(), name: "Garage", icon: .garage, createdAt: .mock)
+		let newRoom = Room(id: UUID(), name: "Garage", kind: .garage, createdAt: .mock)
 		try manager.save(newRoom)
 		let all = try manager.fetchAll()
 		#expect(all.contains { $0.id == newRoom.id })

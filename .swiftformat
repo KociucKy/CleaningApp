@@ -2,3 +2,4 @@
 --indent tabs
 --importgrouping testable-bottom
 --wrapcollections before-first
+--trailingcommas never

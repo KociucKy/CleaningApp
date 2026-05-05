@@ -17,6 +17,8 @@ struct RoomMapperTests {
 
 		#expect(domain.id == entity.id)
 		#expect(domain.name == entity.name)
+		#expect(domain.isCustom == entity.isCustom)
+		#expect(domain.customIcon == entity.customIcon)
 		#expect(domain.createdAt == entity.createdAt)
 	}
 
@@ -24,11 +26,13 @@ struct RoomMapperTests {
 		let entity = RoomEntity(
 			id: UUID(),
 			name: "Kitchen",
-			icon: "kitchen",
+			icon: "Kitchen",
+			isCustom: false,
+			customIcon: nil,
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)
-		#expect(domain.icon == .kitchen)
+		#expect(domain.kind == .kitchen)
 	}
 
 	@Test func toDomain_unknownIconFallsBackToCustom() {
@@ -36,17 +40,19 @@ struct RoomMapperTests {
 			id: UUID(),
 			name: "Mystery Room",
 			icon: "nonExistentIcon",
+			isCustom: false,
+			customIcon: nil,
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)
-		#expect(domain.icon == .custom)
+		#expect(domain.kind == .customRoom)
 	}
 
 	@Test func toDomain_allKnownIcons() {
-		for icon in RoomIcon.allCases {
-			let entity = RoomEntity(id: UUID(), name: "Room", icon: icon.rawValue, createdAt: .mock)
+		for kind in RoomType.allCases {
+			let entity = RoomEntity(id: UUID(), name: "Room", icon: kind.rawValue, isCustom: false, customIcon: nil, createdAt: .mock)
 			let domain = mapper.toDomain(entity)
-			#expect(domain.icon == icon)
+			#expect(domain.kind == kind)
 		}
 	}
 
@@ -58,6 +64,8 @@ struct RoomMapperTests {
 
 		#expect(entity.id == domain.id)
 		#expect(entity.name == domain.name)
+		#expect(entity.isCustom == domain.isCustom)
+		#expect(entity.customIcon == domain.customIcon)
 		#expect(entity.createdAt == domain.createdAt)
 	}
 
@@ -65,11 +73,13 @@ struct RoomMapperTests {
 		let domain = Room(
 			id: UUID(),
 			name: "Bathroom",
-			icon: .bathroom,
+			kind: .bathroom,
+			isCustom: false,
+			customIcon: nil,
 			createdAt: .mock
 		)
 		let entity = mapper.toEntity(domain)
-		#expect(entity.icon == RoomIcon.bathroom.rawValue)
+		#expect(entity.icon == RoomType.bathroom.rawValue)
 	}
 
 	// MARK: - Round-trip
@@ -81,7 +91,9 @@ struct RoomMapperTests {
 
 		#expect(restored.id == original.id)
 		#expect(restored.name == original.name)
-		#expect(restored.icon == original.icon)
+		#expect(restored.kind == original.kind)
+		#expect(restored.isCustom == original.isCustom)
+		#expect(restored.customIcon == original.customIcon)
 		#expect(restored.createdAt == original.createdAt)
 	}
 
@@ -93,6 +105,8 @@ struct RoomMapperTests {
 		#expect(restored.id == original.id)
 		#expect(restored.name == original.name)
 		#expect(restored.icon == original.icon)
+		#expect(restored.isCustom == original.isCustom)
+		#expect(restored.customIcon == original.customIcon)
 		#expect(restored.createdAt == original.createdAt)
 	}
 }
