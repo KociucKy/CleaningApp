@@ -35,7 +35,10 @@ final class OnboardingFlowState {
 	func clearRooms() {
 		selectedRooms = []
 		selectedTasks = [:]
-		customRooms = []
+		// Deselect all custom rooms instead of removing them
+		for index in customRooms.indices {
+			customRooms[index].isSelected = false
+		}
 	}
 
 	func isRoomSelected(_ room: RoomType) -> Bool {
@@ -50,8 +53,8 @@ final class OnboardingFlowState {
 	}
 
 	func toggleCustomRoom(id: UUID) {
-		if customRooms.contains(where: { $0.id == id }) {
-			removeCustomRoom(id: id)
+		if let index = customRooms.firstIndex(where: { $0.id == id }) {
+			customRooms[index].isSelected.toggle()
 		}
 	}
 
@@ -60,7 +63,7 @@ final class OnboardingFlowState {
 	}
 
 	func isCustomRoomSelected(id: UUID) -> Bool {
-		customRooms.contains { $0.id == id }
+		customRooms.first(where: { $0.id == id })?.isSelected ?? false
 	}
 
 	// MARK: - Task Selection

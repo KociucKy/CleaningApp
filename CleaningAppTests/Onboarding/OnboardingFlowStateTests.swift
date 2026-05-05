@@ -173,22 +173,29 @@ struct OnboardingFlowStateTests {
 
 	// MARK: - toggleCustomRoom
 
-	@Test(.tags(.deleting)) func toggleCustomRoom_removesCustomRoom() {
+	@Test func toggleCustomRoom_togglesSelectionState() {
 		let state = OnboardingFlowState()
 		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
 		let roomId = state.customRooms[0].id
+		// Starts as selected
+		#expect(state.customRooms[0].isSelected)
+		// Toggle to unselected
 		state.toggleCustomRoom(id: roomId)
-		#expect(state.customRooms.isEmpty)
+		#expect(!state.customRooms[0].isSelected)
+		// Toggle back to selected
+		state.toggleCustomRoom(id: roomId)
+		#expect(state.customRooms[0].isSelected)
 	}
 
-	@Test(.tags(.deleting)) func toggleCustomRoom_doesNotAffectOtherCustomRooms() {
+	@Test func toggleCustomRoom_doesNotAffectOtherCustomRooms() {
 		let state = OnboardingFlowState()
 		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
 		state.addCustomRoom(name: "Gym", icon: "dumbbell")
 		let firstRoomId = state.customRooms[0].id
 		state.toggleCustomRoom(id: firstRoomId)
-		#expect(state.customRooms.count == 1)
-		#expect(state.customRooms[0].name == "Gym")
+		#expect(state.customRooms.count == 2)
+		#expect(!state.customRooms[0].isSelected)
+		#expect(state.customRooms[1].isSelected)
 	}
 
 	// MARK: - isCustomRoomSelected
@@ -200,7 +207,7 @@ struct OnboardingFlowStateTests {
 		#expect(state.isCustomRoomSelected(id: roomId))
 	}
 
-	@Test func isCustomRoomSelected_returnsFalseAfterRemoval() {
+	@Test func isCustomRoomSelected_returnsFalseAfterToggle() {
 		let state = OnboardingFlowState()
 		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
 		let roomId = state.customRooms[0].id
@@ -222,7 +229,8 @@ struct OnboardingFlowStateTests {
 		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
 		state.addCustomRoom(name: "Gym", icon: "dumbbell")
 		state.clearRooms()
-		#expect(state.customRooms.isEmpty)
+		#expect(state.customRooms.count == 2)
+		#expect(state.customRooms.allSatisfy { !$0.isSelected })
 	}
 
 	@Test(.tags(.deleting)) func clearRooms_removesBothPredefinedAndCustomRooms() {
@@ -231,6 +239,7 @@ struct OnboardingFlowStateTests {
 		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
 		state.clearRooms()
 		#expect(state.selectedRooms.isEmpty)
-		#expect(state.customRooms.isEmpty)
+		#expect(state.customRooms.count == 1)
+		#expect(!state.customRooms[0].isSelected)
 	}
 }

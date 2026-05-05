@@ -78,7 +78,7 @@ struct OnbCustomRoomSheetView: View {
 		switch count {
 		case 28...:
 			return .red
-		case 25...27:
+		case 25 ... 27:
 			return .orange
 		default:
 			return .secondary

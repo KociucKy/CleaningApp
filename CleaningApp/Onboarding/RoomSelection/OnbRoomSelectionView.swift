@@ -77,7 +77,6 @@ struct OnbRoomSelectionView: View {
 		)
 	}
 
-	@ViewBuilder
 	private func roomCell(_ room: RoomType, index: Int) -> some View {
 		roomCellView(
 			icon: room.symbolName,
@@ -89,7 +88,6 @@ struct OnbRoomSelectionView: View {
 		)
 	}
 
-	@ViewBuilder
 	private func customRoomCell(_ customRoom: CustomRoomSelection, index: Int) -> some View {
 		roomCellView(
 			icon: customRoom.icon,

@@ -19,7 +19,7 @@ final class OnbRoomSelectionPresenter {
 	}
 
 	var hasSelection: Bool {
-		!interactor.selectedRooms.isEmpty || !interactor.customRooms.isEmpty
+		!interactor.selectedRooms.isEmpty || interactor.customRooms.contains(where: \.isSelected)
 	}
 
 	var customRooms: [CustomRoomSelection] {
