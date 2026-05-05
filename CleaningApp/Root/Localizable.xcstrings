@@ -2,7 +2,14 @@
   "sourceLanguage" : "en",
   "strings" : {
     "%lld/30" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/30"
+          }
+        }
+      }
     },
     "app_name" : {
       "extractionState" : "manual",
@@ -464,7 +471,14 @@
       }
     },
     "Next" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dalej"
+          }
+        }
+      }
     },
     "onb_completed.rooms_count" : {
       "extractionState" : "manual",
@@ -1221,7 +1235,14 @@
       }
     },
     "Paywall" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subskrypcje"
+          }
+        }
+      }
     },
     "room_type.bathroom" : {
       "extractionState" : "manual",
@@ -2210,7 +2231,14 @@
       }
     },
     "Tasks: %lld" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadań: %lld"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
