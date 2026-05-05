@@ -98,8 +98,9 @@ struct OnboardingInteractor {
 			}
 
 			// 2. Save custom rooms with isCustom flag and custom icon
-			for customRoom in flowState.customRooms {
+			for customRoom in flowState.customRooms where customRoom.isSelected {
 				let room = Room(
+					id: customRoom.id,
 					name: customRoom.name,
 					kind: .customRoom,
 					isCustom: true,
@@ -109,9 +110,15 @@ struct OnboardingInteractor {
 				savedRooms.append(room)
 			}
 
-			// 3. Save selected tasks for predefined rooms, substituting the real roomId.
-			for savedRoom in savedRooms where !savedRoom.isCustom {
-				let tasks = flowState.selectedTasks[savedRoom.kind] ?? []
+			// 3. Save selected tasks for all rooms, substituting the real roomId.
+			for savedRoom in savedRooms {
+				let tasks: [RoomTask] = if savedRoom.isCustom {
+					// For custom rooms, get tasks from the custom room's selectedTasks
+					flowState.customRooms.first(where: { $0.id == savedRoom.id })?.selectedTasks ?? []
+				} else {
+					// For predefined rooms, get tasks from selectedTasks dictionary
+					flowState.selectedTasks[savedRoom.kind] ?? []
+				}
 				for task in tasks {
 					var taskToSave = task
 					taskToSave.roomId = savedRoom.id
