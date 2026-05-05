@@ -31,13 +31,13 @@ struct RoomTypeSuggestedTasksTests {
 	// MARK: - Content
 
 	@Test func suggestedTasks_everyRoomHasAtLeastOneTask() {
-		for roomType in RoomType.allCases where roomType != .custom {
+		for roomType in RoomType.allCases where roomType != .customRoom {
 			#expect(!roomType.suggestedTasks.isEmpty, "\(roomType) has no suggested tasks")
 		}
 	}
 
 	@Test func suggestedTasks_everyTaskHasNonEmptyName() {
-		for roomType in RoomType.allCases where roomType != .custom {
+		for roomType in RoomType.allCases where roomType != .customRoom {
 			for task in roomType.suggestedTasks {
 				#expect(!task.name.isEmpty, "Empty task name found in \(roomType)")
 			}

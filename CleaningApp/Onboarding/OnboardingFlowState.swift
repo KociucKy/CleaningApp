@@ -17,6 +17,9 @@ final class OnboardingFlowState {
 	/// subset of that room's suggested tasks the user opted in to.
 	private(set) var selectedTasks: [RoomType: [RoomTask]] = [:]
 
+	/// Custom rooms created by the user during onboarding, in creation order.
+	private(set) var customRooms: [CustomRoomSelection] = []
+
 	// MARK: - Room Selection
 
 	func toggleRoom(_ room: RoomType) {
@@ -32,10 +35,35 @@ final class OnboardingFlowState {
 	func clearRooms() {
 		selectedRooms = []
 		selectedTasks = [:]
+		// Deselect all custom rooms instead of removing them
+		for index in customRooms.indices {
+			customRooms[index].isSelected = false
+		}
 	}
 
 	func isRoomSelected(_ room: RoomType) -> Bool {
 		selectedRooms.contains(room)
+	}
+
+	// MARK: - Custom Room Management
+
+	func addCustomRoom(name: String, icon: String) {
+		let customRoom = CustomRoomSelection(name: name, icon: icon)
+		customRooms.append(customRoom)
+	}
+
+	func toggleCustomRoom(id: UUID) {
+		if let index = customRooms.firstIndex(where: { $0.id == id }) {
+			customRooms[index].isSelected.toggle()
+		}
+	}
+
+	func removeCustomRoom(id: UUID) {
+		customRooms.removeAll { $0.id == id }
+	}
+
+	func isCustomRoomSelected(id: UUID) -> Bool {
+		customRooms.first(where: { $0.id == id })?.isSelected ?? false
 	}
 
 	// MARK: - Task Selection

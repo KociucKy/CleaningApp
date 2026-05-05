@@ -141,4 +141,105 @@ struct OnboardingFlowStateTests {
 		let task = RoomType.kitchen.suggestedTasks[0]
 		#expect(!state.isTaskSelected(task, for: .kitchen))
 	}
+
+	// MARK: - addCustomRoom
+
+	@Test(.tags(.adding)) func addCustomRoom_appendsToCustomRoomsArray() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		#expect(state.customRooms.count == 1)
+		#expect(state.customRooms[0].name == "Office")
+		#expect(state.customRooms[0].icon == "desktopcomputer")
+	}
+
+	@Test(.tags(.adding)) func addCustomRoom_preservesCreationOrder() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		state.addCustomRoom(name: "Gym", icon: "dumbbell")
+		state.addCustomRoom(name: "Library", icon: "book")
+		#expect(state.customRooms.count == 3)
+		#expect(state.customRooms[0].name == "Office")
+		#expect(state.customRooms[1].name == "Gym")
+		#expect(state.customRooms[2].name == "Library")
+	}
+
+	@Test(.tags(.adding)) func addCustomRoom_generatesUniqueIds() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		#expect(state.customRooms.count == 2)
+		#expect(state.customRooms[0].id != state.customRooms[1].id)
+	}
+
+	// MARK: - toggleCustomRoom
+
+	@Test func toggleCustomRoom_togglesSelectionState() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		let roomId = state.customRooms[0].id
+		// Starts as selected
+		#expect(state.customRooms[0].isSelected)
+		// Toggle to unselected
+		state.toggleCustomRoom(id: roomId)
+		#expect(!state.customRooms[0].isSelected)
+		// Toggle back to selected
+		state.toggleCustomRoom(id: roomId)
+		#expect(state.customRooms[0].isSelected)
+	}
+
+	@Test func toggleCustomRoom_doesNotAffectOtherCustomRooms() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		state.addCustomRoom(name: "Gym", icon: "dumbbell")
+		let firstRoomId = state.customRooms[0].id
+		state.toggleCustomRoom(id: firstRoomId)
+		#expect(state.customRooms.count == 2)
+		#expect(!state.customRooms[0].isSelected)
+		#expect(state.customRooms[1].isSelected)
+	}
+
+	// MARK: - isCustomRoomSelected
+
+	@Test func isCustomRoomSelected_returnsTrueForExistingCustomRoom() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		let roomId = state.customRooms[0].id
+		#expect(state.isCustomRoomSelected(id: roomId))
+	}
+
+	@Test func isCustomRoomSelected_returnsFalseAfterToggle() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		let roomId = state.customRooms[0].id
+		state.toggleCustomRoom(id: roomId)
+		#expect(!state.isCustomRoomSelected(id: roomId))
+	}
+
+	@Test func isCustomRoomSelected_returnsFalseForNonExistentId() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		let randomId = UUID()
+		#expect(!state.isCustomRoomSelected(id: randomId))
+	}
+
+	// MARK: - clearRooms (with custom rooms)
+
+	@Test(.tags(.deleting)) func clearRooms_removesCustomRooms() {
+		let state = OnboardingFlowState()
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		state.addCustomRoom(name: "Gym", icon: "dumbbell")
+		state.clearRooms()
+		#expect(state.customRooms.count == 2)
+		#expect(state.customRooms.allSatisfy { !$0.isSelected })
+	}
+
+	@Test(.tags(.deleting)) func clearRooms_removesBothPredefinedAndCustomRooms() {
+		let state = OnboardingFlowState()
+		state.toggleRoom(.kitchen)
+		state.addCustomRoom(name: "Office", icon: "desktopcomputer")
+		state.clearRooms()
+		#expect(state.selectedRooms.isEmpty)
+		#expect(state.customRooms.count == 1)
+		#expect(!state.customRooms[0].isSelected)
+	}
 }

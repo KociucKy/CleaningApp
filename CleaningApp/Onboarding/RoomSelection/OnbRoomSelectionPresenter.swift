@@ -19,7 +19,16 @@ final class OnbRoomSelectionPresenter {
 	}
 
 	var hasSelection: Bool {
-		!interactor.selectedRooms.isEmpty
+		!interactor.selectedRooms.isEmpty || interactor.customRooms.contains(where: \.isSelected)
+	}
+
+	var customRooms: [CustomRoomSelection] {
+		interactor.customRooms
+	}
+
+	private var totalCellCount: Int {
+		let predefinedCount = RoomType.allCases.count(where: { $0 != .customRoom })
+		return predefinedCount + interactor.customRooms.count
 	}
 
 	// MARK: - Init
@@ -35,7 +44,7 @@ final class OnbRoomSelectionPresenter {
 	// MARK: - Actions
 
 	func animateEntrance() {
-		let count = RoomType.allCases.count
+		let totalCount = totalCellCount
 		Timer.scheduledTimer(withTimeInterval: 0.04, repeats: true) { [weak self] timer in
 			guard let self else {
 				timer.invalidate()
@@ -45,7 +54,7 @@ final class OnbRoomSelectionPresenter {
 				visibleCellCount = entranceAnimationIndex + 1
 			}
 			entranceAnimationIndex += 1
-			if entranceAnimationIndex >= count {
+			if entranceAnimationIndex >= totalCount {
 				timer.invalidate()
 				withAnimation(.easeOut(duration: 0.35)) {
 					buttonVisible = true
@@ -72,5 +81,36 @@ final class OnbRoomSelectionPresenter {
 
 	func isRoomSelected(_ room: RoomType) -> Bool {
 		interactor.isRoomSelected(room)
+	}
+
+	func onAddCustomRoomPressed() {
+		router.presentCustomRoomSheet()
+	}
+
+	func onCustomRoomCardPressed(id: UUID) {
+		interactor.toggleCustomRoom(id: id)
+	}
+
+	func isCustomRoomSelected(_ id: UUID) -> Bool {
+		interactor.isCustomRoomSelected(id: id)
+	}
+
+	func onCustomRoomAdded() {
+		// Ensure the newly added custom room is visible
+		let newTotalCount = totalCellCount
+		if visibleCellCount < newTotalCount {
+			withAnimation(.spring(response: 0.45, dampingFraction: 0.75)) {
+				visibleCellCount = newTotalCount
+			}
+		}
+	}
+
+	func scrollToNewCustomRoom(_ proxy: ScrollViewProxy, roomId: UUID) {
+		// Delay scrolling to allow the visibility animation to start first
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			withAnimation {
+				proxy.scrollTo(roomId, anchor: .bottom)
+			}
+		}
 	}
 }

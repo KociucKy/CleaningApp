@@ -17,6 +17,8 @@ struct RoomMapperTests {
 
 		#expect(domain.id == entity.id)
 		#expect(domain.name == entity.name)
+		#expect(domain.isCustom == entity.isCustom)
+		#expect(domain.customIcon == entity.customIcon)
 		#expect(domain.createdAt == entity.createdAt)
 	}
 
@@ -25,6 +27,8 @@ struct RoomMapperTests {
 			id: UUID(),
 			name: "Kitchen",
 			icon: "Kitchen",
+			isCustom: false,
+			customIcon: nil,
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)
@@ -36,15 +40,17 @@ struct RoomMapperTests {
 			id: UUID(),
 			name: "Mystery Room",
 			icon: "nonExistentIcon",
+			isCustom: false,
+			customIcon: nil,
 			createdAt: .mock
 		)
 		let domain = mapper.toDomain(entity)
-		#expect(domain.kind == .custom)
+		#expect(domain.kind == .customRoom)
 	}
 
 	@Test func toDomain_allKnownIcons() {
 		for kind in RoomType.allCases {
-			let entity = RoomEntity(id: UUID(), name: "Room", icon: kind.rawValue, createdAt: .mock)
+			let entity = RoomEntity(id: UUID(), name: "Room", icon: kind.rawValue, isCustom: false, customIcon: nil, createdAt: .mock)
 			let domain = mapper.toDomain(entity)
 			#expect(domain.kind == kind)
 		}
@@ -58,6 +64,8 @@ struct RoomMapperTests {
 
 		#expect(entity.id == domain.id)
 		#expect(entity.name == domain.name)
+		#expect(entity.isCustom == domain.isCustom)
+		#expect(entity.customIcon == domain.customIcon)
 		#expect(entity.createdAt == domain.createdAt)
 	}
 
@@ -66,6 +74,8 @@ struct RoomMapperTests {
 			id: UUID(),
 			name: "Bathroom",
 			kind: .bathroom,
+			isCustom: false,
+			customIcon: nil,
 			createdAt: .mock
 		)
 		let entity = mapper.toEntity(domain)
@@ -82,6 +92,8 @@ struct RoomMapperTests {
 		#expect(restored.id == original.id)
 		#expect(restored.name == original.name)
 		#expect(restored.kind == original.kind)
+		#expect(restored.isCustom == original.isCustom)
+		#expect(restored.customIcon == original.customIcon)
 		#expect(restored.createdAt == original.createdAt)
 	}
 
@@ -93,6 +105,8 @@ struct RoomMapperTests {
 		#expect(restored.id == original.id)
 		#expect(restored.name == original.name)
 		#expect(restored.icon == original.icon)
+		#expect(restored.isCustom == original.isCustom)
+		#expect(restored.customIcon == original.customIcon)
 		#expect(restored.createdAt == original.createdAt)
 	}
 }

@@ -62,7 +62,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .quarterly,
 					estimatedDuration: .sixtyMinutes
-				),
+				)
 			]
 		case .livingRoom:
 			[
@@ -100,7 +100,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .bedroom:
 			[
@@ -138,7 +138,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .bathroom:
 			[
@@ -183,7 +183,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
-				),
+				)
 			]
 		case .hallway:
 			[
@@ -221,7 +221,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
-				),
+				)
 			]
 		case .office:
 			[
@@ -259,7 +259,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .thirtyMinutes
-				),
+				)
 			]
 		case .garage:
 			[
@@ -290,7 +290,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .monthly,
 					estimatedDuration: .fifteenMinutes
-				),
+				)
 			]
 		case .laundry:
 			[
@@ -321,7 +321,7 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .tenMinutes
-				),
+				)
 			]
 		case .toilet:
 			[
@@ -359,9 +359,47 @@ extension RoomType {
 					roomId: placeholder,
 					frequency: .timesPerWeek(1),
 					estimatedDuration: .fiveMinutes
-				),
+				)
 			]
-		case .custom:
+		case .diningRoom:
+			[
+				RoomTask(
+					id: UUID(uuidString: "AA000000-0000-0000-0000-000000000001")!,
+					name: String(localized: "task.wipe_table"),
+					roomId: placeholder,
+					frequency: .daily,
+					estimatedDuration: .fiveMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "AA000000-0000-0000-0000-000000000002")!,
+					name: String(localized: "task.vacuum_sweep"),
+					roomId: placeholder,
+					frequency: .timesPerWeek(2),
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "AA000000-0000-0000-0000-000000000003")!,
+					name: String(localized: "task.dust_surfaces"),
+					roomId: placeholder,
+					frequency: .timesPerWeek(1),
+					estimatedDuration: .tenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "AA000000-0000-0000-0000-000000000004")!,
+					name: String(localized: "task.clean_light_fixtures"),
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .fifteenMinutes
+				),
+				RoomTask(
+					id: UUID(uuidString: "AA000000-0000-0000-0000-000000000005")!,
+					name: String(localized: "task.polish_furniture"),
+					roomId: placeholder,
+					frequency: .monthly,
+					estimatedDuration: .thirtyMinutes
+				)
+			]
+		case .customRoom:
 			[]
 		}
 	}

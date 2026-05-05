@@ -32,7 +32,7 @@ extension RoomTask {
 				frequency: .monthly,
 				estimatedDuration: .sixtyMinutes,
 				createdAt: .mock
-			),
+			)
 		]
 	}
 }

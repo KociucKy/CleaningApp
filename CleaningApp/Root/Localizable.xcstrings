@@ -1,6 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld/30" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld/30"
+          }
+        }
+      }
+    },
     "app_name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -14,6 +24,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "CleaningApp"
+          }
+        }
+      }
+    },
+    "common.action.cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anuluj"
           }
         }
       }
@@ -444,7 +471,14 @@
       }
     },
     "Next" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dalej"
+          }
+        }
+      }
     },
     "onb_completed.rooms_count" : {
       "extractionState" : "manual",
@@ -582,6 +616,142 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Konfiguracja gotowa!"
+          }
+        }
+      }
+    },
+    "onb_custom_room.button_next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dalej"
+          }
+        }
+      }
+    },
+    "onb_custom_room.character_limit_reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Character limit reached"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Osiągnięto limit znaków"
+          }
+        }
+      }
+    },
+    "onb_custom_room.icon_button_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icon: %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikona: %@"
+          }
+        }
+      }
+    },
+    "onb_custom_room.icon_picker_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Icon"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz ikonę"
+          }
+        }
+      }
+    },
+    "onb_custom_room.icon_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose an icon"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz ikonę"
+          }
+        }
+      }
+    },
+    "onb_custom_room.name_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maximum 30 characters"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maksymalnie 30 znaków"
+          }
+        }
+      }
+    },
+    "onb_custom_room.name_placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Room name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa pokoju"
+          }
+        }
+      }
+    },
+    "onb_custom_room.sheet_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Custom Room"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własny pokój"
           }
         }
       }
@@ -735,6 +905,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trzymaj się planu"
+          }
+        }
+      }
+    },
+    "onb_room_selection.add_custom_room_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add custom room"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własny pokój"
+          }
+        }
+      }
+    },
+    "onb_room_selection.custom_room_label_%@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom room: %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Własny pokój: %@"
           }
         }
       }
@@ -1031,7 +1235,14 @@
       }
     },
     "Paywall" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subskrypcje"
+          }
+        }
+      }
     },
     "room_type.bathroom" : {
       "extractionState" : "manual",
@@ -1067,19 +1278,36 @@
         }
       }
     },
-    "room_type.custom" : {
+    "room_type.custom_room" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Custom"
+            "value" : "Custom Room"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Własny"
+            "value" : "Własny pokój"
+          }
+        }
+      }
+    },
+    "room_type.dining_room" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dining Room"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jadalnia"
           }
         }
       }
@@ -1335,6 +1563,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wyczyść płytę kuchenną"
+          }
+        }
+      }
+    },
+    "task.clean_light_fixtures" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean light fixtures"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyczyść lampy"
           }
         }
       }
@@ -1645,6 +1890,23 @@
         }
       }
     },
+    "task.polish_furniture" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Polish furniture"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wypoleruj meble"
+          }
+        }
+      }
+    },
     "task.remove_rubbish" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1917,6 +2179,23 @@
         }
       }
     },
+    "task.wipe_table" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wipe table"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wytrzyj stół"
+          }
+        }
+      }
+    },
     "task.wipe_tv_screen" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1952,7 +2231,14 @@
       }
     },
     "Tasks: %lld" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zadań: %lld"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
