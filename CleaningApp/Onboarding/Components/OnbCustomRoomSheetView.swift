@@ -38,28 +38,51 @@ struct OnbCustomRoomSheetView: View {
 	// MARK: - SubViews
 
 	private var nameInputView: some View {
-		VStack(spacing: FKSpacing.large) {
-			TextField(
-				LocalizedStringKey("onb_custom_room.name_placeholder"),
-				text: $presenter.roomName
-			)
-			.textFieldStyle(.roundedBorder)
-			.font(.body)
-			.focused($isTextFieldFocused)
-			.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
-			.onChange(of: presenter.roomName) {
-				presenter.limitNameLength()
+		Form {
+			Section {
+				TextField(
+					LocalizedStringKey("onb_custom_room.name_placeholder"),
+					text: $presenter.roomName
+				)
+				.font(.body)
+				.focused($isTextFieldFocused)
+				.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
+				.onChange(of: presenter.roomName) {
+					presenter.limitNameLength()
+				}
+			} footer: {
+				characterCountFooter
 			}
-
-			Text("onb_custom_room.name_hint")
-				.font(FKTypography.secondaryLabel)
-				.foregroundStyle(.secondary)
-				.frame(maxWidth: .infinity, alignment: .leading)
-
-			Spacer()
 		}
-		.padding(.horizontal, FKSpacing.large)
-		.padding(.top, FKSpacing.extraLarge)
+	}
+
+	private var characterCountFooter: some View {
+		HStack {
+			if presenter.roomName.count == 30 {
+				Text(LocalizedStringKey("onb_custom_room.character_limit_reached"))
+					.font(.caption)
+					.foregroundStyle(characterCountColor)
+					.transition(.opacity.combined(with: .scale))
+			}
+			Spacer()
+			Text("\(presenter.roomName.count)/30")
+				.font(.caption)
+				.foregroundStyle(characterCountColor)
+				.contentTransition(.numericText())
+		}
+		.animation(.smooth, value: presenter.roomName.count)
+	}
+
+	private var characterCountColor: Color {
+		let count = presenter.roomName.count
+		switch count {
+		case 28...:
+			return .red
+		case 25...27:
+			return .orange
+		default:
+			return .secondary
+		}
 	}
 }
 
