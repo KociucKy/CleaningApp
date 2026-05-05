@@ -95,7 +95,7 @@ struct OnbRoomSelectionView: View {
 			isSelected: presenter.isCustomRoomSelected(customRoom.id),
 			index: index,
 			action: { presenter.onCustomRoomCardPressed(id: customRoom.id) },
-			accessibilityLabel: String(localized: "onb_room_selection.custom_room_label_\(customRoom.name)")
+			accessibilityLabel: String(localized: "onb_room_selection.custom_room_label \(customRoom.name)")
 		)
 	}
 

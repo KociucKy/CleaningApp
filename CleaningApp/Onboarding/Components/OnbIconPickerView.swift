@@ -53,7 +53,7 @@ private struct IconButton: View {
 				.background(.quaternary)
 				.clipShape(RoundedRectangle(cornerRadius: 12))
 		}
-		.accessibilityLabel(String(localized: "onb_custom_room.icon_button_\(iconName)"))
+		.accessibilityLabel(String(localized: "onb_custom_room.icon_button \(iconName)"))
 	}
 }
 
