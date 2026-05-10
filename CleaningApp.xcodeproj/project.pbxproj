@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -85,7 +85,7 @@
 		9EE46BCE1DFE31D05D7F5D86 /* CompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 253ACAE1CDAA9681FB41FFC9 /* CompletedTaskRepository.swift */; };
 		9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078B1CC09D006F6B699705F3 /* MockRoomRepository.swift */; };
 		A13717E8F3F42DF8615BF890 /* SkippedTask+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55937F18BF17745177679BFE /* SkippedTask+Mock.swift */; };
-		A21C08707F5E30D007E2F06C /* OnbAddCustomTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71D07E4BF03AB12EDE67E01 /* OnbAddCustomTaskSheet.swift */; };
+		A21C08707F5E30D007E2F06C /* OnbAddCustomTaskSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71D07E4BF03AB12EDE67E01 /* OnbAddCustomTaskSheetView.swift */; };
 		A2A0A6A69495913820377A5F /* DevSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D691336165A1FBC235AF4C /* DevSettingsView.swift */; };
 		A34805429F822001BC54028F /* RoomMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CC7561CB8AB09A62ED729 /* RoomMapper.swift */; };
 		A4291CFBE04A263F775D2486 /* RoomTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4767ACD3FB04C230D7563A /* RoomTaskManagerTests.swift */; };
@@ -121,6 +121,7 @@
 		D5694E4D6BEA6214883C1168 /* MockSkippedTaskRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */; };
 		D7350B68681369825B7C1EB5 /* test_completedView_savingState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 385229BBA96203FCFAB124D5 /* test_completedView_savingState.1.png */; };
 		DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DB43F7A91758B963D81751 /* SkippedTaskMapper.swift */; };
+		DBB6DE06B1F2E991B2B4AA2C /* CharacterLimitModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3613D74373BED31C0373A6C /* CharacterLimitModifier.swift */; };
 		DC02F98566436257122AF3F5 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */; };
 		DDBADE5D694A2976DC1E3E44 /* test_notificationView_loadingState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F248ACFF734B1E30DDD6F2 /* test_notificationView_loadingState.1.png */; };
 		E164CD2C78747647D3957F92 /* Room+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87032E920792FA6C55583745 /* Room+Mock.swift */; };
@@ -194,7 +195,7 @@
 		408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskEntity.swift; sourceTree = "<group>"; };
 		412CB179AA27D706A4C3A4A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		41F248ACFF734B1E30DDD6F2 /* test_notificationView_loadingState.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_notificationView_loadingState.1.png; sourceTree = "<group>"; };
-		4367AA79DD53134C2C3E29B7 /* center.svg */ = {isa = PBXFileReference; path = center.svg; sourceTree = "<group>"; };
+		4367AA79DD53134C2C3E29B7 /* center.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = center.svg; sourceTree = "<group>"; };
 		45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsRouter.swift; sourceTree = "<group>"; };
 		4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
@@ -254,6 +255,7 @@
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		B06AF8CB201F1768C153A84F /* RoomTypeSuggestedTasksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTypeSuggestedTasksTests.swift; sourceTree = "<group>"; };
 		B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
+		B3613D74373BED31C0373A6C /* CharacterLimitModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLimitModifier.swift; sourceTree = "<group>"; };
 		B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSkippedTaskRepositoryTests.swift; sourceTree = "<group>"; };
 		B7B4F18DD4694A51E447E6AD /* OnbIconPickerPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbIconPickerPresenter.swift; sourceTree = "<group>"; };
 		BBF40B92CCF38074D175B4EF /* OnbTaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionView.swift; sourceTree = "<group>"; };
@@ -261,7 +263,7 @@
 		C09733DEB16715CB8DBC6098 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		C1C2330F027287AA4ECB1B54 /* Frequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frequency.swift; sourceTree = "<group>"; };
 		C629102C8551A4E9CC65038E /* RoomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomEntity.swift; sourceTree = "<group>"; };
-		C71D07E4BF03AB12EDE67E01 /* OnbAddCustomTaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbAddCustomTaskSheet.swift; sourceTree = "<group>"; };
+		C71D07E4BF03AB12EDE67E01 /* OnbAddCustomTaskSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbAddCustomTaskSheetView.swift; sourceTree = "<group>"; };
 		C72F4A9A527F1C819EEB0B83 /* test_paywallView_defaultState.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_paywallView_defaultState.1.png; sourceTree = "<group>"; };
 		C7C0C7E2AC9B4EEF84A61209 /* SkippedTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTask.swift; sourceTree = "<group>"; };
 		C916ABBFC3791208B79BCF65 /* OnbWelcomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomePresenter.swift; sourceTree = "<group>"; };
@@ -282,7 +284,7 @@
 		E7F8BB9667E129602A1179F7 /* Date+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Mock.swift"; sourceTree = "<group>"; };
 		F074EC2419C66EA6F2B5975E /* test_roomSelectionView_noSelection.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_roomSelectionView_noSelection.1.png; sourceTree = "<group>"; };
 		F2D6E8CF672C86F193AAE999 /* OnbCustomRoomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbCustomRoomSheetView.swift; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F81D35F1DCFD4D6BD2FB0DF0 /* test_controlButtonsView_disabled.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_controlButtonsView_disabled.1.png; sourceTree = "<group>"; };
@@ -492,7 +494,7 @@
 		86A31FF073FA26EB664BEA70 /* TaskSelection */ = {
 			isa = PBXGroup;
 			children = (
-				C71D07E4BF03AB12EDE67E01 /* OnbAddCustomTaskSheet.swift */,
+				C71D07E4BF03AB12EDE67E01 /* OnbAddCustomTaskSheetView.swift */,
 				8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */,
 				BBF40B92CCF38074D175B4EF /* OnbTaskSelectionView.swift */,
 			);
@@ -778,6 +780,14 @@
 			path = RIB;
 			sourceTree = "<group>";
 		};
+		EA9136359DED7D0F4A3AAD88 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				B3613D74373BED31C0373A6C /* CharacterLimitModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		F3420AB3F1C12A0C70410CE3 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -824,6 +834,7 @@
 			isa = PBXGroup;
 			children = (
 				6E16CA621C1B247F24EAD8BF /* Extensions */,
+				EA9136359DED7D0F4A3AAD88 /* ViewModifiers */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -844,13 +855,6 @@
 				4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */,
 			);
 			path = Presentation;
-			sourceTree = "<group>";
-		};
-		"TEMP_9E6ECFC1-CAC1-43FF-BE44-FE0E37D3F229" /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -944,7 +948,6 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1065,6 +1068,7 @@
 				C4B1DE558EBE6056FC179C9C /* AppEntryPoint.swift in Sources */,
 				EA8868DEEA28534A4BD3AA7D /* AppViewBuilder.swift in Sources */,
 				F65F3C97A4F30FE0F46BE971 /* Builder.swift in Sources */,
+				DBB6DE06B1F2E991B2B4AA2C /* CharacterLimitModifier.swift in Sources */,
 				06478080EBDB7AE9B66F24CD /* CompletedTask+Mock.swift in Sources */,
 				E7A59BA1D50DEF6B096FA234 /* CompletedTask.swift in Sources */,
 				B1CCE19E38B4EE82E32A0F36 /* CompletedTaskEntity+Mock.swift in Sources */,
@@ -1093,7 +1097,7 @@
 				9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */,
 				79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */,
 				36A47369ED0088DF2C941642 /* MockSkippedTaskRepository.swift in Sources */,
-				A21C08707F5E30D007E2F06C /* OnbAddCustomTaskSheet.swift in Sources */,
+				A21C08707F5E30D007E2F06C /* OnbAddCustomTaskSheetView.swift in Sources */,
 				F683F938FC317A53E2A8A880 /* OnbControlButtonsView.swift in Sources */,
 				13BCA4DAAC57F7008AA245B1 /* OnbCustomRoomSheetPresenter.swift in Sources */,
 				F83334525CC04771CB0904D3 /* OnbCustomRoomSheetView.swift in Sources */,

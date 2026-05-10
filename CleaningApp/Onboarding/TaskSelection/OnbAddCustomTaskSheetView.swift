@@ -3,8 +3,12 @@ import SwiftUI
 
 // MARK: - OnbAddCustomTaskSheet
 
-struct OnbAddCustomTaskSheet: View {
+struct OnbAddCustomTaskSheetView: View {
 	// MARK: - Properties
+	
+	private enum Constants {
+		static let charactersLimit = 40
+	}
 
 	@Binding var isPresented: Bool
 	let roomType: RoomType
@@ -21,8 +25,11 @@ struct OnbAddCustomTaskSheet: View {
 				Section {
 					TextField("onb_custom_task.placeholder.task_name", text: $taskName)
 						.autocorrectionDisabled()
+						.withCharacterLimit($taskName, maxLength: Constants.charactersLimit)
 				} header: {
 					Text("onb_custom_task.label.task_name")
+				} footer: {
+					characterCountFooter(currentCount: taskName.count, maxLength: Constants.charactersLimit)
 				}
 
 				Section {
@@ -69,7 +76,7 @@ struct OnbAddCustomTaskSheet: View {
 
 #Preview {
 	@Previewable @State var isPresented = true
-	OnbAddCustomTaskSheet(
+	OnbAddCustomTaskSheetView(
 		isPresented: $isPresented,
 		roomType: .kitchen,
 		onAdd: { task in

@@ -47,41 +47,10 @@ struct OnbCustomRoomSheetView: View {
 				.font(.body)
 				.focused($isTextFieldFocused)
 				.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
-				.onChange(of: presenter.roomName) {
-					presenter.limitNameLength()
-				}
+				.withCharacterLimit($presenter.roomName)
 			} footer: {
-				characterCountFooter
+				characterCountFooter(currentCount: presenter.roomName.count)
 			}
-		}
-	}
-
-	private var characterCountFooter: some View {
-		HStack {
-			if presenter.roomName.count == 30 {
-				Text(LocalizedStringKey("onb_custom_room.character_limit_reached"))
-					.font(.caption)
-					.foregroundStyle(characterCountColor)
-					.transition(.opacity.combined(with: .scale))
-			}
-			Spacer()
-			Text("\(presenter.roomName.count)/30")
-				.font(.caption)
-				.foregroundStyle(characterCountColor)
-				.contentTransition(.numericText())
-		}
-		.animation(.smooth, value: presenter.roomName.count)
-	}
-
-	private var characterCountColor: Color {
-		let count = presenter.roomName.count
-		switch count {
-		case 28...:
-			return .red
-		case 25 ... 27:
-			return .orange
-		default:
-			return .secondary
 		}
 	}
 }

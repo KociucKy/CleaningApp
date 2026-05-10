@@ -37,7 +37,7 @@ struct OnbTaskSelectionView: View {
 		}
 		.sheet(isPresented: $showingCustomTaskSheet) {
 			if let room = selectedRoomForCustomTask {
-				OnbAddCustomTaskSheet(
+				OnbAddCustomTaskSheetView(
 					isPresented: $showingCustomTaskSheet,
 					roomType: room,
 					onAdd: { task in
