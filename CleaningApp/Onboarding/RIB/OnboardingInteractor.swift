@@ -100,6 +100,32 @@ struct OnboardingInteractor {
 		flowState.removeCustomTask(task, for: room)
 	}
 
+	// MARK: - Flow State — Custom Room Tasks
+
+	func selectedCustomRooms() -> [CustomRoomSelection] {
+		flowState.selectedCustomRooms()
+	}
+
+	func addTaskToCustomRoom(_ task: RoomTask, roomId: UUID) {
+		flowState.addTaskToCustomRoom(task, roomId: roomId)
+	}
+
+	func removeTaskFromCustomRoom(_ task: RoomTask, roomId: UUID) {
+		flowState.removeTaskFromCustomRoom(task, roomId: roomId)
+	}
+
+	func toggleCustomRoomTask(_ task: RoomTask, roomId: UUID) {
+		flowState.toggleCustomRoomTask(task, roomId: roomId)
+	}
+
+	func isCustomRoomTaskSelected(_ task: RoomTask, roomId: UUID) -> Bool {
+		flowState.isCustomRoomTaskSelected(task, roomId: roomId)
+	}
+
+	func customRoomTasks(roomId: UUID) -> [RoomTask] {
+		flowState.customRoomTasks(roomId: roomId)
+	}
+
 	// MARK: - Persistence
 
 	/// Saves all selected rooms and their tasks to SwiftData, then marks

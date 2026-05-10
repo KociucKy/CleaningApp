@@ -66,6 +66,12 @@ struct OnboardingRouter {
 		}
 	}
 
+	func presentCustomTaskSheet(for customRoom: CustomRoomSelection) {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.customTaskSheetView(router: router, customRoomId: customRoom.id)
+		}
+	}
+
 	func showIconPickerView(roomName: String) {
 		router.showScreen(.push, onDismiss: nil) { _ in
 			builder.iconPickerView(sheetRouter: self, roomName: roomName)

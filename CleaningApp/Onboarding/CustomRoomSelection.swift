@@ -4,7 +4,7 @@ import Foundation
 
 /// Represents a custom room created during onboarding.
 @MainActor
-struct CustomRoomSelection: Identifiable, Equatable {
+struct CustomRoomSelection: Identifiable, Equatable, Hashable {
 	// MARK: - Properties
 
 	let id: UUID
@@ -21,5 +21,17 @@ struct CustomRoomSelection: Identifiable, Equatable {
 		self.icon = icon
 		self.isSelected = isSelected
 		self.selectedTasks = selectedTasks
+	}
+
+	// MARK: - Equatable
+
+	nonisolated static func == (lhs: CustomRoomSelection, rhs: CustomRoomSelection) -> Bool {
+		lhs.id == rhs.id
+	}
+
+	// MARK: - Hashable
+
+	nonisolated func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
 	}
 }

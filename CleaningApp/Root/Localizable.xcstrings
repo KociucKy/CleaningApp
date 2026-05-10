@@ -1096,6 +1096,22 @@
         }
       }
     },
+    "onb_task_selection.empty_tasks_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tasks added"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Brak zadań"
+          }
+        }
+      }
+    },
     "onb_task_selection.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {

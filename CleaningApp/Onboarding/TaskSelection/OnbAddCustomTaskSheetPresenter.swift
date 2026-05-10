@@ -10,7 +10,8 @@ final class OnbAddCustomTaskSheetPresenter {
 
 	private let interactor: OnboardingInteractor
 	private let router: OnboardingRouter
-	private let roomType: RoomType
+	private let roomType: RoomType?
+	private let customRoomId: UUID?
 
 	var taskName: String = ""
 	var selectedFrequency: Frequency = .timesPerWeek(1)
@@ -29,6 +30,18 @@ final class OnbAddCustomTaskSheetPresenter {
 		self.interactor = interactor
 		self.router = router
 		self.roomType = roomType
+		customRoomId = nil
+	}
+
+	init(
+		interactor: OnboardingInteractor,
+		router: OnboardingRouter,
+		customRoomId: UUID
+	) {
+		self.interactor = interactor
+		self.router = router
+		roomType = nil
+		self.customRoomId = customRoomId
 	}
 
 	// MARK: - Actions
@@ -45,7 +58,13 @@ final class OnbAddCustomTaskSheetPresenter {
 			frequency: selectedFrequency,
 			estimatedDuration: .fifteenMinutes
 		)
-		interactor.addCustomTask(task, for: roomType)
+
+		if let roomType {
+			interactor.addCustomTask(task, for: roomType)
+		} else if let customRoomId {
+			interactor.addTaskToCustomRoom(task, roomId: customRoomId)
+		}
+
 		router.dismissScreen()
 	}
 }
