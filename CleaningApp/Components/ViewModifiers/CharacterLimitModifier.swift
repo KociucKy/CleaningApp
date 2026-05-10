@@ -7,7 +7,6 @@ struct CharacterLimitModifier: ViewModifier {
 
 	@Binding var text: String
 	let maxLength: Int
-	let limitReachedKey: String
 
 	// MARK: - Body
 
@@ -77,13 +76,11 @@ struct CharacterCountFooter: View {
 extension View {
 	func withCharacterLimit(
 		_ text: Binding<String>,
-		maxLength: Int = 30,
-		limitReachedKey: String = "onb_custom_room.character_limit_reached"
+		maxLength: Int = 30
 	) -> some View {
 		modifier(CharacterLimitModifier(
 			text: text,
-			maxLength: maxLength,
-			limitReachedKey: limitReachedKey
+			maxLength: maxLength
 		))
 	}
 

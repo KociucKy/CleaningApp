@@ -13,15 +13,17 @@ final class OnboardingFlowState {
 	/// Rooms the user selected, in selection order.
 	private(set) var selectedRooms: [RoomType] = []
 
-	/// Tasks selected per room. Keyed by `RoomType`; values are the
-	/// subset of that room's suggested tasks the user opted in to.
+	/// Tasks selected per room. Keyed by `RoomType`; values contain all
+	/// selected tasks for that room (both suggested tasks the user opted in to,
+	/// and custom tasks which are auto-selected when created).
 	private(set) var selectedTasks: [RoomType: [RoomTask]] = [:]
 
 	/// Custom rooms created by the user during onboarding, in creation order.
 	private(set) var customRooms: [CustomRoomSelection] = []
 
-	/// Custom tasks created by the user during onboarding. Keyed by `RoomType`;
-	/// values are user-created tasks for that room.
+	/// Custom tasks created by the user for predefined rooms during onboarding.
+	/// Keyed by `RoomType`; values are user-created tasks for that room.
+	/// Note: Custom tasks are automatically added to `selectedTasks` when created.
 	private(set) var customTasks: [RoomType: [RoomTask]] = [:]
 
 	// MARK: - Room Selection
@@ -136,38 +138,40 @@ final class OnboardingFlowState {
 		customRooms.filter(\.isSelected)
 	}
 
-	/// Adds a task to a custom room's selectedTasks.
+	/// Adds a task to a custom room's allTasks and marks it as selected.
 	func addTaskToCustomRoom(_ task: RoomTask, roomId: UUID) {
 		if let index = customRooms.firstIndex(where: { $0.id == roomId }) {
-			customRooms[index].selectedTasks.append(task)
+			customRooms[index].allTasks.append(task)
+			customRooms[index].selectedTaskIds.insert(task.id)
 		}
 	}
 
-	/// Removes a task from a custom room's selectedTasks.
+	/// Removes a task entirely from a custom room (deletes it from allTasks).
 	func removeTaskFromCustomRoom(_ task: RoomTask, roomId: UUID) {
 		if let index = customRooms.firstIndex(where: { $0.id == roomId }) {
-			customRooms[index].selectedTasks.removeAll { $0.id == task.id }
+			customRooms[index].allTasks.removeAll { $0.id == task.id }
+			customRooms[index].selectedTaskIds.remove(task.id)
 		}
 	}
 
-	/// Toggles a task in a custom room's selectedTasks.
+	/// Toggles a task's selection state in a custom room (does not remove from allTasks).
 	func toggleCustomRoomTask(_ task: RoomTask, roomId: UUID) {
 		if let roomIndex = customRooms.firstIndex(where: { $0.id == roomId }) {
-			if let taskIndex = customRooms[roomIndex].selectedTasks.firstIndex(where: { $0.id == task.id }) {
-				customRooms[roomIndex].selectedTasks.remove(at: taskIndex)
+			if customRooms[roomIndex].selectedTaskIds.contains(task.id) {
+				customRooms[roomIndex].selectedTaskIds.remove(task.id)
 			} else {
-				customRooms[roomIndex].selectedTasks.append(task)
+				customRooms[roomIndex].selectedTaskIds.insert(task.id)
 			}
 		}
 	}
 
 	/// Checks if a task is selected in a custom room.
 	func isCustomRoomTaskSelected(_ task: RoomTask, roomId: UUID) -> Bool {
-		customRooms.first(where: { $0.id == roomId })?.selectedTasks.contains(where: { $0.id == task.id }) ?? false
+		customRooms.first(where: { $0.id == roomId })?.selectedTaskIds.contains(task.id) ?? false
 	}
 
-	/// Returns all tasks for a custom room (currently just custom tasks since custom rooms have no suggested tasks).
+	/// Returns all tasks for a custom room.
 	func customRoomTasks(roomId: UUID) -> [RoomTask] {
-		customRooms.first(where: { $0.id == roomId })?.selectedTasks ?? []
+		customRooms.first(where: { $0.id == roomId })?.allTasks ?? []
 	}
 }

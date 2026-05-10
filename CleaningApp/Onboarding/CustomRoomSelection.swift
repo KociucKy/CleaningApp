@@ -11,16 +11,25 @@ struct CustomRoomSelection: Identifiable, Equatable, Hashable {
 	let name: String
 	let icon: String
 	var isSelected: Bool
-	var selectedTasks: [RoomTask]
+	var allTasks: [RoomTask]
+	var selectedTaskIds: Set<UUID>
 
 	// MARK: - Init
 
-	init(id: UUID = UUID(), name: String, icon: String, isSelected: Bool = true, selectedTasks: [RoomTask] = []) {
+	init(id: UUID = UUID(), name: String, icon: String, isSelected: Bool = true, allTasks: [RoomTask] = [], selectedTaskIds: Set<UUID> = []) {
 		self.id = id
 		self.name = name
 		self.icon = icon
 		self.isSelected = isSelected
-		self.selectedTasks = selectedTasks
+		self.allTasks = allTasks
+		self.selectedTaskIds = selectedTaskIds
+	}
+
+	// MARK: - Computed Properties
+
+	/// Returns only the selected tasks from allTasks.
+	var selectedTasks: [RoomTask] {
+		allTasks.filter { selectedTaskIds.contains($0.id) }
 	}
 
 	// MARK: - Equatable

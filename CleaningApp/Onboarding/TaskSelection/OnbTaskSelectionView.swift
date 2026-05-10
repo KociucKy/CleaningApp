@@ -40,21 +40,12 @@ struct OnbTaskSelectionView: View {
 				customRoom.name
 			}
 		}
-
-		var collapseKey: RoomType {
-			switch self {
-			case let .predefined(room):
-				room
-			case .custom:
-				.customRoom // Sentinel for custom rooms
-			}
-		}
 	}
 
 	// MARK: - Properties
 
 	@State var presenter: OnbTaskSelectionPresenter
-	@State private var collapsedRooms: Set<RoomType> = []
+	@State private var collapsedRooms: Set<String> = []
 
 	private var allRoomSections: [RoomSection] {
 		let predefined = presenter.selectedRooms.map { RoomSection.predefined($0) }
@@ -88,7 +79,7 @@ struct OnbTaskSelectionView: View {
 	// MARK: - SubViews
 
 	private func roomSection(_ section: RoomSection, index: Int) -> some View {
-		let isCollapsed = collapsedRooms.contains(section.collapseKey)
+		let isCollapsed = collapsedRooms.contains(section.id)
 		let isVisible = index < presenter.visibleSectionCount
 		let tasks = tasksForSection(section)
 		let lastTaskId = tasks.last?.id
@@ -128,9 +119,9 @@ struct OnbTaskSelectionView: View {
 			FKHaptics.selection()
 			withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
 				if isCollapsed {
-					collapsedRooms.remove(section.collapseKey)
+					collapsedRooms.remove(section.id)
 				} else {
-					collapsedRooms.insert(section.collapseKey)
+					collapsedRooms.insert(section.id)
 				}
 			}
 		} label: {
@@ -210,7 +201,7 @@ struct OnbTaskSelectionView: View {
 						.foregroundStyle(FKColor.Label.tertiary)
 				}
 				.buttonStyle(.plain)
-				.accessibilityLabel("common.action.delete")
+				.accessibilityLabel(Text("common.action.delete"))
 			}
 		}
 	}

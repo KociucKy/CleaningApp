@@ -116,7 +116,7 @@ final class OnbTaskSelectionPresenter {
 	}
 
 	func selectedCustomRoomTaskCount(_ customRoom: CustomRoomSelection) -> Int {
-		interactor.customRoomTasks(roomId: customRoom.id).count
+		customRoom.selectedTaskIds.count
 	}
 
 	func onCustomRoomTaskRowPressed(_ task: RoomTask, in customRoom: CustomRoomSelection) {

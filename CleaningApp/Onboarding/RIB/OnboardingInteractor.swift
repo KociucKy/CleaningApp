@@ -75,11 +75,13 @@ struct OnboardingInteractor {
 	}
 
 	var selectedRoomsCount: Int {
-		flowState.selectedRooms.count
+		flowState.selectedRooms.count + flowState.selectedCustomRooms().count
 	}
 
 	var selectedTasksCount: Int {
-		flowState.selectedTasks.values.reduce(0) { $0 + $1.count }
+		let predefinedRoomTasks = flowState.selectedTasks.values.reduce(0) { $0 + $1.count }
+		let customRoomTasks = flowState.selectedCustomRooms().reduce(0) { $0 + $1.selectedTaskIds.count }
+		return predefinedRoomTasks + customRoomTasks
 	}
 
 	// MARK: - Flow State — Custom Tasks
