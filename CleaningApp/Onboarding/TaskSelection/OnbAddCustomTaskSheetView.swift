@@ -5,68 +5,55 @@ import SwiftUI
 
 struct OnbAddCustomTaskSheetView: View {
 	// MARK: - Properties
-	
+
 	private enum Constants {
 		static let charactersLimit = 40
 	}
 
-	@Binding var isPresented: Bool
-	let roomType: RoomType
-	let onAdd: (RoomTask) -> Void
-
-	@State private var taskName = ""
-	@State private var selectedFrequency: Frequency = .timesPerWeek(1)
+	@State var presenter: OnbAddCustomTaskSheetPresenter
 
 	// MARK: - Body
 
 	var body: some View {
-		NavigationStack {
-			Form {
-				Section {
-					TextField("onb_custom_task.placeholder.task_name", text: $taskName)
-						.autocorrectionDisabled()
-						.withCharacterLimit($taskName, maxLength: Constants.charactersLimit)
-				} header: {
-					Text("onb_custom_task.label.task_name")
-				} footer: {
-					characterCountFooter(currentCount: taskName.count, maxLength: Constants.charactersLimit)
-				}
+		Form {
+			Section {
+				TextField("onb_custom_task.placeholder.task_name", text: $presenter.taskName)
+					.autocorrectionDisabled()
+					.withCharacterLimit($presenter.taskName, maxLength: Constants.charactersLimit)
+			} header: {
+				Text("onb_custom_task.label.task_name")
+			} footer: {
+				characterCountFooter(currentCount: presenter.taskName.count, maxLength: Constants.charactersLimit)
+			}
 
-				Section {
-					Picker("onb_custom_task.label.frequency", selection: $selectedFrequency) {
-						Text(Frequency.daily.displayName).tag(Frequency.daily)
-						Text(Frequency.timesPerWeek(2).displayName).tag(Frequency.timesPerWeek(2))
-						Text(Frequency.timesPerWeek(3).displayName).tag(Frequency.timesPerWeek(3))
-						Text(Frequency.timesPerWeek(1).displayName).tag(Frequency.timesPerWeek(1))
-						Text(Frequency.everyOtherWeek.displayName).tag(Frequency.everyOtherWeek)
-						Text(Frequency.monthly.displayName).tag(Frequency.monthly)
-					}
-				} header: {
-					Text("onb_custom_task.label.frequency")
+			Section {
+				Picker("onb_custom_task.label.frequency", selection: $presenter.selectedFrequency) {
+					Text(Frequency.daily.displayName).tag(Frequency.daily)
+					Text(Frequency.timesPerWeek(2).displayName).tag(Frequency.timesPerWeek(2))
+					Text(Frequency.timesPerWeek(3).displayName).tag(Frequency.timesPerWeek(3))
+					Text(Frequency.timesPerWeek(1).displayName).tag(Frequency.timesPerWeek(1))
+					Text(Frequency.everyOtherWeek.displayName).tag(Frequency.everyOtherWeek)
+					Text(Frequency.monthly.displayName).tag(Frequency.monthly)
+				}
+			} header: {
+				Text("onb_custom_task.label.frequency")
+			}
+		}
+		.navigationTitle("onb_custom_task.title")
+		.navigationBarTitleDisplayMode(.inline)
+		.presentationDragIndicator(.visible)
+		.toolbar {
+			ToolbarItem(placement: .cancellationAction) {
+				Button("common.action.cancel") {
+					presenter.onCancelButtonPressed()
 				}
 			}
-			.navigationTitle("onb_custom_task.title")
-			.navigationBarTitleDisplayMode(.inline)
-			.toolbar {
-				ToolbarItem(placement: .cancellationAction) {
-					Button("common.action.cancel") {
-						isPresented = false
-					}
+			ToolbarItem(placement: .confirmationAction) {
+				Button("common.action.add") {
+					FKHaptics.selection()
+					presenter.onAddButtonPressed()
 				}
-				ToolbarItem(placement: .confirmationAction) {
-					Button("common.action.add") {
-						let task = RoomTask(
-							name: taskName,
-							roomId: UUID(), // Placeholder - will be set during save
-							frequency: selectedFrequency,
-							estimatedDuration: .fifteenMinutes
-						)
-						FKHaptics.selection()
-						onAdd(task)
-						isPresented = false
-					}
-					.disabled(taskName.trimmingCharacters(in: .whitespaces).isEmpty)
-				}
+				.disabled(!presenter.isTaskNameValid)
 			}
 		}
 	}
@@ -75,12 +62,10 @@ struct OnbAddCustomTaskSheetView: View {
 // MARK: - Preview
 
 #Preview {
-	@Previewable @State var isPresented = true
-	OnbAddCustomTaskSheetView(
-		isPresented: $isPresented,
-		roomType: .kitchen,
-		onAdd: { task in
-			print("Added task: \(task.name)")
-		}
-	)
+	let devPreview = DevPreview()
+	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
+
+	RouterView { router in
+		builder.customTaskSheetView(router: router, roomType: .kitchen)
+	}
 }

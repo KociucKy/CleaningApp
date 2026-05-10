@@ -58,6 +58,10 @@ final class OnbTaskSelectionPresenter {
 		router.showOnboardingNotificationView()
 	}
 
+	func onAddCustomTaskButtonPressed(for room: RoomType) {
+		router.presentCustomTaskSheet(for: room)
+	}
+
 	// MARK: - Methods
 
 	func suggestedTasks(for room: RoomType) -> [RoomTask] {
@@ -86,11 +90,6 @@ final class OnbTaskSelectionPresenter {
 	/// Checks if a task is custom (not in suggested tasks).
 	func isCustomTask(_ task: RoomTask, for room: RoomType) -> Bool {
 		interactor.isCustomTask(task, for: room)
-	}
-
-	/// Adds a custom task to the specified room.
-	func onAddCustomTask(_ task: RoomTask, for room: RoomType) {
-		interactor.addCustomTask(task, for: room)
 	}
 
 	/// Removes a custom task from the specified room.

@@ -12,8 +12,6 @@ struct OnbTaskSelectionView: View {
 
 	@State var presenter: OnbTaskSelectionPresenter
 	@State private var collapsedRooms: Set<RoomType> = []
-	@State private var showingCustomTaskSheet = false
-	@State private var selectedRoomForCustomTask: RoomType?
 
 	// MARK: - Body
 
@@ -34,17 +32,6 @@ struct OnbTaskSelectionView: View {
 			controlButtonsView
 				.opacity(presenter.buttonVisible ? 1 : 0)
 				.offset(y: presenter.buttonVisible ? 0 : 16)
-		}
-		.sheet(isPresented: $showingCustomTaskSheet) {
-			if let room = selectedRoomForCustomTask {
-				OnbAddCustomTaskSheetView(
-					isPresented: $showingCustomTaskSheet,
-					roomType: room,
-					onAdd: { task in
-						presenter.onAddCustomTask(task, for: room)
-					}
-				)
-			}
 		}
 		.onAppear(perform: presenter.animateEntrance)
 	}
@@ -185,8 +172,7 @@ struct OnbTaskSelectionView: View {
 	private func addCustomTaskButton(for room: RoomType) -> some View {
 		Button {
 			FKHaptics.selection()
-			selectedRoomForCustomTask = room
-			showingCustomTaskSheet = true
+			presenter.onAddCustomTaskButtonPressed(for: room)
 		} label: {
 			HStack(spacing: FKSpacing.small) {
 				Image(systemName: "plus.circle.fill")

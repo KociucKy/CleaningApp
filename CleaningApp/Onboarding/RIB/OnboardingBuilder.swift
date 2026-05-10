@@ -82,6 +82,16 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
+	func customTaskSheetView(router: Router, roomType: RoomType) -> some View {
+		OnbAddCustomTaskSheetView(
+			presenter: OnbAddCustomTaskSheetPresenter(
+				interactor: interactor,
+				router: OnboardingRouter(router: router, builder: self),
+				roomType: roomType
+			)
+		)
+	}
+
 	func iconPickerView(sheetRouter: OnboardingRouter, roomName: String) -> some View {
 		OnbIconPickerView(
 			presenter: OnbIconPickerPresenter(
