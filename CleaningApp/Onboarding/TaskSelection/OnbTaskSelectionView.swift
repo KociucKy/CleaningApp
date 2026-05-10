@@ -245,7 +245,7 @@ struct OnbTaskSelectionView: View {
 	}
 
 	private func emptyTasksPlaceholder() -> some View {
-		Text("onb_task_selection.empty_tasks_placeholder")
+		Label("onb_task_selection.empty_tasks_placeholder", systemImage: "rectangle.stack.slash.fill")
 			.font(FKTypography.caption)
 			.foregroundStyle(FKColor.Label.secondary)
 			.frame(maxWidth: .infinity)
