@@ -18,6 +18,10 @@ final class OnbTaskSelectionPresenter {
 		interactor.selectedRooms
 	}
 
+	var selectedCustomRooms: [CustomRoomSelection] {
+		interactor.selectedCustomRooms()
+	}
+
 	// MARK: - Init
 
 	init(
@@ -31,7 +35,7 @@ final class OnbTaskSelectionPresenter {
 	// MARK: - Actions
 
 	func animateEntrance() {
-		let count = interactor.selectedRooms.count
+		let count = interactor.selectedRooms.count + interactor.selectedCustomRooms().count
 		Timer.scheduledTimer(withTimeInterval: 0.06, repeats: true) { [weak self] timer in
 			guard let self else {
 				timer.invalidate()
@@ -58,6 +62,14 @@ final class OnbTaskSelectionPresenter {
 		router.showOnboardingNotificationView()
 	}
 
+	func onAddCustomTaskButtonPressed(for room: RoomType) {
+		router.presentCustomTaskSheet(for: room)
+	}
+
+	func onAddCustomTaskButtonPressed(for customRoom: CustomRoomSelection) {
+		router.presentCustomTaskSheet(for: customRoom)
+	}
+
 	// MARK: - Methods
 
 	func suggestedTasks(for room: RoomType) -> [RoomTask] {
@@ -74,5 +86,44 @@ final class OnbTaskSelectionPresenter {
 
 	func onTaskRowPressed(_ task: RoomTask, for room: RoomType) {
 		interactor.toggleTask(task, for: room)
+	}
+
+	// MARK: - Custom Tasks
+
+	/// Returns all tasks for a room: suggested + custom.
+	func allTasks(for room: RoomType) -> [RoomTask] {
+		interactor.allTasks(for: room)
+	}
+
+	/// Checks if a task is custom (not in suggested tasks).
+	func isCustomTask(_ task: RoomTask, for room: RoomType) -> Bool {
+		interactor.isCustomTask(task, for: room)
+	}
+
+	/// Removes a custom task from the specified room.
+	func onDeleteCustomTask(_ task: RoomTask, for room: RoomType) {
+		interactor.removeCustomTask(task, for: room)
+	}
+
+	// MARK: - Custom Rooms
+
+	func customRoomTasks(_ customRoom: CustomRoomSelection) -> [RoomTask] {
+		interactor.customRoomTasks(roomId: customRoom.id)
+	}
+
+	func isCustomRoomTaskSelected(_ task: RoomTask, in customRoom: CustomRoomSelection) -> Bool {
+		interactor.isCustomRoomTaskSelected(task, roomId: customRoom.id)
+	}
+
+	func selectedCustomRoomTaskCount(_ customRoom: CustomRoomSelection) -> Int {
+		customRoom.selectedTaskIds.count
+	}
+
+	func onCustomRoomTaskRowPressed(_ task: RoomTask, in customRoom: CustomRoomSelection) {
+		interactor.toggleCustomRoomTask(task, roomId: customRoom.id)
+	}
+
+	func onDeleteCustomRoomTask(_ task: RoomTask, from customRoom: CustomRoomSelection) {
+		interactor.removeTaskFromCustomRoom(task, roomId: customRoom.id)
 	}
 }

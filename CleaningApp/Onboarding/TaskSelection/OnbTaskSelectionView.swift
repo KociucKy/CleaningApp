@@ -8,18 +8,58 @@ struct OnbTaskSelectionView: View {
 		static let unselectedTaskRowOpacity: CGFloat = 0.3
 	}
 
+	// MARK: - RoomSection
+
+	private enum RoomSection: Hashable, Identifiable {
+		case predefined(RoomType)
+		case custom(CustomRoomSelection)
+
+		var id: String {
+			switch self {
+			case let .predefined(room):
+				"predefined_\(room.rawValue)"
+			case let .custom(customRoom):
+				"custom_\(customRoom.id.uuidString)"
+			}
+		}
+
+		var icon: String {
+			switch self {
+			case let .predefined(room):
+				room.symbolName
+			case let .custom(customRoom):
+				customRoom.icon
+			}
+		}
+
+		var name: String {
+			switch self {
+			case let .predefined(room):
+				room.localizedName
+			case let .custom(customRoom):
+				customRoom.name
+			}
+		}
+	}
+
 	// MARK: - Properties
 
 	@State var presenter: OnbTaskSelectionPresenter
-	@State private var collapsedRooms: Set<RoomType> = []
+	@State private var collapsedRooms: Set<String> = []
+
+	private var allRoomSections: [RoomSection] {
+		let predefined = presenter.selectedRooms.map { RoomSection.predefined($0) }
+		let custom = presenter.selectedCustomRooms.map { RoomSection.custom($0) }
+		return predefined + custom
+	}
 
 	// MARK: - Body
 
 	var body: some View {
 		ScrollView {
 			LazyVStack(spacing: FKSpacing.medium) {
-				ForEach(Array(presenter.selectedRooms.enumerated()), id: \.element) { index, room in
-					roomSection(room, index: index)
+				ForEach(Array(allRoomSections.enumerated()), id: \.element.id) { index, section in
+					roomSection(section, index: index)
 				}
 			}
 			.padding(.horizontal, FKSpacing.large)
@@ -38,22 +78,29 @@ struct OnbTaskSelectionView: View {
 
 	// MARK: - SubViews
 
-	private func roomSection(_ room: RoomType, index: Int) -> some View {
-		let isCollapsed = collapsedRooms.contains(room)
+	private func roomSection(_ section: RoomSection, index: Int) -> some View {
+		let isCollapsed = collapsedRooms.contains(section.id)
 		let isVisible = index < presenter.visibleSectionCount
+		let tasks = tasksForSection(section)
+		let lastTaskId = tasks.last?.id
+
 		return VStack(spacing: 0) {
-			roomSectionHeader(room, isCollapsed: isCollapsed)
+			roomSectionHeader(section, isCollapsed: isCollapsed)
 			if !isCollapsed {
-				let tasks = presenter.suggestedTasks(for: room)
-				let lastTaskId = tasks.last?.id
 				VStack(spacing: FKSpacing.medium) {
 					Divider()
-					ForEach(tasks) { task in
-						taskRow(task, room: room)
-						if task.id != lastTaskId {
-							Divider()
+					if tasks.isEmpty {
+						emptyTasksPlaceholder()
+					} else {
+						ForEach(tasks) { task in
+							taskRow(task, section: section)
+							if task.id != lastTaskId {
+								Divider()
+							}
 						}
 					}
+					Divider()
+					addCustomTaskButton(for: section)
 				}
 				.padding(.top, FKSpacing.small)
 				.transition(
@@ -67,28 +114,28 @@ struct OnbTaskSelectionView: View {
 		.offset(y: isVisible ? 0 : 20)
 	}
 
-	private func roomSectionHeader(_ room: RoomType, isCollapsed: Bool) -> some View {
+	private func roomSectionHeader(_ section: RoomSection, isCollapsed: Bool) -> some View {
 		Button {
 			FKHaptics.selection()
 			withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
 				if isCollapsed {
-					collapsedRooms.remove(room)
+					collapsedRooms.remove(section.id)
 				} else {
-					collapsedRooms.insert(room)
+					collapsedRooms.insert(section.id)
 				}
 			}
 		} label: {
 			HStack(spacing: FKSpacing.small) {
-				Image(systemName: room.symbolName)
+				Image(systemName: section.icon)
 					.font(FKTypography.bodyBold)
 					.foregroundStyle(Color.accentColor)
 					.accessibilityHidden(true)
-				Text(room.localizedName)
+				Text(section.name)
 					.font(FKTypography.bodyBold)
 					.foregroundStyle(FKColor.Label.primary)
 				Spacer()
 				if isCollapsed {
-					let count = presenter.selectedTaskCount(for: room)
+					let count = taskCountForSection(section)
 					Text(
 						String.localizedStringWithFormat(
 							String(localized: "onb_task_selection.selected_tasks_count"),
@@ -113,33 +160,50 @@ struct OnbTaskSelectionView: View {
 		.buttonStyle(.plain)
 	}
 
-	private func taskRow(_ task: RoomTask, room: RoomType) -> some View {
-		let isSelected = presenter.isTaskSelected(task, for: room)
-		return Button {
-			FKHaptics.selection()
-			presenter.onTaskRowPressed(task, for: room)
-		} label: {
-			HStack(spacing: FKSpacing.medium) {
-				VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
-					Text(task.name)
-						.font(FKTypography.body)
-						.foregroundStyle(FKColor.Label.primary)
-					Text(task.frequency.displayName)
-						.font(FKTypography.caption)
-						.foregroundStyle(FKColor.Label.secondary)
+	private func taskRow(_ task: RoomTask, section: RoomSection) -> some View {
+		let isSelected = isTaskSelected(task, in: section)
+		let showDeleteButton = shouldShowDeleteButton(for: task, in: section)
+
+		return HStack(spacing: FKSpacing.medium) {
+			Button {
+				FKHaptics.selection()
+				toggleTask(task, in: section)
+			} label: {
+				HStack(spacing: FKSpacing.medium) {
+					VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
+						Text(task.name)
+							.font(FKTypography.body)
+							.foregroundStyle(FKColor.Label.primary)
+						Text(task.frequency.displayName)
+							.font(FKTypography.caption)
+							.foregroundStyle(FKColor.Label.secondary)
+					}
+					.opacity(isSelected ? 1 : Constants.unselectedTaskRowOpacity)
+					Spacer()
+					Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+						.font(FKTypography.sectionHeader)
+						.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
+						.contentTransition(.symbolEffect(.replace))
+						.accessibilityHidden(true)
 				}
-				.opacity(isSelected ? 1 : Constants.unselectedTaskRowOpacity)
-				Spacer()
-				Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-					.font(FKTypography.sectionHeader)
-					.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
-					.contentTransition(.symbolEffect(.replace))
-					.accessibilityHidden(true)
+				.contentShape(.rect)
 			}
-			.contentShape(.rect)
+			.accessibilityAddTraits(isSelected ? .isSelected : [])
+			.buttonStyle(.fkFade)
+
+			if showDeleteButton {
+				Button {
+					FKHaptics.selection()
+					deleteTask(task, from: section)
+				} label: {
+					Image(systemName: "xmark.circle.fill")
+						.font(FKTypography.sectionHeader)
+						.foregroundStyle(FKColor.Label.tertiary)
+				}
+				.buttonStyle(.plain)
+				.accessibilityLabel(Text("common.action.delete"))
+			}
 		}
-		.accessibilityAddTraits(isSelected ? .isSelected : [])
-		.buttonStyle(.fkFade)
 	}
 
 	private var controlButtonsView: some View {
@@ -149,6 +213,99 @@ struct OnbTaskSelectionView: View {
 			primaryAction: presenter.onNextButtonPressed,
 			skipAction: presenter.onSkipButtonPressed
 		)
+	}
+
+	private func addCustomTaskButton(for section: RoomSection) -> some View {
+		Button {
+			FKHaptics.selection()
+			addCustomTask(for: section)
+		} label: {
+			HStack(spacing: FKSpacing.small) {
+				Image(systemName: "plus.circle.fill")
+					.font(FKTypography.body)
+					.foregroundStyle(Color.accentColor)
+				Text("onb_task_selection.action.add_custom_task")
+					.font(FKTypography.body)
+					.foregroundStyle(Color.accentColor)
+			}
+			.frame(maxWidth: .infinity)
+			.padding(.vertical, FKSpacing.small)
+			.contentShape(.rect)
+		}
+		.buttonStyle(.fkFade)
+	}
+
+	private func emptyTasksPlaceholder() -> some View {
+		Label("onb_task_selection.empty_tasks_placeholder", systemImage: "rectangle.stack.slash.fill")
+			.font(FKTypography.caption)
+			.foregroundStyle(FKColor.Label.secondary)
+			.frame(maxWidth: .infinity)
+			.padding(.vertical, FKSpacing.small)
+	}
+
+	// MARK: - Helpers
+
+	private func tasksForSection(_ section: RoomSection) -> [RoomTask] {
+		switch section {
+		case let .predefined(room):
+			presenter.allTasks(for: room)
+		case let .custom(customRoom):
+			presenter.customRoomTasks(customRoom)
+		}
+	}
+
+	private func taskCountForSection(_ section: RoomSection) -> Int {
+		switch section {
+		case let .predefined(room):
+			presenter.selectedTaskCount(for: room)
+		case let .custom(customRoom):
+			presenter.selectedCustomRoomTaskCount(customRoom)
+		}
+	}
+
+	private func isTaskSelected(_ task: RoomTask, in section: RoomSection) -> Bool {
+		switch section {
+		case let .predefined(room):
+			presenter.isTaskSelected(task, for: room)
+		case let .custom(customRoom):
+			presenter.isCustomRoomTaskSelected(task, in: customRoom)
+		}
+	}
+
+	private func shouldShowDeleteButton(for task: RoomTask, in section: RoomSection) -> Bool {
+		switch section {
+		case let .predefined(room):
+			presenter.isCustomTask(task, for: room)
+		case .custom:
+			true // All tasks in custom rooms are custom
+		}
+	}
+
+	private func toggleTask(_ task: RoomTask, in section: RoomSection) {
+		switch section {
+		case let .predefined(room):
+			presenter.onTaskRowPressed(task, for: room)
+		case let .custom(customRoom):
+			presenter.onCustomRoomTaskRowPressed(task, in: customRoom)
+		}
+	}
+
+	private func deleteTask(_ task: RoomTask, from section: RoomSection) {
+		switch section {
+		case let .predefined(room):
+			presenter.onDeleteCustomTask(task, for: room)
+		case let .custom(customRoom):
+			presenter.onDeleteCustomRoomTask(task, from: customRoom)
+		}
+	}
+
+	private func addCustomTask(for section: RoomSection) {
+		switch section {
+		case let .predefined(room):
+			presenter.onAddCustomTaskButtonPressed(for: room)
+		case let .custom(customRoom):
+			presenter.onAddCustomTaskButtonPressed(for: customRoom)
+		}
 	}
 }
 

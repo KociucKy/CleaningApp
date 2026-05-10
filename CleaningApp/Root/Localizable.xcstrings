@@ -1,7 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
     "%lld/30" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pl" : {
           "stringUnit" : {
@@ -24,6 +35,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "CleaningApp"
+          }
+        }
+      }
+    },
+    "common.action.add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj"
           }
         }
       }
@@ -75,6 +103,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zamknij"
+          }
+        }
+      }
+    },
+    "common.action.delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuń"
           }
         }
       }
@@ -654,6 +699,9 @@
         }
       }
     },
+    "onb_custom_room.icon_button %@" : {
+
+    },
     "onb_custom_room.icon_button_%@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -752,6 +800,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dodaj własny pokój"
+          }
+        }
+      }
+    },
+    "onb_custom_task.label.frequency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequency"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Częstotliwość"
+          }
+        }
+      }
+    },
+    "onb_custom_task.label.task_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Task name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa zadania"
+          }
+        }
+      }
+    },
+    "onb_custom_task.placeholder.task_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. Clean windows"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "np. Umyć okna"
+          }
+        }
+      }
+    },
+    "onb_custom_task.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Custom Task"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własne zadanie"
           }
         }
       }
@@ -926,6 +1042,9 @@
         }
       }
     },
+    "onb_room_selection.custom_room_label %@" : {
+
+    },
     "onb_room_selection.custom_room_label_%@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -956,6 +1075,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wybierz pokoje"
+          }
+        }
+      }
+    },
+    "onb_task_selection.action.add_custom_task" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add custom task"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własne zadanie"
+          }
+        }
+      }
+    },
+    "onb_task_selection.empty_tasks_placeholder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No tasks added"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Brak zadań"
           }
         }
       }

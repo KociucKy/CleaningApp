@@ -37,10 +37,4 @@ final class OnbCustomRoomSheetPresenter {
 		let trimmedName = roomName.trimmingCharacters(in: .whitespaces)
 		router.showIconPickerView(roomName: trimmedName)
 	}
-
-	func limitNameLength() {
-		if roomName.count > 30 {
-			roomName = String(roomName.prefix(30))
-		}
-	}
 }

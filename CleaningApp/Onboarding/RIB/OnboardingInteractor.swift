@@ -75,11 +75,57 @@ struct OnboardingInteractor {
 	}
 
 	var selectedRoomsCount: Int {
-		flowState.selectedRooms.count
+		flowState.selectedRooms.count + flowState.selectedCustomRooms().count
 	}
 
 	var selectedTasksCount: Int {
-		flowState.selectedTasks.values.reduce(0) { $0 + $1.count }
+		let predefinedRoomTasks = flowState.selectedTasks.values.reduce(0) { $0 + $1.count }
+		let customRoomTasks = flowState.selectedCustomRooms().reduce(0) { $0 + $1.selectedTaskIds.count }
+		return predefinedRoomTasks + customRoomTasks
+	}
+
+	// MARK: - Flow State — Custom Tasks
+
+	func allTasks(for room: RoomType) -> [RoomTask] {
+		flowState.allTasks(for: room)
+	}
+
+	func isCustomTask(_ task: RoomTask, for room: RoomType) -> Bool {
+		flowState.isCustomTask(task, for: room)
+	}
+
+	func addCustomTask(_ task: RoomTask, for room: RoomType) {
+		flowState.addCustomTask(task, for: room)
+	}
+
+	func removeCustomTask(_ task: RoomTask, for room: RoomType) {
+		flowState.removeCustomTask(task, for: room)
+	}
+
+	// MARK: - Flow State — Custom Room Tasks
+
+	func selectedCustomRooms() -> [CustomRoomSelection] {
+		flowState.selectedCustomRooms()
+	}
+
+	func addTaskToCustomRoom(_ task: RoomTask, roomId: UUID) {
+		flowState.addTaskToCustomRoom(task, roomId: roomId)
+	}
+
+	func removeTaskFromCustomRoom(_ task: RoomTask, roomId: UUID) {
+		flowState.removeTaskFromCustomRoom(task, roomId: roomId)
+	}
+
+	func toggleCustomRoomTask(_ task: RoomTask, roomId: UUID) {
+		flowState.toggleCustomRoomTask(task, roomId: roomId)
+	}
+
+	func isCustomRoomTaskSelected(_ task: RoomTask, roomId: UUID) -> Bool {
+		flowState.isCustomRoomTaskSelected(task, roomId: roomId)
+	}
+
+	func customRoomTasks(roomId: UUID) -> [RoomTask] {
+		flowState.customRoomTasks(roomId: roomId)
 	}
 
 	// MARK: - Persistence
@@ -116,7 +162,7 @@ struct OnboardingInteractor {
 					// For custom rooms, get tasks from the custom room's selectedTasks
 					flowState.customRooms.first(where: { $0.id == savedRoom.id })?.selectedTasks ?? []
 				} else {
-					// For predefined rooms, get tasks from selectedTasks dictionary
+					// For predefined rooms, get all selected tasks (suggested + custom)
 					flowState.selectedTasks[savedRoom.kind] ?? []
 				}
 				for task in tasks {
