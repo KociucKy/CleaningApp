@@ -75,4 +75,26 @@ final class OnbTaskSelectionPresenter {
 	func onTaskRowPressed(_ task: RoomTask, for room: RoomType) {
 		interactor.toggleTask(task, for: room)
 	}
+
+	// MARK: - Custom Tasks
+
+	/// Returns all tasks for a room: suggested + custom.
+	func allTasks(for room: RoomType) -> [RoomTask] {
+		interactor.allTasks(for: room)
+	}
+
+	/// Checks if a task is custom (not in suggested tasks).
+	func isCustomTask(_ task: RoomTask, for room: RoomType) -> Bool {
+		interactor.isCustomTask(task, for: room)
+	}
+
+	/// Adds a custom task to the specified room.
+	func onAddCustomTask(_ task: RoomTask, for room: RoomType) {
+		interactor.addCustomTask(task, for: room)
+	}
+
+	/// Removes a custom task from the specified room.
+	func onDeleteCustomTask(_ task: RoomTask, for room: RoomType) {
+		interactor.removeCustomTask(task, for: room)
+	}
 }

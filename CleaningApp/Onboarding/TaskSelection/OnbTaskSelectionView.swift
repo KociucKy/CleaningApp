@@ -12,6 +12,8 @@ struct OnbTaskSelectionView: View {
 
 	@State var presenter: OnbTaskSelectionPresenter
 	@State private var collapsedRooms: Set<RoomType> = []
+	@State private var showingCustomTaskSheet = false
+	@State private var selectedRoomForCustomTask: RoomType?
 
 	// MARK: - Body
 
@@ -33,6 +35,17 @@ struct OnbTaskSelectionView: View {
 				.opacity(presenter.buttonVisible ? 1 : 0)
 				.offset(y: presenter.buttonVisible ? 0 : 16)
 		}
+		.sheet(isPresented: $showingCustomTaskSheet) {
+			if let room = selectedRoomForCustomTask {
+				OnbAddCustomTaskSheet(
+					isPresented: $showingCustomTaskSheet,
+					roomType: room,
+					onAdd: { task in
+						presenter.onAddCustomTask(task, for: room)
+					}
+				)
+			}
+		}
 		.onAppear(perform: presenter.animateEntrance)
 	}
 
@@ -44,7 +57,7 @@ struct OnbTaskSelectionView: View {
 		return VStack(spacing: 0) {
 			roomSectionHeader(room, isCollapsed: isCollapsed)
 			if !isCollapsed {
-				let tasks = presenter.suggestedTasks(for: room)
+				let tasks = presenter.allTasks(for: room)
 				let lastTaskId = tasks.last?.id
 				VStack(spacing: FKSpacing.medium) {
 					Divider()
@@ -54,6 +67,8 @@ struct OnbTaskSelectionView: View {
 							Divider()
 						}
 					}
+					Divider()
+					addCustomTaskButton(for: room)
 				}
 				.padding(.top, FKSpacing.small)
 				.transition(
@@ -115,31 +130,47 @@ struct OnbTaskSelectionView: View {
 
 	private func taskRow(_ task: RoomTask, room: RoomType) -> some View {
 		let isSelected = presenter.isTaskSelected(task, for: room)
-		return Button {
-			FKHaptics.selection()
-			presenter.onTaskRowPressed(task, for: room)
-		} label: {
-			HStack(spacing: FKSpacing.medium) {
-				VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
-					Text(task.name)
-						.font(FKTypography.body)
-						.foregroundStyle(FKColor.Label.primary)
-					Text(task.frequency.displayName)
-						.font(FKTypography.caption)
-						.foregroundStyle(FKColor.Label.secondary)
+		let isCustom = presenter.isCustomTask(task, for: room)
+		return HStack(spacing: FKSpacing.medium) {
+			Button {
+				FKHaptics.selection()
+				presenter.onTaskRowPressed(task, for: room)
+			} label: {
+				HStack(spacing: FKSpacing.medium) {
+					VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
+						Text(task.name)
+							.font(FKTypography.body)
+							.foregroundStyle(FKColor.Label.primary)
+						Text(task.frequency.displayName)
+							.font(FKTypography.caption)
+							.foregroundStyle(FKColor.Label.secondary)
+					}
+					.opacity(isSelected ? 1 : Constants.unselectedTaskRowOpacity)
+					Spacer()
+					Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+						.font(FKTypography.sectionHeader)
+						.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
+						.contentTransition(.symbolEffect(.replace))
+						.accessibilityHidden(true)
 				}
-				.opacity(isSelected ? 1 : Constants.unselectedTaskRowOpacity)
-				Spacer()
-				Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-					.font(FKTypography.sectionHeader)
-					.foregroundStyle(isSelected ? Color.accentColor : Color(FKColor.Separator.default))
-					.contentTransition(.symbolEffect(.replace))
-					.accessibilityHidden(true)
+				.contentShape(.rect)
 			}
-			.contentShape(.rect)
+			.accessibilityAddTraits(isSelected ? .isSelected : [])
+			.buttonStyle(.fkFade)
+
+			if isCustom {
+				Button {
+					FKHaptics.selection()
+					presenter.onDeleteCustomTask(task, for: room)
+				} label: {
+					Image(systemName: "xmark.circle.fill")
+						.font(FKTypography.sectionHeader)
+						.foregroundStyle(FKColor.Label.tertiary)
+				}
+				.buttonStyle(.plain)
+				.accessibilityLabel("common.action.delete")
+			}
 		}
-		.accessibilityAddTraits(isSelected ? .isSelected : [])
-		.buttonStyle(.fkFade)
 	}
 
 	private var controlButtonsView: some View {
@@ -149,6 +180,27 @@ struct OnbTaskSelectionView: View {
 			primaryAction: presenter.onNextButtonPressed,
 			skipAction: presenter.onSkipButtonPressed
 		)
+	}
+
+	private func addCustomTaskButton(for room: RoomType) -> some View {
+		Button {
+			FKHaptics.selection()
+			selectedRoomForCustomTask = room
+			showingCustomTaskSheet = true
+		} label: {
+			HStack(spacing: FKSpacing.small) {
+				Image(systemName: "plus.circle.fill")
+					.font(FKTypography.body)
+					.foregroundStyle(Color.accentColor)
+				Text("onb_task_selection.action.add_custom_task")
+					.font(FKTypography.body)
+					.foregroundStyle(Color.accentColor)
+			}
+			.frame(maxWidth: .infinity)
+			.padding(.vertical, FKSpacing.small)
+			.contentShape(.rect)
+		}
+		.buttonStyle(.fkFade)
 	}
 }
 
