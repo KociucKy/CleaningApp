@@ -28,6 +28,23 @@
         }
       }
     },
+    "common.action.add" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj"
+          }
+        }
+      }
+    },
     "common.action.cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -75,6 +92,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zamknij"
+          }
+        }
+      }
+    },
+    "common.action.delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuń"
           }
         }
       }
@@ -419,6 +453,15 @@
         }
       }
     },
+    "frequency.times_per_week_2" : {
+
+    },
+    "frequency.times_per_week_3" : {
+
+    },
+    "frequency.weekly" : {
+
+    },
     "frequency.yearly" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -654,6 +697,9 @@
         }
       }
     },
+    "onb_custom_room.icon_button %@" : {
+
+    },
     "onb_custom_room.icon_button_%@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -752,6 +798,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dodaj własny pokój"
+          }
+        }
+      }
+    },
+    "onb_custom_task.label.frequency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequency"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Częstotliwość"
+          }
+        }
+      }
+    },
+    "onb_custom_task.label.task_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Task name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nazwa zadania"
+          }
+        }
+      }
+    },
+    "onb_custom_task.placeholder.task_name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "e.g. Clean windows"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "np. Umyć okna"
+          }
+        }
+      }
+    },
+    "onb_custom_task.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Custom Task"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własne zadanie"
           }
         }
       }
@@ -926,6 +1040,9 @@
         }
       }
     },
+    "onb_room_selection.custom_room_label %@" : {
+
+    },
     "onb_room_selection.custom_room_label_%@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -956,6 +1073,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wybierz pokoje"
+          }
+        }
+      }
+    },
+    "onb_task_selection.action.add_custom_task" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add custom task"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj własne zadanie"
           }
         }
       }
