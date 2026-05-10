@@ -20,6 +20,10 @@ final class OnboardingFlowState {
 	/// Custom rooms created by the user during onboarding, in creation order.
 	private(set) var customRooms: [CustomRoomSelection] = []
 
+	/// Custom tasks created by the user during onboarding. Keyed by `RoomType`;
+	/// values are user-created tasks for that room.
+	private(set) var customTasks: [RoomType: [RoomTask]] = [:]
+
 	// MARK: - Room Selection
 
 	func toggleRoom(_ room: RoomType) {
@@ -80,5 +84,48 @@ final class OnboardingFlowState {
 
 	func isTaskSelected(_ task: RoomTask, for room: RoomType) -> Bool {
 		selectedTasks[room]?.contains(task) ?? false
+	}
+
+	// MARK: - Custom Task Management
+
+	/// Adds a custom task to the specified room and automatically selects it.
+	func addCustomTask(_ task: RoomTask, for room: RoomType) {
+		var tasks = customTasks[room] ?? []
+		tasks.append(task)
+		customTasks[room] = tasks
+
+		// Auto-select the newly created custom task
+		var selected = selectedTasks[room] ?? []
+		selected.append(task)
+		selectedTasks[room] = selected
+	}
+
+	/// Removes a custom task from the specified room and deselects it.
+	func removeCustomTask(_ task: RoomTask, for room: RoomType) {
+		var tasks = customTasks[room] ?? []
+		tasks.removeAll { $0.id == task.id }
+		customTasks[room] = tasks.isEmpty ? nil : tasks
+
+		// Also remove from selected tasks
+		var selected = selectedTasks[room] ?? []
+		selected.removeAll { $0.id == task.id }
+		selectedTasks[room] = selected
+	}
+
+	/// Returns all tasks for a room: suggested + custom.
+	func allTasks(for room: RoomType) -> [RoomTask] {
+		let suggested = room.suggestedTasks
+		let custom = customTasks[room] ?? []
+		return suggested + custom
+	}
+
+	/// Returns only custom tasks for a room.
+	func customTasksOnly(for room: RoomType) -> [RoomTask] {
+		customTasks[room] ?? []
+	}
+
+	/// Checks if a task is custom (not in suggested tasks).
+	func isCustomTask(_ task: RoomTask, for room: RoomType) -> Bool {
+		!room.suggestedTasks.contains(task)
 	}
 }

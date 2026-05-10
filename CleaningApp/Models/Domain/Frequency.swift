@@ -1,6 +1,6 @@
 import Foundation
 
-enum Frequency: Equatable, Codable {
+enum Frequency: Equatable, Codable, Hashable {
 	case daily
 	case everyOtherDay
 	case everyXDays(Int)
