@@ -453,15 +453,6 @@
         }
       }
     },
-    "frequency.times_per_week_2" : {
-
-    },
-    "frequency.times_per_week_3" : {
-
-    },
-    "frequency.weekly" : {
-
-    },
     "frequency.yearly" : {
       "extractionState" : "manual",
       "localizations" : {

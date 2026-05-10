@@ -27,12 +27,12 @@ struct OnbAddCustomTaskSheet: View {
 
 				Section {
 					Picker("onb_custom_task.label.frequency", selection: $selectedFrequency) {
-						Text("frequency.daily").tag(Frequency.daily)
-						Text("frequency.times_per_week_2").tag(Frequency.timesPerWeek(2))
-						Text("frequency.times_per_week_3").tag(Frequency.timesPerWeek(3))
-						Text("frequency.weekly").tag(Frequency.timesPerWeek(1))
-						Text("frequency.every_other_week").tag(Frequency.everyOtherWeek)
-						Text("frequency.monthly").tag(Frequency.monthly)
+						Text(Frequency.daily.displayName).tag(Frequency.daily)
+						Text(Frequency.timesPerWeek(2).displayName).tag(Frequency.timesPerWeek(2))
+						Text(Frequency.timesPerWeek(3).displayName).tag(Frequency.timesPerWeek(3))
+						Text(Frequency.timesPerWeek(1).displayName).tag(Frequency.timesPerWeek(1))
+						Text(Frequency.everyOtherWeek.displayName).tag(Frequency.everyOtherWeek)
+						Text(Frequency.monthly.displayName).tag(Frequency.monthly)
 					}
 				} header: {
 					Text("onb_custom_task.label.frequency")
