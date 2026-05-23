@@ -106,6 +106,15 @@ struct OnboardingCompletedView: View {
 			)
 			.datePickerStyle(.wheel)
 			.labelsHidden()
+			.accessibilityLabel(Text("onb_completed.time_picker.title"))
+			.accessibilityValue(
+				Text(
+					presenter.selectedNotificationTime.formatted(
+						date: .omitted,
+						time: .shortened
+					)
+				)
+			)
 		}
 		.padding(.horizontal, FKSpacing.large)
 		.padding(.vertical, FKSpacing.medium)
