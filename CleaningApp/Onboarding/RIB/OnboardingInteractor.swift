@@ -147,13 +147,7 @@ struct OnboardingInteractor {
 
 	func scheduleInitialNotification(at time: Date) {
 		guard flowState.notificationsAllowed else { return }
-
-		do {
-			try notificationScheduler.scheduleDailyReminder(at: time)
-		} catch {
-			// Log error but don't block onboarding completion
-			print("Failed to schedule notification: \(error)")
-		}
+		notificationScheduler.scheduleDailyReminder(at: time)
 	}
 
 	// MARK: - Persistence

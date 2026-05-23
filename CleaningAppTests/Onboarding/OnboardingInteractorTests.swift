@@ -218,36 +218,6 @@ struct OnboardingInteractorTests {
 		#expect(mockScheduler.scheduledTime == nil)
 	}
 
-	@Test func scheduleInitialNotification_doesNotThrowOnError() {
-		let preview = DevPreview()
-		let interactor = OnboardingInteractor(container: preview.container)
-		guard let mockScheduler = preview.notificationScheduler as? MockNotificationScheduler else {
-			Issue.record("Expected MockNotificationScheduler")
-			return
-		}
-
-		// Configure mock to throw error
-		mockScheduler.shouldThrowError = true
-
-		// Set notifications allowed
-		interactor.setNotificationsAllowed(true)
-
-		// Create a notification time
-		var components = DateComponents()
-		components.hour = 10
-		components.minute = 30
-		guard let time = Calendar.current.date(from: components) else {
-			Issue.record("Failed to create date")
-			return
-		}
-
-		// Schedule notification should NOT crash even if scheduler throws
-		interactor.scheduleInitialNotification(at: time)
-
-		// Verify error was caught (method completed without throwing)
-		#expect(mockScheduler.scheduleCallCount == 0) // Error occurred, so nothing was scheduled
-	}
-
 	// MARK: - setNotificationsAllowed / notificationsAllowed
 
 	@Test func setNotificationsAllowed_updatesFlowState() {

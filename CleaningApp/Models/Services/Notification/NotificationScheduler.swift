@@ -6,7 +6,7 @@ import UserNotifications
 
 @MainActor
 protocol NotificationScheduling {
-	func scheduleDailyReminder(at time: Date) throws
+	func scheduleDailyReminder(at time: Date)
 	func cancelDailyReminder()
 }
 
@@ -27,7 +27,7 @@ final class NotificationScheduler: NotificationScheduling {
 
 	// MARK: - Methods
 
-	func scheduleDailyReminder(at time: Date) throws {
+	func scheduleDailyReminder(at time: Date) {
 		// Extract hour and minute from the selected time
 		let components = Calendar.current.dateComponents([.hour, .minute], from: time)
 
@@ -75,14 +75,10 @@ final class NotificationScheduler: NotificationScheduling {
 		private(set) var scheduledTime: Date?
 		private(set) var scheduleCallCount = 0
 		private(set) var cancelCallCount = 0
-		var shouldThrowError = false
 
 		// MARK: - Methods
 
-		func scheduleDailyReminder(at time: Date) throws {
-			if shouldThrowError {
-				throw NSError(domain: "MockNotificationScheduler", code: 1, userInfo: nil)
-			}
+		func scheduleDailyReminder(at time: Date) {
 			scheduledTime = time
 			scheduleCallCount += 1
 		}
