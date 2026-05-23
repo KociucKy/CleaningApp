@@ -1,4 +1,5 @@
 import Foundation
+import UserDefaultsKit
 
 // MARK: - OnboardingInteractor
 
@@ -138,6 +139,10 @@ struct OnboardingInteractor {
 
 	var notificationsAllowed: Bool {
 		flowState.notificationsAllowed
+	}
+
+	func saveNotificationTime(_ time: Date) {
+		UserDefaultsStore.standard.set(time, for: .notificationTime)
 	}
 
 	func scheduleInitialNotification(at time: Date) {

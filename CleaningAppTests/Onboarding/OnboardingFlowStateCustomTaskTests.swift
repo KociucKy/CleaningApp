@@ -18,7 +18,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		#expect(state.customTasks[.kitchen]?.contains(customTask) == true)
@@ -31,7 +31,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		#expect(state.isTaskSelected(customTask, for: .kitchen))
@@ -44,13 +44,13 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		let task2 = RoomTask(
 			name: "Organize pantry",
 			roomId: UUID(),
 			frequency: .monthly,
-			estimatedDuration: .minutes30
+			estimatedDuration: .thirtyMinutes
 		)
 		state.addCustomTask(task1, for: .kitchen)
 		state.addCustomTask(task2, for: .kitchen)
@@ -68,7 +68,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		state.removeCustomTask(customTask, for: .kitchen)
@@ -82,7 +82,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		state.removeCustomTask(customTask, for: .kitchen)
@@ -96,13 +96,13 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		let task2 = RoomTask(
 			name: "Organize pantry",
 			roomId: UUID(),
 			frequency: .monthly,
-			estimatedDuration: .minutes30
+			estimatedDuration: .thirtyMinutes
 		)
 		state.addCustomTask(task1, for: .kitchen)
 		state.addCustomTask(task2, for: .kitchen)
@@ -131,7 +131,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		let allTasks = state.allTasks(for: .kitchen)
@@ -145,7 +145,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		let allTasks = state.allTasks(for: .kitchen)
@@ -168,7 +168,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		let customOnly = state.customTasksOnly(for: .kitchen)
@@ -191,7 +191,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Clean windows",
 			roomId: UUID(),
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addCustomTask(customTask, for: .kitchen)
 		#expect(state.isCustomTask(customTask, for: .kitchen))
@@ -207,7 +207,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		#expect(state.customRooms[0].allTasks.contains(task))
@@ -221,7 +221,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		#expect(state.isCustomRoomTaskSelected(task, roomId: roomId))
@@ -237,7 +237,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		state.removeTaskFromCustomRoom(task, roomId: roomId)
@@ -252,7 +252,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		state.removeTaskFromCustomRoom(task, roomId: roomId)
@@ -269,7 +269,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		state.toggleCustomRoomTask(task, roomId: roomId)
@@ -284,7 +284,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		state.toggleCustomRoomTask(task, roomId: roomId)
@@ -300,7 +300,7 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task, roomId: roomId)
 		state.toggleCustomRoomTask(task, roomId: roomId)
@@ -317,13 +317,13 @@ struct OnboardingFlowStateCustomTaskTests {
 			name: "Dust shelves",
 			roomId: roomId,
 			frequency: .weekly,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		let task2 = RoomTask(
 			name: "Organize desk",
 			roomId: roomId,
 			frequency: .daily,
-			estimatedDuration: .minutes15
+			estimatedDuration: .fifteenMinutes
 		)
 		state.addTaskToCustomRoom(task1, roomId: roomId)
 		state.addTaskToCustomRoom(task2, roomId: roomId)

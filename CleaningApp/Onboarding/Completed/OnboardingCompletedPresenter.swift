@@ -69,8 +69,9 @@ final class OnboardingCompletedPresenter {
 		guard !isSaving else { return }
 		isSaving = true
 
-		// Schedule notification if user allowed notifications
+		// Persist and schedule notification if user allowed notifications
 		if shouldShowTimePicker {
+			interactor.saveNotificationTime(selectedNotificationTime)
 			interactor.scheduleInitialNotification(at: selectedNotificationTime)
 		}
 
