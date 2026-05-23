@@ -13,8 +13,20 @@ final class OnboardingCompletedPresenter {
 	var iconVisible = false
 	var titleVisible = false
 	var statsVisible = false
+	var timePickerVisible = false
 	var buttonVisible = false
 	var isSaving = false
+
+	var selectedNotificationTime: Date = {
+		var components = DateComponents()
+		components.hour = 9
+		components.minute = 0
+		return Calendar.current.date(from: components) ?? Date()
+	}()
+
+	var shouldShowTimePicker: Bool {
+		interactor.notificationsAllowed
+	}
 
 	var roomsCount: Int {
 		interactor.selectedRoomsCount
@@ -43,7 +55,12 @@ final class OnboardingCompletedPresenter {
 		withAnimation(.easeOut(duration: 0.4).delay(0.55)) {
 			statsVisible = true
 		}
-		withAnimation(.easeOut(duration: 0.35).delay(0.8)) {
+		if shouldShowTimePicker {
+			withAnimation(.easeOut(duration: 0.4).delay(0.7)) {
+				timePickerVisible = true
+			}
+		}
+		withAnimation(.easeOut(duration: 0.35).delay(shouldShowTimePicker ? 0.9 : 0.8)) {
 			buttonVisible = true
 		}
 	}
@@ -51,6 +68,14 @@ final class OnboardingCompletedPresenter {
 	func onFinishButtonPressed() {
 		guard !isSaving else { return }
 		isSaving = true
+
+		// Persist and schedule notification if user allowed notifications
+		if shouldShowTimePicker {
+			interactor.saveNotificationTime(selectedNotificationTime)
+			interactor.scheduleInitialNotification(at: selectedNotificationTime)
+		}
+
+		// Save onboarding data
 		interactor.saveAndCompleteOnboarding()
 	}
 }

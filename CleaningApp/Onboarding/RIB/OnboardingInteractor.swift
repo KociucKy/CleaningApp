@@ -1,4 +1,5 @@
 import Foundation
+import UserDefaultsKit
 
 // MARK: - OnboardingInteractor
 
@@ -10,6 +11,7 @@ struct OnboardingInteractor {
 	private let flowState: OnboardingFlowState
 	private let roomManager: RoomManager
 	private let roomTaskManager: RoomTaskManager
+	private let notificationScheduler: any NotificationScheduling
 
 	// MARK: - Init
 
@@ -18,6 +20,7 @@ struct OnboardingInteractor {
 		flowState = container.resolve(OnboardingFlowState.self)!
 		roomManager = container.resolve(RoomManager.self)!
 		roomTaskManager = container.resolve(RoomTaskManager.self)!
+		notificationScheduler = container.resolve(NotificationScheduling.self)!
 	}
 
 	// MARK: - Flow State — Rooms
@@ -126,6 +129,25 @@ struct OnboardingInteractor {
 
 	func customRoomTasks(roomId: UUID) -> [RoomTask] {
 		flowState.customRoomTasks(roomId: roomId)
+	}
+
+	// MARK: - Flow State — Notifications
+
+	func setNotificationsAllowed(_ allowed: Bool) {
+		flowState.notificationsAllowed = allowed
+	}
+
+	var notificationsAllowed: Bool {
+		flowState.notificationsAllowed
+	}
+
+	func saveNotificationTime(_ time: Date) {
+		UserDefaultsStore.standard.set(time, for: .notificationTime)
+	}
+
+	func scheduleInitialNotification(at time: Date) {
+		guard flowState.notificationsAllowed else { return }
+		notificationScheduler.scheduleDailyReminder(at: time)
 	}
 
 	// MARK: - Persistence

@@ -26,6 +26,9 @@ final class OnboardingFlowState {
 	/// Note: Custom tasks are automatically added to `selectedTasks` when created.
 	private(set) var customTasks: [RoomType: [RoomTask]] = [:]
 
+	/// Whether the user allowed notifications during the onboarding flow.
+	var notificationsAllowed = false
+
 	// MARK: - Room Selection
 
 	func toggleRoom(_ room: RoomType) {

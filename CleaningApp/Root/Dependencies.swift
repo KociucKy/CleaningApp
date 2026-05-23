@@ -22,6 +22,7 @@ struct Dependencies {
 		let roomTaskManager: RoomTaskManager
 		let completedTaskManager: CompletedTaskManager
 		let skippedTaskManager: SkippedTaskManager
+		let notificationScheduler: any NotificationScheduling
 		let onboardingState: OnboardingState
 		let onboardingFlowState = OnboardingFlowState()
 		// swiftlint:disable:next force_try
@@ -47,6 +48,11 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: MockSkippedTaskRepository()
 			)
+			#if MOCK
+				notificationScheduler = MockNotificationScheduler()
+			#else
+				notificationScheduler = NotificationScheduler()
+			#endif
 			onboardingState = OnboardingState()
 		case .dev:
 			roomManager = RoomManager(
@@ -62,6 +68,7 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
 			)
+			notificationScheduler = NotificationScheduler()
 			onboardingState = OnboardingState()
 		case .prod:
 			roomManager = RoomManager(
@@ -77,6 +84,7 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
 			)
+			notificationScheduler = NotificationScheduler()
 			onboardingState = OnboardingState()
 		}
 
@@ -85,6 +93,7 @@ struct Dependencies {
 		dependencyContainer.register(RoomTaskManager.self, service: roomTaskManager)
 		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
 		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
+		dependencyContainer.register(NotificationScheduling.self, service: notificationScheduler)
 		dependencyContainer.register(OnboardingState.self, service: onboardingState)
 		dependencyContainer.register(OnboardingFlowState.self, service: onboardingFlowState)
 		self.dependencyContainer = dependencyContainer
@@ -105,6 +114,7 @@ final class DevPreview {
 	let roomTaskManager: RoomTaskManager
 	let completedTaskManager: CompletedTaskManager
 	let skippedTaskManager: SkippedTaskManager
+	let notificationScheduler: any NotificationScheduling
 	let onboardingState: OnboardingState
 	let onboardingFlowState: OnboardingFlowState
 
@@ -114,6 +124,7 @@ final class DevPreview {
 		container.register(RoomTaskManager.self, service: roomTaskManager)
 		container.register(CompletedTaskManager.self, service: completedTaskManager)
 		container.register(SkippedTaskManager.self, service: skippedTaskManager)
+		container.register(NotificationScheduling.self, service: notificationScheduler)
 		container.register(OnboardingState.self, service: onboardingState)
 		container.register(OnboardingFlowState.self, service: onboardingFlowState)
 		return container
@@ -135,6 +146,11 @@ final class DevPreview {
 		skippedTaskManager = SkippedTaskManager(
 			repository: MockSkippedTaskRepository()
 		)
+		#if MOCK
+			notificationScheduler = MockNotificationScheduler()
+		#else
+			notificationScheduler = NotificationScheduler()
+		#endif
 		onboardingState = OnboardingState(showOnboarding: true)
 		onboardingFlowState = OnboardingFlowState()
 	}

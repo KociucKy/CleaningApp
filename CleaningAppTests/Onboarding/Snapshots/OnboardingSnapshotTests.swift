@@ -236,6 +236,47 @@ final class OnboardingSnapshotTests: XCTestCase {
 		}
 	}
 
+	func test_completedView_withTimePickerVisible() {
+		MainActor.assumeIsolated {
+			let interactor = makeOnboardingInteractor { flowState in
+				flowState.toggleRoom(.kitchen)
+				flowState.toggleRoom(.bedroom)
+				flowState.notificationsAllowed = true
+			}
+			let router = makeOnboardingRouter(for: interactor)
+			let presenter = OnboardingCompletedPresenter(interactor: interactor, router: router)
+			presenter.iconVisible = true
+			presenter.titleVisible = true
+			presenter.statsVisible = true
+			presenter.timePickerVisible = true
+			presenter.buttonVisible = true
+			assertSnapshot(
+				of: snap(OnboardingCompletedView(presenter: presenter)),
+				as: .image(layout: .device(config: .iPhone13Pro))
+			)
+		}
+	}
+
+	func test_completedView_withTimePickerHidden() {
+		MainActor.assumeIsolated {
+			let interactor = makeOnboardingInteractor { flowState in
+				flowState.toggleRoom(.kitchen)
+				flowState.toggleRoom(.bedroom)
+				flowState.notificationsAllowed = false
+			}
+			let router = makeOnboardingRouter(for: interactor)
+			let presenter = OnboardingCompletedPresenter(interactor: interactor, router: router)
+			presenter.iconVisible = true
+			presenter.titleVisible = true
+			presenter.statsVisible = true
+			presenter.buttonVisible = true
+			assertSnapshot(
+				of: snap(OnboardingCompletedView(presenter: presenter)),
+				as: .image(layout: .device(config: .iPhone13Pro))
+			)
+		}
+	}
+
 	// MARK: - Components
 
 	func test_heroIconView_visible() {
