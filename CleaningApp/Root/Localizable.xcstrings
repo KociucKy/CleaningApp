@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
@@ -525,6 +528,40 @@
         }
       }
     },
+    "notification.daily_reminder.body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your tasks and keep your space fresh"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprawdź swoje zadania i utrzymuj porządek"
+          }
+        }
+      }
+    },
+    "notification.daily_reminder.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time to clean!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Czas na sprzątanie!"
+          }
+        }
+      }
+    },
     "onb_completed.rooms_count" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -644,6 +681,40 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "onb_completed.time_picker.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose when you'd like to receive your cleaning reminders"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz, kiedy chcesz otrzymywać przypomnienia o sprzątaniu"
+          }
+        }
+      }
+    },
+    "onb_completed.time_picker.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily Reminder Time"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Godzina codziennego przypomnienia"
           }
         }
       }

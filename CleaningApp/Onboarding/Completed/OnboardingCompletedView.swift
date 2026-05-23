@@ -29,6 +29,9 @@ struct OnboardingCompletedView: View {
 			heroSection
 			Spacer()
 			statsSection
+			if presenter.shouldShowTimePicker {
+				timePickerSection
+			}
 			Spacer()
 		}
 		.navigationBarHidden(true)
@@ -83,6 +86,31 @@ struct OnboardingCompletedView: View {
 		}
 		.opacity(presenter.statsVisible ? 1 : 0)
 		.offset(y: presenter.statsVisible ? 0 : Constants.statsEntryOffset)
+	}
+
+	// MARK: - Time Picker Section
+
+	private var timePickerSection: some View {
+		VStack(spacing: FKSpacing.small) {
+			Text("onb_completed.time_picker.title")
+				.font(FKTypography.bodyBold)
+				.foregroundStyle(FKColor.Label.primary)
+			Text("onb_completed.time_picker.description")
+				.font(FKTypography.caption)
+				.foregroundStyle(FKColor.Label.secondary)
+				.multilineTextAlignment(.center)
+			DatePicker(
+				"",
+				selection: $presenter.selectedNotificationTime,
+				displayedComponents: .hourAndMinute
+			)
+			.datePickerStyle(.wheel)
+			.labelsHidden()
+		}
+		.padding(.horizontal, FKSpacing.large)
+		.padding(.vertical, FKSpacing.medium)
+		.opacity(presenter.timePickerVisible ? 1 : 0)
+		.offset(y: presenter.timePickerVisible ? 0 : Constants.statsEntryOffset)
 	}
 
 	private func statPill(symbol: String, value: String) -> some View {

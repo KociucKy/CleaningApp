@@ -10,6 +10,7 @@ struct OnboardingInteractor {
 	private let flowState: OnboardingFlowState
 	private let roomManager: RoomManager
 	private let roomTaskManager: RoomTaskManager
+	private let notificationScheduler: any NotificationScheduling
 
 	// MARK: - Init
 
@@ -18,6 +19,7 @@ struct OnboardingInteractor {
 		flowState = container.resolve(OnboardingFlowState.self)!
 		roomManager = container.resolve(RoomManager.self)!
 		roomTaskManager = container.resolve(RoomTaskManager.self)!
+		notificationScheduler = container.resolve(NotificationScheduling.self)!
 	}
 
 	// MARK: - Flow State — Rooms
@@ -126,6 +128,27 @@ struct OnboardingInteractor {
 
 	func customRoomTasks(roomId: UUID) -> [RoomTask] {
 		flowState.customRoomTasks(roomId: roomId)
+	}
+
+	// MARK: - Flow State — Notifications
+
+	func setNotificationsAllowed(_ allowed: Bool) {
+		flowState.notificationsAllowed = allowed
+	}
+
+	var notificationsAllowed: Bool {
+		flowState.notificationsAllowed
+	}
+
+	func scheduleInitialNotification(at time: Date) {
+		guard flowState.notificationsAllowed else { return }
+
+		do {
+			try notificationScheduler.scheduleDailyReminder(at: time)
+		} catch {
+			// Log error but don't block onboarding completion
+			print("Failed to schedule notification: \(error)")
+		}
 	}
 
 	// MARK: - Persistence
