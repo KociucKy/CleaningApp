@@ -8,8 +8,13 @@ final class HomeViewPresenter {
 	// MARK: - Properties
 
 	private(set) var rooms: [Room] = []
+	private(set) var tasks: [RoomTask] = []
 	private let interactor: any HomeInteractor
 	private let router: any HomeRouter
+
+	var onboardingCompletionToken: Int {
+		interactor.onboardingCompletionToken
+	}
 
 	// MARK: - Init
 
@@ -29,8 +34,7 @@ final class HomeViewPresenter {
 	func fetchAllRooms() {
 		do {
 			rooms = try interactor.fetchAllRooms()
-		} catch {
-			
-		}
+			tasks = try interactor.fetchAllRoomTasks()
+		} catch {}
 	}
 }

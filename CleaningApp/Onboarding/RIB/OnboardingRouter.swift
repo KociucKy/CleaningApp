@@ -12,6 +12,18 @@ struct OnboardingRouter {
 
 	// MARK: - Navigation
 
+	func dismissScreen() {
+		router.dismissScreen()
+	}
+
+	func dismissToRoot() {
+		router.dismissToRoot()
+	}
+
+	func dismissModal() {
+		router.dismissModal()
+	}
+
 	func showOnboardingRoomSelectionView() {
 		router.showScreen(.push, onDismiss: nil) { router in
 			builder.roomSelectionView(router: router)
@@ -23,7 +35,7 @@ struct OnboardingRouter {
 			builder.taskSelectionView(router: router)
 		}
 	}
-	
+
 	func showOnboardingNotificationView() {
 		router.showScreen(.push, onDismiss: nil) { router in
 			builder.notificationView(router: router)
@@ -39,6 +51,30 @@ struct OnboardingRouter {
 	func showOnboardingCompletedView() {
 		router.showScreen(.push, onDismiss: nil) { router in
 			builder.onboardingCompletedView(router: router)
+		}
+	}
+
+	func presentCustomRoomSheet() {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.customRoomSheetView(router: router)
+		}
+	}
+
+	func presentCustomTaskSheet(for roomType: RoomType) {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.customTaskSheetView(router: router, roomType: roomType)
+		}
+	}
+
+	func presentCustomTaskSheet(for customRoom: CustomRoomSelection) {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.customTaskSheetView(router: router, customRoomId: customRoom.id)
+		}
+	}
+
+	func showIconPickerView(roomName: String) {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.iconPickerView(sheetRouter: self, roomName: roomName)
 		}
 	}
 }

@@ -1,6 +1,6 @@
 # CleaningApp — Specyfikacja Produktu
 
-> Wersja: 0.5 | Data: 2026-03-18
+> Wersja: 0.6 | Data: 2026-05-10 | Status: Early-Mid Development (~35% MVP Complete)
 
 ---
 
@@ -10,10 +10,10 @@ CleaningApp to aplikacja na iOS pomagająca użytkownikowi zarządzać codzienny
 
 ### Cel MVP
 
-- Skonfigurowanie pokoi i zadań (onboarding)
-- Automatyczne generowanie tygodniowego planu sprzątania
-- Czytelny widok "co dziś robię i ile to zajmie"
-- Codzienne powiadomienie push zachęcające do sprzątania
+- ✅ **Skonfigurowanie pokoi i zadań (onboarding)** — ZAIMPLEMENTOWANE
+- ❌ **Automatyczne generowanie tygodniowego planu sprzątania** — DO IMPLEMENTACJI
+- ❌ **Czytelny widok "co dziś robię i ile to zajmie"** — DO IMPLEMENTACJI (stub exists)
+- ❌ **Codzienne powiadomienie push zachęcające do sprzątania** — DO IMPLEMENTACJI
 
 ### Poza MVP (mieć z tyłu głowy przy projektowaniu)
 
@@ -28,15 +28,19 @@ CleaningApp to aplikacja na iOS pomagająca użytkownikowi zarządzać codzienny
 
 ### 2.1 Modele domenowe
 
+**Status implementacji:** ✅ Wszystkie modele zaimplementowane (z drobnymi zmianami nazewnictwa)
+
 ```swift
 struct Room: Identifiable, Equatable {
     let id: UUID
     var name: String
-    var icon: RoomIcon       // predefiniowany enum
+    var kind: RoomType           // zamiast `icon: RoomIcon` — enum z 10 typami pokoi
+    var isCustom: Bool           // czy pokój stworzony przez użytkownika
+    var customIcon: String?      // opcjonalny SF Symbol dla custom pokojów
     let createdAt: Date
 }
 
-struct Task: Identifiable, Equatable {
+struct RoomTask: Identifiable, Equatable {  // NOTA: nazwa zmieniona z `Task` na `RoomTask`
     let id: UUID
     var name: String
     var roomId: UUID
@@ -46,8 +50,9 @@ struct Task: Identifiable, Equatable {
 }
 
 enum Frequency: Equatable, Codable {
+    // ⚠️ BRAKUJĄCE: twiceDaily — nie zaimplementowane
     // Wielokrotnie dziennie
-    case twiceDaily              // 2× dziennie (np. mycie zębów, przewietrzenie)
+    // case twiceDaily              // 2× dziennie (np. mycie zębów, przewietrzenie)
 
     // Codziennie
     case daily                   // codziennie
@@ -82,16 +87,18 @@ enum TaskDuration: Int, CaseIterable, Codable {
     case sixtyMinutes  = 60
 }
 
-enum RoomIcon: String, CaseIterable, Codable {
+enum RoomType: String, CaseIterable, Codable {  // NOTA: zamiennik `RoomIcon` w specyfikacji
     case kitchen       // fork.knife
     case livingRoom    // sofa
     case bedroom       // bed.double
     case bathroom      // shower
+    case toilet        // toilet          ✨ NOWY — nie w oryginalnej specyfikacji
+    case diningRoom    // fork.knife.circle ✨ NOWY — nie w oryginalnej specyfikacji
     case hallway       // door.left.hand.open
     case office        // desktopcomputer
     case garage        // car
     case laundry       // washer
-    case custom        // square.grid.2x2 (dla pokoi tworzonych przez użytkownika)
+    // `custom` nie jest osobnym przypadkiem — obsługiwane przez `Room.isCustom` + `customIcon`
 }
 ```
 
@@ -108,10 +115,12 @@ struct CompletedTask: Identifiable {
 
 #### Zaplanowane zadanie (wynik algorytmu)
 
+**Status:** ❌ NIE ZAIMPLEMENTOWANE (algorytm harmonogramowania nie istnieje)
+
 ```swift
 struct ScheduledTask: Identifiable {
     let id: UUID
-    let task: Task
+    let task: RoomTask          // NOTA: `RoomTask` zamiast `Task`
     let room: Room
     let scheduledDate: Date      // konkretny dzień tygodnia
     var isCompleted: Bool
@@ -120,9 +129,19 @@ struct ScheduledTask: Identifiable {
 
 ### 2.2 Persystencja (SwiftData)
 
-Każdy model domenowy ma odpowiadającą mu encję SwiftData (`RoomEntity`, `TaskEntity`, `CompletedTaskEntity`, `SkippedTaskEntity`). Mapowanie przez dedykowane mappery — wzorzec już istniejący w projekcie.
+**Status implementacji:** ✅ KOMPLETNA
 
-`ScheduledTask` **nie** jest persystowany — jest przeliczany przez algorytm. Persystowany jest `CompletedTask` (fakt wykonania) oraz `SkippedTask` (fakt przesunięcia — patrz sekcja 3).
+Każdy model domenowy ma odpowiadającą mu encję SwiftData (`RoomEntity`, `RoomTaskEntity`, `CompletedTaskEntity`, `SkippedTaskEntity`). Mapowanie przez dedykowane mappery (`RoomMapper`, `RoomTaskMapper`, etc.) — wzorzec już istniejący w projekcie.
+
+`ScheduledTask` **nie** jest persystowany — jest przeliczany przez algorytm (❌ do zaimplementowania). Persystowany jest `CompletedTask` (fakt wykonania) oraz `SkippedTask` (fakt przesunięcia — patrz sekcja 3).
+
+**Zaimplementowane:**
+- ✅ `RoomEntity` z `@Relationship` do tasków
+- ✅ `RoomTaskEntity` z `frequencyEncoded` (String) przez `FrequencyEncoder`
+- ✅ `CompletedTaskEntity`
+- ✅ `SkippedTaskEntity`
+- ✅ Repository pattern: Protocol + Mock + SwiftData implementations
+- ✅ Manager layer: `RoomManager`, `RoomTaskManager`, `CompletedTaskManager`, `SkippedTaskManager`
 
 ```swift
 struct SkippedTask: Identifiable {
@@ -137,15 +156,17 @@ struct SkippedTask: Identifiable {
 
 ## 3. Algorytm harmonogramowania
 
-> To jest serce aplikacji.
+> To jest serce aplikacji. **Status: ❌ NIE ZAIMPLEMENTOWANE**
+> 
+> **Uwaga:** Cały algorytm wymaga implementacji. `SchedulingService` nie istnieje.
 
 ### 3.1 Wejście
 
-- Lista wszystkich `Task` użytkownika (z `frequency` i `estimatedDuration`)
-- Historia `CompletedTask` (daty wykonań każdego zadania)
-- Historia `SkippedTask` (zadania przesunięte — wracają do puli)
+- Lista wszystkich `RoomTask` użytkownika (z `frequency` i `estimatedDuration`)  ✅ Dostępne przez `RoomTaskManager`
+- Historia `CompletedTask` (daty wykonań każdego zadania)  ✅ Dostępne przez `CompletedTaskManager`
+- Historia `SkippedTask` (zadania przesunięte — wracają do puli)  ✅ Dostępne przez `SkippedTaskManager`
 - Bieżąca data + zakres dni do zaplanowania (pozostałe dni tygodnia)
-**Dzienny limit czasu** — **30 minut** domyślnie, konfigurowalne przez użytkownika w Settings (MVP). Tolerancja ±2 min.
+- **Dzienny limit czasu** — **30 minut** domyślnie, konfigurowalne przez użytkownika w Settings (MVP). Tolerancja ±2 min.
 
 ### 3.2 Zasady działania
 
@@ -211,36 +232,53 @@ func reschedule(tasks, completionHistory, skippedHistory, remainingDays, dailyLi
 
 ### 4.1 Onboarding (przebudowa istniejącego)
 
+**Status implementacji:** ✅ KOMPLETNY (production-ready)
+
 Kluczowy cel onboardingu: **jak najszybciej doprowadzić użytkownika do stanu "gotowy do działania"**, jednocześnie pokazując mu wartość aplikacji.
 
-#### Krok 1 — Welcome
+#### Krok 1 — Welcome ✅
 - Jasna propozycja wartości: "Sprzątaj mądrzej, nie ciężej"
 - Krótki opis: algorytm, codzienne plany, bez stresu
 - CTA: "Zaczynamy" → krok 2
 
-#### Krok 2 — Wybierz pokoje
-- Siatka predefiniowanych pokoi z ikonami (kuchnia, salon, łazienka, sypialnia, korytarz, biuro, garaż, pralnia)
+#### Krok 2 — Wybierz pokoje ✅
+- Siatka predefiniowanych pokoi z ikonami (kuchnia, salon, łazienka, sypialnia, toaleta ✨, jadalnia ✨, korytarz, biuro, garaż, pralnia — **10 typów**)
 - Możliwość zaznaczenia wielu naraz (toggle selection)
-- Przycisk "+ Dodaj własny" otwiera sheet z polem tekstowym i wyborem ikony (z `custom` jako fallback)
+- Przycisk "+ Dodaj własny" otwiera sheet z polem tekstowym i wyborem ikony (custom SF Symbol)
 - Minimum 1 pokój wymagany do przejścia dalej
 - CTA: "Dalej" → krok 3
 
-#### Krok 3 — Dodaj zadania do pokoi
-- Dla każdego wybranego pokoju: lista predefiniowanych zadań z checkboxami
+#### Krok 3 — Dodaj zadania do pokoi ✅
+- Dla każdego wybranego pokoju: lista predefiniowanych zadań z checkboxami (collapsible sections)
+- **Auto-selection:** pierwsze 3 suggested tasks są zaznaczone domyślnie po wybraniu pokoju
 - **Brak edycji częstotliwości/czasu w onboardingu** — zadania przyjmują wartości domyślne; konfiguracja dostępna w aplikacji po onboardingu
-- Opcja pominięcia ("Dodaj zadania później") — zadania można skonfigurować w aplikacji
-- Predefiniowane zestawy zadań per pokój (przykłady):
-  - Kuchnia: odkurzanie, mycie podłogi, czyszczenie blatu, mycie zlewu, mycie piekarnika
-  - Łazienka: mycie toalety, mycie umywalki, mycie prysznica/wanny, mycie podłogi
-  - Salon: odkurzanie, mycie podłogi, ścieranie kurzu
-  - Sypialnia: odkurzanie, zmiana pościeli, wietrzenie
-- CTA: "Zakończ konfigurację"
+- Opcja dodania własnego zadania per pokój
+- Predefiniowane zestawy zadań per pokój (5-7 zadań każdy) — szczegóły w sekcji 7
+- CTA: "Dalej" → krok 4
 
-#### Krok 4 — Gotowe!
+#### Krok 4 — Paywall ⚠️ (placeholder)
+- Ekran obecny w flow, ale minimalny implementation
+- Do rozwinięcia jeśli monetyzacja będzie potrzebna
+
+#### Krok 5 — Powiadomienia ✅
+- Pytanie o zgodę na powiadomienia
+- CTA: "Zezwól" / "Pomiń"
+
+#### Krok 6 — Gotowe! ✅
 - Krótkie podsumowanie: X pokoi, Y zadań, plan gotowy
 - CTA: "Przejdź do aplikacji" → `completeOnboarding()`
 
+**Implementacja:**
+- Pełny RIB pattern (Builder, Interactor, Router)
+- State management: `OnboardingFlowState` + `OnboardingState` (UserDefaults persistence)
+- Persystencja przez `RoomManager` i `RoomTaskManager`
+- Comprehensive tests (5 test files + snapshot tests)
+
 ### 4.2 Home — Plan na dziś
+
+**Status implementacji:** ❌ STUB ONLY (tylko placeholder text z liczbą pokoi i tasków)
+
+**DO ZAIMPLEMENTOWANIA:**
 
 Główny ekran aplikacji.
 
@@ -286,9 +324,13 @@ struct GamificationStats {
 }
 ```
 
-`GamificationStats` wyliczany przez `GamificationService` na podstawie historii `CompletedTask`.
+`GamificationStats` wyliczany przez `GamificationService` ❌ (do zaimplementowania) na podstawie historii `CompletedTask`.
 
 ### 4.3 Rooms — Pokoje i zadania
+
+**Status implementacji:** ❌ STUB ONLY (placeholder navigationTitle only)
+
+**DO ZAIMPLEMENTOWANIA:**
 
 **Lista pokoi:**
 - Karta każdego pokoju: ikona, nazwa, liczba zadań
@@ -309,6 +351,10 @@ struct GamificationStats {
 
 ### 4.4 Settings — Ustawienia
 
+**Status implementacji:** ❌ STUB ONLY (placeholder text only)
+
+**DO ZAIMPLEMENTOWANIA:**
+
 - **Dzienny limit sprzątania** — Stepper lub Slider (krok: 5 min), zakres 10–120 min, domyślnie 30 min
   - Zmiana → natychmiastowe przeliczenie planu na pozostałe dni tygodnia
 - **Godzina powiadomienia** — `DatePicker` (tylko godzina), domyślnie 17:00
@@ -317,22 +363,26 @@ struct GamificationStats {
 - **Sekcja "Nadchodzące"** (placeholder, wyłączone w MVP):
   - Wiele domostw
   - Domownicy
-- **Sekcja deweloperska** (tylko DEV/MOCK) — istniejący DevSettings
+- **Sekcja deweloperska** (tylko DEV/MOCK) — ✅ istniejący `DevSettings` screen z debug tools
 
 ---
 
 ## 5. Powiadomienia
 
+**Status implementacji:** ❌ NIE ZAIMPLEMENTOWANE (`LocalNotificationKit` present, logic missing)
+
+**DO ZAIMPLEMENTOWANIA:**
+
 - **Trigger:** codziennie o godzinie wybranej przez użytkownika (domyślnie 17:00)
 - **Treść:** 
   - Tytuł: "Czas na sprzątanie!"
   - Body: "Masz X zadań na dziś — zajmie to ok. Y minut."
-- **Implementacja:** `LocalNotificationKit` (już w projekcie)
+- **Implementacja:** `LocalNotificationKit` (już w projekcie) + `NotificationScheduler` service (do stworzenia)
 - **Harmonogram:** powiadomienie jest przeplanowywane (cancel + reschedule) przy:
   - Zmianie godziny w Settings
   - Włączeniu/wyłączeniu powiadomień
   - Przeliczeniu planu (aktualizacja treści z nową liczbą zadań)
-- **Uprawnienia:** pytanie o zgodę przy pierwszym uruchomieniu po onboardingu
+- **Uprawnienia:** pytanie o zgodę przy pierwszym uruchomieniu po onboardingu (✅ już działa w onboarding flow)
 
 ---
 
@@ -342,14 +392,17 @@ struct GamificationStats {
 
 | Element | Wartość |
 |---|---|
-| Platform | iOS 18.0+ |
-| Language | Swift 6.0 |
-| UI | SwiftUI |
-| Persistence | SwiftData |
-| Navigation | NavigationKit (custom SPM) |
-| Notifications (timer) | Do zaimportowania — dedykowany pakiet SPM (do dodania do projektu) |
+| Platform | iOS 18.0+ (⚠️ project.yml ma typo: "26.0") |
+| Language | Swift 6.0 ✅ |
+| UI | SwiftUI ✅ |
+| Persistence | SwiftData ✅ |
+| Navigation | NavigationKit ✅ (custom SPM) |
+| Notifications | LocalNotificationKit ✅ (present, logic pending) |
+| **Additional Packages** | FulhamKit (UI components), UtilitiesKit (DeviceKit), ReviewKit, LogKit, UserDefaultsKit |
 
 ### 6.2 Architektura
+
+**Status:** ✅ IMPLEMENTACJA ZGODNA ZE SPEC
 
 Projekt stosuje wzorzec **RIB (Router–Interactor–Builder)** + Presenter + View, zgodnie z istniejącym kodem:
 
@@ -364,54 +417,69 @@ Feature/
     └── FeatureRouter.swift        // Nawigacja + protokół
 ```
 
-Logika algorytmu harmonogramowania trafia do osobnego serwisu (`SchedulingService`) — nie do Interactora, żeby był testowalny jednostkowo.
+**CoreInteractor & CoreRouter:** Pojedyncze concrete implementations, extended per-feature through protocol conformance.
+
+Logika algorytmu harmonogramowania trafia do osobnego serwisu (`SchedulingService` ❌ do zaimplementowania) — nie do Interactora, żeby był testowalny jednostkowo.
 
 ### 6.3 Nowe serwisy do stworzenia
 
-| Serwis | Odpowiedzialność |
-|---|---|
-| `TaskManager` | CRUD dla `Task`, wzorzec analogiczny do `RoomManager` |
-| `SchedulingService` | Algorytm `reschedule(...)` — generowanie/aktualizacja planu tygodniowego |
-| `CompletedTaskManager` | Zapis i odczyt historii wykonań |
-| `SkippedTaskManager` | Zapis i odczyt historii przesunięć |
-| `GamificationService` | Wyliczanie `GamificationStats` z historii `CompletedTask` |
-| `NotificationScheduler` | Wrapper nad `LocalNotificationKit` dla logiki powiadomień CleaningApp |
+| Serwis | Odpowiedzialność | Status |
+|---|---|---|
+| `RoomManager` | CRUD dla `Room` | ✅ ZAIMPLEMENTOWANE |
+| `RoomTaskManager` | CRUD dla `RoomTask` | ✅ ZAIMPLEMENTOWANE |
+| `CompletedTaskManager` | Zapis i odczyt historii wykonań | ✅ ZAIMPLEMENTOWANE |
+| `SkippedTaskManager` | Zapis i odczyt historii przesunięć | ✅ ZAIMPLEMENTOWANE |
+| `SchedulingService` | Algorytm `reschedule(...)` — generowanie/aktualizacja planu tygodniowego | ❌ DO IMPLEMENTACJI |
+| `GamificationService` | Wyliczanie `GamificationStats` z historii `CompletedTask` | ❌ DO IMPLEMENTACJI |
+| `NotificationScheduler` | Wrapper nad `LocalNotificationKit` dla logiki powiadomień CleaningApp | ❌ DO IMPLEMENTACJI |
 
 ### 6.4 Rozszerzenie modelu `Room`
 
-Istniejący `Room` (tylko `id` + `createdAt`) zostanie rozszerzony o `name` i `icon`. Analogicznie `RoomEntity`.
+**Status:** ✅ KOMPLETNE
+
+Istniejący `Room` został rozszerzony o `name`, `kind` (RoomType enum), `isCustom` i opcjonalny `customIcon`. Analogicznie `RoomEntity`.
 
 ### 6.5 Tracking czasu wykonania (MVP+)
+
+**Status:** Gotowe do implementacji (po stabilizacji MVP)
 
 Pierwsza planowana funkcja po stabilizacji MVP:
 
 - Przy odhaczaniu zadania: opcjonalny stoper (start/stop)
-- Zmierzony czas zapisywany w `CompletedTask.measuredDuration`
-- Po N wykonaniach (np. 3) `TaskManager` wylicza `averageDuration` i używa go zamiast `estimatedDuration` w algorytmie i widokach
+- Zmierzony czas zapisywany w `CompletedTask.measuredDuration` ✅ (pole już istnieje)
+- Po N wykonaniach (np. 3) `RoomTaskManager` wylicza `averageDuration` i używa go zamiast `estimatedDuration` w algorytmie i widokach
 - Wymaga dedykowanego pakietu SPM do timera (do dodania do projektu)
 
 ---
 
 ## 7. Predefiniowane dane
 
-### Pokoje i zadania (przykładowe, do rozszerzenia)
+**Status:** ✅ ZAIMPLEMENTOWANE w onboarding flow
+
+### Pokoje (10 typów) i zadania
 
 | Pokój | Ikona | Predefiniowane zadania (domyślna częstotliwość, czas) |
 |---|---|---|
-| Kuchnia | fork.knife | Odkurzanie (2×/tydz, 10 min), Mycie podłogi (1×/tydz, 15 min), Czyszczenie blatu (3×/tydz, 5 min), Mycie zlewu (2×/tydz, 10 min), Mycie piekarnika (1×/mies, 30 min) |
-| Łazienka | shower | Mycie toalety (1×/tydz, 10 min), Mycie umywalki (2×/tydz, 5 min), Mycie prysznica/wanny (1×/tydz, 15 min), Mycie podłogi (1×/tydz, 10 min) |
-| Salon | sofa | Odkurzanie (2×/tydz, 15 min), Mycie podłogi (1×/tydz, 20 min), Ścieranie kurzu (1×/tydz, 10 min) |
-| Sypialnia | bed.double | Odkurzanie (1×/tydz, 10 min), Zmiana pościeli (1×/tydz, 15 min), Wietrzenie (codziennie, 5 min) |
-| Korytarz | door.left.hand.open | Odkurzanie (2×/tydz, 5 min), Mycie podłogi (1×/tydz, 10 min) |
-| Biuro | desktopcomputer | Ścieranie kurzu (1×/tydz, 10 min), Odkurzanie (1×/tydz, 10 min) |
-| Garaż | car | Zamiatanie (1×/mies, 20 min), Porządkowanie (1×/mies, 30 min) |
-| Pralnia | washer | Pranie (2×/tydz, 10 min), Czyszczenie pralki (1×/mies, 15 min) |
+| Kuchnia | fork.knife | Odkurzanie (2×/tydz, 10 min), Mycie podłogi (1×/tydz, 15 min), Czyszczenie blatu (3×/tydz, 5 min), Mycie zlewu (2×/tydz, 10 min), Mycie piekarnika (1×/mies, 30 min) + więcej |
+| Łazienka | shower | Mycie toalety (1×/tydz, 10 min), Mycie umywalki (2×/tydz, 5 min), Mycie prysznica/wanny (1×/tydz, 15 min), Mycie podłogi (1×/tydz, 10 min) + więcej |
+| Toaleta ✨ | toilet | 5-7 suggested tasks per room (hardcoded UUIDs) |
+| Salon | sofa | Odkurzanie (2×/tydz, 15 min), Mycie podłogi (1×/tydz, 20 min), Ścieranie kurzu (1×/tydz, 10 min) + więcej |
+| Sypialnia | bed.double | Odkurzanie (1×/tydz, 10 min), Zmiana pościeli (1×/tydz, 15 min), Wietrzenie (codziennie, 5 min) + więcej |
+| Jadalnia ✨ | fork.knife.circle | 5-7 suggested tasks |
+| Korytarz | door.left.hand.open | Odkurzanie (2×/tydz, 5 min), Mycie podłogi (1×/tydz, 10 min) + więcej |
+| Biuro | desktopcomputer | Ścieranie kurzu (1×/tydz, 10 min), Odkurzanie (1×/tydz, 10 min) + więcej |
+| Garaż | car | Zamiatanie (1×/mies, 20 min), Porządkowanie (1×/mies, 30 min) + więcej |
+| Pralnia | washer | Pranie (2×/tydz, 10 min), Czyszczenie pralki (1×/mies, 15 min) + więcej |
+
+**Implementacja:** Dane hardcoded w `SuggestedRoomsData.swift` z `SuggestedRoom` i `SuggestedTask` models. Stable UUIDs dla każdego zadania.
 
 ---
 
 ## 8. Otwarte pytania / decyzje do podjęcia
 
-- [ ] **Ikony custom pokoi:** Pakiet do wyboru ikon zostanie zaimportowany przez użytkownika — na razie `custom` jako placeholder SF Symbol (`square.grid.2x2`).
+- [ ] **Ikony custom pokoi:** Pakiet do wyboru ikon zostanie zaimportowany przez użytkownika — na razie `Room.customIcon` jako String (SF Symbol name).
+- [ ] **Dodaj `Frequency.twiceDaily` case** — zdefiniowane w spec, nie zaimplementowane.
+- [ ] **Napraw deployment target w project.yml** — obecnie "26.0", powinno być "18.0".
 
 ~~- [ ] Onboarding krok 3 (zadania): tylko checkboxy, edycja w aplikacji~~ ✓
 ~~- [ ] Tydzień: tydzień kalendarzowy pon–ndz~~ ✓
@@ -421,3 +489,31 @@ Pierwsza planowana funkcja po stabilizacji MVP:
 ~~- [ ] Twardy dzienny limit z tolerancją ±2 min, bez duplikacji zaległości~~ ✓
 ~~- [ ] Dzienny limit: 30 min domyślnie, konfigurowalne przez użytkownika w Settings (MVP)~~ ✓
 ~~- [ ] Tracking czasu: MVP+ (pierwsze usprawnienie)~~ ✓
+
+---
+
+## 9. Stan implementacji — podsumowanie
+
+| Obszar | Status | Procent | Uwagi |
+|---|---|---|---|
+| **Modele domenowe** | ✅ | 95% | Brak `twiceDaily` case w `Frequency` |
+| **Persystencja (SwiftData)** | ✅ | 100% | Entities, repositories, managers kompletne |
+| **Onboarding flow** | ✅ | 95% | Production-ready (paywall placeholder) |
+| **Algorytm harmonogramowania** | ❌ | 0% | **Krytyczne — serce aplikacji** |
+| **Home view (dzienny plan)** | ❌ | 5% | Stub only |
+| **Gamification** | ❌ | 0% | Service + UI do implementacji |
+| **Rooms management** | ❌ | 5% | Stub only |
+| **Settings screen** | ❌ | 5% | Stub only (DevSettings ✅) |
+| **Notifications** | ⚠️ | 10% | LocalNotificationKit present, logic missing |
+| **RIB architecture** | ✅ | 100% | Wzorzec konsekwentnie stosowany |
+| **Testing** | ✅ | 90% | 20 test files, excellent coverage for implemented features |
+
+**Szacowany postęp MVP: ~35%**
+
+**Następne kroki (priorytet):**
+1. Implementacja `SchedulingService` + `ScheduledTask` model
+2. Home view z daily task list + completion logic
+3. `GamificationService` + UI components
+4. Settings screen z daily limit + notification time
+5. `NotificationScheduler` service
+6. Rooms management UI

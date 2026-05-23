@@ -2,7 +2,7 @@ name: CleaningApp
 options:
   bundleIdPrefix: com.jakubkociucki
   deploymentTarget:
-    iOS: "18.0"
+    iOS: "26.0"
   xcodeVersion: "16.0"
   swiftVersion: "6.0"
 packages:
@@ -27,16 +27,20 @@ packages:
   UserDefaultsKit:
     url: https://github.com/KociucKy/UserDefaultsKit
     branch: "master"
+  SnapshotTesting:
+    url: https://github.com/pointfreeco/swift-snapshot-testing
+    exactVersion: "1.19.2"
 targets:
   CleaningApp:
     type: application
     platform: iOS
     deploymentTarget:
-      iOS: "18.0"
+      iOS: "26.0"
     sources:
       - path: CleaningApp
     resources:
       - path: CleaningApp/Assets.xcassets
+      - path: CleaningApp/AppIcon.icon
     dependencies:
           - package: NavigationKit
           - package: FulhamKit
@@ -59,6 +63,8 @@ targets:
         CFBundleDisplayName: "$(BUNDLE_DISPLAY_NAME)"
         CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
         CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleIcons:
+          CFBundlePrimaryIcon: AppIcon
         UILaunchScreen: {}
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -76,7 +82,7 @@ targets:
         MARKETING_VERSION: "1.0"
         CURRENT_PROJECT_VERSION: "1"
         ENABLE_USER_SCRIPT_SANDBOXING: NO
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT: YES
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         LOCALIZATION_PREFERS_STRING_CATALOGS: YES
         CODE_SIGN_STYLE: Automatic
@@ -111,11 +117,12 @@ targets:
     type: bundle.unit-test
     platform: iOS
     deploymentTarget:
-      iOS: "18.0"
+      iOS: "26.0"
     sources:
       - path: CleaningAppTests
     dependencies:
       - target: CleaningApp
+      - package: SnapshotTesting
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.jakubkociucki.cleaningapp.tests

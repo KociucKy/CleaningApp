@@ -5,7 +5,9 @@ struct Room: Identifiable, Equatable {
 
 	let id: UUID
 	var name: String
-	var icon: RoomIcon
+	var kind: RoomType
+	var isCustom: Bool
+	var customIcon: String?
 	let createdAt: Date
 
 	// MARK: - Init
@@ -13,12 +15,16 @@ struct Room: Identifiable, Equatable {
 	init(
 		id: UUID = UUID(),
 		name: String,
-		icon: RoomIcon,
+		kind: RoomType,
+		isCustom: Bool = false,
+		customIcon: String? = nil,
 		createdAt: Date = Date()
 	) {
 		self.id = id
 		self.name = name
-		self.icon = icon
+		self.kind = kind
+		self.isCustom = isCustom
+		self.customIcon = customIcon
 		self.createdAt = createdAt
 	}
 }

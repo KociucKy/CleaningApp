@@ -10,14 +10,22 @@ struct CoreInteractor {
 	private let roomTaskManager: RoomTaskManager
 	private let completedTaskManager: CompletedTaskManager
 	private let skippedTaskManager: SkippedTaskManager
+	private let notificationScheduler: any NotificationScheduling
+	private let onboardingState: OnboardingState
+
+	var onboardingCompletionToken: Int {
+		onboardingState.completionToken
+	}
 
 	// MARK: - Init
 
 	init(container: DependencyContainer) {
-		self.roomManager = container.resolve(RoomManager.self)!
-		self.roomTaskManager = container.resolve(RoomTaskManager.self)!
-		self.completedTaskManager = container.resolve(CompletedTaskManager.self)!
-		self.skippedTaskManager = container.resolve(SkippedTaskManager.self)!
+		roomManager = container.resolve(RoomManager.self)!
+		roomTaskManager = container.resolve(RoomTaskManager.self)!
+		completedTaskManager = container.resolve(CompletedTaskManager.self)!
+		skippedTaskManager = container.resolve(SkippedTaskManager.self)!
+		notificationScheduler = container.resolve(NotificationScheduling.self)!
+		onboardingState = container.resolve(OnboardingState.self)!
 	}
 
 	// MARK: - Room Manager

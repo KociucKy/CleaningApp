@@ -10,16 +10,16 @@ struct DevSettingsView: View {
 
 	var body: some View {
 		List {
-			Button("App Store Review", action: presenter.pushReviewKitDebugView)
-			Button("Device Info", action: presenter.pushDeviceDebugView)
-			Button("Local Notifications", action: presenter.pushLocalNotificationDebugView)
-			Button("UserDefaults", action: presenter.pushUserDefaultsDebugView)
+			Button("dev_settings.button.app_store_review", action: presenter.pushReviewKitDebugView)
+			Button("dev_settings.button.device_info", action: presenter.pushDeviceDebugView)
+			Button("dev_settings.button.local_notifications", action: presenter.pushLocalNotificationDebugView)
+			Button("dev_settings.button.user_defaults", action: presenter.pushUserDefaultsDebugView)
 		}
-		.navigationTitle("Dev Settings")
+		.navigationTitle("dev_settings.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
-				Button("Close") {
+				Button("common.action.close") {
 					presenter.dismiss()
 				}
 			}

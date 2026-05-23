@@ -6,78 +6,134 @@ struct OnbRoomSelectionView: View {
 	// MARK: - Properties
 
 	@State var presenter: OnbRoomSelectionPresenter
+	@ScaledMetric private var roomSymbolSize: CGFloat = 32
 	private let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
 	// MARK: - Body
 
 	var body: some View {
 		ScrollView {
-			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-				ForEach(RoomIcon.allCases) { room in
-					roomCell(room)
+			ScrollViewReader { proxy in
+				LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
+					// Predefined rooms (excluding .customRoom sentinel)
+					ForEach(Array(RoomType.allCases.filter { $0 != .customRoom }.enumerated()), id: \.element) { index, room in
+						roomCell(room, index: index)
+					}
+
+					// Custom rooms
+					ForEach(Array(presenter.customRooms.enumerated()), id: \.element.id) { index, customRoom in
+						let cellIndex = RoomType.allCases.count(where: { $0 != .customRoom }) + index
+						customRoomCell(customRoom, index: cellIndex)
+							.id(customRoom.id)
+					}
+				}
+				.padding(.horizontal, FKSpacing.large)
+				.padding(.top, FKSpacing.large)
+				.onChange(of: presenter.customRooms.count) { oldCount, newCount in
+					if newCount > oldCount, let lastRoom = presenter.customRooms.last {
+						presenter.onCustomRoomAdded()
+						presenter.scrollToNewCustomRoom(proxy, roomId: lastRoom.id)
+					}
 				}
 			}
-			.padding(.horizontal, FKSpacing.large)
-			.padding(.top, FKSpacing.large)
 		}
-		.navigationTitle("Select rooms")
+		.navigationTitle("onb_room_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
 		.toolbar {
-			ToolbarItem(placement: .primaryAction) {
-				Button("Skip", action: presenter.onSkipButtonPressed)
-			}
-			if presenter.selectedRooms.isNotEmpty {
+			if presenter.hasSelection {
 				ToolbarItem(placement: .topBarLeading) {
-					Button("Clear", action: presenter.onClearButtonPressed)
+					Button("common.action.clear", action: presenter.onClearButtonPressed)
 				}
+			}
+			ToolbarItem(placement: .topBarTrailing) {
+				Button {
+					presenter.onAddCustomRoomPressed()
+				} label: {
+					Image(systemName: "plus")
+				}
+				.accessibilityLabel(LocalizedStringKey("onb_room_selection.add_custom_room_button"))
 			}
 		}
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
+				.opacity(presenter.buttonVisible ? 1 : 0)
+				.offset(y: presenter.buttonVisible ? 0 : 16)
+		}
+		.onAppear {
+			presenter.animateEntrance()
 		}
 	}
 
 	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
-		Button {
-			presenter.onNextButtonPressed()
-		} label: {
-			Text("Next")
-				.font(FKTypography.ctaLabel)
-				.foregroundStyle(.white)
-				.frame(maxWidth: .infinity)
-				.frame(height: 50)
-		}
-		.buttonStyle(.glassProminent)
-		.padding([.horizontal, .top], FKSpacing.large)
-		.disabled(presenter.selectedRooms.isEmpty)
+		OnbControlButtonsView(
+			buttonLabel: "common.action.next",
+			showSkipButton: true,
+			isPrimaryButtonDisabled: !presenter.hasSelection,
+			primaryAction: presenter.onNextButtonPressed,
+			skipAction: presenter.onSkipButtonPressed
+		)
+	}
+
+	private func roomCell(_ room: RoomType, index: Int) -> some View {
+		roomCellView(
+			icon: room.symbolName,
+			name: room.localizedName,
+			isSelected: presenter.isRoomSelected(room),
+			index: index,
+			action: { presenter.onRoomCardViewPressed(room: room) },
+			accessibilityLabel: nil
+		)
+	}
+
+	private func customRoomCell(_ customRoom: CustomRoomSelection, index: Int) -> some View {
+		roomCellView(
+			icon: customRoom.icon,
+			name: customRoom.name,
+			isSelected: presenter.isCustomRoomSelected(customRoom.id),
+			index: index,
+			action: { presenter.onCustomRoomCardPressed(id: customRoom.id) },
+			accessibilityLabel: String(localized: "onb_room_selection.custom_room_label \(customRoom.name)")
+		)
 	}
 
 	@ViewBuilder
-	private func roomCell(_ room: RoomIcon) -> some View {
-		let isSelected = presenter.selectedRooms.contains(room)
+	private func roomCellView(
+		icon: String,
+		name: String,
+		isSelected: Bool,
+		index: Int,
+		action: @escaping () -> Void,
+		accessibilityLabel: String?
+	) -> some View {
+		let isVisible = index < presenter.visibleCellCount
 		Button {
-			presenter.onRoomCardViewPressed(room: room)
+			FKHaptics.selection()
+			action()
 		} label: {
 			FKCardView(showBorder: false) {
 				VStack(spacing: FKSpacing.medium) {
-					Image(systemName: room.symbolName)
-						.font(.system(size: 32))
+					Image(systemName: icon)
+						.font(.system(size: roomSymbolSize))
 						.frame(height: 40)
 						.symbolEffect(
 							.bounce,
 							options: .nonRepeating,
 							isActive: isSelected
 						)
-					Text(room.rawValue)
+						.accessibilityHidden(true)
+					Text(name)
 						.font(FKTypography.secondaryLabel)
 						.multilineTextAlignment(.center)
 						.bold(isSelected)
+						.lineLimit(1)
+						.minimumScaleFactor(0.75)
 				}
 				.frame(maxWidth: .infinity)
 				.padding(.vertical, FKSpacing.extraLarge)
+				.padding(.horizontal, FKSpacing.default)
 				.foregroundStyle(isSelected ? Color.accentColor : Color.primary)
 			}
 			.fkBorder(
@@ -86,8 +142,30 @@ struct OnbRoomSelectionView: View {
 				color: isSelected ? .accentColor : Color(FKColor.Separator.default)
 			)
 		}
+		.modifier(OptionalAccessibilityLabelModifier(label: accessibilityLabel))
+		.accessibilityAddTraits(isSelected ? .isSelected : [])
 		.buttonStyle(.fkPressable)
+		.opacity(isVisible ? 1 : 0)
+		.offset(y: isVisible ? 0 : 20)
 		.animation(.interactiveSpring, value: isSelected)
+	}
+}
+
+// MARK: - OptionalAccessibilityLabelModifier
+
+private struct OptionalAccessibilityLabelModifier: ViewModifier {
+	private let label: String?
+
+	init(label: String?) {
+		self.label = label
+	}
+
+	func body(content: Content) -> some View {
+		if let label {
+			content.accessibilityLabel(label)
+		} else {
+			content
+		}
 	}
 }
 

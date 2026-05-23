@@ -9,8 +9,9 @@ struct SettingsView: View {
 	// MARK: - Body
 
 	var body: some View {
-		Text("Settings")
-			.navigationTitle("Settings")
+		Text("settings.nav_title")
+			.navigationTitle("settings.nav_title")
+			.navigationBarTitleDisplayMode(.large)
 	}
 }
 

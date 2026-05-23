@@ -11,8 +11,9 @@ struct RoomsView: View {
 	// MARK: - Body
 
 	var body: some View {
-		Text("Rooms")
-			.navigationTitle("Rooms")
+		Text("rooms.nav_title")
+			.navigationTitle("rooms.nav_title")
+			.navigationBarTitleDisplayMode(.large)
 	}
 }
 

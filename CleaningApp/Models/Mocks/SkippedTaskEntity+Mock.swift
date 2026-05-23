@@ -22,7 +22,7 @@ extension SkippedTaskEntity {
 				taskId: RoomTaskEntity.mockId,
 				originalDate: .mock.addingTimeInterval(86400),
 				skippedAt: .mock.addingTimeInterval(90000)
-			),
+			)
 		]
 	}
 }

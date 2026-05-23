@@ -6,6 +6,7 @@ extension Tag {
 	// MARK: - Feature Tags
 
 	@Tag static var home: Self
+	@Tag static var onboarding: Self
 	@Tag static var rooms: Self
 	@Tag static var settings: Self
 

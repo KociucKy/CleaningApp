@@ -1,6 +1,6 @@
 import Foundation
 
-struct RoomTask: Identifiable, Equatable {
+struct RoomTask: Identifiable, Equatable, Hashable {
 	// MARK: - Properties
 
 	let id: UUID
@@ -26,5 +26,17 @@ struct RoomTask: Identifiable, Equatable {
 		self.frequency = frequency
 		self.estimatedDuration = estimatedDuration
 		self.createdAt = createdAt
+	}
+
+	// MARK: - Equatable
+
+	static func == (lhs: RoomTask, rhs: RoomTask) -> Bool {
+		lhs.id == rhs.id
+	}
+
+	// MARK: - Hashable
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(id)
 	}
 }
