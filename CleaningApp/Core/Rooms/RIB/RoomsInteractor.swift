@@ -5,7 +5,11 @@ import NavigationKit
 
 @MainActor
 protocol RoomsInteractor {
-	// TODO: Define Rooms interactor methods
+	func fetchRooms() throws -> [Room]
 }
 
-extension CoreInteractor: RoomsInteractor {}
+extension CoreInteractor: RoomsInteractor {
+	func fetchRooms() throws -> [Room] {
+		try fetchAllRooms()
+	}
+}
