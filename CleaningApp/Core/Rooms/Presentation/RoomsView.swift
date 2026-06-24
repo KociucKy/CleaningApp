@@ -5,8 +5,7 @@ import SwiftUI
 // MARK: - RoomsView
 
 // TODO: - Error screen - raczej powinien być dodany do FulhamKita
-// TODO: - Ogarnąć Previewsy jak w AIChat
-// TODO: - Ogarnąć szerokość itemów, może .containerRelativeFrame?
+// TODO: - Ogarnąć Previewsy jak w AIChat dla wszystkich widoków
 // TODO: - Dodać action button do empty state'u
 // TODO: - Switcher layoutu - coś jak w Inspiracjach, zapisywane do UserDefaults -> tutaj można by użyć protokołu Layout
 // TODO: - W onboardingu dodać Progress Bar na górze i poprawić layout na ostatnim ekranie
@@ -33,6 +32,16 @@ struct RoomsView: View {
 		}
 		.navigationTitle("rooms.nav_title")
 		.navigationBarTitleDisplayMode(.large)
+		.toolbar {
+			ToolbarItem(placement: .primaryAction) {
+				Button(
+					"Add",
+					systemImage: "plus",
+					role: .confirm,
+					action: presenter.onAddButtonTapped
+				)
+			}
+		}
 	}
 
 	// MARK: - Views
@@ -83,6 +92,7 @@ struct RoomsView: View {
 				.padding(.vertical, FKSpacing.extraLarge)
 				.padding(.horizontal, FKSpacing.default)
 				.foregroundStyle(Color(FKColor.Label.primary))
+				.frame(maxWidth: .infinity)
 			}
 			.fkBorder(
 				cornerRadius: FKRadius.medium,

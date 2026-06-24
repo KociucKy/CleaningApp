@@ -25,6 +25,9 @@
         }
       }
     },
+    "Add" : {
+
+    },
     "app_name" : {
       "extractionState" : "manual",
       "localizations" : {

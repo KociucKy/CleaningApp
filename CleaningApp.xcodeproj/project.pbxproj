@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -202,7 +202,7 @@
 		408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskEntity.swift; sourceTree = "<group>"; };
 		412CB179AA27D706A4C3A4A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		41F248ACFF734B1E30DDD6F2 /* test_notificationView_loadingState.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_notificationView_loadingState.1.png; sourceTree = "<group>"; };
-		4367AA79DD53134C2C3E29B7 /* center.svg */ = {isa = PBXFileReference; path = center.svg; sourceTree = "<group>"; };
+		4367AA79DD53134C2C3E29B7 /* center.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = center.svg; sourceTree = "<group>"; };
 		45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsRouter.swift; sourceTree = "<group>"; };
 		4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
@@ -294,7 +294,7 @@
 		ECD1EE002FF785F44BD8224D /* OnbAddCustomTaskSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbAddCustomTaskSheetPresenter.swift; sourceTree = "<group>"; };
 		F074EC2419C66EA6F2B5975E /* test_roomSelectionView_noSelection.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_roomSelectionView_noSelection.1.png; sourceTree = "<group>"; };
 		F2D6E8CF672C86F193AAE999 /* OnbCustomRoomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbCustomRoomSheetView.swift; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F81D35F1DCFD4D6BD2FB0DF0 /* test_controlButtonsView_disabled.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_controlButtonsView_disabled.1.png; sourceTree = "<group>"; };
@@ -880,13 +880,6 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_71355D9C-6ACF-4436-B10F-69DFF07CCFCB" /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -978,7 +971,6 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

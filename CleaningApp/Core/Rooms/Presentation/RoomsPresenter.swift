@@ -12,14 +12,20 @@ final class RoomsPresenter {
 
 	var rooms: [Room] = []
 	var errorMessage: String?
-	var isLoading: Bool = true
+	var isLoading = true
+	var isShowingMenu = false
 
 	// MARK: - Init
 
 	init(interactor: any RoomsInteractor, router: any RoomsRouter) {
 		self.interactor = interactor
 		self.router = router
+		self.fetchRooms()
+	}
 
+	// MARK: - Methods
+
+	private func fetchRooms() {
 		do {
 			let fetchedRooms = try interactor.fetchRooms()
 			rooms = fetchedRooms.sorted { $0.createdAt > $1.createdAt }
@@ -28,5 +34,9 @@ final class RoomsPresenter {
 			errorMessage = "Failed to load rooms"
 			isLoading = false
 		}
+	}
+
+	func onAddButtonTapped() {
+		
 	}
 }
