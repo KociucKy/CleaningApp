@@ -68,7 +68,18 @@ struct CoreRouter {
 
 	func presentAddCustomRoomView() {
 		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
-			
+
+		}
+	}
+}
+
+// MARK: - CustomRoomSheetRouter (Rooms Context)
+
+extension CoreRouter: CustomRoomSheetRouter {
+	func showIconPicker(roomName: String) {
+		let sheetRouter = self
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.iconPickerView(sheetRouter: sheetRouter, roomName: roomName)
 		}
 	}
 }

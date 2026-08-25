@@ -181,6 +181,9 @@
         }
       }
     },
+    "Delete" : {
+
+    },
     "dev_settings.button.app_store_review" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -265,6 +268,12 @@
           }
         }
       }
+    },
+    "Done" : {
+
+    },
+    "Edit" : {
+
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -1470,6 +1479,9 @@
         }
       }
     },
+    "Reorder" : {
+
+    },
     "room_type.bathroom" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1653,6 +1665,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Toaleta"
+          }
+        }
+      }
+    },
+    "rooms.custom_room_added_toast" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Room created successfully"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokój został dodany"
           }
         }
       }

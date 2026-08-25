@@ -96,3 +96,17 @@ struct CoreInteractor {
 		try skippedTaskManager.delete(item)
 	}
 }
+
+// MARK: - CustomRoomSheetInteractor
+
+extension CoreInteractor: CustomRoomSheetInteractor {
+	func saveCustomRoom(name: String, icon: String) throws {
+		let room = Room(
+			name: name,
+			kind: .customRoom,
+			isCustom: true,
+			customIcon: icon
+		)
+		try roomManager.save(room)
+	}
+}
