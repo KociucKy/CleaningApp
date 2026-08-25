@@ -30,6 +30,7 @@ struct OnboardingCompletedView: View {
 			Spacer()
 			statsSection
 			if presenter.shouldShowTimePicker {
+				Spacer()
 				timePickerSection
 			}
 			Spacer()
@@ -170,12 +171,27 @@ struct OnboardingCompletedView: View {
 
 // MARK: - Preview
 
-#Preview {
+#Preview("Notifications disabled") {
 	let devPreview = DevPreview()
 	let _ = {
 		devPreview.onboardingFlowState.toggleRoom(.kitchen)
 		devPreview.onboardingFlowState.toggleRoom(.bedroom)
 		devPreview.onboardingFlowState.toggleRoom(.bathroom)
+	}()
+	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
+
+	RouterView { router in
+		builder.onboardingCompletedView(router: router)
+	}
+}
+
+#Preview("Notifications enabled") {
+	let devPreview = DevPreview()
+	let _ = {
+		devPreview.onboardingFlowState.toggleRoom(.kitchen)
+		devPreview.onboardingFlowState.toggleRoom(.bedroom)
+		devPreview.onboardingFlowState.toggleRoom(.bathroom)
+		devPreview.onboardingFlowState.notificationsAllowed = true
 	}()
 	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
 

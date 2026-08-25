@@ -5,7 +5,6 @@ import SwiftUI
 // MARK: - RoomsView
 
 // TODO: - Error screen - raczej powinien być dodany do FulhamKita
-// TODO: - Ogarnąć Previewsy jak w AIChat dla wszystkich widoków
 // TODO: - Dodać action button do empty state'u
 // TODO: - Switcher layoutu - coś jak w Inspiracjach, zapisywane do UserDefaults -> tutaj można by użyć protokołu Layout
 // TODO: - W onboardingu dodać Progress Bar na górze i poprawić layout na ostatnim ekranie
