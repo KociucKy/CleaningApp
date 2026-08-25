@@ -35,7 +35,11 @@ struct OnboardingCompletedView: View {
 			}
 			Spacer()
 		}
-		.navigationBarHidden(true)
+		.safeAreaInset(edge: .top) {
+                OnbProgressView(stage: .completed)
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
 		.safeAreaInset(edge: .bottom) {
 			finishButton
 				.padding(.horizontal, FKSpacing.large)

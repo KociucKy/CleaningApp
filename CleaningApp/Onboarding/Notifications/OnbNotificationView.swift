@@ -28,7 +28,11 @@ struct OnbNotificationView: View {
 			benefitsSection
 			Spacer()
 		}
-		.navigationBarHidden(true)
+		.safeAreaInset(edge: .top) {
+                OnbProgressView(stage: .notifications)
+            }
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
 		.safeAreaInset(edge: .bottom) {
 			bottomBar
 				.padding(.horizontal, FKSpacing.large)

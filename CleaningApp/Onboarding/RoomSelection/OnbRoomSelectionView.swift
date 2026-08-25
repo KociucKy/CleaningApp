@@ -37,7 +37,10 @@ struct OnbRoomSelectionView: View {
 				}
 			}
 		}
-		.navigationTitle("onb_room_selection.nav_title")
+		.safeAreaInset(edge: .top) {
+            OnbProgressView(stage: .roomSelection)
+        }
+        .navigationTitle("onb_room_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
 		.toolbar {

@@ -66,7 +66,10 @@ struct OnbTaskSelectionView: View {
 			.padding(.top, FKSpacing.large)
 		}
 		.background(FKColor.Background.primary)
-		.navigationTitle("onb_task_selection.nav_title")
+		.safeAreaInset(edge: .top) {
+            OnbProgressView(stage: .taskSelection)
+        }
+        .navigationTitle("onb_task_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView

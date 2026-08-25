@@ -11,7 +11,12 @@ struct OnbPaywallView: View {
 				.font(.largeTitle)
 			Spacer()
 		}
-		.safeAreaBar(edge: .bottom) {
+		.navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .top) {
+                OnbProgressView(stage: .paywall)
+            }
+            .safeAreaBar(edge: .bottom) {
 			Button {
 				presenter.onNextButtonPressed()
 			} label: {
