@@ -29,11 +29,6 @@ struct OnbWelcomeView: View {
 			featuresSection
 			Spacer()
 		}
-		.safeAreaInset(edge: .top) {
-            OnbProgressView(stage: .welcome)
-        }
-        .navigationTitle("")
-        .navigationBarTitleDisplayMode(.inline)
 		.safeAreaInset(edge: .bottom) {
 			getStartedButton
 				.padding(.horizontal, FKSpacing.large)

@@ -3,7 +3,6 @@ import Foundation
 // MARK: - OnbProgressStage
 
 enum OnbProgressStage: Int, CaseIterable {
-    case welcome
     case roomSelection
     case taskSelection
     case notifications
@@ -14,8 +13,6 @@ enum OnbProgressStage: Int, CaseIterable {
 
     var accessibilityName: LocalizedStringResource {
         switch self {
-        case .welcome:
-            "onb_progress.stage.welcome"
         case .roomSelection:
             "onb_progress.stage.room_selection"
         case .taskSelection:
