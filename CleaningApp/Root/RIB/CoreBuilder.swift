@@ -80,6 +80,15 @@ struct CoreBuilder: Builder {
 		)
 	}
 
+	func roomsDetailsView(router: Router) -> some View {
+		RoomsDetailsView(
+			presenter: RoomsDetailsPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			)
+		)
+	}
+
 	func settingsView(router: Router) -> some View {
 		SettingsView(
 			presenter: SettingsPresenter(
