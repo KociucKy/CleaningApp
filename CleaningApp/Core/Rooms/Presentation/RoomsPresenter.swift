@@ -7,16 +7,19 @@ import FulhamKit
 @MainActor
 final class RoomsPresenter {
 	// MARK: - Properties
+	enum State {
+		case isLoading
+		case loaded([Room])
+		case error(String)
+		case empty
+	}
 
 	private let interactor: any RoomsInteractor
 	private let router: any RoomsRouter
 
-	var rooms: [Room] = []
-	var errorMessage: String?
-	var isLoading = true
-	var isShowingMenu = false
+	private var rooms: [Room] = []
+	var state: State = .isLoading
 	var toast: FKToast?
-	var isReordering: Bool = false
 
 	// MARK: - Init
 
@@ -32,10 +35,14 @@ final class RoomsPresenter {
 		do {
 			let fetchedRooms = try interactor.fetchRooms()
 			rooms = fetchedRooms.sorted { $0.createdAt > $1.createdAt }
-			isLoading = false
+			if rooms.isEmpty {
+				state = .empty
+			} else {
+				state = .loaded(rooms)
+			}
 		} catch {
-			errorMessage = "Failed to load rooms"
-			isLoading = false
+			let errorMessage = "Failed to load rooms"
+			state = .error(errorMessage)
 		}
 	}
 
