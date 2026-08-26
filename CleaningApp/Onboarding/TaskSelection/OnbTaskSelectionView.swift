@@ -66,10 +66,7 @@ struct OnbTaskSelectionView: View {
 			.padding(.top, FKSpacing.large)
 		}
 		.background(FKColor.Background.primary)
-		.safeAreaInset(edge: .top) {
-            OnbProgressView(stage: .taskSelection)
-        }
-        .navigationTitle("onb_task_selection.nav_title")
+		.navigationTitle("onb_task_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
@@ -210,12 +207,15 @@ struct OnbTaskSelectionView: View {
 	}
 
 	private var controlButtonsView: some View {
-		OnbControlButtonsView(
-			buttonLabel: "common.action.next",
-			showSkipButton: true,
-			primaryAction: presenter.onNextButtonPressed,
-			skipAction: presenter.onSkipButtonPressed
-		)
+		VStack {
+			OnbControlButtonsView(
+				buttonLabel: "common.action.next",
+				showSkipButton: true,
+				primaryAction: presenter.onNextButtonPressed,
+				skipAction: presenter.onSkipButtonPressed
+			)
+			OnbProgressView(stage: .taskSelection)
+		}
 	}
 
 	private func addCustomTaskButton(for section: RoomSection) -> some View {

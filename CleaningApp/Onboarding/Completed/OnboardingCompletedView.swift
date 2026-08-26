@@ -35,14 +35,12 @@ struct OnboardingCompletedView: View {
 			}
 			Spacer()
 		}
-		.safeAreaInset(edge: .top) {
-                OnbProgressView(stage: .completed)
-            }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
 		.safeAreaInset(edge: .bottom) {
-			finishButton
-				.padding(.horizontal, FKSpacing.large)
+			VStack {
+				finishButton
+					.padding(.horizontal, FKSpacing.large)
+				OnbProgressView(stage: .completed)
+			}
 		}
 		.onAppear(perform: presenter.animateEntrance)
 	}

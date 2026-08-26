@@ -12,22 +12,22 @@ struct OnbPaywallView: View {
 			Spacer()
 		}
 		.navigationTitle("")
-            .navigationBarTitleDisplayMode(.inline)
-            .safeAreaInset(edge: .top) {
-                OnbProgressView(stage: .paywall)
-            }
-            .safeAreaBar(edge: .bottom) {
-			Button {
-				presenter.onNextButtonPressed()
-			} label: {
-				Text("Next")
-					.font(FKTypography.ctaLabel)
-					.foregroundStyle(.white)
-					.frame(maxWidth: .infinity)
-					.frame(height: 50)
+		.navigationBarTitleDisplayMode(.inline)
+		.safeAreaBar(edge: .bottom) {
+			VStack {
+				Button {
+					presenter.onNextButtonPressed()
+				} label: {
+					Text("Next")
+						.font(FKTypography.ctaLabel)
+						.foregroundStyle(.white)
+						.frame(maxWidth: .infinity)
+						.frame(height: 50)
+				}
+				.buttonStyle(.glassProminent)
+				.padding([.horizontal, .top], FKSpacing.large)
+				OnbProgressView(stage: .paywall)
 			}
-			.buttonStyle(.glassProminent)
-			.padding([.horizontal, .top], FKSpacing.large)
 		}
 	}
 }
