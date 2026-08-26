@@ -2,8 +2,6 @@ import FulhamKit
 import NavigationKit
 import SwiftUI
 
-// MARK: - RoomsView
-
 // TODO: - Error screen - raczej powinien być dodany do FulhamKita
 // TODO: - Dodać action button do empty state'u
 // TODO: - Switcher layoutu - coś jak w Inspiracjach, zapisywane do UserDefaults -> tutaj można by użyć protokołu Layout
@@ -18,13 +16,11 @@ struct RoomsView: View {
 		GridItem(.flexible(), spacing: FKSpacing.medium),
 		GridItem(.flexible(), spacing: FKSpacing.medium)
 	]
-	private let disablesPreviewReordering: Bool
 
 	// MARK: - Init
 
-	init(presenter: RoomsPresenter, disablesPreviewReordering: Bool = false) {
+	init(presenter: RoomsPresenter) {
 		_presenter = State(initialValue: presenter)
-		self.disablesPreviewReordering = disablesPreviewReordering
 	}
 
 	// MARK: - Body
@@ -38,6 +34,7 @@ struct RoomsView: View {
 			}
 		}
 		.navigationTitle("rooms.nav_title")
+		.navigationSubtitle("Manage your spaces")
 		.navigationBarTitleDisplayMode(.large)
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
@@ -48,15 +45,9 @@ struct RoomsView: View {
 					action: presenter.onAddButtonTapped
 				)
 			}
-			if !presenter.isLoading && presenter.rooms.isNotEmpty && presenter.isReordering {
-				ToolbarItem(placement: .topBarLeading) {
-					Button("Done") {
-						presenter.isReordering = false
-					}
-				}
-			}
 		}
 		.toast($presenter.toast)
+		.background(FKColor.Background.primary)
 	}
 
 	// MARK: - Views
@@ -82,46 +73,18 @@ struct RoomsView: View {
 
 	@ViewBuilder
 	private var roomGridView: some View {
-		if disablesPreviewReordering {
-			ScrollView {
-				LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-					ForEach(presenter.rooms) { room in
-						roomCard(for: room)
-					}
-				}
-				.padding(.horizontal, FKSpacing.large)
-			}
-		} else if #available(iOS 27.0, *) {
-			ScrollView {
-				LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-					ForEach(presenter.rooms) { room in
-						roomCard(for: room)
-					}
-					.reorderable()
-				}
-				.padding(.horizontal, FKSpacing.large)
-				.reorderContainer(
-					for: Room.self,
-					isEnabled: presenter.isReordering
-				) { difference in
-					withAnimation {
-						presenter.onRoomsReordered(difference)
-					}
+		ScrollView {
+			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
+				ForEach(presenter.rooms) { room in
+					roomCard(for: room)
 				}
 			}
-		} else {
-			ScrollView {
-				LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-					ForEach(presenter.rooms) { room in
-						roomCard(for: room)
-					}
-				}
-				.padding(.horizontal, FKSpacing.large)
-			}
+			.padding(.horizontal, FKSpacing.large)
 		}
 	}
 
-	private func roomCardContent(for room: Room) -> some View {
+
+	private func deprecatedRoomCardContent(for room: Room) -> some View {
 		FKCardView(showBorder: false) {
 			VStack(spacing: FKSpacing.medium) {
 				Image(systemName: room.customIcon ?? room.kind.symbolName)
@@ -149,7 +112,7 @@ struct RoomsView: View {
 			// TODO: Navigate to room detail
 			print("Navigated to \\(room.name)")
 		} label: {
-			roomCardContent(for: room)
+			RoomCardView(room: room)
 		}
 		.buttonStyle(.fkFade)
 		.contextMenu {
@@ -192,7 +155,7 @@ struct RoomsView: View {
 	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
 	return RouterView { router in
-		builder.roomsView(router: router, disablesPreviewReordering: true)
+		builder.roomsView(router: router)
 	}
 }
 
@@ -202,7 +165,7 @@ struct RoomsView: View {
 	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
 	return RouterView { router in
-		builder.roomsView(router: router, disablesPreviewReordering: true)
+		builder.roomsView(router: router)
 	}
 }
 
@@ -212,6 +175,6 @@ struct RoomsView: View {
 	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
 	return RouterView { router in
-		builder.roomsView(router: router, disablesPreviewReordering: true)
+		builder.roomsView(router: router)
 	}
 }

@@ -4,22 +4,14 @@
     "" : {
 
     },
-    "onb_progress.accessibility.value" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Step %lld of %lld, %@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Krok %lld z %lld, %@"
-          }
-        }
-      }
+    "%lld" : {
+
+    },
+    "%lld rooms" : {
+
+    },
+    "%lld spaces set up" : {
+
     },
     "%lld/%lld" : {
       "localizations" : {
@@ -42,7 +34,34 @@
         }
       }
     },
+    "2 tasks left" : {
+
+    },
+    "2 tasks today" : {
+
+    },
+    "3 rooms" : {
+
+    },
+    "12 min of cleaning can make a visible difference." : {
+
+    },
+    "40%" : {
+
+    },
+    "A quick visual map of your home." : {
+
+    },
     "Add" : {
+
+    },
+    "Add room" : {
+
+    },
+    "All clear" : {
+
+    },
+    "All rooms" : {
 
     },
     "app_name" : {
@@ -61,6 +80,12 @@
           }
         }
       }
+    },
+    "Choose a room to open it, or edit its details." : {
+
+    },
+    "Choose a room to see what needs your attention today." : {
+
     },
     "common.action.add" : {
       "extractionState" : "manual",
@@ -198,6 +223,12 @@
         }
       }
     },
+    "Create a new room" : {
+
+    },
+    "Dashboard" : {
+
+    },
     "Delete" : {
 
     },
@@ -286,10 +317,16 @@
         }
       }
     },
-    "Done" : {
+    "Edit" : {
 
     },
-    "Edit" : {
+    "Edit %@" : {
+
+    },
+    "Every space, under control." : {
+
+    },
+    "Filter" : {
 
     },
     "frequency.biannually" : {
@@ -513,6 +550,9 @@
         }
       }
     },
+    "Good morning" : {
+
+    },
     "home.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -547,6 +587,15 @@
         }
       }
     },
+    "Keep your home moving forward." : {
+
+    },
+    "Keep your most-used room looking its best." : {
+
+    },
+    "Manage your spaces" : {
+
+    },
     "Next" : {
       "localizations" : {
         "pl" : {
@@ -556,6 +605,12 @@
           }
         }
       }
+    },
+    "Next cleaning · Today" : {
+
+    },
+    "Next up" : {
+
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -1142,6 +1197,23 @@
         }
       }
     },
+    "onb_progress.accessibility.value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step %lld of %lld, %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krok %lld z %lld, %@"
+          }
+        }
+      }
+    },
     "onb_progress.stage.completed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1605,6 +1677,15 @@
         }
       }
     },
+    "One room at a time." : {
+
+    },
+    "Open cleaning plan" : {
+
+    },
+    "Open room details" : {
+
+    },
     "Paywall" : {
       "localizations" : {
         "pl" : {
@@ -1615,7 +1696,19 @@
         }
       }
     },
+    "Pick up where you left off" : {
+
+    },
+    "Ready" : {
+
+    },
+    "Ready for a refresh" : {
+
+    },
     "Reorder" : {
+
+    },
+    "Room setup" : {
 
     },
     "room_type.bathroom" : {
@@ -1805,6 +1898,9 @@
         }
       }
     },
+    "Rooms" : {
+
+    },
     "rooms.custom_room_added_toast" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1856,6 +1952,15 @@
         }
       }
     },
+    "Small steps make a cleaner home." : {
+
+    },
+    "Spaces" : {
+
+    },
+    "Still to do today" : {
+
+    },
     "tab.home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1906,6 +2011,9 @@
           }
         }
       }
+    },
+    "Tap a room to open its cleaning plan." : {
+
     },
     "task.change_bed_linen" : {
       "extractionState" : "manual",
@@ -2630,6 +2738,18 @@
           }
         }
       }
+    },
+    "Today" : {
+
+    },
+    "Your home" : {
+
+    },
+    "Your rooms" : {
+
+    },
+    "Your spaces" : {
+
     }
   },
   "version" : "1.0"
