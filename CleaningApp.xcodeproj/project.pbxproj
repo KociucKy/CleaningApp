@@ -82,6 +82,10 @@
 		88588BE4303F2AAD00963B1D /* RoomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BE3303F2AAD00963B1D /* RoomCardView.swift */; };
 		88588BE6303F2CB200963B1D /* RoomsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BE5303F2CB200963B1D /* RoomsGridView.swift */; };
 		88588BE8303F322000963B1D /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 88588BE7303F322000963B1D /* InfoPlist.xcstrings */; };
+		88588BEF303F376500963B1D /* RoomsDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BED303F376500963B1D /* RoomsDetailsView.swift */; };
+		88588BF1303F376F00963B1D /* RoomsDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */; };
+		88588BF6303F386B00963B1D /* RoomsDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */; };
+		88588BF8303F389F00963B1D /* RoomsDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -257,6 +261,10 @@
 		88588BE3303F2AAD00963B1D /* RoomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardView.swift; sourceTree = "<group>"; };
 		88588BE5303F2CB200963B1D /* RoomsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsGridView.swift; sourceTree = "<group>"; };
 		88588BE7303F322000963B1D /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		88588BED303F376500963B1D /* RoomsDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsView.swift; sourceTree = "<group>"; };
+		88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsPresenter.swift; sourceTree = "<group>"; };
+		88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsRouter.swift; sourceTree = "<group>"; };
+		88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsInteractor.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -567,6 +575,33 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		88588BEE303F376500963B1D /* RoomsDetails */ = {
+			isa = PBXGroup;
+			children = (
+				88588BF4303F385B00963B1D /* RIB */,
+				88588BF2303F383500963B1D /* Presentation */,
+			);
+			path = RoomsDetails;
+			sourceTree = "<group>";
+		};
+		88588BF2303F383500963B1D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				88588BED303F376500963B1D /* RoomsDetailsView.swift */,
+				88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		88588BF4303F385B00963B1D /* RIB */ = {
+			isa = PBXGroup;
+			children = (
+				88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */,
+				88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */,
+			);
+			path = RIB;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,6 +618,7 @@
 				7301EF559F913E608B8A2817 /* DevSettings */,
 				5B6B6BF327E774FE52091B59 /* Home */,
 				803CD88694A8B12BAF94752E /* Rooms */,
+				88588BEE303F376500963B1D /* RoomsDetails */,
 				A8FEAD0162D037CF710CE7DA /* Settings */,
 				B742D65009F4DDA564FC9FBE /* TabBar */,
 			);
@@ -1159,6 +1195,7 @@
 				9EE46BCE1DFE31D05D7F5D86 /* CompletedTaskRepository.swift in Sources */,
 				E762D72DED004582CCCE2F28 /* CoreBuilder.swift in Sources */,
 				C11EC5F388F1EB129E2619AE /* CoreInteractor.swift in Sources */,
+				88588BF1303F376F00963B1D /* RoomsDetailsPresenter.swift in Sources */,
 				FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */,
 				C049F1371218279EC1E8CE83 /* CustomRoomSelection.swift in Sources */,
 				AEC997E1151E6A605BB1061B /* CustomRoomSheetInteractor.swift in Sources */,
@@ -1176,6 +1213,7 @@
 				ED1F039D90DB269B7A8E9551 /* Frequency.swift in Sources */,
 				625410DE84D0CF20F20E25B1 /* FrequencyEncoder.swift in Sources */,
 				5E303E39EEC1FBD73AB1FCA5 /* HomeInteractor.swift in Sources */,
+				88588BF8303F389F00963B1D /* RoomsDetailsInteractor.swift in Sources */,
 				238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */,
 				719A3716C8C8798E37664570 /* HomeView.swift in Sources */,
 				B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */,
@@ -1200,6 +1238,8 @@
 				FE317141715EFB0A57B22C11 /* OnbRoomSelectionPresenter.swift in Sources */,
 				84107A9C6340714D62902177 /* OnbRoomSelectionView.swift in Sources */,
 				48668AC67D4AEE75279DAB5E /* OnbTaskSelectionPresenter.swift in Sources */,
+				88588BEF303F376500963B1D /* RoomsDetailsView.swift in Sources */,
+				88588BF6303F386B00963B1D /* RoomsDetailsRouter.swift in Sources */,
 				550DC677AAFFD98CB7843423 /* OnbTaskSelectionView.swift in Sources */,
 				77C0D5902876F8474A3BC312 /* OnbWelcomePresenter.swift in Sources */,
 				64DC84D0DE1D3E689AD0071A /* OnbWelcomeView.swift in Sources */,

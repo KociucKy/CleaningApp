@@ -527,6 +527,9 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
     "home.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
