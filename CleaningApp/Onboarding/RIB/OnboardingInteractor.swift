@@ -206,3 +206,11 @@ struct OnboardingInteractor {
 		appState.updateViewState(showOnboarding: false)
 	}
 }
+
+// MARK: - CustomRoomSheetInteractor
+
+extension OnboardingInteractor: CustomRoomSheetInteractor {
+	func saveCustomRoom(name: String, icon: String) throws {
+		addCustomRoom(name: name, icon: icon)
+	}
+}

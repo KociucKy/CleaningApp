@@ -74,8 +74,8 @@ struct OnboardingBuilder: Builder {
 	}
 
 	func customRoomSheetView(router: Router) -> some View {
-		OnbCustomRoomSheetView(
-			presenter: OnbCustomRoomSheetPresenter(
+		CustomRoomSheetView(
+			presenter: CustomRoomSheetPresenter(
 				interactor: interactor,
 				router: OnboardingRouter(router: router, builder: self)
 			)
@@ -103,8 +103,8 @@ struct OnboardingBuilder: Builder {
 	}
 
 	func iconPickerView(sheetRouter: OnboardingRouter, roomName: String) -> some View {
-		OnbIconPickerView(
-			presenter: OnbIconPickerPresenter(
+		IconPickerView(
+			presenter: IconPickerPresenter(
 				interactor: interactor,
 				router: sheetRouter,
 				roomName: roomName

@@ -78,3 +78,13 @@ struct OnboardingRouter {
 		}
 	}
 }
+
+// MARK: - CustomRoomSheetRouter
+
+extension OnboardingRouter: CustomRoomSheetRouter {
+	func showIconPicker(roomName: String) {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.iconPickerView(sheetRouter: self, roomName: roomName)
+		}
+	}
+}

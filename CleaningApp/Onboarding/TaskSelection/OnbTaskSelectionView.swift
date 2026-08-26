@@ -207,12 +207,15 @@ struct OnbTaskSelectionView: View {
 	}
 
 	private var controlButtonsView: some View {
-		OnbControlButtonsView(
-			buttonLabel: "common.action.next",
-			showSkipButton: true,
-			primaryAction: presenter.onNextButtonPressed,
-			skipAction: presenter.onSkipButtonPressed
-		)
+		VStack {
+			OnbControlButtonsView(
+				buttonLabel: "common.action.next",
+				showSkipButton: true,
+				primaryAction: presenter.onNextButtonPressed,
+				skipAction: presenter.onSkipButtonPressed
+			)
+			OnbProgressView(stage: .taskSelection)
+		}
 	}
 
 	private func addCustomTaskButton(for section: RoomSection) -> some View {

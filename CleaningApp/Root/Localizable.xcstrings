@@ -2,13 +2,26 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
             "value" : "%1$lld/%2$lld"
           }
         }
@@ -21,6 +34,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld/30"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dodaj"
           }
         }
       }
@@ -178,6 +201,16 @@
         }
       }
     },
+    "Delete" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Usuń"
+          }
+        }
+      }
+    },
     "dev_settings.button.app_store_review" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -259,6 +292,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ustawienia deweloperskie"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edytuj"
           }
         }
       }
@@ -518,6 +561,16 @@
         }
       }
     },
+    "Manage your spaces" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zarządzaj swoimi pomieszczeniami"
+          }
+        }
+      }
+    },
     "Next" : {
       "localizations" : {
         "pl" : {
@@ -771,7 +824,14 @@
       }
     },
     "onb_custom_room.icon_button %@" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ikona: %@"
+          }
+        }
+      }
     },
     "onb_custom_room.icon_button_%@" : {
       "extractionState" : "manual",
@@ -1096,6 +1156,142 @@
         }
       }
     },
+    "onb_progress.accessibility.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onboarding progress"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Postęp konfiguracji"
+          }
+        }
+      }
+    },
+    "onb_progress.accessibility.value" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Step %lld of %lld, %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Krok %lld z %lld, %@"
+          }
+        }
+      }
+    },
+    "onb_progress.stage.completed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Completion"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ukończenie"
+          }
+        }
+      }
+    },
+    "onb_progress.stage.notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Powiadomienia"
+          }
+        }
+      }
+    },
+    "onb_progress.stage.paywall" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Premium"
+          }
+        }
+      }
+    },
+    "onb_progress.stage.room_selection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Room selection"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybór pomieszczeń"
+          }
+        }
+      }
+    },
+    "onb_progress.stage.task_selection" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Task selection"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybór zadań"
+          }
+        }
+      }
+    },
+    "onb_progress.stage.welcome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Witaj"
+          }
+        }
+      }
+    },
     "onb_room_selection.add_custom_room_button" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1114,7 +1310,14 @@
       }
     },
     "onb_room_selection.custom_room_label %@" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Własne pomieszczenie: %@"
+          }
+        }
+      }
     },
     "onb_room_selection.custom_room_label_%@" : {
       "extractionState" : "manual",
@@ -1650,6 +1853,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Toaleta"
+          }
+        }
+      }
+    },
+    "rooms.custom_room_added_toast" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Room created successfully"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokój został dodany"
           }
         }
       }
@@ -2464,5 +2684,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.3"
 }

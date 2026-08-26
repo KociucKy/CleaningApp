@@ -117,4 +117,25 @@ struct CoreBuilder: Builder {
 	func deviceDebugView() -> some View {
 		DeviceInfoView()
 	}
+
+	// MARK: - Custom Room Sheet (Rooms Context)
+
+	func customRoomSheetView(router: Router) -> some View {
+		CustomRoomSheetView(
+			presenter: CustomRoomSheetPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			)
+		)
+	}
+
+	func iconPickerView(sheetRouter: CoreRouter, roomName: String) -> some View {
+		IconPickerView(
+			presenter: IconPickerPresenter(
+				interactor: interactor,
+				router: sheetRouter,
+				roomName: roomName
+			)
+		)
+	}
 }

@@ -11,18 +11,23 @@ struct OnbPaywallView: View {
 				.font(.largeTitle)
 			Spacer()
 		}
+		.navigationTitle("")
+		.navigationBarTitleDisplayMode(.inline)
 		.safeAreaBar(edge: .bottom) {
-			Button {
-				presenter.onNextButtonPressed()
-			} label: {
-				Text("Next")
-					.font(FKTypography.ctaLabel)
-					.foregroundStyle(.white)
-					.frame(maxWidth: .infinity)
-					.frame(height: 50)
+			VStack {
+				Button {
+					presenter.onNextButtonPressed()
+				} label: {
+					Text("Next")
+						.font(FKTypography.ctaLabel)
+						.foregroundStyle(.white)
+						.frame(maxWidth: .infinity)
+						.frame(height: 50)
+				}
+				.buttonStyle(.glassProminent)
+				.padding([.horizontal, .top], FKSpacing.large)
+				OnbProgressView(stage: .paywall)
 			}
-			.buttonStyle(.glassProminent)
-			.padding([.horizontal, .top], FKSpacing.large)
 		}
 	}
 }
