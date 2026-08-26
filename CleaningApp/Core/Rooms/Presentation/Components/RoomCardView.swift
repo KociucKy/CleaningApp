@@ -47,4 +47,5 @@ struct RoomCardView: View {
 
 #Preview {
 	RoomCardView(room: .mock)
+		.frame(width: 200, height: 100)
 }
