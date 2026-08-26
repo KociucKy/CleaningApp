@@ -9,7 +9,7 @@ final class RoomsPresenter {
 	// MARK: - Properties
 	enum State {
 		case isLoading
-		case loaded([Room])
+		case loaded
 		case error(String)
 		case empty
 	}
@@ -17,7 +17,7 @@ final class RoomsPresenter {
 	private let interactor: any RoomsInteractor
 	private let router: any RoomsRouter
 
-	private var rooms: [Room] = []
+	private(set) var rooms: [Room] = []
 	var state: State = .isLoading
 	var toast: FKToast?
 
@@ -26,19 +26,18 @@ final class RoomsPresenter {
 	init(interactor: any RoomsInteractor, router: any RoomsRouter) {
 		self.interactor = interactor
 		self.router = router
-		self.fetchRooms()
 	}
 
 	// MARK: - Methods
 
-	func fetchRooms() {
+	private func fetchRooms() {
 		do {
 			let fetchedRooms = try interactor.fetchRooms()
 			rooms = fetchedRooms.sorted { $0.createdAt > $1.createdAt }
 			if rooms.isEmpty {
 				state = .empty
 			} else {
-				state = .loaded(rooms)
+				state = .loaded
 			}
 		} catch {
 			let errorMessage = "Failed to load rooms"
@@ -47,6 +46,13 @@ final class RoomsPresenter {
 	}
 
 	// MARK: - Actions
+
+	func onAppearFetch() {
+		guard case .isLoading = state else {
+			return
+		}
+		fetchRooms()
+	}
 
 	func onAddButtonTapped() {
 		router.presentAddCustomRoomSheet { [weak self] in

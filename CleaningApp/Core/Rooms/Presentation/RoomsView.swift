@@ -12,11 +12,6 @@ struct RoomsView: View {
 
 	@State private var presenter: RoomsPresenter
 
-	private let columns = [
-		GridItem(.flexible(), spacing: FKSpacing.medium),
-		GridItem(.flexible(), spacing: FKSpacing.medium)
-	]
-
 	// MARK: - Init
 
 	init(presenter: RoomsPresenter) {
@@ -27,15 +22,21 @@ struct RoomsView: View {
 
 	var body: some View {
 		Group {
-			if presenter.isLoading {
+			switch presenter.state {
+			case .isLoading:
 				ProgressView()
-			} else {
-				contentView
+			case .loaded:
+				RoomsGridView(rooms: presenter.rooms, cardView: roomCard(for:))
+			case .error(let errorString):
+				errorBanner(message: errorString)
+			case .empty:
+				emptyStateView
 			}
 		}
 		.navigationTitle("rooms.nav_title")
 		.navigationSubtitle("Manage your spaces")
 		.navigationBarTitleDisplayMode(.large)
+		.onAppear(perform: presenter.onAppearFetch)
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(
@@ -52,35 +53,12 @@ struct RoomsView: View {
 
 	// MARK: - Views
 
-	@ViewBuilder
-	private var contentView: some View {
-		if let errorMessage = presenter.errorMessage {
-			errorBanner(message: errorMessage)
-		} else if presenter.rooms.isEmpty {
-			emptyStateView
-		} else {
-			roomGridView
-		}
-	}
-
 	private var emptyStateView: some View {
 		FKEmptyStateView(
 			icon: "house",
 			title: "No rooms yet",
 			message: "Rooms will appear here once you create them"
 		)
-	}
-
-	@ViewBuilder
-	private var roomGridView: some View {
-		ScrollView {
-			LazyVGrid(columns: columns, spacing: FKSpacing.medium) {
-				ForEach(presenter.rooms) { room in
-					roomCard(for: room)
-				}
-			}
-			.padding(.horizontal, FKSpacing.large)
-		}
 	}
 
 
@@ -118,12 +96,6 @@ struct RoomsView: View {
 		.contextMenu {
 			Button { } label: {
 				Label("Edit", systemImage: "pencil")
-			}
-
-			Button {
-				presenter.isReordering.toggle()
-			} label: {
-				Label("Reorder", systemImage: "arrow.up.arrow.down")
 			}
 
 			Divider()
