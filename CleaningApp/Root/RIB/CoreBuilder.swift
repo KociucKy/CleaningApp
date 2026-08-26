@@ -71,13 +71,12 @@ struct CoreBuilder: Builder {
 		)
 	}
 
-	func roomsView(router: Router, disablesPreviewReordering: Bool = false) -> some View {
+	func roomsView(router: Router) -> some View {
 		RoomsView(
 			presenter: RoomsPresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self)
-			),
-			disablesPreviewReordering: disablesPreviewReordering
+			)
 		)
 	}
 
