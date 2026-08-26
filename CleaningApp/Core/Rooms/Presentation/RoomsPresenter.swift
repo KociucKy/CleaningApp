@@ -39,31 +39,6 @@ final class RoomsPresenter {
 		}
 	}
 
-	@available(iOS 27, *)
-	func onRoomsReordered(
-		_ difference: ReorderDifference<Room.ID, ReorderableSingleCollectionIdentifier>
-	) {
-		let movingIDs = difference.sources
-
-		let movingRooms = rooms.filter { movingIDs.contains($0.id) }
-		rooms.removeAll { movingIDs.contains($0.id) }
-
-		switch difference.destination.position {
-		case .before(let destinationID):
-			guard let destinationIndex = rooms.firstIndex(
-				where: { $0.id == destinationID }
-			) else {
-				rooms.append(contentsOf: movingRooms)
-				return
-			}
-
-			rooms.insert(contentsOf: movingRooms, at: destinationIndex)
-
-		case .end:
-			rooms.append(contentsOf: movingRooms)
-		}
-	}
-
 	// MARK: - Actions
 
 	func onAddButtonTapped() {
