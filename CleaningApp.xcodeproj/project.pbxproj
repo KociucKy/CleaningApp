@@ -81,6 +81,7 @@
 		86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */; };
 		88588BE4303F2AAD00963B1D /* RoomCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BE3303F2AAD00963B1D /* RoomCardView.swift */; };
 		88588BE6303F2CB200963B1D /* RoomsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BE5303F2CB200963B1D /* RoomsGridView.swift */; };
+		88588BE8303F322000963B1D /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 88588BE7303F322000963B1D /* InfoPlist.xcstrings */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -255,6 +256,7 @@
 		8834079B5E957AD219BD9406 /* OnboardingInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractorTests.swift; sourceTree = "<group>"; };
 		88588BE3303F2AAD00963B1D /* RoomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardView.swift; sourceTree = "<group>"; };
 		88588BE5303F2CB200963B1D /* RoomsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsGridView.swift; sourceTree = "<group>"; };
+		88588BE7303F322000963B1D /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -792,6 +794,7 @@
 				59DAE0D40E06A812553C5159 /* Dependencies.swift */,
 				6F9E29C111325DB3C5415DE8 /* DependencyContainer.swift */,
 				2B24DB25513A066A7DB241C3 /* Localizable.xcstrings */,
+				88588BE7303F322000963B1D /* InfoPlist.xcstrings */,
 				A457688452077C69D253D2D9 /* OnboardingState.swift */,
 				DCFAF6700F88C26F24746153 /* RIB */,
 			);
@@ -1035,6 +1038,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C10BD2E8BEE3402236EE439 /* Assets.xcassets in Resources */,
+				88588BE8303F322000963B1D /* InfoPlist.xcstrings in Resources */,
 				B9BF82809AC51778770B42BC /* Localizable.xcstrings in Resources */,
 				888603AE70EBDD07281C290C /* center.svg in Resources */,
 				3EDA143202940CC82806C915 /* icon.json in Resources */,

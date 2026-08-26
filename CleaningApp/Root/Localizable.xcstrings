@@ -2,22 +2,26 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
-    },
-    "%lld" : {
-
-    },
-    "%lld rooms" : {
-
-    },
-    "%lld spaces set up" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : ""
+          }
+        }
+      }
     },
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
             "value" : "%1$lld/%2$lld"
           }
         }
@@ -34,35 +38,15 @@
         }
       }
     },
-    "2 tasks left" : {
-
-    },
-    "2 tasks today" : {
-
-    },
-    "3 rooms" : {
-
-    },
-    "12 min of cleaning can make a visible difference." : {
-
-    },
-    "40%" : {
-
-    },
-    "A quick visual map of your home." : {
-
-    },
     "Add" : {
-
-    },
-    "Add room" : {
-
-    },
-    "All clear" : {
-
-    },
-    "All rooms" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dodaj"
+          }
+        }
+      }
     },
     "app_name" : {
       "extractionState" : "manual",
@@ -80,12 +64,6 @@
           }
         }
       }
-    },
-    "Choose a room to open it, or edit its details." : {
-
-    },
-    "Choose a room to see what needs your attention today." : {
-
     },
     "common.action.add" : {
       "extractionState" : "manual",
@@ -223,14 +201,15 @@
         }
       }
     },
-    "Create a new room" : {
-
-    },
-    "Dashboard" : {
-
-    },
     "Delete" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Usuń"
+          }
+        }
+      }
     },
     "dev_settings.button.app_store_review" : {
       "extractionState" : "manual",
@@ -318,16 +297,14 @@
       }
     },
     "Edit" : {
-
-    },
-    "Edit %@" : {
-
-    },
-    "Every space, under control." : {
-
-    },
-    "Filter" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edytuj"
+          }
+        }
+      }
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -550,9 +527,6 @@
         }
       }
     },
-    "Good morning" : {
-
-    },
     "home.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -587,14 +561,15 @@
         }
       }
     },
-    "Keep your home moving forward." : {
-
-    },
-    "Keep your most-used room looking its best." : {
-
-    },
     "Manage your spaces" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zarządzaj swoimi pomieszczeniami"
+          }
+        }
+      }
     },
     "Next" : {
       "localizations" : {
@@ -605,12 +580,6 @@
           }
         }
       }
-    },
-    "Next cleaning · Today" : {
-
-    },
-    "Next up" : {
-
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -855,7 +824,14 @@
       }
     },
     "onb_custom_room.icon_button %@" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ikona: %@"
+          }
+        }
+      }
     },
     "onb_custom_room.icon_button_%@" : {
       "extractionState" : "manual",
@@ -1334,7 +1310,14 @@
       }
     },
     "onb_room_selection.custom_room_label %@" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Własne pomieszczenie: %@"
+          }
+        }
+      }
     },
     "onb_room_selection.custom_room_label_%@" : {
       "extractionState" : "manual",
@@ -1677,15 +1660,6 @@
         }
       }
     },
-    "One room at a time." : {
-
-    },
-    "Open cleaning plan" : {
-
-    },
-    "Open room details" : {
-
-    },
     "Paywall" : {
       "localizations" : {
         "pl" : {
@@ -1695,21 +1669,6 @@
           }
         }
       }
-    },
-    "Pick up where you left off" : {
-
-    },
-    "Ready" : {
-
-    },
-    "Ready for a refresh" : {
-
-    },
-    "Reorder" : {
-
-    },
-    "Room setup" : {
-
     },
     "room_type.bathroom" : {
       "extractionState" : "manual",
@@ -1898,9 +1857,6 @@
         }
       }
     },
-    "Rooms" : {
-
-    },
     "rooms.custom_room_added_toast" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1952,15 +1908,6 @@
         }
       }
     },
-    "Small steps make a cleaner home." : {
-
-    },
-    "Spaces" : {
-
-    },
-    "Still to do today" : {
-
-    },
     "tab.home" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2011,9 +1958,6 @@
           }
         }
       }
-    },
-    "Tap a room to open its cleaning plan." : {
-
     },
     "task.change_bed_linen" : {
       "extractionState" : "manual",
@@ -2738,19 +2682,7 @@
           }
         }
       }
-    },
-    "Today" : {
-
-    },
-    "Your home" : {
-
-    },
-    "Your rooms" : {
-
-    },
-    "Your spaces" : {
-
     }
   },
-  "version" : "1.0"
+  "version" : "1.3"
 }
