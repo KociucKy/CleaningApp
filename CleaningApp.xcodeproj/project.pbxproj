@@ -86,7 +86,6 @@
 		88588BF1303F376F00963B1D /* RoomsDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */; };
 		88588BF6303F386B00963B1D /* RoomsDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */; };
 		88588BF8303F389F00963B1D /* RoomsDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */; };
-		88588FAA303F3D5800963B1D /* RoomsDetailsPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FA9303F3D5800963B1D /* RoomsDetailsPreviews.swift */; };
 		88588FAE304048CE00963B1D /* RoomsDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FAD304048CE00963B1D /* RoomsDetailsHeaderView.swift */; };
 		88588FB030404D6D00963B1D /* RoomsDetailsMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FAF30404D6D00963B1D /* RoomsDetailsMetricsView.swift */; };
 		88588FB230404E9900963B1D /* RoomsDetailsTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB130404E9900963B1D /* RoomsDetailsTaskListView.swift */; };
@@ -272,7 +271,6 @@
 		88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsPresenter.swift; sourceTree = "<group>"; };
 		88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsRouter.swift; sourceTree = "<group>"; };
 		88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsInteractor.swift; sourceTree = "<group>"; };
-		88588FA9303F3D5800963B1D /* RoomsDetailsPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsPreviews.swift; sourceTree = "<group>"; };
 		88588FAD304048CE00963B1D /* RoomsDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsHeaderView.swift; sourceTree = "<group>"; };
 		88588FAF30404D6D00963B1D /* RoomsDetailsMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsMetricsView.swift; sourceTree = "<group>"; };
 		88588FB130404E9900963B1D /* RoomsDetailsTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskListView.swift; sourceTree = "<group>"; };
@@ -604,7 +602,6 @@
 			children = (
 				88588BED303F376500963B1D /* RoomsDetailsView.swift */,
 				88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */,
-				88588FA9303F3D5800963B1D /* RoomsDetailsPreviews.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1291,7 +1288,6 @@
 				036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */,
 				E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */,
 				E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */,
-				88588FAA303F3D5800963B1D /* RoomsDetailsPreviews.swift in Sources */,
 				0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */,
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,
 				E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */,
