@@ -19,13 +19,11 @@ struct RoomsDetailsView: View {
 			.frame(maxWidth: .infinity, alignment: .center)
 			
 			Section {
-				HStack {
-					metricView(systemImage: "checklist", value: "\(presenter.totalTasksCount)", label: "tasks")
-					Divider()
-					metricView(systemImage: "clock", value: "\(presenter.totalDuration) min", label: "estimated")
-					Divider()
-					metricView(systemImage: "checkmark.circle", value: "\(presenter.completedTaskCount)", label: "completed")
-				}
+				RoomsDetailsMetricsView(
+					taskCount: presenter.totalTasksCount,
+					totalDuration: presenter.totalDuration,
+					completedTaskCount: presenter.completedTaskCount
+				)
 			}
 			ForEach(presenter.frequencies, id: \.self) { frequency in
 				if let tasks = presenter.tasksByFrequency[frequency], !tasks.isEmpty {
@@ -61,21 +59,6 @@ struct RoomsDetailsView: View {
 			}
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)
-	}
-
-	private func metricView(systemImage: String, value: String, label: String) -> some View {
-		VStack(spacing: 6) {
-			HStack {
-				Image(systemName: systemImage)
-					.foregroundStyle(.tint)
-				Text(value)
-					.font(.headline)
-			}
-			Text(label)
-				.font(.caption)
-				.foregroundStyle(.secondary)
-		}
-		.frame(maxWidth: .infinity)
 	}
 }
 
