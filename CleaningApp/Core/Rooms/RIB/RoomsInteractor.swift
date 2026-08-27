@@ -4,11 +4,8 @@ import Foundation
 
 @MainActor
 protocol RoomsInteractor {
-	func fetchRooms() throws -> [Room]
+	func fetchAllRooms() throws -> [Room]
+	func deleteRoom(_ item: Room) throws
 }
 
-extension CoreInteractor: RoomsInteractor {
-	func fetchRooms() throws -> [Room] {
-		try fetchAllRooms()
-	}
-}
+extension CoreInteractor: RoomsInteractor {}
