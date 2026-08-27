@@ -8,8 +8,6 @@ struct RoomsDetailsView: View {
 
 	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: RoomsDetailsPresenter
-	@State private var isEntranceAnimationVisible = false
-	private let entranceAnimationConfiguration = RoomsAnimationConfiguration()
 	let room: Room
 
 	// MARK: - Body
@@ -21,12 +19,12 @@ struct RoomsDetailsView: View {
 				roomName: room.name
 			)
 			.frame(maxWidth: .infinity, alignment: .center)
-			.opacity(isEntranceAnimationVisible ? 1 : 0)
-			.offset(y: isEntranceAnimationVisible ? 0 : entranceAnimationConfiguration.offset)
-			.scaleEffect(isEntranceAnimationVisible ? 1 : entranceAnimationConfiguration.scale)
+			.opacity(presenter.animate ? 1 : 0)
+			.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+			.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
 			.animation(
-				entranceAnimationConfiguration.animation.delay(entranceAnimationConfiguration.delay(for: 0)),
-				value: isEntranceAnimationVisible
+				presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 0)),
+				value: presenter.animate
 			)
 
 			Section {
@@ -35,12 +33,12 @@ struct RoomsDetailsView: View {
 					totalDuration: presenter.totalDuration,
 					completedTaskCount: presenter.completedTaskCount
 				)
-				.opacity(isEntranceAnimationVisible ? 1 : 0)
-				.offset(y: isEntranceAnimationVisible ? 0 : entranceAnimationConfiguration.offset)
-				.scaleEffect(isEntranceAnimationVisible ? 1 : entranceAnimationConfiguration.scale)
+				.opacity(presenter.animate ? 1 : 0)
+				.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+				.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
 				.animation(
-					entranceAnimationConfiguration.animation.delay(entranceAnimationConfiguration.delay(for: 1)),
-					value: isEntranceAnimationVisible
+					presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 1)),
+					value: presenter.animate
 				)
 			}
 
@@ -58,14 +56,14 @@ struct RoomsDetailsView: View {
 							presenter.onDeleteTaskButtonTapped(task, roomId: room.id)
 						}
 					)
-					.opacity(isEntranceAnimationVisible ? 1 : 0)
-					.offset(y: isEntranceAnimationVisible ? 0 : entranceAnimationConfiguration.offset)
-					.scaleEffect(isEntranceAnimationVisible ? 1 : entranceAnimationConfiguration.scale)
+					.opacity(presenter.animate ? 1 : 0)
+					.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+					.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
 					.animation(
-						entranceAnimationConfiguration.animation.delay(
-							entranceAnimationConfiguration.delay(for: index + 2)
+						presenter.animationConfig.animation.delay(
+							presenter.animationConfig.delay(for: index + 2)
 						),
-						value: isEntranceAnimationVisible
+						value: presenter.animate
 					)
 				}
 			}
@@ -73,7 +71,7 @@ struct RoomsDetailsView: View {
 		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
 			presenter.onAppear(room: room)
-			restartEntranceAnimation()
+			presenter.restartEntranceAnimation()
 		}
 		.toolbar {
 			ToolbarItem(placement: .topBarTrailing) {
@@ -81,22 +79,6 @@ struct RoomsDetailsView: View {
 			}
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)
-	}
-
-	// MARK: - Animation
-
-	private func restartEntranceAnimation() {
-		var transaction = Transaction()
-		transaction.animation = nil
-		withTransaction(transaction) {
-			isEntranceAnimationVisible = false
-		}
-
-		DispatchQueue.main.async {
-			withAnimation(.easeOut(duration: entranceAnimationConfiguration.duration)) {
-				isEntranceAnimationVisible = true
-			}
-		}
 	}
 }
 
