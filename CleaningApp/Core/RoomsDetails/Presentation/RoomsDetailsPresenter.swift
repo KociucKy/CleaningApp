@@ -45,7 +45,7 @@ final class RoomsDetailsPresenter {
         }
 
         do {
-            tasks = try interactor.fetchRoomTasks(for: room.id).sorted { $0.name < $1.name }
+            tasks = try interactor.fetchAllRoomTasks(for: room.id).sorted { $0.name < $1.name }
             var seenFrequencies = Set<Frequency>()
             frequencies = tasks.compactMap { task in
                 seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
@@ -53,7 +53,7 @@ final class RoomsDetailsPresenter {
             tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
             completedTaskIDs = try Set(
                 tasks.flatMap { task in
-                    try interactor.fetchCompletedTasks(for: task.id)
+                    try interactor.fetchAllCompletedTasks(for: task.id)
                 }.map(\.taskId)
             )
         } catch {
@@ -66,7 +66,7 @@ final class RoomsDetailsPresenter {
     func onTaskCompletionTapped(_ task: RoomTask) {
         do {
             if completedTaskIDs.contains(task.id) {
-                let completedTasks = try interactor.fetchCompletedTasks(for: task.id)
+                let completedTasks = try interactor.fetchAllCompletedTasks(for: task.id)
                 for completedTask in completedTasks {
                     try interactor.deleteCompletedTask(completedTask)
                 }
