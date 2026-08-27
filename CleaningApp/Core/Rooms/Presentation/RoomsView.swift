@@ -2,10 +2,20 @@ import FulhamKit
 import NavigationKit
 import SwiftUI
 
+// MARK: - RoomsView
+
 struct RoomsView: View {
 	// MARK: - Properties
 
+	@Environment(\.tabBarSelection) private var tabBarSelection
 	@State private var presenter: RoomsPresenter
+	#if DEV || MOCK
+	@State private var isShowingAnimationControls = false
+	#endif
+
+	private var roomsTabIsActive: Bool {
+		tabBarSelection == nil || tabBarSelection == String(localized: "tab.rooms")
+	}
 
 	// MARK: - Init
 
@@ -21,7 +31,13 @@ struct RoomsView: View {
 			case .isLoading:
 				ProgressView()
 			case .loaded:
-				RoomsGridView(rooms: presenter.rooms, cardView: roomCard(for:))
+				RoomsGridView(
+					rooms: presenter.rooms,
+					animationConfiguration: presenter.animationConfiguration,
+					isActive: roomsTabIsActive,
+					cardView: roomCard(for:)
+				)
+				.id(roomsTabIsActive)
 			case .error(let errorString):
 				errorBanner(message: errorString)
 			case .empty:
@@ -41,9 +57,31 @@ struct RoomsView: View {
 					action: presenter.onAddButtonTapped
 				)
 			}
+			#if DEV || MOCK
+			ToolbarItem(placement: .primaryAction) {
+				Button("Animation controls", systemImage: "slider.horizontal.3") {
+					isShowingAnimationControls.toggle()
+				}
+				.accessibilityLabel(
+					isShowingAnimationControls ? "Hide animation controls" : "Show animation controls"
+				)
+			}
+			#endif
 		}
 		.toast($presenter.toast)
 		.background(FKColor.Background.primary)
+		.scrollEdgeEffectStyle(.soft, for: .all)
+		#if DEV || MOCK
+			.overlay(alignment: .bottomTrailing) {
+				if isShowingAnimationControls {
+					RoomsAnimationControlsView(configuration: $presenter.animationConfiguration) {
+						presenter.increaseAnimationConfigurationRunID()
+					}
+					.transition(.move(edge: .bottom).combined(with: .opacity))
+				}
+			}
+			.animation(.easeOut(duration: 0.2), value: isShowingAnimationControls)
+		#endif
 	}
 
 	// MARK: - Views
@@ -51,20 +89,19 @@ struct RoomsView: View {
 	private func roomCard(for room: Room) -> some View {
 		Button {
 			FKHaptics.selection()
-			// TODO: Navigate to room detail
-			print("Navigated to \\(room.name)")
+			presenter.onRoomCardTapped(room: room)
 		} label: {
 			RoomCardView(room: room)
 		}
 		.buttonStyle(.fkFade)
 		.contextMenu {
-			Button { } label: {
+			Button {} label: {
 				Label("Edit", systemImage: "pencil")
 			}
 
 			Divider()
 
-			Button(role: .destructive) { } label: {
+			Button(role: .destructive) {} label: {
 				Label("Delete", systemImage: "trash")
 			}
 		}

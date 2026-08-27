@@ -20,6 +20,7 @@ final class RoomsPresenter {
 	private(set) var rooms: [Room] = []
 	var state: State = .isLoading
 	var toast: FKToast?
+	var animationConfiguration = RoomsAnimationConfiguration()
 
 	// MARK: - Init
 
@@ -45,6 +46,10 @@ final class RoomsPresenter {
 		}
 	}
 
+	func increaseAnimationConfigurationRunID() {
+		animationConfiguration.runID += 1
+	}
+
 	// MARK: - Actions
 
 	func onAppearFetch() {
@@ -52,6 +57,10 @@ final class RoomsPresenter {
 			return
 		}
 		fetchRooms()
+	}
+
+	func onRoomCardTapped(room: Room) {
+		router.presentRoomsDetailsView(room: room)
 	}
 
 	func onAddButtonTapped() {

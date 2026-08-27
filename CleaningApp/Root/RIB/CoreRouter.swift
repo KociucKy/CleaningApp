@@ -66,9 +66,18 @@ struct CoreRouter {
 
 	// MARK: - Rooms
 
-	func presentAddCustomRoomView() {
-		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?) {
+		router.showScreen(
+			.sheetWithDetents([.medium]),
+			onDismiss: onDismiss
+		) { router in
+			builder.customRoomSheetView(router: router)
+		}
+	}
 
+	func presentRoomsDetailsView(room: Room) {
+		router.showScreen(.push, onDismiss: nil) { router in
+			builder.roomsDetailsView(router: router, room: room)
 		}
 	}
 }

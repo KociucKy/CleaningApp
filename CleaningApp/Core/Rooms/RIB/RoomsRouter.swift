@@ -6,16 +6,8 @@ import NavigationKit
 @MainActor
 protocol RoomsRouter {
 	func dismissScreen()
+	func presentRoomsDetailsView(room: Room)
 	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?)
 }
 
-extension CoreRouter: RoomsRouter {
-	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?) {
-		router.showScreen(
-			.sheetWithDetents([.medium]),
-			onDismiss: onDismiss
-		) { router in
-			builder.customRoomSheetView(router: router)
-		}
-	}
-}
+extension CoreRouter: RoomsRouter {}

@@ -1,5 +1,4 @@
 import Foundation
-import NavigationKit
 
 // MARK: - RoomsInteractor
 

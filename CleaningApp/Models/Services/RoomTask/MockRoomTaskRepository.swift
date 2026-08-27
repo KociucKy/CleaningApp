@@ -13,7 +13,7 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 	}
 
 	func fetchAll(for roomId: UUID) throws -> [RoomTaskEntity] {
-		items.filter { $0.room?.id == roomId }
+		items
 	}
 
 	func save(_ item: RoomTaskEntity) throws {
