@@ -11,6 +11,32 @@
         }
       }
     },
+    "%lld min" : {
+
+    },
+    "%lld min · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld min · %2$@"
+          }
+        }
+      }
+    },
+    "%lld minutes" : {
+
+    },
+    "%lld minutes · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld minutes · %2$@"
+          }
+        }
+      }
+    },
     "%lld/%lld" : {
       "localizations" : {
         "en" : {
@@ -38,6 +64,18 @@
         }
       }
     },
+    "2 of 3 done" : {
+
+    },
+    "3 recurring tasks" : {
+
+    },
+    "A little attention will help" : {
+
+    },
+    "A simple rhythm keeps this room feeling fresh." : {
+
+    },
     "Add" : {
       "localizations" : {
         "pl" : {
@@ -47,6 +85,9 @@
           }
         }
       }
+    },
+    "All tasks" : {
+
     },
     "app_name" : {
       "extractionState" : "manual",
@@ -64,6 +105,15 @@
           }
         }
       }
+    },
+    "By frequency" : {
+
+    },
+    "Choose one task for now." : {
+
+    },
+    "Cleaning cards" : {
+
     },
     "common.action.add" : {
       "extractionState" : "manual",
@@ -201,6 +251,27 @@
         }
       }
     },
+    "complete" : {
+
+    },
+    "Completed" : {
+
+    },
+    "Created" : {
+
+    },
+    "Created %@" : {
+
+    },
+    "Current status" : {
+
+    },
+    "Daily" : {
+
+    },
+    "Dashboard" : {
+
+    },
     "Delete" : {
       "localizations" : {
         "pl" : {
@@ -305,6 +376,15 @@
           }
         }
       }
+    },
+    "Estimated time" : {
+
+    },
+    "Finish a task whenever you have a few minutes." : {
+
+    },
+    "Focus" : {
+
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -527,9 +607,6 @@
         }
       }
     },
-    "Hello, World!" : {
-
-    },
     "home.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -564,6 +641,15 @@
         }
       }
     },
+    "Living Room" : {
+
+    },
+    "Looking great" : {
+
+    },
+    "Make %@ feel better" : {
+
+    },
     "Manage your spaces" : {
       "localizations" : {
         "pl" : {
@@ -574,6 +660,9 @@
         }
       }
     },
+    "Mark complete" : {
+
+    },
     "Next" : {
       "localizations" : {
         "pl" : {
@@ -583,6 +672,9 @@
           }
         }
       }
+    },
+    "Not completed" : {
+
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -1673,6 +1765,30 @@
         }
       }
     },
+    "Pick one task to start. You can come back to the rest later." : {
+
+    },
+    "Progress" : {
+
+    },
+    "Quick start" : {
+
+    },
+    "Recommended actions" : {
+
+    },
+    "Room details" : {
+
+    },
+    "Room facts" : {
+
+    },
+    "Room information" : {
+
+    },
+    "Room report" : {
+
+    },
     "room_type.bathroom" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1894,6 +2010,15 @@
         }
       }
     },
+    "Routine" : {
+
+    },
+    "Routine timeline" : {
+
+    },
+    "See what needs attention and how often." : {
+
+    },
     "settings.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1910,6 +2035,9 @@
           }
         }
       }
+    },
+    "Start with the quickest task" : {
+
     },
     "tab.home" : {
       "extractionState" : "manual",
@@ -2676,6 +2804,9 @@
         }
       }
     },
+    "Tasks" : {
+
+    },
     "Tasks: %lld" : {
       "localizations" : {
         "pl" : {
@@ -2685,6 +2816,15 @@
           }
         }
       }
+    },
+    "Type" : {
+
+    },
+    "Weekly" : {
+
+    },
+    "Your cleaning plan for this room" : {
+
     }
   },
   "version" : "1.3"
