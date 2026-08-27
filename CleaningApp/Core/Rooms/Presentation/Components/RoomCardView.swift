@@ -25,6 +25,7 @@ struct RoomCardView: View {
 					} label: {
 						Image(systemName: "ellipsis")
 							.foregroundStyle(.secondary)
+							.contentShape(.rect)
 					}
 				}
 
