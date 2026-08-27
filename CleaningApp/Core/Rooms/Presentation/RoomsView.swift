@@ -9,6 +9,7 @@ struct RoomsView: View {
 
 	@Environment(\.tabBarSelection) private var tabBarSelection
 	@State private var presenter: RoomsPresenter
+		@State private var roomsGridID = UUID()
 	#if DEV || MOCK
 	@State private var isShowingAnimationControls = false
 	#endif
@@ -37,7 +38,7 @@ struct RoomsView: View {
 					isActive: roomsTabIsActive,
 					cardView: roomCard(for:)
 				)
-				.id(roomsTabIsActive)
+				.id(roomsGridID)
 			case .error(let errorString):
 				errorBanner(message: errorString)
 			case .empty:
@@ -48,6 +49,9 @@ struct RoomsView: View {
 		.navigationSubtitle("Manage your spaces")
 		.navigationBarTitleDisplayMode(.large)
 		.onAppear(perform: presenter.onAppearFetch)
+			.onDisappear {
+				roomsGridID = UUID()
+			}
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(
