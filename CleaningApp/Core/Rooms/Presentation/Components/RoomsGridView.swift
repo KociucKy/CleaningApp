@@ -79,6 +79,6 @@ struct RoomsGridView<Content: View>: View {
 
 #Preview {
 	RoomsGridView(rooms: Room.mocks, animationConfiguration: RoomsAnimationConfiguration(), isActive: true) { room in
-		RoomCardView(room: room)
+		RoomCardView(room: room) {}
 	}
 }

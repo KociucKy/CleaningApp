@@ -91,7 +91,12 @@ struct RoomsView: View {
 			FKHaptics.selection()
 			presenter.onRoomCardTapped(room: room)
 		} label: {
-			RoomCardView(room: room)
+			RoomCardView(
+				room: room,
+				deleteAction: {
+					presenter.deleteRoom(room: room)
+				}
+			)
 		}
 		.buttonStyle(.fkFade)
 		.contextMenu {
