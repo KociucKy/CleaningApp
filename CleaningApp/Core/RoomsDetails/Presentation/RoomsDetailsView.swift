@@ -1,6 +1,8 @@
 import FulhamKit
 import SwiftUI
 
+// MARK: - RoomsDetailsView
+
 struct RoomsDetailsView: View {
 	// MARK: - Properties
 
@@ -17,15 +19,30 @@ struct RoomsDetailsView: View {
 				roomName: room.name
 			)
 			.frame(maxWidth: .infinity, alignment: .center)
-			
+			.opacity(presenter.animate ? 1 : 0)
+			.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+			.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+			.animation(
+				presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 0)),
+				value: presenter.animate
+			)
+
 			Section {
 				RoomsDetailsMetricsView(
 					taskCount: presenter.totalTasksCount,
 					totalDuration: presenter.totalDuration,
 					completedTaskCount: presenter.completedTaskCount
 				)
+				.opacity(presenter.animate ? 1 : 0)
+				.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+				.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+				.animation(
+					presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 1)),
+					value: presenter.animate
+				)
 			}
-			ForEach(presenter.frequencies, id: \.self) { frequency in
+
+			ForEach(Array(presenter.frequencies.enumerated()), id: \.element) { index, frequency in
 				if let tasks = presenter.tasksByFrequency[frequency], !tasks.isEmpty {
 					RoomsDetailsTaskListView(
 						frequencyTitle: frequency.displayName,
@@ -39,12 +56,22 @@ struct RoomsDetailsView: View {
 							presenter.onDeleteTaskButtonTapped(task, roomId: room.id)
 						}
 					)
+					.opacity(presenter.animate ? 1 : 0)
+					.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+					.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+					.animation(
+						presenter.animationConfig.animation.delay(
+							presenter.animationConfig.delay(for: index + 2)
+						),
+						value: presenter.animate
+					)
 				}
 			}
 		}
 		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
 			presenter.onAppear(room: room)
+			presenter.restartEntranceAnimation()
 		}
 		.toolbar {
 			ToolbarItem(placement: .topBarTrailing) {

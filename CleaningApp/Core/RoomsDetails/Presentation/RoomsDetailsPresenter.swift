@@ -14,6 +14,8 @@ final class RoomsDetailsPresenter {
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var isLoading = true
 	private(set) var errorMessage: String?
+	private(set) var animate = false
+	let animationConfig = RoomsAnimationConfiguration()
 
 	var completedTaskCount: Int {
 		tasks.filter { completedTaskIDs.contains($0.id) }.count
@@ -71,6 +73,21 @@ final class RoomsDetailsPresenter {
 			}
 		} catch {
 			errorMessage = "Unable to delete this task."
+		}
+	}
+
+	func restartEntranceAnimation() {
+		var transaction = Transaction()
+		transaction.animation = nil
+		withTransaction(transaction) {
+			animate = false
+		}
+
+		DispatchQueue.main.async { [weak self] in
+			guard let self else { return }
+			withAnimation(.easeOut(duration: self.animationConfig.duration)) {
+				self.animate = true
+			}
 		}
 	}
 
