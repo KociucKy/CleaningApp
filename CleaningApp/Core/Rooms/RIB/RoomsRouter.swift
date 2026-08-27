@@ -6,7 +6,7 @@ import NavigationKit
 @MainActor
 protocol RoomsRouter {
 	func dismissScreen()
-	func presentRoomsDetailsView()
+	func presentRoomsDetailsView(room: Room)
 	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?)
 }
 

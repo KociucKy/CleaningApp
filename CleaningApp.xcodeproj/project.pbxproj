@@ -86,6 +86,8 @@
 		88588BF1303F376F00963B1D /* RoomsDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */; };
 		88588BF6303F386B00963B1D /* RoomsDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */; };
 		88588BF8303F389F00963B1D /* RoomsDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */; };
+		88588FAA303F3D5800963B1D /* RoomsDetailsPreviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FA9303F3D5800963B1D /* RoomsDetailsPreviews.swift */; };
+		88588FAE304048CE00963B1D /* RoomsDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FAD304048CE00963B1D /* RoomsDetailsHeaderView.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -265,6 +267,8 @@
 		88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsPresenter.swift; sourceTree = "<group>"; };
 		88588BF5303F386B00963B1D /* RoomsDetailsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsRouter.swift; sourceTree = "<group>"; };
 		88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsInteractor.swift; sourceTree = "<group>"; };
+		88588FA9303F3D5800963B1D /* RoomsDetailsPreviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsPreviews.swift; sourceTree = "<group>"; };
+		88588FAD304048CE00963B1D /* RoomsDetailsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsHeaderView.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -578,6 +582,7 @@
 		88588BEE303F376500963B1D /* RoomsDetails */ = {
 			isa = PBXGroup;
 			children = (
+				88588FAC304048CD00963B1D /* Components */,
 				88588BF4303F385B00963B1D /* RIB */,
 				88588BF2303F383500963B1D /* Presentation */,
 			);
@@ -589,6 +594,7 @@
 			children = (
 				88588BED303F376500963B1D /* RoomsDetailsView.swift */,
 				88588BF0303F376F00963B1D /* RoomsDetailsPresenter.swift */,
+				88588FA9303F3D5800963B1D /* RoomsDetailsPreviews.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -600,6 +606,14 @@
 				88588BF7303F389F00963B1D /* RoomsDetailsInteractor.swift */,
 			);
 			path = RIB;
+			sourceTree = "<group>";
+		};
+		88588FAC304048CD00963B1D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				88588FAD304048CE00963B1D /* RoomsDetailsHeaderView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
@@ -1259,6 +1273,7 @@
 				036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */,
 				E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */,
 				E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */,
+				88588FAA303F3D5800963B1D /* RoomsDetailsPreviews.swift in Sources */,
 				0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */,
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,
 				E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */,
@@ -1283,6 +1298,7 @@
 				86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */,
 				D51191FEAE209E4EE95EF76E /* TabBarView.swift in Sources */,
 				AFD89361F952EA57A94F3D38 /* TaskDuration.swift in Sources */,
+				88588FAE304048CE00963B1D /* RoomsDetailsHeaderView.swift in Sources */,
 				88588BE4303F2AAD00963B1D /* RoomCardView.swift in Sources */,
 				DC02F98566436257122AF3F5 /* UserDefaultsKeys.swift in Sources */,
 			);

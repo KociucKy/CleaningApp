@@ -54,6 +54,10 @@ final class RoomsPresenter {
 		fetchRooms()
 	}
 
+	func onRoomCardTapped(room: Room) {
+		router.presentRoomsDetailsView(room: room)
+	}
+
 	func onAddButtonTapped() {
 		router.presentAddCustomRoomSheet { [weak self] in
 			self?.onCustomRoomSheetDismissed()
