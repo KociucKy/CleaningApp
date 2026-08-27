@@ -33,6 +33,10 @@ struct RoomsDetailsView: View {
 						onCompleteTaskButtonTapped: { task in
 							FKHaptics.notification(.success)
 							presenter.onTaskCompletionTapped(task)
+						},
+						onDeleteTaskButtonTapped: { task in
+							FKHaptics.notification(.warning)
+							presenter.onDeleteTaskButtonTapped(task, roomId: room.id)
 						}
 					)
 				}
