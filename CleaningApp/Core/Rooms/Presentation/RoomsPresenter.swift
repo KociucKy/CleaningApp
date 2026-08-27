@@ -20,6 +20,7 @@ final class RoomsPresenter {
 	private(set) var rooms: [Room] = []
 	var state: State = .isLoading
 	var toast: FKToast?
+	var animationConfiguration = RoomsAnimationConfiguration()
 
 	// MARK: - Init
 
@@ -43,6 +44,10 @@ final class RoomsPresenter {
 			let errorMessage = "Failed to load rooms"
 			state = .error(errorMessage)
 		}
+	}
+
+	func increaseAnimationConfigurationRunID() {
+		animationConfiguration.runID += 1
 	}
 
 	// MARK: - Actions

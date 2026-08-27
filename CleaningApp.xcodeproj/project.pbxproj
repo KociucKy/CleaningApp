@@ -91,6 +91,8 @@
 		88588FB030404D6D00963B1D /* RoomsDetailsMetricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FAF30404D6D00963B1D /* RoomsDetailsMetricsView.swift */; };
 		88588FB230404E9900963B1D /* RoomsDetailsTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB130404E9900963B1D /* RoomsDetailsTaskListView.swift */; };
 		88588FB430404EE700963B1D /* RoomsDetailsTaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB330404EE700963B1D /* RoomsDetailsTaskListRowView.swift */; };
+		88588FB63040522A00963B1D /* RoomsAnimationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB53040522A00963B1D /* RoomsAnimationConfiguration.swift */; };
+		88588FB83040522A00963B1D /* RoomsAnimationControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB73040522A00963B1D /* RoomsAnimationControlsView.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -275,6 +277,8 @@
 		88588FAF30404D6D00963B1D /* RoomsDetailsMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsMetricsView.swift; sourceTree = "<group>"; };
 		88588FB130404E9900963B1D /* RoomsDetailsTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskListView.swift; sourceTree = "<group>"; };
 		88588FB330404EE700963B1D /* RoomsDetailsTaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskListRowView.swift; sourceTree = "<group>"; };
+		88588FB53040522A00963B1D /* RoomsAnimationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsAnimationConfiguration.swift; sourceTree = "<group>"; };
+		88588FB73040522A00963B1D /* RoomsAnimationControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsAnimationControlsView.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -631,6 +635,8 @@
 				88588BE2303F2A8000963B1D /* Components */,
 				3F0AC0E23A9B8115A456660C /* RoomsPresenter.swift */,
 				8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */,
+				88588FB53040522A00963B1D /* RoomsAnimationConfiguration.swift */,
+				88588FB73040522A00963B1D /* RoomsAnimationControlsView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1230,6 +1236,7 @@
 				CD320F607FB8182C06FEC140 /* DependencyContainer.swift in Sources */,
 				A742C422242C715055B8F275 /* DevSettingsInteractor.swift in Sources */,
 				25491FD14B4A6F667DBBEC16 /* DevSettingsPresenter.swift in Sources */,
+				88588FB63040522A00963B1D /* RoomsAnimationConfiguration.swift in Sources */,
 				88588BE6303F2CB200963B1D /* RoomsGridView.swift in Sources */,
 				28387D997FACADC98053400E /* DevSettingsRouter.swift in Sources */,
 				A2A0A6A69495913820377A5F /* DevSettingsView.swift in Sources */,
@@ -1289,6 +1296,7 @@
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,
 				E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */,
 				ADFB02F71345BA9CF174B950 /* RoomTaskMapper.swift in Sources */,
+				88588FB83040522A00963B1D /* RoomsAnimationControlsView.swift in Sources */,
 				D3361A174D0921DD7AF1FB5F /* RoomTaskRepository.swift in Sources */,
 				191A338092B50EA8AC5FE1A5 /* RoomType+SuggestedTasks.swift in Sources */,
 				94682685827112BBEBE86047 /* RoomType.swift in Sources */,

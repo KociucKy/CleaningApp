@@ -11,6 +11,16 @@
         }
       }
     },
+    "%.3g%@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$.3g%2$@"
+          }
+        }
+      }
+    },
     "%lld min" : {
 
     },
@@ -87,6 +97,9 @@
       }
     },
     "All tasks" : {
+
+    },
+    "Animation controls" : {
 
     },
     "app_name" : {
@@ -606,6 +619,9 @@
           }
         }
       }
+    },
+    "Hide animation controls" : {
+
     },
     "home.nav_title" : {
       "extractionState" : "manual",
@@ -1777,6 +1793,12 @@
     "Recommended actions" : {
 
     },
+    "Replay" : {
+
+    },
+    "Replay rooms animation" : {
+
+    },
     "Room details" : {
 
     },
@@ -1976,6 +1998,9 @@
         }
       }
     },
+    "Rooms animation" : {
+
+    },
     "rooms.custom_room_added_toast" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2035,6 +2060,9 @@
           }
         }
       }
+    },
+    "Show animation controls" : {
+
     },
     "Start with the quickest task" : {
 
