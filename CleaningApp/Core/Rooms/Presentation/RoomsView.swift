@@ -44,6 +44,7 @@ struct RoomsView: View {
 		}
 		.toast($presenter.toast)
 		.background(FKColor.Background.primary)
+		.scrollEdgeEffectStyle(.soft, for: .all)
 	}
 
 	// MARK: - Views
@@ -51,8 +52,7 @@ struct RoomsView: View {
 	private func roomCard(for room: Room) -> some View {
 		Button {
 			FKHaptics.selection()
-			// TODO: Navigate to room detail
-			print("Navigated to \\(room.name)")
+			presenter.onRoomCardTapped(room: room)
 		} label: {
 			RoomCardView(room: room)
 		}
