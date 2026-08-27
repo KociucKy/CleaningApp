@@ -75,9 +75,9 @@ struct CoreRouter {
 		}
 	}
 
-	func presentRoomsDetailsView() {
+	func presentRoomsDetailsView(room: Room) {
 		router.showScreen(.push, onDismiss: nil) { router in
-			builder.roomsDetailsView(router: router)
+			builder.roomsDetailsView(router: router, room: room)
 		}
 	}
 }
