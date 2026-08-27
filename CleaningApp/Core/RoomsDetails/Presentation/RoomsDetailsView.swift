@@ -27,25 +27,13 @@ struct RoomsDetailsView: View {
 			}
 			ForEach(presenter.frequencies, id: \.self) { frequency in
 				if let tasks = presenter.tasksByFrequency[frequency], !tasks.isEmpty {
-					Section(frequency.displayName) {
-						ForEach(tasks) { task in
-							Button {
-								presenter.onTaskCompletionTapped(task)
-							} label: {
-								HStack {
-									VStack(alignment: .leading, spacing: 4) {
-										Text(task.name)
-											.font(FKTypography.bodyBold)
-										Text("\(task.estimatedDuration.rawValue) min")
-											.font(FKTypography.caption)
-											.foregroundStyle(.secondary)
-									}
-									Spacer()
-								}
-							}
-							.buttonStyle(.plain)
+					RoomsDetailsTaskListView(
+						frequencyTitle: frequency.displayName,
+						tasks: tasks,
+						onCompleteTaskButtonTapped: { task in
+							presenter.onTaskCompletionTapped(task)
 						}
-					}
+					)
 				}
 			}
 		}
