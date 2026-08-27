@@ -33,7 +33,7 @@ final class RoomsPresenter {
 
 	private func fetchRooms() {
 		do {
-			let fetchedRooms = try interactor.fetchRooms()
+			let fetchedRooms = try interactor.fetchAllRooms()
 			rooms = fetchedRooms.sorted { $0.createdAt > $1.createdAt }
 			if rooms.isEmpty {
 				state = .empty
@@ -67,6 +67,19 @@ final class RoomsPresenter {
 		router.presentAddCustomRoomSheet { [weak self] in
 			self?.onCustomRoomSheetDismissed()
 		}
+	}
+
+	func deleteRoom(room: Room) {
+		do {
+			try interactor.deleteRoom(room)
+			withAnimation {
+				fetchRooms()
+			}
+		} catch {
+			let errorMessage = "Error while deleting a room"
+			toast = FKToast(message: errorMessage)
+		}
+		
 	}
 
 	// MARK: - Private

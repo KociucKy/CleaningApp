@@ -3,6 +3,7 @@ import FulhamKit
 
 struct RoomCardView: View {
 	let room: Room
+	let deleteAction: () -> Void
 	
 	var body: some View {
 		FKCardView(showBorder: false) {
@@ -19,9 +20,7 @@ struct RoomCardView: View {
 
 						}
 						Divider()
-						Button("Delete", systemImage: "trash", role: .destructive) {
-							
-						}
+						Button("Delete", systemImage: "trash", role: .destructive, action: deleteAction)
 					} label: {
 						Image(systemName: "ellipsis")
 							.foregroundStyle(.secondary)
@@ -47,6 +46,6 @@ struct RoomCardView: View {
 }
 
 #Preview {
-	RoomCardView(room: .mock)
+	RoomCardView(room: .mock) {}
 		.frame(width: 200, height: 100)
 }

@@ -6,6 +6,7 @@ protocol RoomsDetailsInteractor {
     func fetchAllCompletedTasks(for taskId: UUID) throws -> [CompletedTask]
     func saveCompletedTask(_ task: CompletedTask) throws
     func deleteCompletedTask(_ task: CompletedTask) throws
+	func deleteRoomTask(_ item: RoomTask) throws
 }
 
 extension CoreInteractor: RoomsDetailsInteractor {}
