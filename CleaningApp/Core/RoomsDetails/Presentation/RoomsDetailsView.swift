@@ -26,7 +26,12 @@ struct RoomsDetailsView: View {
 				presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 0)),
 				value: presenter.animate
 			)
-
+			.onScrollVisibilityChange(threshold: 0.01) { isVisible in
+				withAnimation(.easeInOut(duration: 0.2)) {
+					presenter.isHeaderVisible = isVisible
+				}
+			}
+			.removeListRowFormatting()
 			Section {
 				RoomsDetailsMetricsView(
 					taskCount: presenter.totalTasksCount,
@@ -73,6 +78,8 @@ struct RoomsDetailsView: View {
 			presenter.onAppear(room: room)
 			presenter.restartEntranceAnimation()
 		}
+		.navigationTitle(presenter.isHeaderVisible ? "" : room.name)
+		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItem(placement: .topBarTrailing) {
 				Button("", systemImage: "pencil") {}

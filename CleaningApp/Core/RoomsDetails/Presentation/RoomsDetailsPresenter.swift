@@ -15,6 +15,7 @@ final class RoomsDetailsPresenter {
 	private(set) var isLoading = true
 	private(set) var errorMessage: String?
 	private(set) var animate = false
+	var isHeaderVisible = true
 	let animationConfig = RoomsAnimationConfiguration()
 
 	var completedTaskCount: Int {
