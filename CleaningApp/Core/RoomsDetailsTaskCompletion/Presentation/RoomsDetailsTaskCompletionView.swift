@@ -66,7 +66,7 @@ struct RoomsDetailsTaskCompletionView: View {
 						.animation(.spring(response: Constants.heroAnimationResponse, dampingFraction: Constants.heroAnimationDamping), value: hasAppeared)
 						.symbolEffect(.bounce, options: .speed(Constants.symbolEffectSpeed), value: animateSymbol)
 
-				Text("Task completed")
+					Text("rooms_details_task_completion.title")
 					.font(FKTypography.cardTitle)
 					.fontWeight(.bold)
 						.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
@@ -82,9 +82,9 @@ struct RoomsDetailsTaskCompletionView: View {
 						.animation(.easeOut(duration: Constants.textAnimationDuration).delay(Constants.taskNameAnimationDelay), value: hasAppeared)
 			}
 			VStack(spacing: FKSpacing.large) {
-					presetRow(title: "Just now", subtitle: "A moment ago", offset: Constants.justNowOffset, icon: "bolt.fill", entranceDelay: Constants.firstPresetAnimationDelay)
-					presetRow(title: "15 minutes ago", subtitle: "A quick cleaning session", offset: Constants.fifteenMinutesAgoOffset, icon: "clock", entranceDelay: Constants.secondPresetAnimationDelay)
-					presetRow(title: "1 hour ago", subtitle: "Earlier today", offset: Constants.oneHourAgoOffset, icon: "clock.arrow.circlepath", entranceDelay: Constants.thirdPresetAnimationDelay)
+					presetRow(title: "rooms_details_task_completion.just_now", subtitle: "rooms_details_task_completion.just_now_subtitle", offset: Constants.justNowOffset, icon: "bolt.fill", entranceDelay: Constants.firstPresetAnimationDelay)
+					presetRow(title: "rooms_details_task_completion.fifteen_minutes", subtitle: "rooms_details_task_completion.fifteen_minutes_subtitle", offset: Constants.fifteenMinutesAgoOffset, icon: "clock", entranceDelay: Constants.secondPresetAnimationDelay)
+					presetRow(title: "rooms_details_task_completion.one_hour", subtitle: "rooms_details_task_completion.one_hour_subtitle", offset: Constants.oneHourAgoOffset, icon: "clock.arrow.circlepath", entranceDelay: Constants.thirdPresetAnimationDelay)
 			}
 			dateAndTimePicker
 					.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
@@ -98,7 +98,7 @@ struct RoomsDetailsTaskCompletionView: View {
 		.padding(.horizontal, FKSpacing.large)
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
-				Button("Cancel", systemImage: "xmark", role: .cancel, action: presenter.onCloseButtonTapped)
+					Button("rooms_details_task_completion.cancel", systemImage: "xmark", role: .cancel, action: presenter.onCloseButtonTapped)
 			}
 		}
 			.onAppear {
@@ -110,8 +110,8 @@ struct RoomsDetailsTaskCompletionView: View {
 	}
 
 	private func presetRow(
-		title: String,
-		subtitle: String,
+		title: LocalizedStringKey,
+		subtitle: LocalizedStringKey,
 		offset: TimeInterval,
 		icon: String,
 		entranceDelay: Double
@@ -131,9 +131,6 @@ struct RoomsDetailsTaskCompletionView: View {
 				VStack(alignment: .leading) {
 					Text(title)
 						.font(FKTypography.ctaLabel)
-					Text(subtitle)
-						.font(FKTypography.caption)
-						.foregroundStyle(.secondary)
 				}
 				Spacer()
 				Image(systemName: "checkmark")
@@ -160,7 +157,7 @@ struct RoomsDetailsTaskCompletionView: View {
 
 	private var dateAndTimePicker: some View {
 		DatePicker(
-			"Completed at",
+				"rooms_details_task_completion.completed_at",
 			selection: $presenter.completedAt,
 			displayedComponents: [.date, .hourAndMinute]
 		)
@@ -168,13 +165,13 @@ struct RoomsDetailsTaskCompletionView: View {
 	}
 
 	private var completionAction: some View {
-		Button("Mark as completed") {
+			Button("rooms_details_task_completion.mark_as_completed") {
 			presenter.onMarkAsCompletedButtonTapped(taskId: props.taskId)
 		}
 		.buttonStyle(.glassProminent)
 		.controlSize(.large)
 		.frame(maxWidth: .infinity)
-		.accessibilityHint("Completion is not wired up yet")
+			.accessibilityHint(String(localized: "rooms_details_task_completion.completion_not_wired"))
 	}
 }
 

@@ -81,9 +81,6 @@
         }
       }
     },
-    "Cancel" : {
-
-    },
     "common.action.add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -219,12 +216,6 @@
           }
         }
       }
-    },
-    "Completed at" : {
-
-    },
-    "Completion is not wired up yet" : {
-
     },
     "Delete" : {
       "localizations" : {
@@ -598,9 +589,6 @@
           }
         }
       }
-    },
-    "Mark as completed" : {
-
     },
     "Next" : {
       "localizations" : {
@@ -1897,6 +1885,116 @@
     "Rooms animation" : {
 
     },
+    "rooms_details_task_completion.cancel" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Anuluj"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.completed_at" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończono"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.completion_not_wired" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Funkcja oznaczania zadania jako wykonanego nie jest jeszcze dostępna"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.fifteen_minutes" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "15 minut temu"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.fifteen_minutes_subtitle" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Szybka sesja sprzątania"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.just_now" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Przed chwilą"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.just_now_subtitle" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Chwilę temu"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.mark_as_completed" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Oznacz jako wykonane"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.one_hour" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Godzinę temu"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.one_hour_subtitle" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Wcześniej dzisiaj"
+          }
+        }
+      }
+    },
+    "rooms_details_task_completion.title" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zadanie wykonane"
+          }
+        }
+      }
+    },
     "rooms.custom_room_added_toast" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2001,9 +2099,6 @@
           }
         }
       }
-    },
-    "Task completed" : {
-
     },
     "task.change_bed_linen" : {
       "extractionState" : "manual",
