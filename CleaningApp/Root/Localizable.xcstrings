@@ -81,6 +81,9 @@
         }
       }
     },
+    "Cancel" : {
+
+    },
     "common.action.add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -327,9 +330,6 @@
           }
         }
       }
-    },
-    "Estimated (estimatedDuration) minutes" : {
-
     },
     "frequency.biannually" : {
       "extractionState" : "manual",

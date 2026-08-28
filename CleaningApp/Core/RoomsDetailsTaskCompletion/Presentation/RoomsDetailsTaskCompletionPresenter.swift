@@ -18,4 +18,10 @@ final class RoomsDetailsTaskCompletionPresenter {
 		self.interactor = interactor
 		self.router = router
 	}
+
+	// Actions
+
+	func onCloseButtonTapped() {
+		router.dismissScreen()
+	}
 }

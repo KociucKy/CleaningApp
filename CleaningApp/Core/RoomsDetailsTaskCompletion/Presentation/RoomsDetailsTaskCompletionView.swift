@@ -32,21 +32,23 @@ struct RoomsDetailsTaskCompletionView: View {
 					.fontWeight(.bold)
 
 				Text(taskName)
-					.font(FKTypography.footnoteEmphasis)
-					.multilineTextAlignment(.center)
-
-				Text("Estimated (estimatedDuration) minutes")
 					.font(FKTypography.secondaryLabel)
-					.foregroundStyle(.secondary)
+					.multilineTextAlignment(.center)
+					.lineLimit(1)
 			}
-			VStack(spacing: FKSpacing.medium) {
+			VStack(spacing: FKSpacing.large) {
 				presetRow(title: "Just now", subtitle: "A moment ago", offset: 0, icon: "bolt.fill")
 				presetRow(title: "15 minutes ago", subtitle: "A quick cleaning session", offset: -15 * 60, icon: "clock")
 				presetRow(title: "1 hour ago", subtitle: "Earlier today", offset: -60 * 60, icon: "clock.arrow.circlepath")
 			}
 			dateAndTimePicker
-			Spacer()
 			completionAction
+		}
+		.padding(.horizontal, FKSpacing.large)
+		.toolbar {
+			ToolbarItem(placement: .cancellationAction) {
+				Button("Cancel", systemImage: "xmark", role: .cancel, action: presenter.onCloseButtonTapped)
+			}
 		}
 	}
 
@@ -57,6 +59,7 @@ struct RoomsDetailsTaskCompletionView: View {
 		icon: String
 	) -> some View {
 		Button {
+			FKHaptics.impact(.light)
 			presenter.completedAt = Date().addingTimeInterval(offset)
 		} label: {
 			HStack(spacing: FKSpacing.large) {
@@ -76,11 +79,15 @@ struct RoomsDetailsTaskCompletionView: View {
 						.fontWeight(.bold)
 				}
 			}
-			.padding()
-			.contentShape(.rect)
+			.contentShape(.capsule)
 		}
 		.buttonStyle(.plain)
-		.background(.background, in: RoundedRectangle(cornerRadius: FKRadius.medium))
+		.padding()
+		.overlay {
+			RoundedRectangle(cornerRadius: FKRadius.medium)
+				.fill(.clear)
+				.strokeBorder(FKColor.Label.tertiary, lineWidth: 1)
+		}
 	}
 
 	private var dateAndTimePicker: some View {
