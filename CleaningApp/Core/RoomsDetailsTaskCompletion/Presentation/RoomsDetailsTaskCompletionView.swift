@@ -59,8 +59,13 @@ struct RoomsDetailsTaskCompletionView: View {
 		icon: String
 	) -> some View {
 		Button {
-			FKHaptics.impact(.light)
-			presenter.completedAt = Date().addingTimeInterval(offset)
+			withTransaction(Transaction(animation: nil)) {
+				presenter.selectedPresetOffset = offset
+				presenter.completedAt = Date().addingTimeInterval(offset)
+			}
+			DispatchQueue.main.async {
+				FKHaptics.impact(.light)
+			}
 		} label: {
 			HStack(spacing: FKSpacing.large) {
 				Image(systemName: icon)
@@ -73,11 +78,10 @@ struct RoomsDetailsTaskCompletionView: View {
 						.foregroundStyle(.secondary)
 				}
 				Spacer()
-				if abs(presenter.completedAt.timeIntervalSinceNow - offset) < 5 {
-					Image(systemName: "checkmark")
-						.font(FKTypography.ctaLabel)
-						.fontWeight(.bold)
-				}
+				Image(systemName: "checkmark")
+					.font(FKTypography.ctaLabel)
+					.fontWeight(.bold)
+					.opacity(presenter.selectedPresetOffset == offset ? 1 : 0)
 			}
 			.contentShape(.capsule)
 		}
@@ -86,7 +90,10 @@ struct RoomsDetailsTaskCompletionView: View {
 		.overlay {
 			RoundedRectangle(cornerRadius: FKRadius.medium)
 				.fill(.clear)
-				.strokeBorder(FKColor.Label.tertiary, lineWidth: 1)
+				.strokeBorder(
+						presenter.selectedPresetOffset == offset ? FKColor.Label.primary : FKColor.Label.tertiary,
+						lineWidth: 1
+					)
 		}
 	}
 

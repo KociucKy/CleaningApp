@@ -8,6 +8,7 @@ final class RoomsDetailsTaskCompletionPresenter {
 	private let interactor: any RoomsDetailsTaskCompletionInteractor
 	private let router: any RoomsDetailsTaskCompletionRouter
 	var completedAt: Date = .now
+	var selectedPresetOffset: TimeInterval = 0
 
 	// MARK: - Init
 
