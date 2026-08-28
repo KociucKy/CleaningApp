@@ -4,15 +4,12 @@ import SwiftUI
 struct RoomsDetailsMetricsView: View {
 	let taskCount: Int
 	let totalDuration: Int
-	let completedTaskCount: Int
 
 	var body: some View {
 		HStack {
 			metricView(systemImage: "checklist", value: "\(taskCount)", label: "tasks")
 			Divider()
 			metricView(systemImage: "clock", value: "\(totalDuration) min", label: "estimated")
-			Divider()
-			metricView(systemImage: "checkmark.circle", value: "\(completedTaskCount)", label: "completed")
 		}
 	}
 
@@ -35,7 +32,6 @@ struct RoomsDetailsMetricsView: View {
 #Preview {
 	RoomsDetailsMetricsView(
 		taskCount: 12,
-		totalDuration: 120,
-		completedTaskCount: 16
+		totalDuration: 120
 	)
 }

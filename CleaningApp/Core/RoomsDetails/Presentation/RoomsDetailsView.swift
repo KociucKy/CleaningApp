@@ -26,12 +26,16 @@ struct RoomsDetailsView: View {
 				presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 0)),
 				value: presenter.animate
 			)
-
+			.onScrollVisibilityChange(threshold: 0.01) { isVisible in
+				withAnimation(.easeInOut(duration: 0.2)) {
+					presenter.isHeaderVisible = isVisible
+				}
+			}
+			.removeListRowFormatting()
 			Section {
 				RoomsDetailsMetricsView(
 					taskCount: presenter.totalTasksCount,
-					totalDuration: presenter.totalDuration,
-					completedTaskCount: presenter.completedTaskCount
+					totalDuration: presenter.totalDuration
 				)
 				.opacity(presenter.animate ? 1 : 0)
 				.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
@@ -48,7 +52,6 @@ struct RoomsDetailsView: View {
 						frequencyTitle: frequency.displayName,
 						tasks: tasks,
 						onCompleteTaskButtonTapped: { task in
-							FKHaptics.notification(.success)
 							presenter.onTaskCompletionTapped(task)
 						},
 						onDeleteTaskButtonTapped: { task in
@@ -73,6 +76,8 @@ struct RoomsDetailsView: View {
 			presenter.onAppear(room: room)
 			presenter.restartEntranceAnimation()
 		}
+		.navigationTitle(presenter.isHeaderVisible ? "" : room.name)
+		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItem(placement: .topBarTrailing) {
 				Button("", systemImage: "pencil") {}

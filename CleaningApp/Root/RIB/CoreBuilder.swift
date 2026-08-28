@@ -90,6 +90,19 @@ struct CoreBuilder: Builder {
 		)
 	}
 
+	func roomsDetailsTaskCompletionView(
+		router: Router,
+		props: RoomsDetailsTaskCompletionProps
+	) -> some View {
+		RoomsDetailsTaskCompletionView(
+			presenter: RoomsDetailsTaskCompletionPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			),
+			props: props
+		)
+	}
+
 	func settingsView(router: Router) -> some View {
 		SettingsView(
 			presenter: SettingsPresenter(

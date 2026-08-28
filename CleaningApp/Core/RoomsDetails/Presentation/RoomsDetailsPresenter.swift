@@ -15,11 +15,8 @@ final class RoomsDetailsPresenter {
 	private(set) var isLoading = true
 	private(set) var errorMessage: String?
 	private(set) var animate = false
+	var isHeaderVisible = true
 	let animationConfig = RoomsAnimationConfiguration()
-
-	var completedTaskCount: Int {
-		tasks.filter { completedTaskIDs.contains($0.id) }.count
-	}
 
 	var totalDuration: Int {
 		tasks.reduce(0) { $0 + $1.estimatedDuration.rawValue }
@@ -91,21 +88,12 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
-	// TODO: - To be fixed
 	func onTaskCompletionTapped(_ task: RoomTask) {
-		do {
-			if completedTaskIDs.contains(task.id) {
-				let completedTasks = try interactor.fetchAllCompletedTasks(for: task.id)
-				for completedTask in completedTasks {
-					try interactor.deleteCompletedTask(completedTask)
-				}
-				completedTaskIDs.remove(task.id)
-			} else {
-				try interactor.saveCompletedTask(CompletedTask(taskId: task.id))
-				completedTaskIDs.insert(task.id)
-			}
-		} catch {
-			errorMessage = "Unable to update this task."
-		}
+		router.presentRoomsDetailsTaskCompletionSheet(
+			props: RoomsDetailsTaskCompletionProps(
+				taskId: task.id,
+				taskName: task.name
+			)
+		)
 	}
 }
