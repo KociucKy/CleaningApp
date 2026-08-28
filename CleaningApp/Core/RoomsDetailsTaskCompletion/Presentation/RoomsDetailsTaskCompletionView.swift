@@ -6,10 +6,42 @@ struct RoomsDetailsTaskCompletionProps {
 	let taskName: String
 }
 
+private enum Constants {
+	static let heroIconSize: CGFloat = 48
+	static let heroInitialScale: CGFloat = 0.72
+	static let identityScale: CGFloat = 1
+	static let zeroOffset: CGFloat = 0
+	static let heroAnimationResponse: Double = 0.28
+	static let heroAnimationDamping: Double = 0.78
+	static let symbolEffectSpeed: Double = 0.85
+	static let symbolEffectDelay: Double = 0.12
+	static let visibleOpacity: Double = 1
+	static let hiddenOpacity: Double = 0
+	static let taskNameLineLimit = 1
+	static let taskNameInitialOffset: CGFloat = 8
+	static let contentInitialOffset: CGFloat = 12
+	static let presetIconWidth: CGFloat = 24
+	static let borderLineWidth: CGFloat = 1
+	static let textAnimationDuration: Double = 0.22
+	static let contentAnimationDuration: Double = 0.26
+	static let taskTitleAnimationDelay: Double = 0.04
+	static let taskNameAnimationDelay: Double = 0.08
+	static let firstPresetAnimationDelay: Double = 0.1
+	static let secondPresetAnimationDelay: Double = 0.14
+	static let thirdPresetAnimationDelay: Double = 0.18
+	static let datePickerAnimationDelay: Double = 0.24
+	static let completionActionAnimationDelay: Double = 0.3
+	static let justNowOffset: TimeInterval = 0
+	static let fifteenMinutesAgoOffset: TimeInterval = -15 * 60
+	static let oneHourAgoOffset: TimeInterval = -60 * 60
+}
+
 struct RoomsDetailsTaskCompletionView: View {
 	// MARK: - Properties
 
 	@State private var presenter: RoomsDetailsTaskCompletionPresenter
+	@State private var hasAppeared = false
+	@State private var animateSymbol = false
 	let props: RoomsDetailsTaskCompletionProps
 
 	init(
@@ -26,26 +58,42 @@ struct RoomsDetailsTaskCompletionView: View {
 		VStack(spacing: FKSpacing.extraLarge) {
 			VStack(spacing: FKSpacing.default) {
 				Image(systemName: "checkmark.circle.fill")
-					.font(.system(size: 48))
+						.font(.system(size: Constants.heroIconSize))
 					.symbolRenderingMode(.hierarchical)
 					.foregroundStyle(.green)
+						.scaleEffect(hasAppeared ? Constants.identityScale : Constants.heroInitialScale)
+						.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
+						.animation(.spring(response: Constants.heroAnimationResponse, dampingFraction: Constants.heroAnimationDamping), value: hasAppeared)
+						.symbolEffect(.bounce, options: .speed(Constants.symbolEffectSpeed), value: animateSymbol)
 
 				Text("Task completed")
 					.font(FKTypography.cardTitle)
 					.fontWeight(.bold)
+						.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
+						.offset(y: hasAppeared ? Constants.zeroOffset : Constants.taskNameInitialOffset)
+						.animation(.easeOut(duration: Constants.textAnimationDuration).delay(Constants.taskTitleAnimationDelay), value: hasAppeared)
 
 				Text(props.taskName)
 					.font(FKTypography.secondaryLabel)
 					.multilineTextAlignment(.center)
-					.lineLimit(1)
+						.lineLimit(Constants.taskNameLineLimit)
+						.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
+						.offset(y: hasAppeared ? Constants.zeroOffset : Constants.taskNameInitialOffset)
+						.animation(.easeOut(duration: Constants.textAnimationDuration).delay(Constants.taskNameAnimationDelay), value: hasAppeared)
 			}
 			VStack(spacing: FKSpacing.large) {
-				presetRow(title: "Just now", subtitle: "A moment ago", offset: 0, icon: "bolt.fill")
-				presetRow(title: "15 minutes ago", subtitle: "A quick cleaning session", offset: -15 * 60, icon: "clock")
-				presetRow(title: "1 hour ago", subtitle: "Earlier today", offset: -60 * 60, icon: "clock.arrow.circlepath")
+					presetRow(title: "Just now", subtitle: "A moment ago", offset: Constants.justNowOffset, icon: "bolt.fill", entranceDelay: Constants.firstPresetAnimationDelay)
+					presetRow(title: "15 minutes ago", subtitle: "A quick cleaning session", offset: Constants.fifteenMinutesAgoOffset, icon: "clock", entranceDelay: Constants.secondPresetAnimationDelay)
+					presetRow(title: "1 hour ago", subtitle: "Earlier today", offset: Constants.oneHourAgoOffset, icon: "clock.arrow.circlepath", entranceDelay: Constants.thirdPresetAnimationDelay)
 			}
 			dateAndTimePicker
+					.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
+					.offset(y: hasAppeared ? Constants.zeroOffset : Constants.contentInitialOffset)
+					.animation(.easeOut(duration: Constants.contentAnimationDuration).delay(Constants.datePickerAnimationDelay), value: hasAppeared)
 			completionAction
+					.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
+					.offset(y: hasAppeared ? Constants.zeroOffset : Constants.contentInitialOffset)
+					.animation(.easeOut(duration: Constants.contentAnimationDuration).delay(Constants.completionActionAnimationDelay), value: hasAppeared)
 		}
 		.padding(.horizontal, FKSpacing.large)
 		.toolbar {
@@ -53,13 +101,20 @@ struct RoomsDetailsTaskCompletionView: View {
 				Button("Cancel", systemImage: "xmark", role: .cancel, action: presenter.onCloseButtonTapped)
 			}
 		}
+			.onAppear {
+				hasAppeared = true
+				DispatchQueue.main.asyncAfter(deadline: .now() + Constants.symbolEffectDelay) {
+					animateSymbol = true
+				}
+		}
 	}
 
 	private func presetRow(
 		title: String,
 		subtitle: String,
 		offset: TimeInterval,
-		icon: String
+		icon: String,
+		entranceDelay: Double
 	) -> some View {
 		Button {
 			withTransaction(Transaction(animation: nil)) {
@@ -72,7 +127,7 @@ struct RoomsDetailsTaskCompletionView: View {
 		} label: {
 			HStack(spacing: FKSpacing.large) {
 				Image(systemName: icon)
-					.frame(width: 24)
+					.frame(width: Constants.presetIconWidth)
 				VStack(alignment: .leading) {
 					Text(title)
 						.font(FKTypography.ctaLabel)
@@ -84,18 +139,21 @@ struct RoomsDetailsTaskCompletionView: View {
 				Image(systemName: "checkmark")
 					.font(FKTypography.ctaLabel)
 					.fontWeight(.bold)
-					.opacity(presenter.selectedPresetOffset == offset ? 1 : 0)
+					.opacity(presenter.selectedPresetOffset == offset ? Constants.visibleOpacity : Constants.hiddenOpacity)
 			}
 			.contentShape(.capsule)
 		}
 		.buttonStyle(.plain)
 		.padding()
+			.opacity(hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)
+			.offset(y: hasAppeared ? Constants.zeroOffset : Constants.contentInitialOffset)
+			.animation(.easeOut(duration: Constants.contentAnimationDuration).delay(entranceDelay), value: hasAppeared)
 		.overlay {
 			RoundedRectangle(cornerRadius: FKRadius.medium)
 				.fill(.clear)
-				.strokeBorder(
-					presenter.selectedPresetOffset == offset ? FKColor.Label.primary : FKColor.Label.tertiary,
-					lineWidth: 1
+					.strokeBorder(
+						presenter.selectedPresetOffset == offset ? FKColor.Label.primary : FKColor.Label.tertiary,
+						lineWidth: Constants.borderLineWidth
 				)
 		}
 	}
