@@ -35,8 +35,7 @@ struct RoomsDetailsView: View {
 			Section {
 				RoomsDetailsMetricsView(
 					taskCount: presenter.totalTasksCount,
-					totalDuration: presenter.totalDuration,
-					completedTaskCount: presenter.completedTaskCount
+					totalDuration: presenter.totalDuration
 				)
 				.opacity(presenter.animate ? 1 : 0)
 				.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)

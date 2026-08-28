@@ -18,10 +18,6 @@ final class RoomsDetailsPresenter {
 	var isHeaderVisible = true
 	let animationConfig = RoomsAnimationConfiguration()
 
-	var completedTaskCount: Int {
-		tasks.filter { completedTaskIDs.contains($0.id) }.count
-	}
-
 	var totalDuration: Int {
 		tasks.reduce(0) { $0 + $1.estimatedDuration.rawValue }
 	}
