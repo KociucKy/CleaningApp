@@ -52,7 +52,6 @@ struct RoomsDetailsView: View {
 						frequencyTitle: frequency.displayName,
 						tasks: tasks,
 						onCompleteTaskButtonTapped: { task in
-							FKHaptics.notification(.success)
 							presenter.onTaskCompletionTapped(task)
 						},
 						onDeleteTaskButtonTapped: { task in
