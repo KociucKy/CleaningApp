@@ -88,22 +88,12 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
-	// TODO: - To be fixed
 	func onTaskCompletionTapped(_ task: RoomTask) {
-//		do {
-//			if completedTaskIDs.contains(task.id) {
-//				let completedTasks = try interactor.fetchAllCompletedTasks(for: task.id)
-//				for completedTask in completedTasks {
-//					try interactor.deleteCompletedTask(completedTask)
-//				}
-//				completedTaskIDs.remove(task.id)
-//			} else {
-//				try interactor.saveCompletedTask(CompletedTask(taskId: task.id))
-//				completedTaskIDs.insert(task.id)
-//			}
-//		} catch {
-//			errorMessage = "Unable to update this task."
-//		}
-		router.presentRoomsDetailsTaskCompletionSheet(taskName: task.name)
+		router.presentRoomsDetailsTaskCompletionSheet(
+			props: RoomsDetailsTaskCompletionProps(
+				taskId: task.id,
+				taskName: task.name
+			)
+		)
 	}
 }

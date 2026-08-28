@@ -81,9 +81,9 @@ struct CoreRouter {
 		}
 	}
 
-	func presentRoomsDetailsTaskCompletionSheet(taskName: String) {
+	func presentRoomsDetailsTaskCompletionSheet(props: RoomsDetailsTaskCompletionProps) {
 		router.showScreen(.sheetWithDetents([.fraction(0.7)]), onDismiss: nil) { router in
-			builder.roomsDetailsTaskCompletionView(router: router, taskName: taskName)
+			builder.roomsDetailsTaskCompletionView(router: router, props: props)
 		}
 	}
 }

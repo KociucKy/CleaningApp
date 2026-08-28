@@ -1,20 +1,23 @@
 import FulhamKit
 import SwiftUI
 
-// MARK: - RoomsDetailsTaskCompletionView
+struct RoomsDetailsTaskCompletionProps {
+	let taskId: UUID
+	let taskName: String
+}
 
 struct RoomsDetailsTaskCompletionView: View {
 	// MARK: - Properties
 
 	@State private var presenter: RoomsDetailsTaskCompletionPresenter
-	let taskName: String
+	let props: RoomsDetailsTaskCompletionProps
 
 	init(
 		presenter: RoomsDetailsTaskCompletionPresenter,
-		taskName: String
+		props: RoomsDetailsTaskCompletionProps
 	) {
 		self._presenter = State(wrappedValue: presenter)
-		self.taskName = taskName
+		self.props = props
 	}
 
 	// MARK: - Body
@@ -31,7 +34,7 @@ struct RoomsDetailsTaskCompletionView: View {
 					.font(FKTypography.cardTitle)
 					.fontWeight(.bold)
 
-				Text(taskName)
+				Text(props.taskName)
 					.font(FKTypography.secondaryLabel)
 					.multilineTextAlignment(.center)
 					.lineLimit(1)
@@ -91,9 +94,9 @@ struct RoomsDetailsTaskCompletionView: View {
 			RoundedRectangle(cornerRadius: FKRadius.medium)
 				.fill(.clear)
 				.strokeBorder(
-						presenter.selectedPresetOffset == offset ? FKColor.Label.primary : FKColor.Label.tertiary,
-						lineWidth: 1
-					)
+					presenter.selectedPresetOffset == offset ? FKColor.Label.primary : FKColor.Label.tertiary,
+					lineWidth: 1
+				)
 		}
 	}
 
@@ -107,11 +110,13 @@ struct RoomsDetailsTaskCompletionView: View {
 	}
 
 	private var completionAction: some View {
-		Button("Mark as completed") {}
-			.buttonStyle(.glassProminent)
-			.controlSize(.large)
-			.frame(maxWidth: .infinity)
-			.accessibilityHint("Completion is not wired up yet")
+		Button("Mark as completed") {
+			presenter.onMarkAsCompletedButtonTapped(taskId: props.taskId)
+		}
+		.buttonStyle(.glassProminent)
+		.controlSize(.large)
+		.frame(maxWidth: .infinity)
+		.accessibilityHint("Completion is not wired up yet")
 	}
 }
 
@@ -119,8 +124,11 @@ struct RoomsDetailsTaskCompletionView: View {
 
 #Preview {
 	let builder = CoreBuilder(interactor: CoreInteractor(container: DevPreview.shared.container))
-	let taskName = "Wipe the floor"
+	let props = RoomsDetailsTaskCompletionProps(
+		taskId: UUID(),
+		taskName: "Wipe the floor"
+	)
 	return RouterView { router in
-		builder.roomsDetailsTaskCompletionView(router: router, taskName: taskName)
+		builder.roomsDetailsTaskCompletionView(router: router, props: props)
 	}
 }
