@@ -104,6 +104,6 @@ final class RoomsDetailsPresenter {
 //		} catch {
 //			errorMessage = "Unable to update this task."
 //		}
-		router.presentRoomsDetailsTaskCompletionSheet()
+		router.presentRoomsDetailsTaskCompletionSheet(taskName: task.name)
 	}
 }

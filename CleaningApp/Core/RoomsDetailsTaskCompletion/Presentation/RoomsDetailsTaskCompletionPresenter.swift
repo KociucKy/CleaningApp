@@ -7,6 +7,7 @@ final class RoomsDetailsTaskCompletionPresenter {
 
 	private let interactor: any RoomsDetailsTaskCompletionInteractor
 	private let router: any RoomsDetailsTaskCompletionRouter
+	var completedAt: Date = .now
 
 	// MARK: - Init
 

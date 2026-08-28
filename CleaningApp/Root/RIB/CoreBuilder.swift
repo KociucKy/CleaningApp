@@ -90,12 +90,13 @@ struct CoreBuilder: Builder {
 		)
 	}
 
-	func roomsDetailsTaskCompletionView(router: Router) -> some View {
+	func roomsDetailsTaskCompletionView(router: Router, taskName: String) -> some View {
 		RoomsDetailsTaskCompletionView(
 			presenter: RoomsDetailsTaskCompletionPresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self)
-			)
+			),
+			taskName: taskName
 		)
 	}
 

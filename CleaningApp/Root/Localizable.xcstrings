@@ -217,6 +217,12 @@
         }
       }
     },
+    "Completed at" : {
+
+    },
+    "Completion is not wired up yet" : {
+
+    },
     "Delete" : {
       "localizations" : {
         "pl" : {
@@ -321,6 +327,9 @@
           }
         }
       }
+    },
+    "Estimated (estimatedDuration) minutes" : {
+
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -589,6 +598,9 @@
           }
         }
       }
+    },
+    "Mark as completed" : {
+
     },
     "Next" : {
       "localizations" : {
@@ -1990,7 +2002,7 @@
         }
       }
     },
-    "Task Completion" : {
+    "Task completed" : {
 
     },
     "task.change_bed_linen" : {
