@@ -543,9 +543,6 @@
         }
       }
     },
-    "Hello, World!" : {
-
-    },
     "Hide animation controls" : {
 
     },
@@ -1992,6 +1989,9 @@
           }
         }
       }
+    },
+    "Task Completion" : {
+
     },
     "task.change_bed_linen" : {
       "extractionState" : "manual",

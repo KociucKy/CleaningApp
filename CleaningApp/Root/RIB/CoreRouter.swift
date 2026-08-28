@@ -80,6 +80,12 @@ struct CoreRouter {
 			builder.roomsDetailsView(router: router, room: room)
 		}
 	}
+
+	func presentRoomsDetailsTaskCompletionSheet() {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.roomsDetailsTaskCompletionView(router: router)
+		}
+	}
 }
 
 // MARK: - CustomRoomSheetRouter (Rooms Context)

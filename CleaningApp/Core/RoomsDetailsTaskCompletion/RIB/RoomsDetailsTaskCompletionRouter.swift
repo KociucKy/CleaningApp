@@ -4,4 +4,4 @@ protocol RoomsDetailsTaskCompletionRouter {
 	
 }
 
-extension CoreRouter: RoomsDetailsTaskCompletionRouter
+extension CoreRouter: RoomsDetailsTaskCompletionRouter {}
