@@ -152,6 +152,18 @@ struct CoreBuilder: Builder {
 		)
 	}
 
+	// MARK: - Custom Task Sheet
+
+	func addCustomTaskSheetView(router: Router, roomId: UUID) -> some View {
+		AddCustomTaskSheetView(
+			presenter: AddCustomTaskSheetPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self),
+				roomId: roomId
+			)
+		)
+	}
+
 	func iconPickerView(sheetRouter: CoreRouter, roomName: String) -> some View {
 		IconPickerView(
 			presenter: IconPickerPresenter(

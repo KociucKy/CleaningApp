@@ -1,8 +1,8 @@
 import Foundation
 
-// MARK: - CustomRoomSheetInteractor
-
 @MainActor
 protocol CustomRoomSheetInteractor {
-    func saveCustomRoom(name: String, icon: String) throws
+	func saveCustomRoom(name: String, icon: String) throws
 }
+
+extension CoreInteractor: CustomRoomSheetInteractor {}

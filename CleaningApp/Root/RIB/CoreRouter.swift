@@ -86,11 +86,13 @@ struct CoreRouter {
 			builder.roomsDetailsTaskCompletionView(router: router, props: props)
 		}
 	}
-}
 
-// MARK: - CustomRoomSheetRouter (Rooms Context)
+	func presentAddCustomTaskSheet(roomId: UUID) {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.addCustomTaskSheetView(router: router, roomId: roomId)
+		}
+	}
 
-extension CoreRouter: CustomRoomSheetRouter {
 	func showIconPicker(roomName: String) {
 		let sheetRouter = self
 		router.showScreen(.push, onDismiss: nil) { _ in

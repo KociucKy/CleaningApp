@@ -4,52 +4,62 @@ import SwiftUI
 
 @MainActor
 struct CustomRoomSheetView: View {
-    // MARK: - Properties
+	// MARK: - Properties
 
-    @State var presenter: CustomRoomSheetPresenter
-    @FocusState private var isTextFieldFocused: Bool
+	@State var presenter: CustomRoomSheetPresenter
+	@FocusState private var isTextFieldFocused: Bool
 
-    // MARK: - Body
+	// MARK: - Body
 
-    var body: some View {
-        nameInputView
-            .navigationTitle(LocalizedStringKey("onb_custom_room.sheet_title"))
-            .navigationBarTitleDisplayMode(.inline)
-            .presentationDragIndicator(.visible)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("common.action.cancel") {
-                        presenter.onCancelButtonPressed()
-                    }
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button("onb_custom_room.button_next") {
-                        presenter.onNextButtonPressed()
-                    }
-                    .disabled(!presenter.isNameValid)
-                }
-            }
-            .onAppear {
-                isTextFieldFocused = true
-            }
-    }
+	var body: some View {
+		nameInputView
+			.navigationTitle(LocalizedStringKey("onb_custom_room.sheet_title"))
+			.navigationBarTitleDisplayMode(.inline)
+			.presentationDragIndicator(.visible)
+			.toolbar {
+				ToolbarItem(placement: .cancellationAction) {
+					Button("common.action.cancel") {
+						presenter.onCancelButtonPressed()
+					}
+				}
+				ToolbarItem(placement: .primaryAction) {
+					Button("onb_custom_room.button_next") {
+						isTextFieldFocused = false
+						presenter.onNextButtonPressed()
+					}
+					.disabled(!presenter.isNameValid)
+				}
+			}
+			.onAppear {
+				isTextFieldFocused = true
+			}
+	}
 
-    // MARK: - SubViews
+	// MARK: - SubViews
 
-    private var nameInputView: some View {
-        Form {
-            Section {
-                TextField(
-                    LocalizedStringKey("onb_custom_room.name_placeholder"),
-                    text: $presenter.roomName
-                )
-                .font(.body)
-                .focused($isTextFieldFocused)
-                .accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
-                .withCharacterLimit($presenter.roomName)
-            } footer: {
-                characterCountFooter(currentCount: presenter.roomName.count)
-            }
-        }
-    }
+	private var nameInputView: some View {
+		Form {
+			Section {
+				TextField(
+					LocalizedStringKey("onb_custom_room.name_placeholder"),
+					text: $presenter.roomName
+				)
+				.font(.body)
+				.focused($isTextFieldFocused)
+				.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
+				.withCharacterLimit($presenter.roomName)
+			} footer: {
+				characterCountFooter(currentCount: presenter.roomName.count)
+			}
+		}
+	}
+}
+
+#Preview {
+	let container = DevPreview.shared.container
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+
+	return RouterView { router in
+		builder.customRoomSheetView(router: router)
+	}
 }
