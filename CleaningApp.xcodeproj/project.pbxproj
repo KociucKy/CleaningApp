@@ -96,6 +96,7 @@
 		88588FBF3041A44A00963B1D /* RoomsDetailsTaskCompletionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FBE3041A44A00963B1D /* RoomsDetailsTaskCompletionInteractor.swift */; };
 		88588FC13041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC03041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift */; };
 		88588FC33041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC23041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift */; };
+		88588FC83045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC73045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -285,6 +286,7 @@
 		88588FBE3041A44A00963B1D /* RoomsDetailsTaskCompletionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionInteractor.swift; sourceTree = "<group>"; };
 		88588FC03041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionRouter.swift; sourceTree = "<group>"; };
 		88588FC23041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionPresenter.swift; sourceTree = "<group>"; };
+		88588FC73045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionHeroView.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -637,6 +639,7 @@
 		88588FBB3041A40B00963B1D /* RoomsDetailsTaskCompletion */ = {
 			isa = PBXGroup;
 			children = (
+				88588FC63045D18A00963B1D /* Components */,
 				88588FBD3041A42800963B1D /* Presentation */,
 				88588FBC3041A42300963B1D /* RIB */,
 			);
@@ -659,6 +662,14 @@
 				88588FC23041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift */,
 			);
 			path = Presentation;
+			sourceTree = "<group>";
+		};
+		88588FC63045D18A00963B1D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				88588FC73045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
@@ -1279,6 +1290,7 @@
 				5E303E39EEC1FBD73AB1FCA5 /* HomeInteractor.swift in Sources */,
 				88588BF8303F389F00963B1D /* RoomsDetailsInteractor.swift in Sources */,
 				238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */,
+				88588FC83045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift in Sources */,
 				719A3716C8C8798E37664570 /* HomeView.swift in Sources */,
 				B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */,
 				E722788F3936D9DDD99763F4 /* IconPickerPresenter.swift in Sources */,
