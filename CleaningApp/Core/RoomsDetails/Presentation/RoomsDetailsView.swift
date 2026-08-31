@@ -76,7 +76,7 @@ struct RoomsDetailsView: View {
 		}
 		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
-			presenter.onAppear(room: room)
+			presenter.onAppear(roomId: room.id)
 			presenter.restartEntranceAnimation()
 		}
 		.navigationTitle(presenter.isHeaderVisible ? "" : room.name)

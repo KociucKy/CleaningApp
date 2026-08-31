@@ -11,6 +11,7 @@ final class AddCustomTaskSheetPresenter {
     private let interactor: any AddCustomTaskSheetInteractor
     private let router: any AddCustomTaskSheetRouter
     private let roomId: UUID
+    private let onTaskAdded: () -> Void
 
     var taskName = ""
     var selectedFrequency: Frequency = .timesPerWeek(1)
@@ -24,11 +25,13 @@ final class AddCustomTaskSheetPresenter {
     init(
         interactor: any AddCustomTaskSheetInteractor,
         router: any AddCustomTaskSheetRouter,
-        roomId: UUID
+        roomId: UUID,
+        onTaskAdded: @escaping () -> Void
     ) {
         self.interactor = interactor
         self.router = router
         self.roomId = roomId
+        self.onTaskAdded = onTaskAdded
     }
 
     // MARK: - Actions
@@ -50,6 +53,7 @@ final class AddCustomTaskSheetPresenter {
         do {
             try interactor.saveRoomTask(task)
             router.dismissScreen()
+            onTaskAdded()
         } catch {
             // TODO: Surface a save error in the sheet when app-level error presentation is added.
         }

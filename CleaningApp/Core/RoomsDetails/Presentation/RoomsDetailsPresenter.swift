@@ -38,13 +38,17 @@ final class RoomsDetailsPresenter {
 
 	// MARK: - Actions
 
-	func onAppear(room: Room) {
+	func onAppear(roomId: UUID) {
 		guard isLoading else {
 			return
 		}
 
+		reloadTasks(for: roomId)
+	}
+
+	func reloadTasks(for roomId: UUID) {
 		do {
-			tasks = try interactor.fetchAllRoomTasks(for: room.id).sorted { $0.name < $1.name }
+			tasks = try interactor.fetchAllRoomTasks(for: roomId).sorted { $0.name < $1.name }
 			var seenFrequencies = Set<Frequency>()
 			frequencies = tasks.compactMap { task in
 				seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
@@ -65,8 +69,8 @@ final class RoomsDetailsPresenter {
 	func onDeleteTaskButtonTapped(_ task: RoomTask, roomId: UUID) {
 		do {
 			try interactor.deleteRoomTask(task)
-			try withAnimation {
-				tasks = try interactor.fetchAllRoomTasks(for: roomId).sorted { $0.name < $1.name }
+			withAnimation {
+				reloadTasks(for: roomId)
 			}
 		} catch {
 			errorMessage = "Unable to delete this task."
@@ -89,7 +93,10 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onAddTaskButtonTapped(roomId: UUID) {
-		router.presentAddCustomTaskSheet(roomId: roomId)
+		router.presentAddCustomTaskSheet(roomId: roomId) { [weak self] in
+			guard let self else { return }
+			self.reloadTasks(for: roomId)
+		}
 	}
 
 	func onTaskCompletionTapped(_ task: RoomTask) {

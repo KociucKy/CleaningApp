@@ -12,6 +12,7 @@ struct AddCustomTaskSheetView: View {
     }
 
     @State var presenter: AddCustomTaskSheetPresenter
+    @FocusState private var isTaskNameFocused: Bool
 
     // MARK: - Body
 
@@ -23,6 +24,7 @@ struct AddCustomTaskSheetView: View {
                     text: $presenter.taskName
                 )
                 .autocorrectionDisabled()
+                .focused($isTaskNameFocused)
                 .withCharacterLimit($presenter.taskName, maxLength: Constants.charactersLimit)
             } header: {
                 Text("onb_custom_task.label.task_name")
@@ -38,29 +40,41 @@ struct AddCustomTaskSheetView: View {
                     "onb_custom_task.label.frequency",
                     selection: $presenter.selectedFrequency
                 ) {
-                    Text(Frequency.daily.displayName).tag(Frequency.daily)
-                    Text(Frequency.timesPerWeek(2).displayName).tag(Frequency.timesPerWeek(2))
-                    Text(Frequency.timesPerWeek(3).displayName).tag(Frequency.timesPerWeek(3))
-                    Text(Frequency.timesPerWeek(1).displayName).tag(Frequency.timesPerWeek(1))
-                    Text(Frequency.everyOtherWeek.displayName).tag(Frequency.everyOtherWeek)
-                    Text(Frequency.monthly.displayName).tag(Frequency.monthly)
+                    ForEach(Frequency.allCases, id: \.displayName) { frequency in
+                        Text(frequency.displayName)
+                            .tag(frequency)
+                    }
                 }
             } header: {
                 Text("onb_custom_task.label.frequency")
             }
         }
+        .scrollDismissesKeyboard(.interactively)
+//        .simultaneousGesture(
+//            TapGesture().onEnded {
+//                isTaskNameFocused = false
+//            }
+//        )
         .navigationTitle("onb_custom_task.title")
         .navigationBarTitleDisplayMode(.inline)
         .presentationDragIndicator(.visible)
+        .onAppear {
+            isTaskNameFocused = true
+        }
+        .onChange(of: presenter.selectedFrequency) {
+            isTaskNameFocused = false
+        }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("common.action.cancel") {
+                    isTaskNameFocused = false
                     presenter.onCancelButtonPressed()
                 }
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("common.action.add") {
                     FKHaptics.selection()
+                    isTaskNameFocused = false
                     presenter.onAddButtonPressed()
                 }
                 .disabled(!presenter.isTaskNameValid)

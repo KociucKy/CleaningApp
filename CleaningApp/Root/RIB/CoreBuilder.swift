@@ -154,12 +154,17 @@ struct CoreBuilder: Builder {
 
 	// MARK: - Custom Task Sheet
 
-	func addCustomTaskSheetView(router: Router, roomId: UUID) -> some View {
+	func addCustomTaskSheetView(
+		router: Router,
+		roomId: UUID,
+		onTaskAdded: @escaping () -> Void
+	) -> some View {
 		AddCustomTaskSheetView(
 			presenter: AddCustomTaskSheetPresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self),
-				roomId: roomId
+				roomId: roomId,
+				onTaskAdded: onTaskAdded
 			)
 		)
 	}
