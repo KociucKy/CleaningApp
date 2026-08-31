@@ -57,6 +57,9 @@ struct RoomsDetailsView: View {
 						onDeleteTaskButtonTapped: { task in
 							FKHaptics.notification(.warning)
 							presenter.onDeleteTaskButtonTapped(task, roomId: room.id)
+						},
+						onEditTaskButtonTapped: { task in
+							presenter.onEditTaskButtonTapped(task)
 						}
 					)
 					.opacity(presenter.animate ? 1 : 0)
@@ -80,7 +83,10 @@ struct RoomsDetailsView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItem(placement: .topBarTrailing) {
-				Button("", systemImage: "pencil") {}
+				Button("", systemImage: "plus") {
+						presenter.onAddTaskButtonTapped(roomId: room.id)
+					}
+					Button("", systemImage: "pencil") {}
 			}
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)

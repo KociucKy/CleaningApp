@@ -88,6 +88,10 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
+	func onAddTaskButtonTapped(roomId: UUID) {
+		router.presentAddCustomTaskSheet(roomId: roomId)
+	}
+
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
@@ -95,5 +99,9 @@ final class RoomsDetailsPresenter {
 				taskName: task.name
 			)
 		)
+	}
+
+	func onEditTaskButtonTapped(_ task: RoomTask) {
+		
 	}
 }

@@ -97,6 +97,10 @@
 		88588FC13041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC03041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift */; };
 		88588FC33041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC23041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift */; };
 		88588FC83045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC73045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift */; };
+		88588FCB3045DDDA00963B1D /* AddCustomTaskSheetInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FCA3045DDDA00963B1D /* AddCustomTaskSheetInteractor.swift */; };
+		88588FCD3045DDDA00963B1D /* AddCustomTaskSheetRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FCC3045DDDA00963B1D /* AddCustomTaskSheetRouter.swift */; };
+		88588FCF3045DDDA00963B1D /* AddCustomTaskSheetPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FCE3045DDDA00963B1D /* AddCustomTaskSheetPresenter.swift */; };
+		88588FD13045DDDB00963B1D /* AddCustomTaskSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FD03045DDDB00963B1D /* AddCustomTaskSheetView.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -287,6 +291,10 @@
 		88588FC03041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionRouter.swift; sourceTree = "<group>"; };
 		88588FC23041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionPresenter.swift; sourceTree = "<group>"; };
 		88588FC73045D1A000963B1D /* RoomsDetailsTaskCompletionHeroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionHeroView.swift; sourceTree = "<group>"; };
+		88588FCA3045DDDA00963B1D /* AddCustomTaskSheetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomTaskSheetInteractor.swift; sourceTree = "<group>"; };
+		88588FCC3045DDDA00963B1D /* AddCustomTaskSheetRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomTaskSheetRouter.swift; sourceTree = "<group>"; };
+		88588FCE3045DDDA00963B1D /* AddCustomTaskSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomTaskSheetPresenter.swift; sourceTree = "<group>"; };
+		88588FD03045DDDB00963B1D /* AddCustomTaskSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCustomTaskSheetView.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -672,6 +680,33 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		88588FC93045DDDA00963B1D /* AddCustomTaskSheet */ = {
+			isa = PBXGroup;
+			children = (
+				88588FCA3045DDDA00963B1D /* AddCustomTaskSheetInteractor.swift */,
+				88588FCC3045DDDA00963B1D /* AddCustomTaskSheetRouter.swift */,
+				88588FD33045DEFB00963B1D /* RIB */,
+				88588FD23045DEF200963B1D /* Presentation */,
+			);
+			path = AddCustomTaskSheet;
+			sourceTree = "<group>";
+		};
+		88588FD23045DEF200963B1D /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				88588FCE3045DDDA00963B1D /* AddCustomTaskSheetPresenter.swift */,
+				88588FD03045DDDB00963B1D /* AddCustomTaskSheetView.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		88588FD33045DEFB00963B1D /* RIB */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = RIB;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1018,6 +1053,7 @@
 				6E16CA621C1B247F24EAD8BF /* Extensions */,
 				3D8229678C10708792F28938 /* IconPicker */,
 				EA9136359DED7D0F4A3AAD88 /* ViewModifiers */,
+				88588FC93045DDDA00963B1D /* AddCustomTaskSheet */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1286,6 +1322,7 @@
 				88588FC33041A49300963B1D /* RoomsDetailsTaskCompletionPresenter.swift in Sources */,
 				A2A0A6A69495913820377A5F /* DevSettingsView.swift in Sources */,
 				ED1F039D90DB269B7A8E9551 /* Frequency.swift in Sources */,
+				88588FCB3045DDDA00963B1D /* AddCustomTaskSheetInteractor.swift in Sources */,
 				625410DE84D0CF20F20E25B1 /* FrequencyEncoder.swift in Sources */,
 				5E303E39EEC1FBD73AB1FCA5 /* HomeInteractor.swift in Sources */,
 				88588BF8303F389F00963B1D /* RoomsDetailsInteractor.swift in Sources */,
@@ -1333,6 +1370,7 @@
 				88588FBA3041A0A200963B1D /* RoomsDetailsTaskCompletionView.swift in Sources */,
 				1D97EC665660AFA851BBA56C /* Room.swift in Sources */,
 				66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */,
+				88588FCD3045DDDA00963B1D /* AddCustomTaskSheetRouter.swift in Sources */,
 				3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */,
 				55279F25D24801001992D565 /* RoomManager.swift in Sources */,
 				A34805429F822001BC54028F /* RoomMapper.swift in Sources */,
@@ -1356,6 +1394,7 @@
 				BC5F8DDFD7DD8676BC6A1E3B /* SettingsPresenter.swift in Sources */,
 				5A9A6932D3BCAAA765310A22 /* SettingsRouter.swift in Sources */,
 				ED1D59F87167E393AC90C389 /* SettingsView.swift in Sources */,
+				88588FCF3045DDDA00963B1D /* AddCustomTaskSheetPresenter.swift in Sources */,
 				A13717E8F3F42DF8615BF890 /* SkippedTask+Mock.swift in Sources */,
 				EF77B6D3CD4F5C3EE96F2112 /* SkippedTask.swift in Sources */,
 				382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */,
@@ -1365,6 +1404,7 @@
 				DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */,
 				86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */,
 				D51191FEAE209E4EE95EF76E /* TabBarView.swift in Sources */,
+				88588FD13045DDDB00963B1D /* AddCustomTaskSheetView.swift in Sources */,
 				AFD89361F952EA57A94F3D38 /* TaskDuration.swift in Sources */,
 				88588FAE304048CE00963B1D /* RoomsDetailsHeaderView.swift in Sources */,
 				88588BE4303F2AAD00963B1D /* RoomCardView.swift in Sources */,

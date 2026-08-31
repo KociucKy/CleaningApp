@@ -6,6 +6,7 @@ struct RoomsDetailsTaskListView: View {
 	let tasks: [RoomTask]
 	let onCompleteTaskButtonTapped: (RoomTask) -> Void
 	let onDeleteTaskButtonTapped: (RoomTask) -> Void
+	let onEditTaskButtonTapped: (RoomTask) -> Void
 
 	var body: some View {
 		Section(frequencyTitle) {
@@ -21,6 +22,12 @@ struct RoomsDetailsTaskListView: View {
 					Button(role: .destructive) {
 						onDeleteTaskButtonTapped(task)
 					}
+					Button("Edit", systemImage: "pencil") {
+						onEditTaskButtonTapped(task)
+					}
+					.tint(.orange)
+					Button("Completed now", systemImage: "checkmark") {}
+						.tint(.green)
 				}
 			}
 		}
@@ -32,8 +39,9 @@ struct RoomsDetailsTaskListView: View {
 		RoomsDetailsTaskListView(
 			frequencyTitle: "Daily",
 			tasks: RoomTask.mocks,
-			onCompleteTaskButtonTapped: { _ in},
-			onDeleteTaskButtonTapped: { _ in }
+			onCompleteTaskButtonTapped: { _ in },
+			onDeleteTaskButtonTapped: { _ in },
+			onEditTaskButtonTapped: { _ in }
 		)
 	}
 }

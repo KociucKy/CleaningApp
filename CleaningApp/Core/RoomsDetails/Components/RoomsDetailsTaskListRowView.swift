@@ -31,6 +31,8 @@ struct RoomsDetailsTaskListRowView: View {
 		RoomsDetailsTaskListRowView(
 			taskName: "Wipe the floor",
 			taskEstimatedDuration: 12
-		) {}
+		) {
+			print("Completed")
+		}
 	}
 }
