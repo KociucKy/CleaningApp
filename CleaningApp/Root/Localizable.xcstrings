@@ -61,6 +61,9 @@
         }
       }
     },
+    "Add task" : {
+
+    },
     "Animation controls" : {
 
     },
@@ -230,6 +233,9 @@
         }
       }
     },
+    "Delete room" : {
+
+    },
     "dev_settings.button.app_store_review" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -324,6 +330,9 @@
           }
         }
       }
+    },
+    "Edit room" : {
+
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -547,6 +556,9 @@
       }
     },
     "Hide animation controls" : {
+
+    },
+    "History" : {
 
     },
     "home.nav_title" : {

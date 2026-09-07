@@ -82,11 +82,20 @@ struct RoomsDetailsView: View {
 		.navigationTitle(presenter.isHeaderVisible ? "" : room.name)
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
+			ToolbarItem(placement: .primaryAction) {
+				Button("History", systemImage: "book.fill") {}
+			}
 			ToolbarItem(placement: .topBarTrailing) {
-				Button("", systemImage: "plus") {
+				Menu {
+					Button("Add task", systemImage: "plus") {
 						presenter.onAddTaskButtonTapped(roomId: room.id)
 					}
-					Button("", systemImage: "pencil") {}
+					Button("Edit room", systemImage: "pencil") {}
+					Divider()
+					Button("Delete room", systemImage: "trash", role: .destructive) {}
+				} label: {
+					Image(systemName: "ellipsis")
+				}
 			}
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)
