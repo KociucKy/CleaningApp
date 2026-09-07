@@ -14,7 +14,7 @@ struct HomeView: View {
 			Text("Tasks: \(presenter.tasks.count)")
 		}
 		.navigationTitle("home.nav_title")
-		.navigationBarTitleDisplayMode(.large)
+		.toolbarTitleDisplayMode(.inlineLarge)
 		.onAppear(perform: presenter.fetchAllRooms)
 		.onChange(of: presenter.onboardingCompletionToken) { _, _ in
 			presenter.fetchAllRooms()

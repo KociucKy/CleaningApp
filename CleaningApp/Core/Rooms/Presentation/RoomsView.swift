@@ -47,7 +47,7 @@ struct RoomsView: View {
 		}
 		.navigationTitle("rooms.nav_title")
 		.navigationSubtitle("Manage your spaces")
-		.navigationBarTitleDisplayMode(.large)
+		.toolbarTitleDisplayMode(.inlineLarge)
 		.onAppear(perform: presenter.onAppearFetch)
 			.onDisappear {
 				roomsGridID = UUID()
