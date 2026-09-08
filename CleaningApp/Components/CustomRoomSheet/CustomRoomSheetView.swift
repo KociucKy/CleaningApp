@@ -13,7 +13,7 @@ struct CustomRoomSheetView: View {
 
 	var body: some View {
 		nameInputView
-			.navigationTitle(LocalizedStringKey("onb_custom_room.sheet_title"))
+			.navigationTitle(LocalizedStringKey(presenter.isEditing ? "Edit room" : "onb_custom_room.sheet_title"))
 			.navigationBarTitleDisplayMode(.inline)
 			.presentationDragIndicator(.visible)
 			.toolbar {
@@ -23,7 +23,7 @@ struct CustomRoomSheetView: View {
 					}
 				}
 				ToolbarItem(placement: .primaryAction) {
-					Button("onb_custom_room.button_next") {
+					Button(presenter.isEditing ? "Save" : "onb_custom_room.button_next") {
 						isTextFieldFocused = false
 						presenter.onNextButtonPressed()
 					}

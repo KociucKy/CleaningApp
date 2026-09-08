@@ -2044,6 +2044,9 @@
         }
       }
     },
+    "Save" : {
+
+    },
     "settings.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {

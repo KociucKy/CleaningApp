@@ -10,6 +10,8 @@ final class IconPickerPresenter {
     private let interactor: any CustomRoomSheetInteractor
     private let router: any CustomRoomSheetRouter
     private let roomName: String
+    private let room: Room?
+    private let onRoomSaved: ((Room) -> Void)?
 
     let icons: [String] = [
         "house.fill",
@@ -38,17 +40,32 @@ final class IconPickerPresenter {
     init(
         interactor: any CustomRoomSheetInteractor,
         router: any CustomRoomSheetRouter,
-        roomName: String
+        roomName: String,
+        room: Room?,
+        onRoomSaved: ((Room) -> Void)?
     ) {
         self.interactor = interactor
         self.router = router
         self.roomName = roomName
+        self.room = room
+        self.onRoomSaved = onRoomSaved
     }
 
     // MARK: - Actions
 
     func onIconSelected(_ icon: String) {
-        try? interactor.saveCustomRoom(name: roomName, icon: icon)
-        router.dismissScreen()
+        do {
+            if var room {
+                room.name = roomName
+                room.customIcon = icon
+                try interactor.updateRoom(room)
+                onRoomSaved?(room)
+            } else {
+                try interactor.saveCustomRoom(name: roomName, icon: icon)
+            }
+            router.dismissToRoot()
+        } catch {
+            // TODO: Surface a save error in the room flow.
+        }
     }
 }

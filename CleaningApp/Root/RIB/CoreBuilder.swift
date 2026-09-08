@@ -84,9 +84,9 @@ struct CoreBuilder: Builder {
 		RoomsDetailsView(
 			presenter: RoomsDetailsPresenter(
 				interactor: interactor,
-				router: CoreRouter(router: router, builder: self)
-			),
-			room: room
+				router: CoreRouter(router: router, builder: self),
+				room: room
+			)
 		)
 	}
 
@@ -143,11 +143,17 @@ struct CoreBuilder: Builder {
 
 	// MARK: - Custom Room Sheet (Rooms Context)
 
-	func customRoomSheetView(router: Router) -> some View {
+	func customRoomSheetView(
+		router: Router,
+		room: Room? = nil,
+		onRoomSaved: ((Room) -> Void)? = nil
+	) -> some View {
 		CustomRoomSheetView(
 			presenter: CustomRoomSheetPresenter(
 				interactor: interactor,
-				router: CoreRouter(router: router, builder: self)
+				router: CoreRouter(router: router, builder: self),
+				room: room,
+				onRoomSaved: onRoomSaved
 			)
 		)
 	}
@@ -171,12 +177,19 @@ struct CoreBuilder: Builder {
 		)
 	}
 
-	func iconPickerView(sheetRouter: CoreRouter, roomName: String) -> some View {
+	func iconPickerView(
+		sheetRouter: CoreRouter,
+		roomName: String,
+		room: Room?,
+		onRoomSaved: ((Room) -> Void)?
+	) -> some View {
 		IconPickerView(
 			presenter: IconPickerPresenter(
 				interactor: interactor,
 				router: sheetRouter,
-				roomName: roomName
+				roomName: roomName,
+				room: room,
+				onRoomSaved: onRoomSaved
 			)
 		)
 	}

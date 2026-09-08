@@ -38,6 +38,10 @@ struct CoreInteractor {
 		try roomManager.save(item)
 	}
 
+	func updateRoom(_ item: Room) throws {
+		try roomManager.update(item)
+	}
+
 	func deleteRoom(_ item: Room) throws {
 		try roomManager.delete(item)
 	}

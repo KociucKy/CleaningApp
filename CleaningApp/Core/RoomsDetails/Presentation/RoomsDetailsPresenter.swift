@@ -7,6 +7,7 @@ final class RoomsDetailsPresenter {
 
 	private let interactor: any RoomsDetailsInteractor
 	private let router: any RoomsDetailsRouter
+	private(set) var room: Room
 
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
@@ -31,10 +32,12 @@ final class RoomsDetailsPresenter {
 
 	init(
 		interactor: any RoomsDetailsInteractor,
-		router: any RoomsDetailsRouter
+		router: any RoomsDetailsRouter,
+		room: Room
 	) {
 		self.interactor = interactor
 		self.router = router
+		self.room = room
 	}
 
 	// MARK: - Actions
@@ -97,6 +100,12 @@ final class RoomsDetailsPresenter {
 	func onAddTaskButtonTapped(roomId: UUID) {
 		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [self] _ in
 			reloadTasks(for: roomId)
+		}
+	}
+
+	func onEditRoomButtonTapped() {
+		router.presentCustomRoomSheet(room: room) { [self] updatedRoom in
+			room = updatedRoom
 		}
 	}
 

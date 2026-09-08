@@ -6,6 +6,7 @@ protocol RoomRepository {
 	func fetchAll() throws -> [RoomEntity]
 	func fetch(by id: UUID) throws -> RoomEntity?
 	func save(_ item: RoomEntity) throws
+	func update(_ item: RoomEntity) throws
 	func delete(_ item: RoomEntity) throws
 }
 
@@ -41,6 +42,19 @@ final class SwiftDataRoomRepository: RoomRepository {
 
 	func save(_ entity: RoomEntity) throws {
 		mainContext.insert(entity)
+		try mainContext.save()
+	}
+
+	func update(_ item: RoomEntity) throws {
+		guard let existingEntity = try fetch(by: item.id) else {
+			return
+		}
+
+		existingEntity.name = item.name
+		existingEntity.icon = item.icon
+		existingEntity.isCustom = item.isCustom
+		existingEntity.customIcon = item.customIcon
+		existingEntity.createdAt = item.createdAt
 		try mainContext.save()
 	}
 

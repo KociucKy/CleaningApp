@@ -35,6 +35,13 @@ final class MockRoomRepository: RoomRepository {
 		}
 	}
 
+	func update(_ item: RoomEntity) throws {
+		guard let index = items.firstIndex(where: { $0.id == item.id }) else {
+			return
+		}
+		items[index] = item
+	}
+
 	func delete(_ item: RoomEntity) throws {
 		items.removeAll { $0.id == item.id }
 	}
