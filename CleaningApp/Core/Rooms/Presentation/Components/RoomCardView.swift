@@ -8,7 +8,7 @@ struct RoomCardView: View {
 	var body: some View {
 		FKCardView(showBorder: false) {
 			VStack(alignment: .leading, spacing: FKSpacing.default) {
-				HStack {
+				HStack(alignment: .top) {
 					Image(systemName: room.customIcon ?? room.kind.symbolName)
 						.font(FKTypography.cardTitle)
 						.foregroundStyle(.accent)
@@ -23,7 +23,8 @@ struct RoomCardView: View {
 						Button("Delete", systemImage: "trash", role: .destructive, action: deleteAction)
 					} label: {
 						Image(systemName: "ellipsis")
-							.foregroundStyle(.secondary)
+							.foregroundStyle(.tertiary)
+							.font(.title2)
 							.contentShape(.rect)
 					}
 				}
