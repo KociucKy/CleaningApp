@@ -1,10 +1,11 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct RoomCardView: View {
 	let room: Room
+	let editAction: () -> Void
 	let deleteAction: () -> Void
-	
+
 	var body: some View {
 		FKCardView(showBorder: false) {
 			VStack(alignment: .leading, spacing: FKSpacing.default) {
@@ -16,10 +17,10 @@ struct RoomCardView: View {
 					Spacer()
 
 					Menu {
-						Button("Edit", systemImage: "pencil") {
+						Button("Edit", systemImage: "pencil", action: editAction)
 
-						}
 						Divider()
+
 						Button("Delete", systemImage: "trash", role: .destructive, action: deleteAction)
 					} label: {
 						Image(systemName: "ellipsis")
@@ -47,6 +48,6 @@ struct RoomCardView: View {
 }
 
 #Preview {
-	RoomCardView(room: .mock) {}
+	RoomCardView(room: .mock, editAction: {}, deleteAction: {})
 		.frame(width: 200, height: 100)
 }

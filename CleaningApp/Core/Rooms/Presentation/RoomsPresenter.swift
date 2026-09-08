@@ -69,6 +69,12 @@ final class RoomsPresenter {
 		}
 	}
 
+	func editRoom(room: Room) {
+		router.presentCustomRoomSheet(room: room) { [weak self] _ in
+			self?.fetchRooms()
+		}
+	}
+
 	func deleteRoom(room: Room) {
 		do {
 			try interactor.deleteRoom(room)

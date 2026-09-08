@@ -9,7 +9,7 @@ struct RoomsView: View {
 
 	@Environment(\.tabBarSelection) private var tabBarSelection
 	@State private var presenter: RoomsPresenter
-		@State private var roomsGridID = UUID()
+	@State private var roomsGridID = UUID()
 	#if DEV || MOCK
 	@State private var isShowingAnimationControls = false
 	#endif
@@ -49,9 +49,9 @@ struct RoomsView: View {
 		.navigationSubtitle("Manage your spaces")
 		.toolbarTitleDisplayMode(.inlineLarge)
 		.onAppear(perform: presenter.onAppearFetch)
-			.onDisappear {
-				roomsGridID = UUID()
-			}
+		.onDisappear {
+			roomsGridID = UUID()
+		}
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
 				Button(
@@ -97,6 +97,9 @@ struct RoomsView: View {
 		} label: {
 			RoomCardView(
 				room: room,
+				editAction: {
+					presenter.editRoom(room: room)
+				},
 				deleteAction: {
 					presenter.deleteRoom(room: room)
 				}
