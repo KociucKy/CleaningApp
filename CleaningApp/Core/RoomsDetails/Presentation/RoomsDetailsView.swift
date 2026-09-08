@@ -74,6 +74,7 @@ struct RoomsDetailsView: View {
 				}
 			}
 		}
+		.id(presenter.reloadToken)
 		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
 			presenter.onAppear(roomId: room.id)

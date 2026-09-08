@@ -1,10 +1,10 @@
 import FulhamKit
 import SwiftUI
 
-// MARK: - AddCustomTaskSheetView
+// MARK: - CustomTaskSheetView
 
 @MainActor
-struct AddCustomTaskSheetView: View {
+struct CustomTaskSheetView: View {
 	// MARK: - Properties
 
 	private enum Constants {
@@ -67,10 +67,10 @@ struct AddCustomTaskSheetView: View {
 				}
 			}
 			ToolbarItem(placement: .confirmationAction) {
-				Button("common.action.add") {
+				Button(presenter.isEditing ? "Edit" : "common.action.add") {
 					FKHaptics.selection()
 					isTaskNameFocused = false
-					presenter.onAddButtonPressed()
+					presenter.onSaveButtonPressed()
 				}
 				.disabled(!presenter.isTaskNameValid)
 			}
