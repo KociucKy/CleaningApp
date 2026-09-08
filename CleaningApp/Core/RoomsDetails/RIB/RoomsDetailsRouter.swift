@@ -4,7 +4,11 @@ import NavigationKit
 @MainActor
 protocol RoomsDetailsRouter {
 	func presentRoomsDetailsTaskCompletionSheet(props: RoomsDetailsTaskCompletionProps)
-	func presentAddCustomTaskSheet(roomId: UUID, onTaskAdded: @escaping () -> Void)
+	func presentCustomTaskSheet(
+		roomId: UUID,
+		task: RoomTask?,
+		onTaskSaved: @escaping (RoomTask) -> Void
+	)
 }
 
 extension CoreRouter: RoomsDetailsRouter {}

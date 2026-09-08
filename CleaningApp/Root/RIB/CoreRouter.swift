@@ -87,12 +87,17 @@ struct CoreRouter {
 		}
 	}
 
-	func presentAddCustomTaskSheet(roomId: UUID, onTaskAdded: @escaping () -> Void) {
+	func presentCustomTaskSheet(
+		roomId: UUID,
+		task: RoomTask?,
+		onTaskSaved: @escaping (RoomTask) -> Void
+	) {
 		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
-			builder.addCustomTaskSheetView(
+			builder.customTaskSheetView(
 				router: router,
 				roomId: roomId,
-				onTaskAdded: onTaskAdded
+				task: task,
+				onTaskSaved: onTaskSaved
 			)
 		}
 	}

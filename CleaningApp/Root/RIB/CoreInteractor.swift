@@ -70,7 +70,7 @@ struct CoreInteractor {
 		try roomTaskManager.delete(item)
 	}
 
-	func updatRoomTask(_ item: RoomTask) throws {
+	func updateRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.update(item)
 	}
 

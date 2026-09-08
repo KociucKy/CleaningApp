@@ -154,17 +154,19 @@ struct CoreBuilder: Builder {
 
 	// MARK: - Custom Task Sheet
 
-	func addCustomTaskSheetView(
+	func customTaskSheetView(
 		router: Router,
 		roomId: UUID,
-		onTaskAdded: @escaping () -> Void
+		task: RoomTask?,
+		onTaskSaved: @escaping (RoomTask) -> Void
 	) -> some View {
-		AddCustomTaskSheetView(
+		CustomTaskSheetView(
 			presenter: AddCustomTaskSheetPresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self),
 				roomId: roomId,
-				onTaskAdded: onTaskAdded
+				task: task,
+				onTaskSaved: onTaskSaved
 			)
 		)
 	}

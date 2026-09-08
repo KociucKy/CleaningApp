@@ -11,10 +11,15 @@ final class AddCustomTaskSheetPresenter {
     private let interactor: any AddCustomTaskSheetInteractor
     private let router: any AddCustomTaskSheetRouter
     private let roomId: UUID
-    private let onTaskAdded: () -> Void
+    private let task: RoomTask?
+    private let onTaskSaved: (RoomTask) -> Void
 
     var taskName = ""
     var selectedFrequency: Frequency = .timesPerWeek(1)
+
+    var isEditing: Bool {
+        task != nil
+    }
 
     var isTaskNameValid: Bool {
         !taskName.trimmingCharacters(in: .whitespaces).isEmpty
@@ -26,12 +31,16 @@ final class AddCustomTaskSheetPresenter {
         interactor: any AddCustomTaskSheetInteractor,
         router: any AddCustomTaskSheetRouter,
         roomId: UUID,
-        onTaskAdded: @escaping () -> Void
+        task: RoomTask?,
+        onTaskSaved: @escaping (RoomTask) -> Void
     ) {
         self.interactor = interactor
         self.router = router
         self.roomId = roomId
-        self.onTaskAdded = onTaskAdded
+        self.task = task
+        self.onTaskSaved = onTaskSaved
+        self.taskName = task?.name ?? ""
+        self.selectedFrequency = task?.frequency ?? .timesPerWeek(1)
     }
 
     // MARK: - Actions
@@ -40,20 +49,28 @@ final class AddCustomTaskSheetPresenter {
         router.dismissScreen()
     }
 
-    func onAddButtonPressed() {
+    func onSaveButtonPressed() {
         guard isTaskNameValid else { return }
 
-        let task = RoomTask(
+        let updatedTask = RoomTask(
+            id: task?.id ?? UUID(),
             name: taskName.trimmingCharacters(in: .whitespaces),
             roomId: roomId,
             frequency: selectedFrequency,
-            estimatedDuration: .fifteenMinutes
+            estimatedDuration: task?.estimatedDuration ?? .fifteenMinutes,
+            createdAt: task?.createdAt ?? Date()
         )
 
         do {
-            try interactor.saveRoomTask(task)
+            if task == nil {
+                try interactor.saveRoomTask(updatedTask)
+            } else {
+                try interactor.updateRoomTask(updatedTask)
+            }
             router.dismissScreen()
-            onTaskAdded()
+            DispatchQueue.main.async {
+                self.onTaskSaved(updatedTask)
+            }
         } catch {
             // TODO: Surface a save error in the sheet when app-level error presentation is added.
         }
