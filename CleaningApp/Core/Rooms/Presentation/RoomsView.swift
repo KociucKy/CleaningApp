@@ -10,9 +10,6 @@ struct RoomsView: View {
 	@Environment(\.tabBarSelection) private var tabBarSelection
 	@State private var presenter: RoomsPresenter
 	@State private var roomsGridID = UUID()
-	#if DEV || MOCK
-	@State private var isShowingAnimationControls = false
-	#endif
 
 	private var roomsTabIsActive: Bool {
 		tabBarSelection == nil || tabBarSelection == String(localized: "tab.rooms")
@@ -61,31 +58,10 @@ struct RoomsView: View {
 					action: presenter.onAddButtonTapped
 				)
 			}
-			#if DEV || MOCK
-			ToolbarItem(placement: .primaryAction) {
-				Button("Animation controls", systemImage: "slider.horizontal.3") {
-					isShowingAnimationControls.toggle()
-				}
-				.accessibilityLabel(
-					isShowingAnimationControls ? "Hide animation controls" : "Show animation controls"
-				)
-			}
-			#endif
 		}
 		.toast($presenter.toast)
 		.background(FKColor.Background.primary)
 		.scrollEdgeEffectStyle(.soft, for: .all)
-		#if DEV || MOCK
-			.overlay(alignment: .bottomTrailing) {
-				if isShowingAnimationControls {
-					RoomsAnimationControlsView(configuration: $presenter.animationConfiguration) {
-						presenter.increaseAnimationConfigurationRunID()
-					}
-					.transition(.move(edge: .bottom).combined(with: .opacity))
-				}
-			}
-			.animation(.easeOut(duration: 0.2), value: isShowingAnimationControls)
-		#endif
 	}
 
 	// MARK: - Views

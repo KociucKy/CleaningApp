@@ -11,16 +11,6 @@
         }
       }
     },
-    "%.3g%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$.3g%2$@"
-          }
-        }
-      }
-    },
     "%lld min" : {
 
     },
@@ -62,9 +52,6 @@
       }
     },
     "Add task" : {
-
-    },
-    "Animation controls" : {
 
     },
     "app_name" : {
@@ -554,9 +541,6 @@
           }
         }
       }
-    },
-    "Hide animation controls" : {
-
     },
     "History" : {
 
@@ -1704,12 +1688,6 @@
         }
       }
     },
-    "Replay" : {
-
-    },
-    "Replay rooms animation" : {
-
-    },
     "room_type.bathroom" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1897,9 +1875,6 @@
         }
       }
     },
-    "Rooms animation" : {
-
-    },
     "rooms_details_task_completion.cancel" : {
       "localizations" : {
         "pl" : {
@@ -2063,9 +2038,6 @@
           }
         }
       }
-    },
-    "Show animation controls" : {
-
     },
     "tab.home" : {
       "extractionState" : "manual",

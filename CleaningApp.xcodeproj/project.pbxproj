@@ -91,7 +91,6 @@
 		88588FB230404E9900963B1D /* RoomsDetailsTaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB130404E9900963B1D /* RoomsDetailsTaskListView.swift */; };
 		88588FB430404EE700963B1D /* RoomsDetailsTaskListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB330404EE700963B1D /* RoomsDetailsTaskListRowView.swift */; };
 		88588FB63040522A00963B1D /* RoomsAnimationConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB53040522A00963B1D /* RoomsAnimationConfiguration.swift */; };
-		88588FB83040522A00963B1D /* RoomsAnimationControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB73040522A00963B1D /* RoomsAnimationControlsView.swift */; };
 		88588FBA3041A0A200963B1D /* RoomsDetailsTaskCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FB93041A0A200963B1D /* RoomsDetailsTaskCompletionView.swift */; };
 		88588FBF3041A44A00963B1D /* RoomsDetailsTaskCompletionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FBE3041A44A00963B1D /* RoomsDetailsTaskCompletionInteractor.swift */; };
 		88588FC13041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88588FC03041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift */; };
@@ -285,7 +284,6 @@
 		88588FB130404E9900963B1D /* RoomsDetailsTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskListView.swift; sourceTree = "<group>"; };
 		88588FB330404EE700963B1D /* RoomsDetailsTaskListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskListRowView.swift; sourceTree = "<group>"; };
 		88588FB53040522A00963B1D /* RoomsAnimationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsAnimationConfiguration.swift; sourceTree = "<group>"; };
-		88588FB73040522A00963B1D /* RoomsAnimationControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsAnimationControlsView.swift; sourceTree = "<group>"; };
 		88588FB93041A0A200963B1D /* RoomsDetailsTaskCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionView.swift; sourceTree = "<group>"; };
 		88588FBE3041A44A00963B1D /* RoomsDetailsTaskCompletionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionInteractor.swift; sourceTree = "<group>"; };
 		88588FC03041A47500963B1D /* RoomsDetailsTaskCompletionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskCompletionRouter.swift; sourceTree = "<group>"; };
@@ -714,7 +712,6 @@
 				3F0AC0E23A9B8115A456660C /* RoomsPresenter.swift */,
 				8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */,
 				88588FB53040522A00963B1D /* RoomsAnimationConfiguration.swift */,
-				88588FB73040522A00963B1D /* RoomsAnimationControlsView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1382,7 +1379,6 @@
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,
 				E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */,
 				ADFB02F71345BA9CF174B950 /* RoomTaskMapper.swift in Sources */,
-				88588FB83040522A00963B1D /* RoomsAnimationControlsView.swift in Sources */,
 				D3361A174D0921DD7AF1FB5F /* RoomTaskRepository.swift in Sources */,
 				191A338092B50EA8AC5FE1A5 /* RoomType+SuggestedTasks.swift in Sources */,
 				94682685827112BBEBE86047 /* RoomType.swift in Sources */,
