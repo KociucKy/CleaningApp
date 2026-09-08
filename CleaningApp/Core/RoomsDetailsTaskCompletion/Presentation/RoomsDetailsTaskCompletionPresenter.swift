@@ -1,4 +1,5 @@
-import Foundation
+import SwiftUI
+import FulhamKit
 
 @Observable
 @MainActor
@@ -9,6 +10,8 @@ final class RoomsDetailsTaskCompletionPresenter {
 	private let router: any RoomsDetailsTaskCompletionRouter
 	var completedAt: Date = .now
 	var selectedPresetOffset: TimeInterval = 0
+	var hasAppeared = false
+	var animateSymbol = false
 
 	// MARK: - Init
 
@@ -21,6 +24,14 @@ final class RoomsDetailsTaskCompletionPresenter {
 	}
 
 	// Actions
+
+	func onAppear(animationDelay: Double) {
+		hasAppeared = true
+		DispatchQueue.main.asyncAfter(deadline: .now() + animationDelay) { [weak self] in
+			guard let self else { return }
+			self.animateSymbol = true
+		}
+	}
 
 	func onCloseButtonTapped() {
 		router.dismissScreen()
@@ -37,5 +48,15 @@ final class RoomsDetailsTaskCompletionPresenter {
 			print("Error")
 		}
 		router.dismissScreen()
+	}
+
+	func onPresetSelected(offset: TimeInterval) {
+		withTransaction(Transaction(animation: nil)) {
+			selectedPresetOffset = offset
+			completedAt = Date().addingTimeInterval(offset)
+		}
+		DispatchQueue.main.async {
+			FKHaptics.impact(.light)
+		}
 	}
 }

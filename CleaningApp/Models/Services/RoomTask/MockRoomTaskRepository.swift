@@ -27,4 +27,16 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 	func delete(_ item: RoomTaskEntity) throws {
 		items.removeAll { $0.id == item.id }
 	}
+
+	func update(_ item: RoomTaskEntity) throws {
+		guard let index = items.firstIndex(of: item) else {
+			return
+		}
+
+		items[index].name = item.name
+		items[index].room = item.room
+		items[index].frequencyEncoded = item.frequencyEncoded
+		items[index].estimatedDuration = item.estimatedDuration
+		items[index].createdAt = item.createdAt
+	}
 }

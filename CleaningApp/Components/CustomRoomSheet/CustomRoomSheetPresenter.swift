@@ -9,8 +9,14 @@ final class CustomRoomSheetPresenter {
 
     private let interactor: any CustomRoomSheetInteractor
     private let router: any CustomRoomSheetRouter
+    private let room: Room?
+    private let onRoomSaved: ((Room) -> Void)?
 
     var roomName: String = ""
+
+    var isEditing: Bool {
+        room != nil
+    }
 
     var isNameValid: Bool {
         !roomName.trimmingCharacters(in: .whitespaces).isEmpty
@@ -20,10 +26,15 @@ final class CustomRoomSheetPresenter {
 
     init(
         interactor: any CustomRoomSheetInteractor,
-        router: any CustomRoomSheetRouter
+        router: any CustomRoomSheetRouter,
+        room: Room?,
+        onRoomSaved: ((Room) -> Void)?
     ) {
         self.interactor = interactor
         self.router = router
+        self.room = room
+        self.onRoomSaved = onRoomSaved
+        self.roomName = room?.name ?? ""
     }
 
     // MARK: - Actions
@@ -35,6 +46,19 @@ final class CustomRoomSheetPresenter {
     func onNextButtonPressed() {
         guard isNameValid else { return }
         let trimmedName = roomName.trimmingCharacters(in: .whitespaces)
-        router.showIconPicker(roomName: trimmedName)
+
+        if var room {
+            room.name = trimmedName
+
+            do {
+                try interactor.updateRoom(room)
+                onRoomSaved?(room)
+                router.dismissScreen()
+            } catch {
+                return
+            }
+        } else {
+            router.showIconPicker(roomName: trimmedName, room: nil, onRoomSaved: nil)
+        }
     }
 }

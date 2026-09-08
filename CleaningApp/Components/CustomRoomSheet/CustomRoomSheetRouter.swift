@@ -5,5 +5,8 @@ import Foundation
 @MainActor
 protocol CustomRoomSheetRouter {
     func dismissScreen()
-    func showIconPicker(roomName: String)
+    func dismissToRoot()
+    func showIconPicker(roomName: String, room: Room?, onRoomSaved: ((Room) -> Void)?)
 }
+
+extension CoreRouter: CustomRoomSheetRouter {}

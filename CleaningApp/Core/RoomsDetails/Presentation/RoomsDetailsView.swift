@@ -8,15 +8,14 @@ struct RoomsDetailsView: View {
 
 	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: RoomsDetailsPresenter
-	let room: Room
 
 	// MARK: - Body
 
 	var body: some View {
 		List {
 			RoomsDetailsHeaderView(
-				symbol: room.customIcon ?? room.kind.symbolName,
-				roomName: room.name
+				symbol: presenter.room.customIcon ?? presenter.room.kind.symbolName,
+				roomName: presenter.room.name
 			)
 			.frame(maxWidth: .infinity, alignment: .center)
 			.opacity(presenter.animate ? 1 : 0)
@@ -32,6 +31,7 @@ struct RoomsDetailsView: View {
 				}
 			}
 			.removeListRowFormatting()
+
 			Section {
 				RoomsDetailsMetricsView(
 					taskCount: presenter.totalTasksCount,
@@ -56,7 +56,10 @@ struct RoomsDetailsView: View {
 						},
 						onDeleteTaskButtonTapped: { task in
 							FKHaptics.notification(.warning)
-							presenter.onDeleteTaskButtonTapped(task, roomId: room.id)
+							presenter.onDeleteTaskButtonTapped(task, roomId: presenter.room.id)
+						},
+						onEditTaskButtonTapped: { task in
+							presenter.onEditTaskButtonTapped(task)
 						}
 					)
 					.opacity(presenter.animate ? 1 : 0)
@@ -71,16 +74,31 @@ struct RoomsDetailsView: View {
 				}
 			}
 		}
+		.id(presenter.reloadToken)
 		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
-			presenter.onAppear(room: room)
+			presenter.onAppear(roomId: presenter.room.id)
 			presenter.restartEntranceAnimation()
 		}
-		.navigationTitle(presenter.isHeaderVisible ? "" : room.name)
+		.navigationTitle(presenter.isHeaderVisible ? "" : presenter.room.name)
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
+			ToolbarItem(placement: .primaryAction) {
+				Button("History", systemImage: "book.fill") {}
+			}
 			ToolbarItem(placement: .topBarTrailing) {
-				Button("", systemImage: "pencil") {}
+				Menu {
+					Button("Add task", systemImage: "plus") {
+						presenter.onAddTaskButtonTapped(roomId: presenter.room.id)
+					}
+					Button("Edit room", systemImage: "pencil") {
+						presenter.onEditRoomButtonTapped()
+					}
+					Divider()
+					Button("Delete room", systemImage: "trash", role: .destructive) {}
+				} label: {
+					Image(systemName: "ellipsis")
+				}
 			}
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)

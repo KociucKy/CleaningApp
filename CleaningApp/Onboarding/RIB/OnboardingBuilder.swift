@@ -77,7 +77,9 @@ struct OnboardingBuilder: Builder {
 		CustomRoomSheetView(
 			presenter: CustomRoomSheetPresenter(
 				interactor: interactor,
-				router: OnboardingRouter(router: router, builder: self)
+				router: OnboardingRouter(router: router, builder: self),
+				room: nil,
+				onRoomSaved: nil
 			)
 		)
 	}
@@ -107,7 +109,9 @@ struct OnboardingBuilder: Builder {
 			presenter: IconPickerPresenter(
 				interactor: interactor,
 				router: sheetRouter,
-				roomName: roomName
+				roomName: roomName,
+				room: nil,
+				onRoomSaved: nil
 			)
 		)
 	}

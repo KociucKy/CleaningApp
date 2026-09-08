@@ -38,8 +38,22 @@ struct CoreInteractor {
 		try roomManager.save(item)
 	}
 
+	func updateRoom(_ item: Room) throws {
+		try roomManager.update(item)
+	}
+
 	func deleteRoom(_ item: Room) throws {
 		try roomManager.delete(item)
+	}
+
+	func saveCustomRoom(name: String, icon: String) throws {
+		let room = Room(
+			name: name,
+			kind: .customRoom,
+			isCustom: true,
+			customIcon: icon
+		)
+		try roomManager.save(room)
 	}
 
 	// MARK: - Room Task Manager
@@ -58,6 +72,10 @@ struct CoreInteractor {
 
 	func deleteRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.delete(item)
+	}
+
+	func updateRoomTask(_ item: RoomTask) throws {
+		try roomTaskManager.update(item)
 	}
 
 	// MARK: - Completed Task Manager
@@ -94,19 +112,5 @@ struct CoreInteractor {
 
 	func deleteSkippedTask(_ item: SkippedTask) throws {
 		try skippedTaskManager.delete(item)
-	}
-}
-
-// MARK: - CustomRoomSheetInteractor
-
-extension CoreInteractor: CustomRoomSheetInteractor {
-	func saveCustomRoom(name: String, icon: String) throws {
-		let room = Room(
-			name: name,
-			kind: .customRoom,
-			isCustom: true,
-			customIcon: icon
-		)
-		try roomManager.save(room)
 	}
 }

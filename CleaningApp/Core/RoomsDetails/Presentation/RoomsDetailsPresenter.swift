@@ -7,12 +7,14 @@ final class RoomsDetailsPresenter {
 
 	private let interactor: any RoomsDetailsInteractor
 	private let router: any RoomsDetailsRouter
+	private(set) var room: Room
 
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var isLoading = true
+	private(set) var reloadToken = 0
 	private(set) var errorMessage: String?
 	private(set) var animate = false
 	var isHeaderVisible = true
@@ -30,26 +32,33 @@ final class RoomsDetailsPresenter {
 
 	init(
 		interactor: any RoomsDetailsInteractor,
-		router: any RoomsDetailsRouter
+		router: any RoomsDetailsRouter,
+		room: Room
 	) {
 		self.interactor = interactor
 		self.router = router
+		self.room = room
 	}
 
 	// MARK: - Actions
 
-	func onAppear(room: Room) {
+	func onAppear(roomId: UUID) {
 		guard isLoading else {
 			return
 		}
 
+		reloadTasks(for: roomId)
+	}
+
+	func reloadTasks(for roomId: UUID) {
 		do {
-			tasks = try interactor.fetchAllRoomTasks(for: room.id).sorted { $0.name < $1.name }
+			tasks = try interactor.fetchAllRoomTasks(for: roomId).sorted { $0.name < $1.name }
 			var seenFrequencies = Set<Frequency>()
 			frequencies = tasks.compactMap { task in
 				seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
 			}
 			tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
+			reloadToken &+= 1
 			completedTaskIDs = try Set(
 				tasks.flatMap { task in
 					try interactor.fetchAllCompletedTasks(for: task.id)
@@ -65,8 +74,8 @@ final class RoomsDetailsPresenter {
 	func onDeleteTaskButtonTapped(_ task: RoomTask, roomId: UUID) {
 		do {
 			try interactor.deleteRoomTask(task)
-			try withAnimation {
-				tasks = try interactor.fetchAllRoomTasks(for: roomId).sorted { $0.name < $1.name }
+			withAnimation {
+				reloadTasks(for: roomId)
 			}
 		} catch {
 			errorMessage = "Unable to delete this task."
@@ -88,6 +97,18 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
+	func onAddTaskButtonTapped(roomId: UUID) {
+		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [self] _ in
+			reloadTasks(for: roomId)
+		}
+	}
+
+	func onEditRoomButtonTapped() {
+		router.presentCustomRoomSheet(room: room) { [self] updatedRoom in
+			room = updatedRoom
+		}
+	}
+
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
@@ -95,5 +116,11 @@ final class RoomsDetailsPresenter {
 				taskName: task.name
 			)
 		)
+	}
+
+	func onEditTaskButtonTapped(_ task: RoomTask) {
+		router.presentCustomTaskSheet(roomId: task.roomId, task: task) { [self] _ in
+			reloadTasks(for: task.roomId)
+		}
 	}
 }

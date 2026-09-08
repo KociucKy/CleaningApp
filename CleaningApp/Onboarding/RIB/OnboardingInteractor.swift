@@ -213,4 +213,8 @@ extension OnboardingInteractor: CustomRoomSheetInteractor {
 	func saveCustomRoom(name: String, icon: String) throws {
 		addCustomRoom(name: name, icon: icon)
 	}
+
+	func updateRoom(_ room: Room) throws {
+		// Room editing is unavailable during onboarding.
+	}
 }

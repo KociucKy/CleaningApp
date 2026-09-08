@@ -11,16 +11,6 @@
         }
       }
     },
-    "%.3g%@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$.3g%2$@"
-          }
-        }
-      }
-    },
     "%lld min" : {
 
     },
@@ -61,7 +51,7 @@
         }
       }
     },
-    "Animation controls" : {
+    "Add task" : {
 
     },
     "app_name" : {
@@ -217,6 +207,9 @@
         }
       }
     },
+    "Completed now" : {
+
+    },
     "Delete" : {
       "localizations" : {
         "pl" : {
@@ -226,6 +219,9 @@
           }
         }
       }
+    },
+    "Delete room" : {
+
     },
     "dev_settings.button.app_store_review" : {
       "extractionState" : "manual",
@@ -321,6 +317,9 @@
           }
         }
       }
+    },
+    "Edit room" : {
+
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -543,7 +542,7 @@
         }
       }
     },
-    "Hide animation controls" : {
+    "History" : {
 
     },
     "home.nav_title" : {
@@ -1689,12 +1688,6 @@
         }
       }
     },
-    "Replay" : {
-
-    },
-    "Replay rooms animation" : {
-
-    },
     "room_type.bathroom" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1882,9 +1875,6 @@
         }
       }
     },
-    "Rooms animation" : {
-
-    },
     "rooms_details_task_completion.cancel" : {
       "localizations" : {
         "pl" : {
@@ -2029,6 +2019,9 @@
         }
       }
     },
+    "Save" : {
+
+    },
     "settings.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2045,9 +2038,6 @@
           }
         }
       }
-    },
-    "Show animation controls" : {
-
     },
     "tab.home" : {
       "extractionState" : "manual",

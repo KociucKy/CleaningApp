@@ -47,4 +47,12 @@ final class RoomTaskManager {
 		let entity = mapper.toEntity(model, roomEntity: roomEntity)
 		try taskRepository.delete(entity)
 	}
+
+	func update(_ model: RoomTask) throws {
+		guard let roomEntity = try roomRepository.fetch(by: model.roomId) else {
+			return
+		}
+		let entity = mapper.toEntity(model, roomEntity: roomEntity)
+		try taskRepository.update(entity)
+	}
 }

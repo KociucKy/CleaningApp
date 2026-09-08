@@ -71,7 +71,23 @@ struct CoreRouter {
 			.sheetWithDetents([.medium]),
 			onDismiss: onDismiss
 		) { router in
-			builder.customRoomSheetView(router: router)
+			builder.customRoomSheetView(router: router, room: nil, onRoomSaved: nil)
+		}
+	}
+
+	func presentCustomRoomSheet(
+		room: Room,
+		onRoomSaved: @escaping (Room) -> Void
+	) {
+		router.showScreen(
+			.sheetWithDetents([.medium]),
+			onDismiss: nil
+		) { router in
+			builder.customRoomSheetView(
+				router: router,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
 		}
 	}
 
@@ -86,15 +102,35 @@ struct CoreRouter {
 			builder.roomsDetailsTaskCompletionView(router: router, props: props)
 		}
 	}
-}
 
-// MARK: - CustomRoomSheetRouter (Rooms Context)
+	func presentCustomTaskSheet(
+		roomId: UUID,
+		task: RoomTask?,
+		onTaskSaved: @escaping (RoomTask) -> Void
+	) {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.customTaskSheetView(
+				router: router,
+				roomId: roomId,
+				task: task,
+				onTaskSaved: onTaskSaved
+			)
+		}
+	}
 
-extension CoreRouter: CustomRoomSheetRouter {
-	func showIconPicker(roomName: String) {
+	func showIconPicker(
+		roomName: String,
+		room: Room?,
+		onRoomSaved: ((Room) -> Void)?
+	) {
 		let sheetRouter = self
 		router.showScreen(.push, onDismiss: nil) { _ in
-			builder.iconPickerView(sheetRouter: sheetRouter, roomName: roomName)
+			builder.iconPickerView(
+					sheetRouter: sheetRouter,
+					roomName: roomName,
+					room: room,
+					onRoomSaved: onRoomSaved
+				)
 		}
 	}
 }
