@@ -77,7 +77,7 @@ struct RoomsView: View {
 					presenter.editRoom(room: room)
 				},
 				deleteAction: {
-					presenter.deleteRoom(room: room)
+					presenter.onDeleteRoomButtonTapped(room: room)
 				}
 			)
 		}

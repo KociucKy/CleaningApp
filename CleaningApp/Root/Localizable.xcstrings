@@ -71,6 +71,9 @@
         }
       }
     },
+    "Cancel" : {
+
+    },
     "common.action.add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2813,6 +2816,9 @@
           }
         }
       }
+    },
+    "Yes" : {
+
     }
   },
   "version" : "1.3"

@@ -32,12 +32,12 @@ struct CoreRouter {
 		router.dismissAlert()
 	}
 
-	func showAlert(_ option: AlertType, title: String, subtitle: String?, buttons: (@Sendable () -> AnyView)?){
+	func showAlert(_ option: AlertType, title: String, subtitle: String?, buttons: (@MainActor @Sendable () -> AnyView)?) {
 		router.showAlert(
 			option,
 			title: title,
 			subtitle: subtitle,
-			buttons: buttons
+				buttons: buttons
 		)
 	}
 
@@ -144,11 +144,11 @@ struct CoreRouter {
 		let sheetRouter = self
 		router.showScreen(.push, onDismiss: nil) { _ in
 			builder.iconPickerView(
-					sheetRouter: sheetRouter,
-					roomName: roomName,
-					room: room,
-					onRoomSaved: onRoomSaved
-				)
+				sheetRouter: sheetRouter,
+				roomName: roomName,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
 		}
 	}
 }
