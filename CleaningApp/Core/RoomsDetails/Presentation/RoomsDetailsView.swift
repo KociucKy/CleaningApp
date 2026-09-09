@@ -95,7 +95,9 @@ struct RoomsDetailsView: View {
 						presenter.onEditRoomButtonTapped()
 					}
 					Divider()
-					Button("Delete room", systemImage: "trash", role: .destructive) {}
+					Button("Delete room", systemImage: "trash", role: .destructive) {
+							presenter.onDeleteRoomButtonTapped()
+						}
 				} label: {
 					Image(systemName: "ellipsis")
 				}

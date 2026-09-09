@@ -109,6 +109,24 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
+	func onDeleteRoomButtonTapped() {
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete \(room.name)",
+			subtitle: nil,
+			buttons: { @MainActor in
+				Group {
+					Button("Yes", role: .destructive) {
+						self.deleteRoom()
+					}
+					Button("Cancel", role: .cancel) {
+						self.router.dismissAlert()
+					}
+				}.any()
+			}
+		)
+	}
+
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
@@ -121,6 +139,17 @@ final class RoomsDetailsPresenter {
 	func onEditTaskButtonTapped(_ task: RoomTask) {
 		router.presentCustomTaskSheet(roomId: task.roomId, task: task) { [self] _ in
 			reloadTasks(for: task.roomId)
+		}
+	}
+
+	// MARK: - Private
+
+	private func deleteRoom() {
+		do {
+			try interactor.deleteRoom(room)
+			router.dismissScreen()
+		} catch {
+			errorMessage = "Error while deleting a room"
 		}
 	}
 }
