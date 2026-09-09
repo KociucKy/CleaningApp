@@ -10,7 +10,7 @@ struct CoreRouter {
 	let router: Router
 	let builder: CoreBuilder
 
-	// MARK: - Navigation
+	// MARK: - Core Navigation
 
 	func dismissScreen() {
 		router.dismissScreen()
@@ -30,6 +30,24 @@ struct CoreRouter {
 
 	func dismissAlert() {
 		router.dismissAlert()
+	}
+
+	func showAlert(_ option: AlertType, title: String, subtitle: String?, buttons: (@Sendable () -> AnyView)?){
+		router.showAlert(
+			option,
+			title: title,
+			subtitle: subtitle,
+			buttons: buttons
+		)
+	}
+
+	func showAlert(error: Error) {
+		router.showAlert(
+			.alert,
+			title: "Error",
+			subtitle: error.localizedDescription,
+			buttons: nil
+		)
 	}
 
 	// MARK: - Dev Settings
