@@ -72,14 +72,21 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onDeleteTaskButtonTapped(_ task: RoomTask, roomId: UUID) {
-		do {
-			try interactor.deleteRoomTask(task)
-			withAnimation {
-				reloadTasks(for: roomId)
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete \(task.name)",
+			subtitle: nil,
+			buttons: { @MainActor in
+				Group {
+					Button("Yes", role: .destructive) {
+						self.deleteTask(task, roomId: roomId)
+					}
+					Button("Cancel", role: .cancel) {
+						self.router.dismissAlert()
+					}
+				}.any()
 			}
-		} catch {
-			errorMessage = "Unable to delete this task."
-		}
+		)
 	}
 
 	func restartEntranceAnimation() {
@@ -143,6 +150,17 @@ final class RoomsDetailsPresenter {
 	}
 
 	// MARK: - Private
+
+	private func deleteTask(_ task: RoomTask, roomId: UUID) {
+		do {
+			try interactor.deleteRoomTask(task)
+			withAnimation {
+				reloadTasks(for: roomId)
+			}
+		} catch {
+			errorMessage = "Unable to delete this task."
+		}
+	}
 
 	private func deleteRoom() {
 		do {

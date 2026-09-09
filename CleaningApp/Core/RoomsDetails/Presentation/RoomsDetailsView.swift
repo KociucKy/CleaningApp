@@ -55,7 +55,6 @@ struct RoomsDetailsView: View {
 							presenter.onTaskCompletionTapped(task)
 						},
 						onDeleteTaskButtonTapped: { task in
-							FKHaptics.notification(.warning)
 							presenter.onDeleteTaskButtonTapped(task, roomId: presenter.room.id)
 						},
 						onEditTaskButtonTapped: { task in
@@ -96,8 +95,8 @@ struct RoomsDetailsView: View {
 					}
 					Divider()
 					Button("Delete room", systemImage: "trash", role: .destructive) {
-							presenter.onDeleteRoomButtonTapped()
-						}
+						presenter.onDeleteRoomButtonTapped()
+					}
 				} label: {
 					Image(systemName: "ellipsis")
 				}
