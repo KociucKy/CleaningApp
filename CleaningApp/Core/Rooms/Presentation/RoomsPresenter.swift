@@ -53,9 +53,6 @@ final class RoomsPresenter {
 	// MARK: - Actions
 
 	func onAppearFetch() {
-		guard case .isLoading = state else {
-			return
-		}
 		fetchRooms()
 	}
 
