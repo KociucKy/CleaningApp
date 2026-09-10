@@ -42,6 +42,7 @@ struct OnbAddCustomTaskSheetView: View {
 		.navigationTitle("onb_custom_task.title")
 		.navigationBarTitleDisplayMode(.inline)
 		.presentationDragIndicator(.visible)
+		.onDisappear(perform: dismissKeyboard)
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
 				Button("common.action.cancel") {

@@ -51,6 +51,7 @@ struct CustomTaskSheetView: View {
         .onAppear {
             isTaskNameFocused = true
         }
+        .onDisappear(perform: dismissKeyboard)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("common.action.cancel") {
