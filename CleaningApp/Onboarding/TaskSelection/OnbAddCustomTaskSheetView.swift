@@ -3,6 +3,7 @@ import SwiftUI
 
 // MARK: - OnbAddCustomTaskSheet
 
+@MainActor
 struct OnbAddCustomTaskSheetView: View {
 	// MARK: - Properties
 
@@ -11,6 +12,7 @@ struct OnbAddCustomTaskSheetView: View {
 	}
 
 	@State var presenter: OnbAddCustomTaskSheetPresenter
+	@FocusState private var isTaskNameFocused: Bool
 
 	// MARK: - Body
 
@@ -19,6 +21,7 @@ struct OnbAddCustomTaskSheetView: View {
 			Section {
 				TextField("onb_custom_task.placeholder.task_name", text: $presenter.taskName)
 					.autocorrectionDisabled()
+					.focused($isTaskNameFocused)
 					.withCharacterLimit($presenter.taskName, maxLength: Constants.charactersLimit)
 			} header: {
 				Text("onb_custom_task.label.task_name")
@@ -27,35 +30,40 @@ struct OnbAddCustomTaskSheetView: View {
 			}
 
 			Section {
-				Picker("onb_custom_task.label.frequency", selection: $presenter.selectedFrequency) {
-					Text(Frequency.daily.displayName).tag(Frequency.daily)
-					Text(Frequency.timesPerWeek(2).displayName).tag(Frequency.timesPerWeek(2))
-					Text(Frequency.timesPerWeek(3).displayName).tag(Frequency.timesPerWeek(3))
-					Text(Frequency.timesPerWeek(1).displayName).tag(Frequency.timesPerWeek(1))
-					Text(Frequency.everyOtherWeek.displayName).tag(Frequency.everyOtherWeek)
-					Text(Frequency.monthly.displayName).tag(Frequency.monthly)
-				}
+				FrequencyPickerView(
+					selectedFrequency: $presenter.selectedFrequency,
+					onInteraction: dismissKeyboard
+				)
 			} header: {
 				Text("onb_custom_task.label.frequency")
 			}
 		}
+		.scrollDismissesKeyboard(.interactively)
 		.navigationTitle("onb_custom_task.title")
 		.navigationBarTitleDisplayMode(.inline)
 		.presentationDragIndicator(.visible)
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
 				Button("common.action.cancel") {
+					dismissKeyboard()
 					presenter.onCancelButtonPressed()
 				}
 			}
 			ToolbarItem(placement: .confirmationAction) {
 				Button("common.action.add") {
 					FKHaptics.selection()
+					dismissKeyboard()
 					presenter.onAddButtonPressed()
 				}
 				.disabled(!presenter.isTaskNameValid)
 			}
 		}
+	}
+
+	// MARK: - Actions
+
+	private func dismissKeyboard() {
+		isTaskNameFocused = false
 	}
 }
 

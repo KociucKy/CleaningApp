@@ -1,6 +1,6 @@
 import Foundation
 
-enum Frequency: Equatable, Codable, Hashable, CaseIterable {
+enum Frequency: Equatable, Codable, Hashable {
 	case daily
 	case everyOtherDay
 	case everyXDays(Int)
@@ -14,22 +14,26 @@ enum Frequency: Equatable, Codable, Hashable, CaseIterable {
 	case biannually
 	case yearly
 
-	// MARK: - CaseIterable
+	// MARK: - Canonicalization
 
-	static let allCases: [Frequency] = [
-		.daily,
-		.everyOtherDay,
-		.everyXDays(2),
-		.timesPerWeek(2),
-		.everyOtherWeek,
-		.everyXWeeks(2),
-		.timesPerMonth(2),
-		.monthly,
-		.everyXMonths(2),
-		.quarterly,
-		.biannually,
-		.yearly
-	]
+	var canonicalized: Frequency {
+		switch self {
+			case .everyOtherDay:
+				.everyXDays(2)
+			case .everyOtherWeek:
+				.everyXWeeks(2)
+			case .monthly:
+				.timesPerMonth(1)
+			case .quarterly:
+				.everyXMonths(3)
+			case .biannually:
+				.everyXMonths(6)
+			case .yearly:
+				.everyXMonths(12)
+			default:
+				self
+		}
+	}
 
 	// MARK: - Display
 

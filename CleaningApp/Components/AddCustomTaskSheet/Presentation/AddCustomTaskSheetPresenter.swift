@@ -40,7 +40,7 @@ final class AddCustomTaskSheetPresenter {
         self.task = task
         self.onTaskSaved = onTaskSaved
         self.taskName = task?.name ?? ""
-        self.selectedFrequency = task?.frequency ?? .timesPerWeek(1)
+        self.selectedFrequency = (task?.frequency ?? .timesPerWeek(1)).canonicalized
     }
 
     // MARK: - Actions
