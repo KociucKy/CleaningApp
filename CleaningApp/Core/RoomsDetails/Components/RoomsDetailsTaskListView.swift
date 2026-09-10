@@ -18,10 +18,11 @@ struct RoomsDetailsTaskListView: View {
 						onCompleteTaskButtonTapped(task)
 					}
 				)
-				.swipeActions {
-					Button(role: .destructive) {
+				.swipeActions(allowsFullSwipe: false) {
+					Button("Delete", systemImage: "trash") {
 						onDeleteTaskButtonTapped(task)
 					}
+					.tint(.red)
 					Button("Edit", systemImage: "pencil") {
 						onEditTaskButtonTapped(task)
 					}
