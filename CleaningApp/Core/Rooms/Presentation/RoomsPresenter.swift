@@ -1,5 +1,5 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 // MARK: - RoomsPresenter
 
@@ -7,6 +7,7 @@ import FulhamKit
 @MainActor
 final class RoomsPresenter {
 	// MARK: - Properties
+
 	enum State {
 		case isLoading
 		case loaded
@@ -53,9 +54,6 @@ final class RoomsPresenter {
 	// MARK: - Actions
 
 	func onAppearFetch() {
-		guard case .isLoading = state else {
-			return
-		}
 		fetchRooms()
 	}
 
@@ -69,23 +67,29 @@ final class RoomsPresenter {
 		}
 	}
 
+	func onDeleteRoomButtonTapped(room: Room) {
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete \(room.name)",
+			subtitle: nil,
+			buttons: { @MainActor in
+				Group {
+					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
+						self.deleteRoom(room: room)
+					}
+					Button("Cancel", role: .cancel) {
+						self.router.dismissAlert()
+					}
+				}.any()
+			}
+		)
+	}
+
 	func editRoom(room: Room) {
 		router.presentCustomRoomSheet(room: room) { [weak self] _ in
 			self?.fetchRooms()
 		}
-	}
-
-	func deleteRoom(room: Room) {
-		do {
-			try interactor.deleteRoom(room)
-			withAnimation {
-				fetchRooms()
-			}
-		} catch {
-			let errorMessage = "Error while deleting a room"
-			toast = FKToast(message: errorMessage)
-		}
-		
 	}
 
 	// MARK: - Private
@@ -99,6 +103,18 @@ final class RoomsPresenter {
 				style: .success,
 				duration: 3.0
 			)
+		}
+	}
+
+	private func deleteRoom(room: Room) {
+		do {
+			try interactor.deleteRoom(room)
+			withAnimation {
+				fetchRooms()
+			}
+		} catch {
+			let errorMessage = "Error while deleting a room"
+			toast = FKToast(message: errorMessage)
 		}
 	}
 }

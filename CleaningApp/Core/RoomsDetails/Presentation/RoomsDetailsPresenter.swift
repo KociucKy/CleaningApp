@@ -1,3 +1,4 @@
+import FulhamKit
 import SwiftUI
 
 @Observable
@@ -72,14 +73,22 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onDeleteTaskButtonTapped(_ task: RoomTask, roomId: UUID) {
-		do {
-			try interactor.deleteRoomTask(task)
-			withAnimation {
-				reloadTasks(for: roomId)
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete \(task.name)",
+			subtitle: nil,
+			buttons: { @MainActor in
+				Group {
+					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
+						self.deleteTask(task, roomId: roomId)
+					}
+					Button("Cancel", role: .cancel) {
+						self.router.dismissAlert()
+					}
+				}.any()
 			}
-		} catch {
-			errorMessage = "Unable to delete this task."
-		}
+		)
 	}
 
 	func restartEntranceAnimation() {
@@ -109,6 +118,25 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
+	func onDeleteRoomButtonTapped() {
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete \(room.name)",
+			subtitle: nil,
+			buttons: { @MainActor in
+				Group {
+					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
+						self.deleteRoom()
+					}
+					Button("Cancel", role: .cancel) {
+						self.router.dismissAlert()
+					}
+				}.any()
+			}
+		)
+	}
+
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
@@ -121,6 +149,28 @@ final class RoomsDetailsPresenter {
 	func onEditTaskButtonTapped(_ task: RoomTask) {
 		router.presentCustomTaskSheet(roomId: task.roomId, task: task) { [self] _ in
 			reloadTasks(for: task.roomId)
+		}
+	}
+
+	// MARK: - Private
+
+	private func deleteTask(_ task: RoomTask, roomId: UUID) {
+		do {
+			try interactor.deleteRoomTask(task)
+			withAnimation {
+				reloadTasks(for: roomId)
+			}
+		} catch {
+			errorMessage = "Unable to delete this task."
+		}
+	}
+
+	private func deleteRoom() {
+		do {
+			try interactor.deleteRoom(room)
+			router.dismissScreen()
+		} catch {
+			errorMessage = "Error while deleting a room"
 		}
 	}
 }

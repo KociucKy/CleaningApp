@@ -1,5 +1,5 @@
 {
-  "originHash" : "929ab07688fe55cdc9087b2b7d392c76cd7178f2a45de4ef67143bb5647c995d",
+  "originHash" : "dc19b74b17cedbda956fd5a4aa8af9d98b9d15066dc9fadf0146ef10663e9f61",
   "pins" : [
     {
       "identity" : "fulhamkit",
@@ -34,7 +34,7 @@
       "location" : "https://github.com/KociucKy/NavigationKit",
       "state" : {
         "branch" : "master",
-        "revision" : "ddb9e26a032a78e5a56abd21271b61d08c375e61"
+        "revision" : "76ed173f584cf87b3ee83561cef704918c6eee4e"
       }
     },
     {
