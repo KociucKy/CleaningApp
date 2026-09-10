@@ -1,5 +1,5 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 // MARK: - RoomsPresenter
 
@@ -7,6 +7,7 @@ import FulhamKit
 @MainActor
 final class RoomsPresenter {
 	// MARK: - Properties
+
 	enum State {
 		case isLoading
 		case loaded
@@ -74,6 +75,7 @@ final class RoomsPresenter {
 			buttons: { @MainActor in
 				Group {
 					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
 						self.deleteRoom(room: room)
 					}
 					Button("Cancel", role: .cancel) {
@@ -114,6 +116,5 @@ final class RoomsPresenter {
 			let errorMessage = "Error while deleting a room"
 			toast = FKToast(message: errorMessage)
 		}
-		
 	}
 }

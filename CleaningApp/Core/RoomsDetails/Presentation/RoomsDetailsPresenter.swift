@@ -1,3 +1,4 @@
+import FulhamKit
 import SwiftUI
 
 @Observable
@@ -79,6 +80,7 @@ final class RoomsDetailsPresenter {
 			buttons: { @MainActor in
 				Group {
 					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
 						self.deleteTask(task, roomId: roomId)
 					}
 					Button("Cancel", role: .cancel) {
@@ -124,6 +126,7 @@ final class RoomsDetailsPresenter {
 			buttons: { @MainActor in
 				Group {
 					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
 						self.deleteRoom()
 					}
 					Button("Cancel", role: .cancel) {
