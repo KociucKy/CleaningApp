@@ -4,71 +4,70 @@ import SwiftUI
 
 @MainActor
 struct CustomRoomSheetView: View {
-	// MARK: - Properties
+    // MARK: - Properties
 
-	@State var presenter: CustomRoomSheetPresenter
-	@FocusState private var isTextFieldFocused: Bool
+    @State var presenter: CustomRoomSheetPresenter
+    @FocusState private var isTextFieldFocused: Bool
 
-	// MARK: - Body
+    // MARK: - Body
 
-	var body: some View {
-		nameInputView
-			.navigationTitle(LocalizedStringKey(presenter.isEditing ? "Edit room" : "onb_custom_room.sheet_title"))
-			.navigationBarTitleDisplayMode(.inline)
-			.presentationDragIndicator(.visible)
-			.toolbar {
-				ToolbarItem(placement: .cancellationAction) {
-					Button("common.action.cancel") {
-						dismissKeyboard()
-						presenter.onCancelButtonPressed()
-					}
-				}
-				ToolbarItem(placement: .primaryAction) {
-					Button(presenter.isEditing ? "Save" : "onb_custom_room.button_next") {
-						dismissKeyboard()
-						presenter.onNextButtonPressed()
-					}
-					.disabled(!presenter.isNameValid)
-				}
-			}
-			.onAppear {
-				isTextFieldFocused = true
-			}
-			.onDisappear(perform: dismissKeyboard)
-	}
+    var body: some View {
+        nameInputView
+            .navigationTitle(LocalizedStringKey(presenter.isEditing ? "Edit room" : "onb_custom_room.sheet_title"))
+            .navigationBarTitleDisplayMode(.inline)
+            .presentationDragIndicator(.visible)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("common.action.cancel") {
+                        dismissKeyboard()
+                        presenter.onCancelButtonPressed()
+                    }
+                }
+                ToolbarItem(placement: .primaryAction) {
+                    Button(presenter.isEditing ? "Save" : "onb_custom_room.button_next") {
+                        dismissKeyboard()
+                        presenter.onNextButtonPressed()
+                    }
+                    .disabled(!presenter.isNameValid)
+                }
+            }
+            .onAppear {
+                isTextFieldFocused = true
+            }
+            .dismissesKeyboard(using: dismissKeyboard)
+    }
 
-	// MARK: - SubViews
+    // MARK: - SubViews
 
-	private var nameInputView: some View {
-		Form {
-			Section {
-				TextField(
-					LocalizedStringKey("onb_custom_room.name_placeholder"),
-					text: $presenter.roomName
-				)
-				.font(.body)
-				.focused($isTextFieldFocused)
-				.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
-				.withCharacterLimit($presenter.roomName)
-			} footer: {
-				characterCountFooter(currentCount: presenter.roomName.count)
-			}
-		}
-		.scrollDismissesKeyboard(.interactively)
-	}
+    private var nameInputView: some View {
+        Form {
+            Section {
+                TextField(
+                    LocalizedStringKey("onb_custom_room.name_placeholder"),
+                    text: $presenter.roomName
+                )
+                .font(.body)
+                .focused($isTextFieldFocused)
+                .accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
+                .withCharacterLimit($presenter.roomName)
+            } footer: {
+                characterCountFooter(currentCount: presenter.roomName.count)
+            }
+        }
+    }
 
-	// MARK: - Actions
+    // MARK: - Actions
 
-	private func dismissKeyboard() {
-		isTextFieldFocused = false
-	}
+    private func dismissKeyboard() {
+        isTextFieldFocused = false
+    }
 }
 
 #Preview {
-	let container = DevPreview.shared.container
-	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+    let container = DevPreview.shared.container
+    let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
-	return RouterView { router in
-		builder.customRoomSheetView(router: router)
-	}
+    return RouterView { router in
+        builder.customRoomSheetView(router: router)
+    }
 }

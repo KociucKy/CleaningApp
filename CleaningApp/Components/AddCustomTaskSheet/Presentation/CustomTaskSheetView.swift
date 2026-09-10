@@ -44,14 +44,12 @@ struct CustomTaskSheetView: View {
                 Text("onb_custom_task.label.frequency")
             }
         }
-        .scrollDismissesKeyboard(.interactively)
         .navigationTitle("onb_custom_task.title")
         .navigationBarTitleDisplayMode(.inline)
         .presentationDragIndicator(.visible)
         .onAppear {
             isTaskNameFocused = true
         }
-        .onDisappear(perform: dismissKeyboard)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("common.action.cancel") {
@@ -68,6 +66,7 @@ struct CustomTaskSheetView: View {
                 .disabled(!presenter.isTaskNameValid)
             }
         }
+        .dismissesKeyboard(using: dismissKeyboard)
     }
 
     // MARK: - Actions

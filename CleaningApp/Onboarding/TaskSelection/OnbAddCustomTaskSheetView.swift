@@ -5,76 +5,75 @@ import SwiftUI
 
 @MainActor
 struct OnbAddCustomTaskSheetView: View {
-	// MARK: - Properties
+    // MARK: - Properties
 
-	private enum Constants {
-		static let charactersLimit = 40
-	}
+    private enum Constants {
+        static let charactersLimit = 40
+    }
 
-	@State var presenter: OnbAddCustomTaskSheetPresenter
-	@FocusState private var isTaskNameFocused: Bool
+    @State var presenter: OnbAddCustomTaskSheetPresenter
+    @FocusState private var isTaskNameFocused: Bool
 
-	// MARK: - Body
+    // MARK: - Body
 
-	var body: some View {
-		Form {
-			Section {
-				TextField("onb_custom_task.placeholder.task_name", text: $presenter.taskName)
-					.autocorrectionDisabled()
-					.focused($isTaskNameFocused)
-					.withCharacterLimit($presenter.taskName, maxLength: Constants.charactersLimit)
-			} header: {
-				Text("onb_custom_task.label.task_name")
-			} footer: {
-				characterCountFooter(currentCount: presenter.taskName.count, maxLength: Constants.charactersLimit)
-			}
+    var body: some View {
+        Form {
+            Section {
+                TextField("onb_custom_task.placeholder.task_name", text: $presenter.taskName)
+                    .autocorrectionDisabled()
+                    .focused($isTaskNameFocused)
+                    .withCharacterLimit($presenter.taskName, maxLength: Constants.charactersLimit)
+            } header: {
+                Text("onb_custom_task.label.task_name")
+            } footer: {
+                characterCountFooter(currentCount: presenter.taskName.count, maxLength: Constants.charactersLimit)
+            }
 
-			Section {
-				FrequencyPickerView(
-					selectedFrequency: $presenter.selectedFrequency,
-					onInteraction: dismissKeyboard
-				)
-			} header: {
-				Text("onb_custom_task.label.frequency")
-			}
-		}
-		.scrollDismissesKeyboard(.interactively)
-		.navigationTitle("onb_custom_task.title")
-		.navigationBarTitleDisplayMode(.inline)
-		.presentationDragIndicator(.visible)
-		.onDisappear(perform: dismissKeyboard)
-		.toolbar {
-			ToolbarItem(placement: .cancellationAction) {
-				Button("common.action.cancel") {
-					dismissKeyboard()
-					presenter.onCancelButtonPressed()
-				}
-			}
-			ToolbarItem(placement: .confirmationAction) {
-				Button("common.action.add") {
-					FKHaptics.selection()
-					dismissKeyboard()
-					presenter.onAddButtonPressed()
-				}
-				.disabled(!presenter.isTaskNameValid)
-			}
-		}
-	}
+            Section {
+                FrequencyPickerView(
+                    selectedFrequency: $presenter.selectedFrequency,
+                    onInteraction: dismissKeyboard
+                )
+            } header: {
+                Text("onb_custom_task.label.frequency")
+            }
+        }
+        .navigationTitle("onb_custom_task.title")
+        .navigationBarTitleDisplayMode(.inline)
+        .presentationDragIndicator(.visible)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("common.action.cancel") {
+                    dismissKeyboard()
+                    presenter.onCancelButtonPressed()
+                }
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("common.action.add") {
+                    FKHaptics.selection()
+                    dismissKeyboard()
+                    presenter.onAddButtonPressed()
+                }
+                .disabled(!presenter.isTaskNameValid)
+            }
+        }
+        .dismissesKeyboard(using: dismissKeyboard)
+    }
 
-	// MARK: - Actions
+    // MARK: - Actions
 
-	private func dismissKeyboard() {
-		isTaskNameFocused = false
-	}
+    private func dismissKeyboard() {
+        isTaskNameFocused = false
+    }
 }
 
 // MARK: - Preview
 
 #Preview {
-	let devPreview = DevPreview()
-	let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
+    let devPreview = DevPreview()
+    let builder = OnboardingBuilder(interactor: OnboardingInteractor(container: devPreview.container))
 
-	RouterView { router in
-		builder.customTaskSheetView(router: router, roomType: .kitchen)
-	}
+    RouterView { router in
+        builder.customTaskSheetView(router: router, roomType: .kitchen)
+    }
 }

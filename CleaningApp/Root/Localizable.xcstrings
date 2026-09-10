@@ -159,6 +159,9 @@
         }
       }
     },
+    "common.action.done" : {
+
+    },
     "common.action.finish" : {
       "extractionState" : "manual",
       "localizations" : {
