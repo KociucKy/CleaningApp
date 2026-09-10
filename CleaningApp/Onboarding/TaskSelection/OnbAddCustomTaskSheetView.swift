@@ -20,7 +20,6 @@ struct OnbAddCustomTaskSheetView: View {
 		Form {
 			Section {
 				TextField("onb_custom_task.placeholder.task_name", text: $presenter.taskName)
-					.autocorrectionDisabled()
 					.focused($isTaskNameFocused)
 					.withCharacterLimit($presenter.taskName, maxLength: Constants.charactersLimit)
 			} header: {
@@ -38,7 +37,6 @@ struct OnbAddCustomTaskSheetView: View {
 				Text("onb_custom_task.label.frequency")
 			}
 		}
-		.scrollDismissesKeyboard(.interactively)
 		.navigationTitle("onb_custom_task.title")
 		.navigationBarTitleDisplayMode(.inline)
 		.presentationDragIndicator(.visible)
@@ -56,8 +54,10 @@ struct OnbAddCustomTaskSheetView: View {
 					presenter.onAddButtonPressed()
 				}
 				.disabled(!presenter.isTaskNameValid)
+				.buttonStyle(.borderedProminent)
 			}
 		}
+		.dismissesKeyboard(when: $isTaskNameFocused, using: dismissKeyboard)
 	}
 
 	// MARK: - Actions

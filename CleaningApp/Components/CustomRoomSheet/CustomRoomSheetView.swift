@@ -19,20 +19,23 @@ struct CustomRoomSheetView: View {
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
 					Button("common.action.cancel") {
+						dismissKeyboard()
 						presenter.onCancelButtonPressed()
 					}
 				}
 				ToolbarItem(placement: .primaryAction) {
 					Button(presenter.isEditing ? "Save" : "onb_custom_room.button_next") {
-						isTextFieldFocused = false
+						dismissKeyboard()
 						presenter.onNextButtonPressed()
 					}
 					.disabled(!presenter.isNameValid)
+					.buttonStyle(.borderedProminent)
 				}
 			}
 			.onAppear {
 				isTextFieldFocused = true
 			}
+			.dismissesKeyboard(when: $isTextFieldFocused, using: dismissKeyboard)
 	}
 
 	// MARK: - SubViews
@@ -52,6 +55,12 @@ struct CustomRoomSheetView: View {
 				characterCountFooter(currentCount: presenter.roomName.count)
 			}
 		}
+	}
+
+	// MARK: - Actions
+
+	private func dismissKeyboard() {
+		isTextFieldFocused = false
 	}
 }
 
