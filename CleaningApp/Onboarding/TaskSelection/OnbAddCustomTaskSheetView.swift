@@ -57,7 +57,7 @@ struct OnbAddCustomTaskSheetView: View {
                 .disabled(!presenter.isTaskNameValid)
             }
         }
-        .dismissesKeyboard(using: dismissKeyboard)
+        .dismissesKeyboard(when: $isTaskNameFocused, using: dismissKeyboard)
     }
 
     // MARK: - Actions

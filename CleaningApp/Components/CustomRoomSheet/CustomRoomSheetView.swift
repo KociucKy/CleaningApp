@@ -34,7 +34,7 @@ struct CustomRoomSheetView: View {
             .onAppear {
                 isTextFieldFocused = true
             }
-            .dismissesKeyboard(using: dismissKeyboard)
+            .dismissesKeyboard(when: $isTextFieldFocused, using: dismissKeyboard)
     }
 
     // MARK: - SubViews
