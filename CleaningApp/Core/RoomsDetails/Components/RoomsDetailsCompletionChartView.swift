@@ -27,6 +27,14 @@ struct RoomsDetailsCompletionChartView: View {
 		max(dataPoints.map(\.completedCount).max() ?? 0, 1)
 	}
 
+	private var markGradient: LinearGradient {
+		LinearGradient(
+			colors: [.accentColor, .accentColor.opacity(0.55)],
+			startPoint: .top,
+			endPoint: .bottom
+		)
+	}
+
 	// MARK: - Body
 
 	var body: some View {
@@ -38,16 +46,19 @@ struct RoomsDetailsCompletionChartView: View {
 						x: .value("Day", dataPoint.date, unit: .day),
 						y: .value("Completed", dataPoint.completedCount)
 					)
+					.foregroundStyle(markGradient)
 				case .line:
 					LineMark(
 						x: .value("Day", dataPoint.date, unit: .day),
 						y: .value("Completed", dataPoint.completedCount)
 					)
 					.interpolationMethod(.catmullRom)
+					.foregroundStyle(markGradient)
 					PointMark(
 						x: .value("Day", dataPoint.date, unit: .day),
 						y: .value("Completed", dataPoint.completedCount)
 					)
+					.foregroundStyle(markGradient)
 				}
 			}
 			.chartYScale(domain: 0 ... maximumCount)
