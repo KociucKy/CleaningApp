@@ -5,10 +5,12 @@ import SwiftUI
 
 struct RoomsDetailsView: View {
 	// MARK: - Properties
+
 	private enum Constants {
 		static let emptyStateStrokeLineWidth: CGFloat = 2.0
 		static let emptyStateStrokeDash: [CGFloat] = [13.0]
 	}
+
 	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: RoomsDetailsPresenter
 
@@ -65,6 +67,7 @@ struct RoomsDetailsView: View {
 					.pickerStyle(.segmented)
 					.labelsHidden()
 					.accessibilityLabel("Completion range")
+					.listRowSeparator(.hidden)
 
 					if presenter.hasRecentCompletions {
 						RoomsDetailsCompletionChartView(
@@ -81,7 +84,7 @@ struct RoomsDetailsView: View {
 					}
 				}
 			}
-			
+
 			if presenter.frequencies.isNotEmpty {
 				listingView
 			} else {
@@ -167,8 +170,7 @@ struct RoomsDetailsView: View {
 			presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
 			value: presenter.animate
 		)
-}
-
+	}
 }
 
 // MARK: - Previews
