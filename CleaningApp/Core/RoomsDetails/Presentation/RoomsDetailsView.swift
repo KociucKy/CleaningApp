@@ -128,7 +128,15 @@ struct RoomsDetailsView: View {
 			}
 			.buttonStyle(.borderedProminent)
 		}
-	}
+		.opacity(presenter.animate ? 1 : 0)
+		.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+		.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+		.animation(
+			presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
+			value: presenter.animate
+		)
+}
+
 }
 
 // MARK: - Previews
