@@ -127,20 +127,7 @@ struct RoomsDetailsView: View {
 				presenter.onAddTaskButtonTapped(roomId: presenter.room.id)
 			}
 			.buttonStyle(.borderedProminent)
-			.padding(.bottom)
 		}
-		.removeListRowFormatting()
-		.background {
-			RoundedRectangle(cornerRadius: FKRadius.medium)
-				.strokeBorder(
-					style: StrokeStyle(
-						lineWidth: Constants.emptyStateStrokeLineWidth,
-						dash: Constants.emptyStateStrokeDash
-					)
-				)
-				.foregroundStyle(.secondary)
-		}
-		.padding()
 	}
 }
 
