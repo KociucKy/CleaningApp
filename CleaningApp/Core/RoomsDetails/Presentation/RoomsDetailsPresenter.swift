@@ -14,6 +14,7 @@ final class RoomsDetailsPresenter {
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
 	private(set) var completedTaskIDs: Set<UUID> = []
+	private(set) var completionTrend: [CompletionChartDataPoint] = []
 	private(set) var isLoading = true
 	private(set) var reloadToken = 0
 	private(set) var errorMessage: String?
@@ -60,11 +61,11 @@ final class RoomsDetailsPresenter {
 			}
 			tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
 			reloadToken &+= 1
-			completedTaskIDs = try Set(
-				tasks.flatMap { task in
-					try interactor.fetchAllCompletedTasks(for: task.id)
-				}.map(\.taskId)
-			)
+			let completedTasks = try tasks.flatMap { task in
+				try interactor.fetchAllCompletedTasks(for: task.id)
+			}
+			completedTaskIDs = Set(completedTasks.map(\.taskId))
+			completionTrend = makeCompletionTrend(from: completedTasks)
 		} catch {
 			errorMessage = "Unable to load this room’s tasks."
 		}
@@ -153,6 +154,25 @@ final class RoomsDetailsPresenter {
 	}
 
 	// MARK: - Private
+
+	private func makeCompletionTrend(from completedTasks: [CompletedTask]) -> [CompletionChartDataPoint] {
+		let calendar = Calendar.current
+		let today = calendar.startOfDay(for: Date())
+		let dates = (0..<7).compactMap {
+			calendar.date(byAdding: .day, value: $0 - 6, to: today)
+		}
+		let completionsByDay = Dictionary(
+			grouping: completedTasks,
+			by: { calendar.startOfDay(for: $0.completedAt) }
+		)
+
+		return dates.map { date in
+			CompletionChartDataPoint(
+				date: date,
+				completedCount: completionsByDay[date]?.count ?? 0
+			)
+		}
+	}
 
 	private func deleteTask(_ task: RoomTask, roomId: UUID) {
 		do {
