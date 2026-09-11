@@ -15,7 +15,9 @@ final class RoomsDetailsPresenter {
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
+	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
 	private(set) var isLoading = true
+	private var completedTasks: [CompletedTask] = []
 	private(set) var errorMessage: String?
 	private(set) var animate = false
 	var isHeaderVisible = true
@@ -27,6 +29,10 @@ final class RoomsDetailsPresenter {
 
 	var totalTasksCount: Int {
 		tasks.count
+	}
+
+	var hasAnyCompletions: Bool {
+		!completedTasks.isEmpty
 	}
 
 	var hasRecentCompletions: Bool {
@@ -66,8 +72,12 @@ final class RoomsDetailsPresenter {
 			let completedTasks = try tasks.flatMap { task in
 				try interactor.fetchAllCompletedTasks(for: task.id)
 			}
+			self.completedTasks = completedTasks
 			completedTaskIDs = Set(completedTasks.map(\.taskId))
-			completionTrend = makeCompletionTrend(from: completedTasks)
+			completionTrend = makeCompletionTrend(
+				from: completedTasks,
+				range: completionTrendRange
+			)
 		} catch {
 			errorMessage = "Unable to load this room’s tasks."
 		}
@@ -140,6 +150,14 @@ final class RoomsDetailsPresenter {
 		)
 	}
 
+	func onCompletionTrendRangeChanged(_ range: CompletionTrendRange) {
+		guard completionTrendRange != range else {
+			return
+		}
+		completionTrendRange = range
+		completionTrend = makeCompletionTrend(from: completedTasks, range: range)
+	}
+
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
@@ -163,30 +181,78 @@ final class RoomsDetailsPresenter {
 
 	// MARK: - Private
 
-	private func makeCompletionTrend(from completedTasks: [CompletedTask]) -> [CompletionChartDataPoint] {
+	private func makeCompletionTrend(
+		from completedTasks: [CompletedTask],
+		range: CompletionTrendRange
+	) -> [CompletionChartDataPoint] {
 		let calendar = Calendar.current
-		let today = calendar.startOfDay(for: Date())
-		let dates = (0..<7).compactMap {
-			calendar.date(byAdding: .day, value: $0 - 6, to: today)
+		let now = Date()
+		let today = calendar.startOfDay(for: now)
+		let startDate = calendar.date(
+			byAdding: .day,
+			value: -(range.days - 1),
+			to: today
+		) ?? today
+		let dates: [Date] = {
+			switch range {
+			case .sevenDays, .thirtyDays:
+				return (0..<range.days).compactMap {
+					calendar.date(byAdding: .day, value: $0, to: startDate)
+				}
+			case .ninetyDays:
+				return (0...12).compactMap {
+					calendar.date(byAdding: .weekOfYear, value: $0, to: startDate)
+				}
+			case .oneYear:
+				return (0...12).compactMap {
+					calendar.date(byAdding: .month, value: $0, to: startDate)
+				}
+			}
+		}()
+		var completionsByBucket = [Date: [CompletedTask]]()
+		for completion in completedTasks where completion.completedAt >= startDate && completion.completedAt <= now {
+			if let bucket = completionBucket(
+				for: completion.completedAt,
+				range: range,
+				startDate: startDate,
+				calendar: calendar
+			) {
+				completionsByBucket[bucket, default: []].append(completion)
+			}
 		}
-		let completionsByDay = Dictionary(
-			grouping: completedTasks,
-			by: { calendar.startOfDay(for: $0.completedAt) }
-		)
 		let taskNamesByID = Dictionary(
 			uniqueKeysWithValues: tasks.map { ($0.id, $0.name) }
 		)
 
 		return dates.map { date in
-			let taskCounts = (completionsByDay[date] ?? []).reduce(into: [String: Int]()) { counts, completion in
+			let completions = completionsByBucket[date] ?? []
+			let taskCounts = completions.reduce(into: [String: Int]()) { counts, completion in
 				let taskName = taskNamesByID[completion.taskId] ?? "Unknown task"
 				counts[taskName, default: 0] += 1
 			}
 			return CompletionChartDataPoint(
 				date: date,
-				completedCount: completionsByDay[date]?.count ?? 0,
+				completedCount: completions.count,
 				taskCounts: taskCounts
 			)
+		}
+	}
+
+	private func completionBucket(
+		for date: Date,
+		range: CompletionTrendRange,
+		startDate: Date,
+		calendar: Calendar
+	) -> Date? {
+		switch range {
+		case .sevenDays, .thirtyDays:
+			return calendar.startOfDay(for: date)
+		case .ninetyDays:
+			let weeks = calendar.dateComponents([.weekOfYear], from: startDate, to: date).weekOfYear ?? 0
+			return calendar.date(byAdding: .weekOfYear, value: weeks, to: startDate)
+		case .oneYear:
+			let months = calendar.dateComponents([.month], from: startDate, to: date).month ?? 0
+			return calendar.date(byAdding: .month, value: months, to: startDate)
 		}
 	}
 

@@ -22,6 +22,7 @@ struct RoomsDetailsCompletionChartView: View {
 
 	let dataPoints: [CompletionChartDataPoint]
 	let style: Style
+	let range: CompletionTrendRange
 
 	@State private var selectedDate: Date?
 
@@ -31,6 +32,45 @@ struct RoomsDetailsCompletionChartView: View {
 
 	private var completionCounts: [Int] {
 		dataPoints.map(\.completedCount)
+	}
+
+	private var xAxisDates: [Date] {
+		switch range {
+		case .sevenDays:
+			dataPoints.map(\.date)
+		case .thirtyDays:
+			dataPoints.enumerated().compactMap { index, dataPoint in
+				index.isMultiple(of: 5) ? dataPoint.date : nil
+			}
+		case .ninetyDays, .oneYear:
+			dataPoints.enumerated().compactMap { index, dataPoint in
+				index.isMultiple(of: 2) || index == dataPoints.count - 1
+					? dataPoint.date
+					: nil
+			}
+		}
+	}
+
+	private var xAxisLabelFormat: Date.FormatStyle {
+		switch range {
+		case .sevenDays:
+			.dateTime.weekday(.abbreviated)
+		case .thirtyDays, .ninetyDays:
+			.dateTime.month(.abbreviated).day()
+		case .oneYear:
+			.dateTime.month(.abbreviated)
+		}
+	}
+
+	private var xAxisUnit: Calendar.Component {
+		switch range {
+		case .sevenDays, .thirtyDays:
+			.day
+		case .ninetyDays:
+			.weekOfYear
+		case .oneYear:
+			.month
+		}
 	}
 
 	private var markGradient: LinearGradient {
@@ -45,8 +85,8 @@ struct RoomsDetailsCompletionChartView: View {
 		guard let selectedDate else {
 			return nil
 		}
-		return dataPoints.first {
-			Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
+		return dataPoints.min {
+			abs($0.date.timeIntervalSince(selectedDate)) < abs($1.date.timeIntervalSince(selectedDate))
 		}
 	}
 
@@ -58,19 +98,19 @@ struct RoomsDetailsCompletionChartView: View {
 				switch style {
 				case .bar:
 					BarMark(
-						x: .value("Day", dataPoint.date, unit: .day),
+						x: .value("Day", dataPoint.date, unit: xAxisUnit),
 						y: .value("Completed", dataPoint.completedCount)
 					)
 					.foregroundStyle(markGradient)
 				case .line:
 					LineMark(
-						x: .value("Day", dataPoint.date, unit: .day),
+						x: .value("Day", dataPoint.date, unit: xAxisUnit),
 						y: .value("Completed", dataPoint.completedCount)
 					)
 					.interpolationMethod(.catmullRom)
 					.foregroundStyle(markGradient)
 					PointMark(
-						x: .value("Day", dataPoint.date, unit: .day),
+						x: .value("Day", dataPoint.date, unit: xAxisUnit),
 						y: .value("Completed", dataPoint.completedCount)
 					)
 					.foregroundStyle(markGradient)
@@ -78,10 +118,10 @@ struct RoomsDetailsCompletionChartView: View {
 			}
 			.chartYScale(domain: 0 ... maximumCount)
 			.chartXAxis {
-				AxisMarks(values: .stride(by: .day)) { _ in
+				AxisMarks(values: xAxisDates) { _ in
 					AxisGridLine()
 					AxisTick()
-					AxisValueLabel(format: .dateTime.weekday(.abbreviated))
+					AxisValueLabel(format: xAxisLabelFormat)
 				}
 			}
 			.chartYAxis {
@@ -118,7 +158,7 @@ struct RoomsDetailsCompletionChartView: View {
 
 	private func selectedDayView(for dataPoint: CompletionChartDataPoint) -> some View {
 		VStack(alignment: .leading, spacing: 8) {
-			Text(dataPoint.date, format: .dateTime.weekday(.wide).month(.abbreviated).day())
+			Text(selectedPeriodTitle(for: dataPoint.date))
 				.font(.headline)
 
 			if dataPoint.taskCounts.isEmpty {
@@ -145,10 +185,21 @@ struct RoomsDetailsCompletionChartView: View {
 		.accessibilityElement(children: .combine)
 	}
 
+	private func selectedPeriodTitle(for date: Date) -> String {
+		switch range {
+		case .sevenDays, .thirtyDays:
+			date.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
+		case .ninetyDays:
+			"Week of \(date.formatted(.dateTime.month(.abbreviated).day()))"
+		case .oneYear:
+			date.formatted(.dateTime.month(.wide).year())
+		}
+	}
+
 	// MARK: - Accessibility
 
 	private var accessibilityValue: String {
 		let total = dataPoints.reduce(0) { $0 + $1.completedCount }
-		return "\(total) completions in the last 7 days"
+		return "\(total) completions in the selected \(range.title) range"
 	}
 }
