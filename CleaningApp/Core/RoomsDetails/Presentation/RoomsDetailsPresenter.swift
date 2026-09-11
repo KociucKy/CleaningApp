@@ -29,6 +29,10 @@ final class RoomsDetailsPresenter {
 		tasks.count
 	}
 
+	var hasRecentCompletions: Bool {
+		completionTrend.contains { $0.completedCount > 0 }
+	}
+
 	// MARK: - Init
 
 	init(
