@@ -5,7 +5,10 @@ import SwiftUI
 
 struct RoomsDetailsView: View {
 	// MARK: - Properties
-
+	private enum Constants {
+		static let emptyStateStrokeLineWidth: CGFloat = 2.0
+		static let emptyStateStrokeDash: [CGFloat] = [13.0]
+	}
 	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: RoomsDetailsPresenter
 
@@ -46,31 +49,10 @@ struct RoomsDetailsView: View {
 				)
 			}
 
-			ForEach(Array(presenter.frequencies.enumerated()), id: \.element) { index, frequency in
-				if let tasks = presenter.tasksByFrequency[frequency], !tasks.isEmpty {
-					RoomsDetailsTaskListView(
-						frequencyTitle: frequency.displayName,
-						tasks: tasks,
-						onCompleteTaskButtonTapped: { task in
-							presenter.onTaskCompletionTapped(task)
-						},
-						onDeleteTaskButtonTapped: { task in
-							presenter.onDeleteTaskButtonTapped(task, roomId: presenter.room.id)
-						},
-						onEditTaskButtonTapped: { task in
-							presenter.onEditTaskButtonTapped(task)
-						}
-					)
-					.opacity(presenter.animate ? 1 : 0)
-					.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
-					.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
-					.animation(
-						presenter.animationConfig.animation.delay(
-							presenter.animationConfig.delay(for: index + 2)
-						),
-						value: presenter.animate
-					)
-				}
+			if presenter.frequencies.isNotEmpty {
+				listingView
+			} else {
+				emptyStateView
 			}
 		}
 		.id(presenter.reloadToken)
@@ -104,16 +86,83 @@ struct RoomsDetailsView: View {
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)
 	}
+
+	@ContentBuilder
+	private var listingView: some View {
+		ForEach(Array(presenter.frequencies.enumerated()), id: \.element) { index, frequency in
+			if let tasks = presenter.tasksByFrequency[frequency], !tasks.isEmpty {
+				RoomsDetailsTaskListView(
+					frequencyTitle: frequency.displayName,
+					tasks: tasks,
+					onCompleteTaskButtonTapped: { task in
+						presenter.onTaskCompletionTapped(task)
+					},
+					onDeleteTaskButtonTapped: { task in
+						presenter.onDeleteTaskButtonTapped(task, roomId: presenter.room.id)
+					},
+					onEditTaskButtonTapped: { task in
+						presenter.onEditTaskButtonTapped(task)
+					}
+				)
+				.opacity(presenter.animate ? 1 : 0)
+				.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+				.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+				.animation(
+					presenter.animationConfig.animation.delay(
+						presenter.animationConfig.delay(for: index + 2)
+					),
+					value: presenter.animate
+				)
+			}
+		}
+	}
+
+	private var emptyStateView: some View {
+		VStack(spacing: 0) {
+			FKEmptyStateView(
+				icon: "list.bullet.clipboard.fill",
+				title: "No tasks added"
+			)
+			Button("Add task") {
+				presenter.onAddTaskButtonTapped(roomId: presenter.room.id)
+			}
+			.buttonStyle(.borderedProminent)
+		}
+		.opacity(presenter.animate ? 1 : 0)
+		.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+		.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+		.animation(
+			presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
+			value: presenter.animate
+		)
 }
 
-// MARK: - Preview
+}
 
-#Preview {
+// MARK: - Previews
+
+#Preview("Loaded state") {
 	let container = DevPreview.shared.container
 	container.register(
 		RoomTaskManager.self,
 		service: RoomTaskManager(
 			taskRepository: MockRoomTaskRepository(),
+			roomRepository: MockRoomRepository()
+		)
+	)
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+	let room = Room.mock
+	return RouterView { router in
+		builder.roomsDetailsView(router: router, room: room)
+	}
+}
+
+#Preview("Empty state") {
+	let container = DevPreview.shared.container
+	container.register(
+		RoomTaskManager.self,
+		service: RoomTaskManager(
+			taskRepository: MockRoomTaskRepository(items: []),
 			roomRepository: MockRoomRepository()
 		)
 	)
