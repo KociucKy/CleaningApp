@@ -7,6 +7,7 @@ struct CompletionChartDataPoint: Identifiable {
 
     let date: Date
     let completedCount: Int
+    let taskCounts: [String: Int]
 
     var id: Date {
         date

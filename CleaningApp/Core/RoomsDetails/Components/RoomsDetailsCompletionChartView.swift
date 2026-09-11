@@ -23,6 +23,8 @@ struct RoomsDetailsCompletionChartView: View {
 	let dataPoints: [CompletionChartDataPoint]
 	let style: Style
 
+	@State private var selectedDate: Date?
+
 	private var maximumCount: Int {
 		max(dataPoints.map(\.completedCount).max() ?? 0, 1)
 	}
@@ -33,6 +35,15 @@ struct RoomsDetailsCompletionChartView: View {
 			startPoint: .top,
 			endPoint: .bottom
 		)
+	}
+
+	private var selectedDataPoint: CompletionChartDataPoint? {
+		guard let selectedDate else {
+			return nil
+		}
+		return dataPoints.first {
+			Calendar.current.isDate($0.date, inSameDayAs: selectedDate)
+		}
 	}
 
 	// MARK: - Body
@@ -72,10 +83,61 @@ struct RoomsDetailsCompletionChartView: View {
 			.chartYAxis {
 				AxisMarks(position: .leading, values: .stride(by: 1))
 			}
+			.chartYAxisLabel(position: .leading) {
+				Text("Finished tasks")
+					.rotationEffect(.degrees(180))
+			}
+			.chartXSelection(value: $selectedDate)
+			.chartOverlay { proxy in
+				GeometryReader { geometry in
+					if let selectedDataPoint,
+						let xPosition = proxy.position(forX: selectedDataPoint.date) {
+						let overlayWidth = min(max(geometry.size.width - 24, 0), 220)
+						let centeredX = min(
+							max(xPosition, overlayWidth / 2 + 12),
+							geometry.size.width - overlayWidth / 2 - 12
+						)
+						selectedDayView(for: selectedDataPoint)
+							.frame(width: overlayWidth)
+							.position(x: centeredX, y: 70)
+					}
+				}
+			}
 			.frame(height: 180)
 			.accessibilityLabel(style.title)
 			.accessibilityValue(accessibilityValue)
 		}
+	}
+
+	// MARK: - Views
+
+	private func selectedDayView(for dataPoint: CompletionChartDataPoint) -> some View {
+		VStack(alignment: .leading, spacing: 8) {
+			Text(dataPoint.date, format: .dateTime.weekday(.wide).month(.abbreviated).day())
+				.font(.headline)
+
+			if dataPoint.taskCounts.isEmpty {
+				Text("No tasks finished")
+					.foregroundStyle(.secondary)
+			} else {
+				ForEach(dataPoint.taskCounts.keys.sorted(), id: \.self) { taskName in
+					let count = dataPoint.taskCounts[taskName] ?? 0
+					HStack(spacing: 8) {
+						Image(systemName: "checkmark.circle.fill")
+							.foregroundStyle(.tint)
+						Text(taskName)
+						Spacer()
+						if count > 1 {
+							Text("×\(count)")
+						}
+					}
+				}
+			}
+		}
+		.padding(10)
+		.background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+		.shadow(radius: 4, y: 2)
+		.accessibilityElement(children: .combine)
 	}
 
 	// MARK: - Accessibility

@@ -41,6 +41,9 @@
         }
       }
     },
+    "×%lld" : {
+
+    },
     "Add" : {
       "localizations" : {
         "pl" : {
@@ -362,6 +365,9 @@
           }
         }
       }
+    },
+    "Finished tasks" : {
+
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -880,6 +886,9 @@
           }
         }
       }
+    },
+    "No tasks finished" : {
+
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",

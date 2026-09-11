@@ -165,11 +165,19 @@ final class RoomsDetailsPresenter {
 			grouping: completedTasks,
 			by: { calendar.startOfDay(for: $0.completedAt) }
 		)
+		let taskNamesByID = Dictionary(
+			uniqueKeysWithValues: tasks.map { ($0.id, $0.name) }
+		)
 
 		return dates.map { date in
-			CompletionChartDataPoint(
+			let taskCounts = (completionsByDay[date] ?? []).reduce(into: [String: Int]()) { counts, completion in
+				let taskName = taskNamesByID[completion.taskId] ?? "Unknown task"
+				counts[taskName, default: 0] += 1
+			}
+			return CompletionChartDataPoint(
 				date: date,
-				completedCount: completionsByDay[date]?.count ?? 0
+				completedCount: completionsByDay[date]?.count ?? 0,
+				taskCounts: taskCounts
 			)
 		}
 	}
