@@ -50,36 +50,36 @@ struct RoomsDetailsView: View {
 			}
 
 			if presenter.hasAnyCompletions {
-				Picker(
-					"Completion range",
-					selection: Binding(
-						get: { presenter.completionTrendRange },
-						set: presenter.onCompletionTrendRangeChanged
-					)
-				) {
-					ForEach(CompletionTrendRange.allCases, id: \.self) { range in
-						Text(range.title).tag(range)
+				Section {
+					Picker(
+						"Completion range",
+						selection: Binding(
+							get: { presenter.completionTrendRange },
+							set: presenter.onCompletionTrendRangeChanged
+						)
+					) {
+						ForEach(CompletionTrendRange.allCases, id: \.self) { range in
+							Text(range.title).tag(range)
+						}
+					}
+					.pickerStyle(.segmented)
+					.labelsHidden()
+					.accessibilityLabel("Completion range")
+
+					if presenter.hasRecentCompletions {
+						RoomsDetailsCompletionChartView(
+							dataPoints: presenter.completionTrend,
+							range: presenter.completionTrendRange
+						)
+						.opacity(presenter.animate ? 1 : 0)
+						.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+						.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+						.animation(
+							presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
+							value: presenter.animate
+						)
 					}
 				}
-				.pickerStyle(.segmented)
-				.labelsHidden()
-				.accessibilityLabel("Completion range")
-
-				if presenter.hasRecentCompletions {
-					RoomsDetailsCompletionChartView(
-						dataPoints: presenter.completionTrend,
-						style: .bar,
-						range: presenter.completionTrendRange
-					)
-					.opacity(presenter.animate ? 1 : 0)
-					.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
-					.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
-					.animation(
-						presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
-						value: presenter.animate
-					)
-				}
-
 			}
 			
 			if presenter.frequencies.isNotEmpty {
