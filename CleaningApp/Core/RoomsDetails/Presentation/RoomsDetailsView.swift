@@ -49,6 +49,30 @@ struct RoomsDetailsView: View {
 				)
 			}
 
+			RoomsDetailsCompletionChartView(
+				dataPoints: presenter.completionTrend,
+				style: .bar
+			)
+			.opacity(presenter.animate ? 1 : 0)
+			.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+			.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+			.animation(
+				presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
+				value: presenter.animate
+			)
+
+			RoomsDetailsCompletionChartView(
+				dataPoints: presenter.completionTrend,
+				style: .line
+			)
+			.opacity(presenter.animate ? 1 : 0)
+			.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+			.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+			.animation(
+				presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 3)),
+				value: presenter.animate
+			)
+
 			if presenter.frequencies.isNotEmpty {
 				listingView
 			} else {
