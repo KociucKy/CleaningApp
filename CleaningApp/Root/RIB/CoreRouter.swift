@@ -115,8 +115,11 @@ struct CoreRouter {
 		}
 	}
 
-	func presentRoomsDetailsTaskCompletionSheet(props: RoomsDetailsTaskCompletionProps) {
-		router.showScreen(.sheetWithDetents([.fraction(0.7)]), onDismiss: nil) { router in
+	func presentRoomsDetailsTaskCompletionSheet(
+		props: RoomsDetailsTaskCompletionProps,
+		onDismiss: (() -> Void)?
+	) {
+		router.showScreen(.sheetWithDetents([.fraction(0.7)]), onDismiss: onDismiss) { router in
 			builder.roomsDetailsTaskCompletionView(router: router, props: props)
 		}
 	}

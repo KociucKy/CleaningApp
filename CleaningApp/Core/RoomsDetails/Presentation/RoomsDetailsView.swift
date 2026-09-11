@@ -5,10 +5,12 @@ import SwiftUI
 
 struct RoomsDetailsView: View {
 	// MARK: - Properties
+
 	private enum Constants {
 		static let emptyStateStrokeLineWidth: CGFloat = 2.0
 		static let emptyStateStrokeDash: [CGFloat] = [13.0]
 	}
+
 	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: RoomsDetailsPresenter
 
@@ -49,13 +51,46 @@ struct RoomsDetailsView: View {
 				)
 			}
 
+			if presenter.hasAnyCompletions {
+				Section {
+					Picker(
+						String(localized: "chart.accessibility.completion_range", defaultValue: "Completion range"),
+						selection: Binding(
+							get: { presenter.completionTrendRange },
+							set: presenter.onCompletionTrendRangeChanged
+						)
+					) {
+						ForEach(CompletionTrendRange.allCases, id: \.self) { range in
+							Text(range.title).tag(range)
+						}
+					}
+					.pickerStyle(.segmented)
+					.labelsHidden()
+					.accessibilityLabel(String(localized: "chart.accessibility.completion_range", defaultValue: "Completion range"))
+					.listRowSeparator(.hidden)
+
+					if presenter.hasRecentCompletions {
+						RoomsDetailsCompletionChartView(
+							dataPoints: presenter.completionTrend,
+							range: presenter.completionTrendRange
+						)
+						.opacity(presenter.animate ? 1 : 0)
+						.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+						.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+						.animation(
+							presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
+							value: presenter.animate
+						)
+					}
+				}
+			}
+
 			if presenter.frequencies.isNotEmpty {
 				listingView
 			} else {
 				emptyStateView
 			}
 		}
-		.id(presenter.reloadToken)
 		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
 			presenter.onAppear(roomId: presenter.room.id)
@@ -135,8 +170,7 @@ struct RoomsDetailsView: View {
 			presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
 			value: presenter.animate
 		)
-}
-
+	}
 }
 
 // MARK: - Previews
