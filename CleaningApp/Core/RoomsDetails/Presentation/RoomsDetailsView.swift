@@ -144,14 +144,30 @@ struct RoomsDetailsView: View {
 	}
 }
 
-// MARK: - Preview
+// MARK: - Previews
 
-#Preview {
+#Preview("Loaded state") {
 	let container = DevPreview.shared.container
 	container.register(
 		RoomTaskManager.self,
 		service: RoomTaskManager(
 			taskRepository: MockRoomTaskRepository(),
+			roomRepository: MockRoomRepository()
+		)
+	)
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+	let room = Room.mock
+	return RouterView { router in
+		builder.roomsDetailsView(router: router, room: room)
+	}
+}
+
+#Preview("Empty state") {
+	let container = DevPreview.shared.container
+	container.register(
+		RoomTaskManager.self,
+		service: RoomTaskManager(
+			taskRepository: MockRoomTaskRepository(items: []),
 			roomRepository: MockRoomRepository()
 		)
 	)

@@ -4,7 +4,13 @@ import Foundation
 final class MockRoomTaskRepository: RoomTaskRepository {
 	// MARK: - Properties
 
-	var items: [RoomTaskEntity] = RoomTaskEntity.mocks
+	var items: [RoomTaskEntity]
+
+	// MARK: - Init
+
+	init(items: [RoomTaskEntity] = RoomTaskEntity.mocks) {
+		self.items = items
+	}
 
 	// MARK: - Methods
 
