@@ -16,7 +16,6 @@ final class RoomsDetailsPresenter {
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
 	private(set) var isLoading = true
-	private(set) var reloadToken = 0
 	private(set) var errorMessage: String?
 	private(set) var animate = false
 	var isHeaderVisible = true
@@ -60,7 +59,6 @@ final class RoomsDetailsPresenter {
 				seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
 			}
 			tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
-			reloadToken &+= 1
 			let completedTasks = try tasks.flatMap { task in
 				try interactor.fetchAllCompletedTasks(for: task.id)
 			}
@@ -143,7 +141,13 @@ final class RoomsDetailsPresenter {
 			props: RoomsDetailsTaskCompletionProps(
 				taskId: task.id,
 				taskName: task.name
-			)
+			),
+			onDismiss: { [weak self] in
+				guard let self else {
+					return
+				}
+				self.reloadTasks(for: self.room.id)
+			}
 		)
 	}
 

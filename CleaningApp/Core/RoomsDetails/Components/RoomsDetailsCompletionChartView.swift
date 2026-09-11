@@ -29,6 +29,10 @@ struct RoomsDetailsCompletionChartView: View {
 		max(dataPoints.map(\.completedCount).max() ?? 0, 1)
 	}
 
+	private var completionCounts: [Int] {
+		dataPoints.map(\.completedCount)
+	}
+
 	private var markGradient: LinearGradient {
 		LinearGradient(
 			colors: [.accentColor, .accentColor.opacity(0.55)],
@@ -88,6 +92,7 @@ struct RoomsDetailsCompletionChartView: View {
 					.rotationEffect(.degrees(180))
 			}
 			.chartXSelection(value: $selectedDate)
+			.animation(.easeInOut(duration: 0.35), value: completionCounts)
 			.chartOverlay { proxy in
 				GeometryReader { geometry in
 					if let selectedDataPoint,
