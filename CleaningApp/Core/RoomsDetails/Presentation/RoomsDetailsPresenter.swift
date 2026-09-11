@@ -188,11 +188,20 @@ final class RoomsDetailsPresenter {
 		let calendar = Calendar.current
 		let now = Date()
 		let today = calendar.startOfDay(for: now)
-		let startDate = calendar.date(
+		let rangeStartDate = calendar.date(
 			byAdding: .day,
 			value: -(range.days - 1),
 			to: today
 		) ?? today
+		let startDate: Date = {
+			guard range == .oneYear else {
+				return rangeStartDate
+			}
+			let oneYearAgo = calendar.date(byAdding: .year, value: -1, to: today) ?? today
+			return calendar.date(
+			from: calendar.dateComponents([.year, .month], from: oneYearAgo)
+			) ?? oneYearAgo
+		}()
 		let dates: [Date] = {
 			switch range {
 			case .sevenDays, .thirtyDays:
