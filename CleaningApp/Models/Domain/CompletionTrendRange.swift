@@ -28,13 +28,13 @@ enum CompletionTrendRange: CaseIterable, Hashable {
 	var title: String {
 		switch self {
 		case .sevenDays:
-			"7D"
+			String(localized: "chart.range.seven_days", defaultValue: "7 days")
 		case .thirtyDays:
-			"30D"
+			String(localized: "chart.range.thirty_days", defaultValue: "30 days")
 		case .ninetyDays:
-			"90D"
+			String(localized: "chart.range.ninety_days", defaultValue: "90 days")
 		case .oneYear:
-			"1Y"
+			String(localized: "chart.range.one_year", defaultValue: "1 year")
 		}
 	}
 }

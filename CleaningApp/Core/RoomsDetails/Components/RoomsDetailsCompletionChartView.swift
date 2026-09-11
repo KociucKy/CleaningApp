@@ -78,8 +78,8 @@ struct RoomsDetailsCompletionChartView: View {
 	var body: some View {
 		Chart(dataPoints) { dataPoint in
 			BarMark(
-				x: .value("Day", dataPoint.date, unit: xAxisUnit),
-				y: .value("Completed", dataPoint.completedCount)
+				x: .value(String(localized: "chart.axis.day", defaultValue: "Day"), dataPoint.date, unit: xAxisUnit),
+				y: .value(String(localized: "chart.axis.completed", defaultValue: "Completed"), dataPoint.completedCount)
 			)
 			.foregroundStyle(markGradient)
 		}
@@ -95,7 +95,7 @@ struct RoomsDetailsCompletionChartView: View {
 			AxisMarks(position: .leading, values: .stride(by: 1))
 		}
 		.chartYAxisLabel(position: .leading) {
-			Text("Finished tasks")
+			Text(String(localized: "chart.axis.finished_tasks", defaultValue: "Finished tasks"))
 				.rotationEffect(.degrees(180))
 		}
 		.chartXSelection(value: $selectedDate)
@@ -128,7 +128,7 @@ struct RoomsDetailsCompletionChartView: View {
 				.font(.headline)
 
 			if dataPoint.taskCounts.isEmpty {
-				Text("No tasks finished")
+				Text(String(localized: "chart.empty.no_tasks_finished", defaultValue: "No tasks finished"))
 					.foregroundStyle(.secondary)
 			} else {
 				ForEach(dataPoint.taskCounts.keys.sorted(), id: \.self) { taskName in
@@ -139,7 +139,7 @@ struct RoomsDetailsCompletionChartView: View {
 						Text(taskName)
 						Spacer()
 						if count > 1 {
-							Text("×\(count)")
+							Text(verbatim: "×\(count)")
 						}
 					}
 				}
@@ -156,7 +156,7 @@ struct RoomsDetailsCompletionChartView: View {
 		case .sevenDays, .thirtyDays:
 			date.formatted(.dateTime.weekday(.wide).month(.abbreviated).day())
 		case .ninetyDays:
-			"Week of \(date.formatted(.dateTime.month(.abbreviated).day()))"
+			"\(String(localized: "chart.period.week_of", defaultValue: "Week of")) \(date.formatted(.dateTime.month(.abbreviated).day()))"
 		case .oneYear:
 			date.formatted(.dateTime.month(.wide).year())
 		}
@@ -166,6 +166,6 @@ struct RoomsDetailsCompletionChartView: View {
 
 	private var accessibilityValue: String {
 		let total = dataPoints.reduce(0) { $0 + $1.completedCount }
-		return "\(total) completions in the selected \(range.title) range"
+		return "\(String(localized: "chart.accessibility.completions_in_selected_range", defaultValue: "Completions in selected range")): \(total)"
 	}
 }

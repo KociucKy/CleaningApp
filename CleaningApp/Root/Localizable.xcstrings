@@ -41,8 +41,49 @@
         }
       }
     },
-    "×%lld" : {
-
+    "1 year" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "1 rok"
+          }
+        }
+      }
+    },
+    "7 days" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "7 dni"
+          }
+        }
+      }
+    },
+    "30 days" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "30 dni"
+          }
+        }
+      }
+    },
+    "90 days" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "90 dni"
+          }
+        }
+      }
     },
     "Add" : {
       "localizations" : {
@@ -76,6 +117,193 @@
     },
     "Cancel" : {
 
+    },
+    "chart.accessibility.completion_range" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Completion range"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zakres czasu"
+          }
+        }
+      }
+    },
+    "chart.accessibility.completions_in_selected_range" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Completions in selected range"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończenia w wybranym zakresie"
+          }
+        }
+      }
+    },
+    "chart.axis.completed" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Completed"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończone"
+          }
+        }
+      }
+    },
+    "chart.axis.day" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Day"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dzień"
+          }
+        }
+      }
+    },
+    "chart.axis.finished_tasks" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Finished tasks"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończone zadania"
+          }
+        }
+      }
+    },
+    "chart.empty.no_tasks_finished" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No tasks finished"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Brak ukończonych zadań"
+          }
+        }
+      }
+    },
+    "chart.period.week_of" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Week of"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Tydzień od"
+          }
+        }
+      }
+    },
+    "chart.range.ninety_days" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "90 days"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "90 dni"
+          }
+        }
+      }
+    },
+    "chart.range.one_year" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "1 year"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "1 rok"
+          }
+        }
+      }
+    },
+    "chart.range.seven_days" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "7 days"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "7 dni"
+          }
+        }
+      }
+    },
+    "chart.range.thirty_days" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "30 days"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "30 dni"
+          }
+        }
+      }
     },
     "common.action.add" : {
       "extractionState" : "manual",
@@ -217,16 +445,51 @@
       }
     },
     "Completed" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończone"
+          }
+        }
+      }
     },
     "Completed now" : {
 
     },
     "Completion range" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zakres czasu"
+          }
+        }
+      }
+    },
+    "Completions in selected range" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończenia w wybranym zakresie"
+          }
+        }
+      }
     },
     "Day" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dzień"
+          }
+        }
+      }
     },
     "Delete" : {
       "localizations" : {
@@ -370,7 +633,15 @@
       }
     },
     "Finished tasks" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończone zadania"
+          }
+        }
+      }
     },
     "frequency.biannually" : {
       "extractionState" : "manual",
@@ -891,7 +1162,15 @@
       }
     },
     "No tasks finished" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Brak ukończonych zadań"
+          }
+        }
+      }
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -3104,6 +3383,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Zadań: %lld"
+          }
+        }
+      }
+    },
+    "Week of" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Tydzień od"
           }
         }
       }

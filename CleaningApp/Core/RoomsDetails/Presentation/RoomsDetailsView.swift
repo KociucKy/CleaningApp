@@ -54,7 +54,7 @@ struct RoomsDetailsView: View {
 			if presenter.hasAnyCompletions {
 				Section {
 					Picker(
-						"Completion range",
+						String(localized: "chart.accessibility.completion_range", defaultValue: "Completion range"),
 						selection: Binding(
 							get: { presenter.completionTrendRange },
 							set: presenter.onCompletionTrendRangeChanged
@@ -66,7 +66,7 @@ struct RoomsDetailsView: View {
 					}
 					.pickerStyle(.segmented)
 					.labelsHidden()
-					.accessibilityLabel("Completion range")
+					.accessibilityLabel(String(localized: "chart.accessibility.completion_range", defaultValue: "Completion range"))
 					.listRowSeparator(.hidden)
 
 					if presenter.hasRecentCompletions {
