@@ -109,8 +109,8 @@ struct CoreRouter {
 		}
 	}
 
-	func presentRoomsDetailsView(room: Room) {
-		router.showScreen(.push, onDismiss: nil) { router in
+	func presentRoomsDetailsView(room: Room, namespace: Namespace.ID) {
+		router.showScreen(.zoom(sourceID: room.id, namespace: namespace), onDismiss: nil) { router in
 			builder.roomsDetailsView(router: router, room: room)
 		}
 	}
