@@ -56,14 +56,6 @@ struct RoomsDetailsCompletionChartView: View {
 		}
 	}
 
-	private var markGradient: LinearGradient {
-		LinearGradient(
-			colors: [.accentColor, .accentColor.opacity(0.55)],
-			startPoint: .top,
-			endPoint: .bottom
-		)
-	}
-
 	private var selectedDataPoint: CompletionChartDataPoint? {
 		guard let selectedDate else {
 			return nil
@@ -81,7 +73,7 @@ struct RoomsDetailsCompletionChartView: View {
 				x: .value(String(localized: "chart.axis.day", defaultValue: "Day"), dataPoint.date, unit: xAxisUnit),
 				y: .value(String(localized: "chart.axis.completed", defaultValue: "Completed"), dataPoint.completedCount)
 			)
-			.foregroundStyle(markGradient)
+			.foregroundStyle(.accent.gradient)
 		}
 		.chartYScale(domain: 0 ... maximumCount)
 		.chartXAxis {
