@@ -164,7 +164,9 @@ final class RoomsDetailsPresenter {
 				guard let self else {
 					return
 				}
-				self.reloadTasks(for: self.room.id)
+				withAnimation {
+					self.reloadTasks(for: self.room.id)
+				}
 			}
 		)
 	}
