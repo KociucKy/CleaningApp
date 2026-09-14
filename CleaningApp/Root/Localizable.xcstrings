@@ -2675,6 +2675,9 @@
         }
       }
     },
+    "Task details" : {
+
+    },
     "task.change_bed_linen" : {
       "extractionState" : "manual",
       "localizations" : {
