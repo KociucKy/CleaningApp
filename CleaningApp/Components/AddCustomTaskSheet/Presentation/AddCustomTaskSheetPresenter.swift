@@ -16,6 +16,7 @@ final class AddCustomTaskSheetPresenter {
 
     var taskName = ""
     var selectedFrequency: Frequency = .timesPerWeek(1)
+    var selectedDuration: TaskDuration = .fiveMinutes
 
     var isEditing: Bool {
         task != nil
@@ -41,6 +42,7 @@ final class AddCustomTaskSheetPresenter {
         self.onTaskSaved = onTaskSaved
         self.taskName = task?.name ?? ""
         self.selectedFrequency = (task?.frequency ?? .timesPerWeek(1)).canonicalized
+        self.selectedDuration = task?.estimatedDuration ?? .fiveMinutes
     }
 
     // MARK: - Actions
@@ -57,7 +59,7 @@ final class AddCustomTaskSheetPresenter {
             name: taskName.trimmingCharacters(in: .whitespaces),
             roomId: roomId,
             frequency: selectedFrequency,
-            estimatedDuration: task?.estimatedDuration ?? .fifteenMinutes,
+            estimatedDuration: selectedDuration,
             createdAt: task?.createdAt ?? Date()
         )
 
@@ -67,10 +69,8 @@ final class AddCustomTaskSheetPresenter {
             } else {
                 try interactor.updateRoomTask(updatedTask)
             }
+            onTaskSaved(updatedTask)
             router.dismissScreen()
-            DispatchQueue.main.async {
-                self.onTaskSaved(updatedTask)
-            }
         } catch {
             // TODO: Surface a save error in the sheet when app-level error presentation is added.
         }
