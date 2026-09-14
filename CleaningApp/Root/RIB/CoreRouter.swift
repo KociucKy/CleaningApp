@@ -124,6 +124,20 @@ struct CoreRouter {
 		}
 	}
 
+	func presentIconPicker(
+		room: Room,
+		onRoomSaved: @escaping (Room) -> Void
+	) {
+		router.showScreen(.sheetWithDetents([.medium, .large]), onDismiss: nil) { router in
+			builder.iconPickerView(
+				sheetRouter: CoreRouter(router: router, builder: builder),
+				roomName: room.name,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
+		}
+	}
+
 	func presentCustomTaskSheet(
 		roomId: UUID,
 		task: RoomTask?,

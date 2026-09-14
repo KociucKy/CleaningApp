@@ -121,6 +121,9 @@
     "Cancel" : {
 
     },
+    "Change room icon" : {
+
+    },
     "chart.accessibility.completion_range" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {

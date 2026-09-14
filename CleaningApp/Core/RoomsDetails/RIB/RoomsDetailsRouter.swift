@@ -15,6 +15,10 @@ protocol RoomsDetailsRouter {
 		room: Room,
 		onRoomSaved: @escaping (Room) -> Void
 	)
+	func presentIconPicker(
+		room: Room,
+		onRoomSaved: @escaping (Room) -> Void
+	)
 	func presentCustomTaskSheet(
 		roomId: UUID,
 		task: RoomTask?,
