@@ -68,6 +68,7 @@ struct OnbTaskSelectionView: View {
 		.background(FKColor.Background.primary)
 		.navigationTitle("onb_task_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
+		.scrollEdgeEffectStyle(.soft, for: .top)
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
 				.opacity(presenter.buttonVisible ? 1 : 0)
