@@ -40,6 +40,7 @@ struct OnbRoomSelectionView: View {
 		.navigationTitle("onb_room_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
+		.scrollEdgeEffectStyle(.soft, for: .top)
 		.toolbar {
 			if presenter.hasSelection {
 				ToolbarItem(placement: .topBarLeading) {

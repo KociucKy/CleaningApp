@@ -35,12 +35,13 @@ struct CustomTaskSheetView: View {
 			}
 
 			Section {
+				TaskDurationStepperView(duration: $presenter.selectedDuration)
 				FrequencyPickerView(
 					selectedFrequency: $presenter.selectedFrequency,
 					onInteraction: dismissKeyboard
 				)
 			} header: {
-				Text("onb_custom_task.label.frequency")
+				Text("Task details")
 			}
 		}
 		.navigationTitle("onb_custom_task.title")

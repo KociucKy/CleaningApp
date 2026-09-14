@@ -13,6 +13,7 @@ final class RoomsDetailsPresenter {
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
+	private(set) var taskListRefreshID = UUID()
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
 	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
@@ -78,6 +79,7 @@ final class RoomsDetailsPresenter {
 			errorMessage = "Unable to load this room’s tasks."
 		}
 
+		taskListRefreshID = UUID()
 		isLoading = false
 	}
 
@@ -172,14 +174,17 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onEditTaskButtonTapped(_ task: RoomTask) {
-		router.presentCustomTaskSheet(roomId: task.roomId, task: task) { [self] _ in
-			reloadTasks(for: task.roomId)
+		router.presentCustomTaskSheet(roomId: room.id, task: task) { [weak self] _ in
+			DispatchQueue.main.async {
+				guard let self else { return }
+				self.reloadTasks(for: self.room.id)
+			}
 		}
 	}
 
 	// MARK: - Private
 
-	private func makeCompletionTrend(
+		private func makeCompletionTrend(
 		from completedTasks: [CompletedTask],
 		range: CompletionTrendRange
 	) -> [CompletionChartDataPoint] {
