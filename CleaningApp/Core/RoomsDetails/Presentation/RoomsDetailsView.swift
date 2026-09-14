@@ -69,7 +69,6 @@ struct RoomsDetailsView: View {
 					.accessibilityLabel(String(localized: "chart.accessibility.completion_range", defaultValue: "Completion range"))
 					.listRowSeparator(.hidden)
 
-					if presenter.hasRecentCompletions {
 						RoomsDetailsCompletionChartView(
 							dataPoints: presenter.completionTrend,
 							range: presenter.completionTrendRange
@@ -81,7 +80,6 @@ struct RoomsDetailsView: View {
 							presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
 							value: presenter.animate
 						)
-					}
 				}
 			}
 
