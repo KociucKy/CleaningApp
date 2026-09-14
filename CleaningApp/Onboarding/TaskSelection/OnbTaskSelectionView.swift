@@ -191,7 +191,18 @@ struct OnbTaskSelectionView: View {
 			.accessibilityAddTraits(isSelected ? .isSelected : [])
 			.buttonStyle(.fkFade)
 
-			if showDeleteButton {
+			Button {
+					FKHaptics.selection()
+					editTask(task, in: section)
+				} label: {
+					Image(systemName: "pencil")
+						.font(FKTypography.caption)
+						.foregroundStyle(Color.accentColor)
+				}
+				.buttonStyle(.plain)
+				.accessibilityLabel(Text("common.action.edit"))
+
+				if showDeleteButton {
 				Button {
 					FKHaptics.selection()
 					deleteTask(task, from: section)
@@ -290,6 +301,15 @@ struct OnbTaskSelectionView: View {
 			presenter.onTaskRowPressed(task, for: room)
 		case let .custom(customRoom):
 			presenter.onCustomRoomTaskRowPressed(task, in: customRoom)
+		}
+	}
+
+	private func editTask(_ task: RoomTask, in section: RoomSection) {
+		switch section {
+		case let .predefined(room):
+			presenter.onEditTask(task, for: room)
+		case let .custom(customRoom):
+			presenter.onEditCustomRoomTask(task, in: customRoom)
 		}
 	}
 

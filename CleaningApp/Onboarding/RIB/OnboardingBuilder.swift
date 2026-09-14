@@ -84,9 +84,16 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
-	func customTaskSheetView(router: Router, roomType: RoomType) -> some View {
+	func customTaskSheetView(router: Router, roomType: RoomType, task: RoomTask? = nil) -> some View {
 		OnbAddCustomTaskSheetView(
-			presenter: OnbAddCustomTaskSheetPresenter(
+			presenter: task.map {
+				OnbAddCustomTaskSheetPresenter(
+					interactor: interactor,
+					router: OnboardingRouter(router: router, builder: self),
+					roomType: roomType,
+					task: $0
+				)
+			} ?? OnbAddCustomTaskSheetPresenter(
 				interactor: interactor,
 				router: OnboardingRouter(router: router, builder: self),
 				roomType: roomType
@@ -94,9 +101,16 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
-	func customTaskSheetView(router: Router, customRoomId: UUID) -> some View {
+	func customTaskSheetView(router: Router, customRoomId: UUID, task: RoomTask? = nil) -> some View {
 		OnbAddCustomTaskSheetView(
-			presenter: OnbAddCustomTaskSheetPresenter(
+			presenter: task.map {
+				OnbAddCustomTaskSheetPresenter(
+					interactor: interactor,
+					router: OnboardingRouter(router: router, builder: self),
+					customRoomId: customRoomId,
+					task: $0
+				)
+			} ?? OnbAddCustomTaskSheetPresenter(
 				interactor: interactor,
 				router: OnboardingRouter(router: router, builder: self),
 				customRoomId: customRoomId

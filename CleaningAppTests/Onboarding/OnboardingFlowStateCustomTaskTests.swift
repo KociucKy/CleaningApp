@@ -59,6 +59,33 @@ struct OnboardingFlowStateCustomTaskTests {
 		#expect(state.customTasks[.kitchen]?.contains(task2) == true)
 	}
 
+	// MARK: - updateTask
+
+	@Test func updateTask_updatesCustomTaskAndSelection() {
+		let state = OnboardingFlowState()
+		state.toggleRoom(.kitchen)
+		let original = RoomTask(name: "Clean windows", roomId: UUID(), frequency: .weekly, estimatedDuration: .fifteenMinutes)
+		state.addCustomTask(original, for: .kitchen)
+		let updated = RoomTask(id: original.id, name: "Clean windows", roomId: original.roomId, frequency: .daily, estimatedDuration: .fortyMinutes, createdAt: original.createdAt)
+
+		state.updateTask(updated, for: .kitchen)
+
+		#expect(state.customTasks[.kitchen]?.first == updated)
+		#expect(state.selectedTasks[.kitchen]?.first == updated)
+	}
+
+	@Test func updateTask_updatesSuggestedTaskOverride() {
+		let state = OnboardingFlowState()
+		state.toggleRoom(.kitchen)
+		let original = RoomType.kitchen.suggestedTasks[0]
+		let updated = RoomTask(id: original.id, name: "Updated task", roomId: original.roomId, frequency: original.frequency, estimatedDuration: .fiftyMinutes, createdAt: original.createdAt)
+
+		state.updateTask(updated, for: .kitchen)
+
+		#expect(state.allTasks(for: .kitchen).first == updated)
+		#expect(state.selectedTasks[.kitchen]?.first == updated)
+	}
+
 	// MARK: - removeCustomTask
 
 	@Test(.tags(.deleting)) func removeCustomTask_removesFromCustomTasksCollection() {

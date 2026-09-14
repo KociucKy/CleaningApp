@@ -101,6 +101,10 @@ struct OnboardingInteractor {
 		flowState.addCustomTask(task, for: room)
 	}
 
+	func updateTask(_ task: RoomTask, for room: RoomType) {
+		flowState.updateTask(task, for: room)
+	}
+
 	func removeCustomTask(_ task: RoomTask, for room: RoomType) {
 		flowState.removeCustomTask(task, for: room)
 	}
@@ -113,6 +117,10 @@ struct OnboardingInteractor {
 
 	func addTaskToCustomRoom(_ task: RoomTask, roomId: UUID) {
 		flowState.addTaskToCustomRoom(task, roomId: roomId)
+	}
+
+	func updateTask(_ task: RoomTask, inCustomRoom roomId: UUID) {
+		flowState.updateTask(task, inCustomRoom: roomId)
 	}
 
 	func removeTaskFromCustomRoom(_ task: RoomTask, roomId: UUID) {
