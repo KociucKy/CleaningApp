@@ -18,11 +18,17 @@ struct IconPickerView: View {
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                LazyVGrid(columns: [
-                    GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16),
-                ], spacing: 16) {
+                LazyVGrid(
+                    columns: [
+                        GridItem(.adaptive(minimum: 64, maximum: 72), spacing: 16),
+                    ],
+                    spacing: 16
+                ) {
                     ForEach(presenter.icons, id: \.self) { icon in
-                        IconPickerButton(iconName: icon) {
+                        IconPickerButton(
+                            iconName: icon,
+                            isSelected: presenter.selectedIcon == icon
+                        ) {
                             presenter.onIconSelected(icon)
                         }
                     }
@@ -34,6 +40,13 @@ struct IconPickerView: View {
         }
         .navigationTitle(LocalizedStringKey("onb_custom_room.icon_picker_title"))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("common.action.done") {
+                    presenter.onDoneButtonPressed()
+                }
+            }
+        }
     }
 }
 
@@ -44,6 +57,7 @@ private struct IconPickerButton: View {
     // MARK: - Properties
 
     let iconName: String
+    let isSelected: Bool
     let action: () -> Void
 
     // MARK: - Body
@@ -56,7 +70,15 @@ private struct IconPickerButton: View {
                 .frame(width: 64, height: 64)
                 .background(.quaternary)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(
+                            .tint,
+                            lineWidth: isSelected ? 3 : 0
+                        )
+                }
         }
         .accessibilityLabel(String(localized: "onb_custom_room.icon_button \(iconName)"))
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
