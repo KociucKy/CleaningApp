@@ -57,8 +57,8 @@ final class RoomsPresenter {
 		fetchRooms()
 	}
 
-	func onRoomCardTapped(room: Room) {
-		router.presentRoomsDetailsView(room: room)
+	func onRoomCardTapped(room: Room, namespace: Namespace.ID) {
+		router.presentRoomsDetailsView(room: room, namespace: namespace)
 	}
 
 	func onAddButtonTapped() {

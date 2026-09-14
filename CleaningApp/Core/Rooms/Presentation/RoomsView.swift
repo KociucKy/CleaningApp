@@ -8,6 +8,7 @@ struct RoomsView: View {
 	// MARK: - Properties
 
 	@Environment(\.tabBarSelection) private var tabBarSelection
+	@Namespace private var roomTransitionNamespace
 	@State private var presenter: RoomsPresenter
 	@State private var roomsGridID = UUID()
 
@@ -69,7 +70,7 @@ struct RoomsView: View {
 	private func roomCard(for room: Room) -> some View {
 		Button {
 			FKHaptics.selection()
-			presenter.onRoomCardTapped(room: room)
+			presenter.onRoomCardTapped(room: room, namespace: roomTransitionNamespace)
 		} label: {
 			RoomCardView(
 				room: room,
@@ -82,6 +83,7 @@ struct RoomsView: View {
 			)
 		}
 		.buttonStyle(.fkFade)
+		.matchedTransitionSource(id: room.id, in: roomTransitionNamespace)
 		.contextMenu {
 			Button {} label: {
 				Label("Edit", systemImage: "pencil")
