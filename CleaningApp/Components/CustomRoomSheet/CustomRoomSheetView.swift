@@ -1,3 +1,4 @@
+import FulhamKit
 import SwiftUI
 
 // MARK: - CustomRoomSheetView
@@ -12,7 +13,7 @@ struct CustomRoomSheetView: View {
 	// MARK: - Body
 
 	var body: some View {
-		nameInputView
+		roomFormView
 			.navigationTitle(LocalizedStringKey(presenter.isEditing ? "Edit room" : "onb_custom_room.sheet_title"))
 			.navigationBarTitleDisplayMode(.inline)
 			.presentationDragIndicator(.visible)
@@ -23,36 +24,53 @@ struct CustomRoomSheetView: View {
 						presenter.onCancelButtonPressed()
 					}
 				}
-				ToolbarItem(placement: .primaryAction) {
-					Button(presenter.isEditing ? "Save" : "onb_custom_room.button_next") {
+				ToolbarItem(placement: .confirmationAction) {
+					Button(presenter.isEditing ? "Save" : "common.action.done") {
 						dismissKeyboard()
-						presenter.onNextButtonPressed()
+						presenter.onSaveButtonPressed()
 					}
 					.disabled(!presenter.isNameValid)
 					.buttonStyle(.borderedProminent)
 				}
 			}
 			.onAppear {
-				isTextFieldFocused = true
+				isTextFieldFocused = !presenter.isEditing
 			}
 			.dismissesKeyboard(when: $isTextFieldFocused, using: dismissKeyboard)
 	}
 
 	// MARK: - SubViews
 
-	private var nameInputView: some View {
+	private var roomFormView: some View {
 		Form {
 			Section {
 				TextField(
 					LocalizedStringKey("onb_custom_room.name_placeholder"),
 					text: $presenter.roomName
 				)
-				.font(.body)
+				.font(FKTypography.body)
 				.focused($isTextFieldFocused)
 				.accessibilityHint(LocalizedStringKey("onb_custom_room.name_hint"))
 				.withCharacterLimit($presenter.roomName)
 			} footer: {
 				characterCountFooter(currentCount: presenter.roomName.count)
+			}
+
+			if !presenter.isEditing {
+				Section {
+					IconPickerGridView(
+						icons: presenter.icons,
+						selectedIcon: presenter.selectedIcon,
+						onIconSelected: { selectedIcon in
+							isTextFieldFocused = false
+							presenter.onIconSelected(selectedIcon)
+						}
+					)
+					.padding(.vertical, FKSpacing.default) // To ommit List / Form styling
+					.removeListRowFormatting()
+				} header: {
+					Text(LocalizedStringKey("onb_custom_room.icon_title"))
+				}
 			}
 		}
 	}

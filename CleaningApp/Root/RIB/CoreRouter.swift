@@ -86,7 +86,7 @@ struct CoreRouter {
 
 	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?) {
 		router.showScreen(
-			.sheetWithDetents([.medium]),
+			.sheetWithDetents([.large]),
 			onDismiss: onDismiss
 		) { router in
 			builder.customRoomSheetView(router: router, room: nil, onRoomSaved: nil)
@@ -124,6 +124,20 @@ struct CoreRouter {
 		}
 	}
 
+	func presentIconPicker(
+		room: Room,
+		onRoomSaved: @escaping (Room) -> Void
+	) {
+		router.showScreen(.sheetWithDetents([.large]), onDismiss: nil) { router in
+			builder.iconPickerView(
+				sheetRouter: CoreRouter(router: router, builder: builder),
+				roomName: room.name,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
+		}
+	}
+
 	func presentCustomTaskSheet(
 		roomId: UUID,
 		task: RoomTask?,
@@ -135,22 +149,6 @@ struct CoreRouter {
 				roomId: roomId,
 				task: task,
 				onTaskSaved: onTaskSaved
-			)
-		}
-	}
-
-	func showIconPicker(
-		roomName: String,
-		room: Room?,
-		onRoomSaved: ((Room) -> Void)?
-	) {
-		let sheetRouter = self
-		router.showScreen(.push, onDismiss: nil) { _ in
-			builder.iconPickerView(
-				sheetRouter: sheetRouter,
-				roomName: roomName,
-				room: room,
-				onRoomSaved: onRoomSaved
 			)
 		}
 	}

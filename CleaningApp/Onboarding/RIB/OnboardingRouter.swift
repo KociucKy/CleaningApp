@@ -55,7 +55,7 @@ struct OnboardingRouter {
 	}
 
 	func presentCustomRoomSheet() {
-		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+		router.showScreen(.sheetWithDetents([.large]), onDismiss: nil) { router in
 			builder.customRoomSheetView(router: router)
 		}
 	}

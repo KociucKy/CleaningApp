@@ -133,6 +133,12 @@ final class RoomsDetailsPresenter {
 		}
 	}
 
+	func onIconButtonTapped() {
+		router.presentIconPicker(room: room) { [self] updatedRoom in
+			room = updatedRoom
+		}
+	}
+
 	func onDeleteRoomButtonTapped() {
 		router.showAlert(
 			.alert,

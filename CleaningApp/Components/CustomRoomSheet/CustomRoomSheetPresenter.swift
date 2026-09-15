@@ -13,7 +13,10 @@ final class CustomRoomSheetPresenter {
 	private let room: Room?
 	private let onRoomSaved: ((Room) -> Void)?
 
+	let icons = IconPickerOptions.icons
+
 	var roomName: String = ""
+	var selectedIcon: String
 
 	var isEditing: Bool {
 		room != nil
@@ -36,6 +39,7 @@ final class CustomRoomSheetPresenter {
 		self.room = room
 		self.onRoomSaved = onRoomSaved
 		self.roomName = room?.name ?? ""
+		self.selectedIcon = room?.customIcon ?? room?.kind.symbolName ?? "house.fill"
 	}
 
 	// MARK: - Actions
@@ -44,7 +48,12 @@ final class CustomRoomSheetPresenter {
 		router.dismissScreen()
 	}
 
-	func onNextButtonPressed() {
+	func onIconSelected(_ icon: String) {
+		FKHaptics.selection()
+		selectedIcon = icon
+	}
+
+	func onSaveButtonPressed() {
 		guard isNameValid else { return }
 		let trimmedName = roomName.trimmingCharacters(in: .whitespaces)
 
@@ -60,7 +69,13 @@ final class CustomRoomSheetPresenter {
 				return
 			}
 		} else {
-			router.showIconPicker(roomName: trimmedName, room: nil, onRoomSaved: nil)
+			do {
+				try interactor.saveCustomRoom(name: trimmedName, icon: selectedIcon)
+				FKHaptics.notification(.success)
+				router.dismissScreen()
+			} catch {
+				return
+			}
 		}
 	}
 }
