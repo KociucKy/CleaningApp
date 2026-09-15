@@ -20,7 +20,8 @@ struct RoomsDetailsView: View {
 		List {
 			RoomsDetailsHeaderView(
 				symbol: presenter.room.customIcon ?? presenter.room.kind.symbolName,
-				roomName: presenter.room.name
+				roomName: presenter.room.name,
+				onIconTapped: presenter.onIconButtonTapped
 			)
 			.frame(maxWidth: .infinity, alignment: .center)
 			.opacity(presenter.animate ? 1 : 0)
