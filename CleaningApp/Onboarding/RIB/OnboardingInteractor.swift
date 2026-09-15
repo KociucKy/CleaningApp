@@ -168,7 +168,7 @@ struct OnboardingInteractor {
 			// 1. Save predefined rooms first — tasks depend on their IDs existing in the store.
 			var savedRooms: [Room] = []
 			for roomType in flowState.selectedRooms {
-				let room = Room(name: roomType.rawValue, kind: roomType)
+				let room = Room(name: roomType.localizedName, kind: roomType)
 				try roomManager.save(room)
 				savedRooms.append(room)
 			}
