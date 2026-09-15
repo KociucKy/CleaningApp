@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - RoomManagerTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct RoomManagerTests {
 	// MARK: - fetchAll

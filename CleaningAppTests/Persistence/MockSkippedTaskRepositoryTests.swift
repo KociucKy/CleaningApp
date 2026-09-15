@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - MockSkippedTaskRepositoryTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct MockSkippedTaskRepositoryTests {
 	// MARK: - fetchAll

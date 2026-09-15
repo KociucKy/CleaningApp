@@ -25,7 +25,7 @@ private struct SnapshotRouter: Router {
 		_: AlertType,
 		title _: String,
 		subtitle _: String?,
-		buttons _: (@Sendable () -> AnyView)?
+		buttons _: (@MainActor @Sendable () -> AnyView)?
 	) {}
 
 	func dismissAlert() {}
