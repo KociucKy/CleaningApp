@@ -89,8 +89,7 @@ struct RoomsDetailsView: View {
 				emptyStateView
 			}
 		}
-		.id(presenter.taskListRefreshID)
-			.contentMargins(.top, 0, for: .scrollContent)
+		.contentMargins(.top, 0, for: .scrollContent)
 		.onAppear {
 			presenter.onAppear(roomId: presenter.room.id)
 			presenter.restartEntranceAnimation()

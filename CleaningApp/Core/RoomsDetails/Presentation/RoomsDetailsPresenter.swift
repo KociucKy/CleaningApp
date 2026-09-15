@@ -15,7 +15,6 @@ final class RoomsDetailsPresenter {
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
-	private(set) var taskListRefreshID = UUID()
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
 	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
@@ -82,7 +81,6 @@ final class RoomsDetailsPresenter {
 			errorMessage = "Unable to load this room’s tasks."
 		}
 
-		taskListRefreshID = UUID()
 		isLoading = false
 	}
 
@@ -123,7 +121,9 @@ final class RoomsDetailsPresenter {
 	func onAddTaskButtonTapped(roomId: UUID) {
 		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [weak self] _ in
 			guard let self else { return }
-			self.reloadTasks(for: roomId)
+			withAnimation {
+				self.reloadTasks(for: roomId)
+			}
 		}
 	}
 
@@ -187,7 +187,9 @@ final class RoomsDetailsPresenter {
 		router.presentCustomTaskSheet(roomId: room.id, task: task) { [weak self] _ in
 			DispatchQueue.main.async {
 				guard let self else { return }
-				self.reloadTasks(for: self.room.id)
+				withAnimation {
+					self.reloadTasks(for: self.room.id)
+				}
 			}
 		}
 	}
