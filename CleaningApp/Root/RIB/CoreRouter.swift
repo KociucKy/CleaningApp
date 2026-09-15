@@ -152,20 +152,4 @@ struct CoreRouter {
 			)
 		}
 	}
-
-	func showIconPicker(
-		roomName: String,
-		room: Room?,
-		onRoomSaved: ((Room) -> Void)?
-	) {
-		let sheetRouter = self
-		router.showScreen(.push, onDismiss: nil) { _ in
-			builder.iconPickerView(
-				sheetRouter: sheetRouter,
-				roomName: roomName,
-				room: room,
-				onRoomSaved: onRoomSaved
-			)
-		}
-	}
 }
