@@ -4,6 +4,11 @@ import Foundation
 protocol RoomsDetailsInteractor {
     func fetchAllRoomTasks(for roomId: UUID) throws -> [RoomTask]
     func fetchAllCompletedTasks(for taskId: UUID) throws -> [CompletedTask]
+	func makeCompletionTrend(
+		from completedTasks: [CompletedTask],
+		tasks: [RoomTask],
+		range: CompletionTrendRange
+	) -> [CompletionChartDataPoint]
     func saveCompletedTask(_ task: CompletedTask) throws
     func deleteCompletedTask(_ task: CompletedTask) throws
 	func deleteRoom(_ item: Room) throws

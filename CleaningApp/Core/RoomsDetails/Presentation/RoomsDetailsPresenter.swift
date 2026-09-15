@@ -1,6 +1,8 @@
 import FulhamKit
 import SwiftUI
 
+// MARK: - RoomsDetailsPresenter
+
 @Observable
 @MainActor
 final class RoomsDetailsPresenter {
@@ -13,7 +15,6 @@ final class RoomsDetailsPresenter {
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
-	private(set) var taskListRefreshID = UUID()
 	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
 	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
@@ -71,15 +72,15 @@ final class RoomsDetailsPresenter {
 			}
 			self.completedTasks = completedTasks
 			completedTaskIDs = Set(completedTasks.map(\.taskId))
-			completionTrend = makeCompletionTrend(
+			completionTrend = interactor.makeCompletionTrend(
 				from: completedTasks,
+				tasks: tasks,
 				range: completionTrendRange
 			)
 		} catch {
 			errorMessage = "Unable to load this room’s tasks."
 		}
 
-		taskListRefreshID = UUID()
 		isLoading = false
 	}
 
@@ -88,14 +89,14 @@ final class RoomsDetailsPresenter {
 			.alert,
 			title: "Are you sure you want to delete \(task.name)",
 			subtitle: nil,
-			buttons: { @MainActor in
+			buttons: { @MainActor [weak self] in
 				Group {
 					Button("Yes", role: .destructive) {
 						FKHaptics.notification(.warning)
-						self.deleteTask(task, roomId: roomId)
+						self?.deleteTask(task, roomId: roomId)
 					}
 					Button("Cancel", role: .cancel) {
-						self.router.dismissAlert()
+						self?.router.dismissAlert()
 					}
 				}.any()
 			}
@@ -118,14 +119,17 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onAddTaskButtonTapped(roomId: UUID) {
-		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [self] _ in
-			reloadTasks(for: roomId)
+		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [weak self] _ in
+			guard let self else { return }
+			withAnimation {
+				self.reloadTasks(for: roomId)
+			}
 		}
 	}
 
 	func onEditRoomButtonTapped() {
-		router.presentCustomRoomSheet(room: room) { [self] updatedRoom in
-			room = updatedRoom
+		router.presentCustomRoomSheet(room: room) { [weak self] updatedRoom in
+			self?.room = updatedRoom
 		}
 	}
 
@@ -140,14 +144,14 @@ final class RoomsDetailsPresenter {
 			.alert,
 			title: "Are you sure you want to delete \(room.name)",
 			subtitle: nil,
-			buttons: { @MainActor in
+			buttons: { @MainActor [weak self] in
 				Group {
 					Button("Yes", role: .destructive) {
 						FKHaptics.notification(.warning)
-						self.deleteRoom()
+						self?.deleteRoom()
 					}
 					Button("Cancel", role: .cancel) {
-						self.router.dismissAlert()
+						self?.router.dismissAlert()
 					}
 				}.any()
 			}
@@ -158,8 +162,13 @@ final class RoomsDetailsPresenter {
 		guard completionTrendRange != range else {
 			return
 		}
+
 		completionTrendRange = range
-		completionTrend = makeCompletionTrend(from: completedTasks, range: range)
+		completionTrend = interactor.makeCompletionTrend(
+			from: completedTasks,
+			tasks: tasks,
+			range: range
+		)
 	}
 
 	func onTaskCompletionTapped(_ task: RoomTask) {
@@ -172,6 +181,7 @@ final class RoomsDetailsPresenter {
 				guard let self else {
 					return
 				}
+
 				withAnimation {
 					self.reloadTasks(for: self.room.id)
 				}
@@ -183,96 +193,14 @@ final class RoomsDetailsPresenter {
 		router.presentCustomTaskSheet(roomId: room.id, task: task) { [weak self] _ in
 			DispatchQueue.main.async {
 				guard let self else { return }
-				self.reloadTasks(for: self.room.id)
+				withAnimation {
+					self.reloadTasks(for: self.room.id)
+				}
 			}
 		}
 	}
 
 	// MARK: - Private
-
-		private func makeCompletionTrend(
-		from completedTasks: [CompletedTask],
-		range: CompletionTrendRange
-	) -> [CompletionChartDataPoint] {
-		let calendar = Calendar.current
-		let now = Date()
-		let today = calendar.startOfDay(for: now)
-		let rangeStartDate = calendar.date(
-			byAdding: .day,
-			value: -(range.days - 1),
-			to: today
-		) ?? today
-		let startDate: Date = {
-			guard range == .oneYear else {
-				return rangeStartDate
-			}
-			let oneYearAgo = calendar.date(byAdding: .year, value: -1, to: today) ?? today
-			return calendar.date(
-			from: calendar.dateComponents([.year, .month], from: oneYearAgo)
-			) ?? oneYearAgo
-		}()
-		let dates: [Date] = {
-			switch range {
-			case .sevenDays, .thirtyDays:
-				return (0..<range.days).compactMap {
-					calendar.date(byAdding: .day, value: $0, to: startDate)
-				}
-			case .ninetyDays:
-				return (0...12).compactMap {
-					calendar.date(byAdding: .weekOfYear, value: $0, to: startDate)
-				}
-			case .oneYear:
-				return (0...12).compactMap {
-					calendar.date(byAdding: .month, value: $0, to: startDate)
-				}
-			}
-		}()
-		var completionsByBucket = [Date: [CompletedTask]]()
-		for completion in completedTasks where completion.completedAt >= startDate && completion.completedAt <= now {
-			if let bucket = completionBucket(
-				for: completion.completedAt,
-				range: range,
-				startDate: startDate,
-				calendar: calendar
-			) {
-				completionsByBucket[bucket, default: []].append(completion)
-			}
-		}
-		let taskNamesByID = Dictionary(
-			uniqueKeysWithValues: tasks.map { ($0.id, $0.name) }
-		)
-
-		return dates.map { date in
-			let completions = completionsByBucket[date] ?? []
-			let taskCounts = completions.reduce(into: [String: Int]()) { counts, completion in
-				let taskName = taskNamesByID[completion.taskId] ?? "Unknown task"
-				counts[taskName, default: 0] += 1
-			}
-			return CompletionChartDataPoint(
-				date: date,
-				completedCount: completions.count,
-				taskCounts: taskCounts
-			)
-		}
-	}
-
-	private func completionBucket(
-		for date: Date,
-		range: CompletionTrendRange,
-		startDate: Date,
-		calendar: Calendar
-	) -> Date? {
-		switch range {
-		case .sevenDays, .thirtyDays:
-			return calendar.startOfDay(for: date)
-		case .ninetyDays:
-			let weeks = calendar.dateComponents([.weekOfYear], from: startDate, to: date).weekOfYear ?? 0
-			return calendar.date(byAdding: .weekOfYear, value: weeks, to: startDate)
-		case .oneYear:
-			let months = calendar.dateComponents([.month], from: startDate, to: date).month ?? 0
-			return calendar.date(byAdding: .month, value: months, to: startDate)
-		}
-	}
 
 	private func deleteTask(_ task: RoomTask, roomId: UUID) {
 		do {
