@@ -105,6 +105,10 @@ final class OnbTaskSelectionPresenter {
 		interactor.removeCustomTask(task, for: room)
 	}
 
+	func onEditTask(_ task: RoomTask, for room: RoomType) {
+		router.presentCustomTaskSheet(for: room, task: task)
+	}
+
 	// MARK: - Custom Rooms
 
 	func customRoomTasks(_ customRoom: CustomRoomSelection) -> [RoomTask] {
@@ -125,5 +129,9 @@ final class OnbTaskSelectionPresenter {
 
 	func onDeleteCustomRoomTask(_ task: RoomTask, from customRoom: CustomRoomSelection) {
 		interactor.removeTaskFromCustomRoom(task, roomId: customRoom.id)
+	}
+
+	func onEditCustomRoomTask(_ task: RoomTask, in customRoom: CustomRoomSelection) {
+		router.presentCustomTaskSheet(for: customRoom, task: task)
 	}
 }

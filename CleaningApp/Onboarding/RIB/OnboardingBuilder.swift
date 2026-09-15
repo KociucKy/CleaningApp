@@ -74,17 +74,26 @@ struct OnboardingBuilder: Builder {
 	}
 
 	func customRoomSheetView(router: Router) -> some View {
-		OnbCustomRoomSheetView(
-			presenter: OnbCustomRoomSheetPresenter(
+		CustomRoomSheetView(
+			presenter: CustomRoomSheetPresenter(
 				interactor: interactor,
-				router: OnboardingRouter(router: router, builder: self)
+				router: OnboardingRouter(router: router, builder: self),
+				room: nil,
+				onRoomSaved: nil
 			)
 		)
 	}
 
-	func customTaskSheetView(router: Router, roomType: RoomType) -> some View {
+	func customTaskSheetView(router: Router, roomType: RoomType, task: RoomTask? = nil) -> some View {
 		OnbAddCustomTaskSheetView(
-			presenter: OnbAddCustomTaskSheetPresenter(
+			presenter: task.map {
+				OnbAddCustomTaskSheetPresenter(
+					interactor: interactor,
+					router: OnboardingRouter(router: router, builder: self),
+					roomType: roomType,
+					task: $0
+				)
+			} ?? OnbAddCustomTaskSheetPresenter(
 				interactor: interactor,
 				router: OnboardingRouter(router: router, builder: self),
 				roomType: roomType
@@ -92,9 +101,16 @@ struct OnboardingBuilder: Builder {
 		)
 	}
 
-	func customTaskSheetView(router: Router, customRoomId: UUID) -> some View {
+	func customTaskSheetView(router: Router, customRoomId: UUID, task: RoomTask? = nil) -> some View {
 		OnbAddCustomTaskSheetView(
-			presenter: OnbAddCustomTaskSheetPresenter(
+			presenter: task.map {
+				OnbAddCustomTaskSheetPresenter(
+					interactor: interactor,
+					router: OnboardingRouter(router: router, builder: self),
+					customRoomId: customRoomId,
+					task: $0
+				)
+			} ?? OnbAddCustomTaskSheetPresenter(
 				interactor: interactor,
 				router: OnboardingRouter(router: router, builder: self),
 				customRoomId: customRoomId
@@ -103,11 +119,13 @@ struct OnboardingBuilder: Builder {
 	}
 
 	func iconPickerView(sheetRouter: OnboardingRouter, roomName: String) -> some View {
-		OnbIconPickerView(
-			presenter: OnbIconPickerPresenter(
+		IconPickerView(
+			presenter: IconPickerPresenter(
 				interactor: interactor,
 				router: sheetRouter,
-				roomName: roomName
+				roomName: roomName,
+				room: nil,
+				onRoomSaved: nil
 			)
 		)
 	}

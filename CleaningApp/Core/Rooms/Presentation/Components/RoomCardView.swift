@@ -1,0 +1,53 @@
+import FulhamKit
+import SwiftUI
+
+struct RoomCardView: View {
+	let room: Room
+	let editAction: () -> Void
+	let deleteAction: () -> Void
+
+	var body: some View {
+		FKCardView(showBorder: false) {
+			VStack(alignment: .leading, spacing: FKSpacing.default) {
+				HStack(alignment: .top) {
+					Image(systemName: room.customIcon ?? room.kind.symbolName)
+						.font(FKTypography.cardTitle)
+						.foregroundStyle(.accent)
+
+					Spacer()
+
+					Menu {
+						Button("Edit", systemImage: "pencil", action: editAction)
+
+						Divider()
+
+						Button("Delete", systemImage: "trash", role: .destructive, action: deleteAction)
+					} label: {
+						Image(systemName: "ellipsis")
+							.foregroundStyle(.tertiary)
+							.font(.title2)
+							.contentShape(.rect)
+					}
+				}
+
+				Spacer(minLength: 0)
+
+				Text(room.name)
+					.font(.headline)
+					.foregroundStyle(.primary)
+					.lineLimit(1)
+			}
+			.padding()
+		}
+		.fkBorder(
+			cornerRadius: FKRadius.medium,
+			lineWidth: FKBorder.thin,
+			color: Color(FKColor.Separator.default)
+		)
+	}
+}
+
+#Preview {
+	RoomCardView(room: .mock, editAction: {}, deleteAction: {})
+		.frame(width: 200, height: 100)
+}

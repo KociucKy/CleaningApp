@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - RoomTaskMapperTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct RoomTaskMapperTests {
 	private let mapper = RoomTaskMapper()

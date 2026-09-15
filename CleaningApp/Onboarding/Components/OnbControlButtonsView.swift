@@ -8,7 +8,7 @@ struct OnbControlButtonsView: View {
 	let primaryAction: () -> Void
 	var skipAction: (() -> Void)?
 
-	@ScaledMetric private var buttonHeight: CGFloat = 50
+	@ScaledMetric private var buttonHeight: CGFloat = 45
 
 	var body: some View {
 		VStack(spacing: FKSpacing.medium) {

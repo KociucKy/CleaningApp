@@ -4,7 +4,13 @@ import Foundation
 final class MockRoomTaskRepository: RoomTaskRepository {
 	// MARK: - Properties
 
-	var items: [RoomTaskEntity] = RoomTaskEntity.mocks
+	var items: [RoomTaskEntity]
+
+	// MARK: - Init
+
+	init(items: [RoomTaskEntity] = RoomTaskEntity.mocks) {
+		self.items = items
+	}
 
 	// MARK: - Methods
 
@@ -13,7 +19,7 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 	}
 
 	func fetchAll(for roomId: UUID) throws -> [RoomTaskEntity] {
-		items.filter { $0.room?.id == roomId }
+		items
 	}
 
 	func save(_ item: RoomTaskEntity) throws {
@@ -26,5 +32,17 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 
 	func delete(_ item: RoomTaskEntity) throws {
 		items.removeAll { $0.id == item.id }
+	}
+
+	func update(_ item: RoomTaskEntity) throws {
+		guard let index = items.firstIndex(of: item) else {
+			return
+		}
+
+		items[index].name = item.name
+		items[index].room = item.room
+		items[index].frequencyEncoded = item.frequencyEncoded
+		items[index].estimatedDuration = item.estimatedDuration
+		items[index].createdAt = item.createdAt
 	}
 }

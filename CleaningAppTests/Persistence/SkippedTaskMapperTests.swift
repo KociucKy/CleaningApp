@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - SkippedTaskMapperTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct SkippedTaskMapperTests {
 	private let mapper = SkippedTaskMapper()

@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - SkippedTaskManagerTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct SkippedTaskManagerTests {
 	// MARK: - fetchAll

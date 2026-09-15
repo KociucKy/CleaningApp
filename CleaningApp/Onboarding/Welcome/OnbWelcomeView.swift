@@ -29,7 +29,6 @@ struct OnbWelcomeView: View {
 			featuresSection
 			Spacer()
 		}
-		.navigationBarHidden(true)
 		.safeAreaInset(edge: .bottom) {
 			getStartedButton
 				.padding(.horizontal, FKSpacing.large)
