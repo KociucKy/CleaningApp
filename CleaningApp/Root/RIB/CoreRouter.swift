@@ -86,7 +86,7 @@ struct CoreRouter {
 
 	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?) {
 		router.showScreen(
-			.sheetWithDetents([.medium]),
+			.sheetWithDetents([.large]),
 			onDismiss: onDismiss
 		) { router in
 			builder.customRoomSheetView(router: router, room: nil, onRoomSaved: nil)
