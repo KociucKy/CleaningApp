@@ -25,6 +25,7 @@ struct Dependencies {
 		let notificationScheduler: any NotificationScheduling
 		let onboardingState: OnboardingState
 		let onboardingFlowState = OnboardingFlowState()
+		let completionTrendService = CompletionTrendService()
 		// swiftlint:disable:next force_try
 		let modelContainer = try! ModelContainer(
 			for: RoomEntity.self,
@@ -94,6 +95,7 @@ struct Dependencies {
 		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
 		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
 		dependencyContainer.register(NotificationScheduling.self, service: notificationScheduler)
+		dependencyContainer.register(CompletionTrendServicing.self, service: completionTrendService)
 		dependencyContainer.register(OnboardingState.self, service: onboardingState)
 		dependencyContainer.register(OnboardingFlowState.self, service: onboardingFlowState)
 		self.dependencyContainer = dependencyContainer
@@ -115,6 +117,7 @@ final class DevPreview {
 	let completedTaskManager: CompletedTaskManager
 	let skippedTaskManager: SkippedTaskManager
 	let notificationScheduler: any NotificationScheduling
+	let completionTrendService: CompletionTrendService
 	let onboardingState: OnboardingState
 	let onboardingFlowState: OnboardingFlowState
 
@@ -125,6 +128,8 @@ final class DevPreview {
 		container.register(CompletedTaskManager.self, service: completedTaskManager)
 		container.register(SkippedTaskManager.self, service: skippedTaskManager)
 		container.register(NotificationScheduling.self, service: notificationScheduler)
+		container.register(CompletionTrendServicing.self, service: completionTrendService)
+		container.register(CompletionTrendServicing.self, service: completionTrendService)
 		container.register(OnboardingState.self, service: onboardingState)
 		container.register(OnboardingFlowState.self, service: onboardingFlowState)
 		return container
@@ -151,6 +156,7 @@ final class DevPreview {
 		#else
 			notificationScheduler = NotificationScheduler()
 		#endif
+		completionTrendService = CompletionTrendService()
 		onboardingState = OnboardingState(showOnboarding: true)
 		onboardingFlowState = OnboardingFlowState()
 	}
