@@ -1,41 +1,38 @@
 import SwiftUI
+import FulhamKit
 
 // MARK: - IconPickerView
 
 @MainActor
 struct IconPickerView: View {
-    // MARK: - Properties
+	// MARK: - Properties
 
-    @State var presenter: IconPickerPresenter
+	private enum Constants {
+		static let horizontalPadding: CGFloat = 24
+	}
 
-    // MARK: - Body
+	@State var presenter: IconPickerPresenter
 
-    var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                Text(LocalizedStringKey("onb_custom_room.icon_title"))
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+	// MARK: - Body
 
-                IconPickerGridView(
-                    icons: presenter.icons,
-                    selectedIcon: presenter.selectedIcon,
-                    onIconSelected: presenter.onIconSelected
-                )
-            }
-            .padding(.horizontal, 24)
-            .padding(.top, 32)
-            .padding(.bottom, 48)
-        }
-        .navigationTitle(LocalizedStringKey("onb_custom_room.icon_picker_title"))
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("common.action.done") {
-                    presenter.onDoneButtonPressed()
-                }
-            }
-        }
-    }
+	var body: some View {
+		ScrollView {
+			IconPickerGridView(
+				icons: presenter.icons,
+				selectedIcon: presenter.selectedIcon,
+				onIconSelected: presenter.onIconSelected
+			)
+			.padding(.horizontal, Constants.horizontalPadding)
+			.padding(.top, 32)
+		}
+		.navigationTitle(LocalizedStringKey("onb_custom_room.icon_picker_title"))
+		.navigationBarTitleDisplayMode(.inline)
+		.toolbar {
+			ToolbarItem(placement: .confirmationAction) {
+				Button("common.action.done") {
+					presenter.onDoneButtonPressed()
+				}
+			}
+		}
+	}
 }
