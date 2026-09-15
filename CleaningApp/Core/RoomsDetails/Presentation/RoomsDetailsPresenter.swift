@@ -88,14 +88,14 @@ final class RoomsDetailsPresenter {
 			.alert,
 			title: "Are you sure you want to delete \(task.name)",
 			subtitle: nil,
-			buttons: { @MainActor in
+			buttons: { @MainActor [weak self] in
 				Group {
 					Button("Yes", role: .destructive) {
 						FKHaptics.notification(.warning)
-						self.deleteTask(task, roomId: roomId)
+						self?.deleteTask(task, roomId: roomId)
 					}
 					Button("Cancel", role: .cancel) {
-						self.router.dismissAlert()
+						self?.router.dismissAlert()
 					}
 				}.any()
 			}
@@ -118,14 +118,15 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onAddTaskButtonTapped(roomId: UUID) {
-		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [self] _ in
-			reloadTasks(for: roomId)
+		router.presentCustomTaskSheet(roomId: roomId, task: nil) { [weak self] _ in
+			guard let self else { return }
+				self.reloadTasks(for: roomId)
 		}
 	}
 
 	func onEditRoomButtonTapped() {
-		router.presentCustomRoomSheet(room: room) { [self] updatedRoom in
-			room = updatedRoom
+		router.presentCustomRoomSheet(room: room) { [weak self] updatedRoom in
+			self?.room = updatedRoom
 		}
 	}
 
@@ -134,14 +135,14 @@ final class RoomsDetailsPresenter {
 			.alert,
 			title: "Are you sure you want to delete \(room.name)",
 			subtitle: nil,
-			buttons: { @MainActor in
+			buttons: { @MainActor [weak self] in
 				Group {
 					Button("Yes", role: .destructive) {
 						FKHaptics.notification(.warning)
-						self.deleteRoom()
+						self?.deleteRoom()
 					}
 					Button("Cancel", role: .cancel) {
-						self.router.dismissAlert()
+						self?.router.dismissAlert()
 					}
 				}.any()
 			}
@@ -272,7 +273,7 @@ final class RoomsDetailsPresenter {
 		do {
 			try interactor.deleteRoomTask(task)
 			withAnimation {
-				reloadTasks(for: roomId)
+				self.reloadTasks(for: roomId)
 			}
 		} catch {
 			errorMessage = "Unable to delete this task."
