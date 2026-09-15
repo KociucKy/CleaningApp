@@ -7,6 +7,11 @@ import SwiftUI
 struct IconPickerGridView: View {
 	// MARK: - Properties
 
+	private enum Constants {
+		static let columnMinimumWidth: CGFloat = 64
+		static let columnMaximumWidth: CGFloat = 68
+	}
+
 	let icons: [String]
 	let selectedIcon: String
 	let onIconSelected: (String) -> Void
@@ -14,21 +19,22 @@ struct IconPickerGridView: View {
 	// MARK: - Body
 
 	var body: some View {
-		VStack(spacing: FKSpacing.large) {
-			ForEach(Array(stride(from: 0, to: icons.count, by: 4)), id: \.self) { startIndex in
-				HStack(spacing: FKSpacing.large) {
-					ForEach(Array(icons[startIndex ..< min(startIndex + 4, icons.count)]), id: \.self) { icon in
-						IconPickerButton(
-							iconName: icon,
-							isSelected: selectedIcon == icon
-						) {
-							onIconSelected(icon)
-						}
-					}
+		LazyVGrid(
+			columns: [
+				GridItem(.adaptive(minimum: Constants.columnMinimumWidth, maximum: Constants.columnMaximumWidth), spacing: FKSpacing.default),
+			],
+			spacing: FKSpacing.default
+		) {
+			ForEach(icons, id: \.self) { icon in
+				IconPickerButton(
+					iconName: icon,
+					isSelected: selectedIcon == icon
+				) {
+					onIconSelected(icon)
 				}
 			}
 		}
-		.frame(maxWidth: .infinity, alignment: .center)
+		.frame(maxWidth: .infinity)
 	}
 }
 
@@ -37,6 +43,12 @@ struct IconPickerGridView: View {
 @MainActor
 private struct IconPickerButton: View {
 	// MARK: - Properties
+
+	private enum Constants {
+		static let buttonSize: CGFloat = 64
+		static let iconSize: CGFloat = 28
+		static let selectedLineWidth: CGFloat = 3
+	}
 
 	let iconName: String
 	let isSelected: Bool
@@ -47,16 +59,20 @@ private struct IconPickerButton: View {
 	var body: some View {
 		Button(action: action) {
 			Image(systemName: iconName)
-				.font(.system(size: 28))
-				.foregroundStyle(.primary)
-				.frame(width: 64, height: 64)
-				.background(.quaternary)
-				.clipShape(RoundedRectangle(cornerRadius: 12))
+				.symbolEffect(.bounce, options: .nonRepeating, isActive: isSelected)
+				.font(.system(size: Constants.iconSize))
+				.foregroundStyle(isSelected ? .accent : .primary)
+				.frame(
+					width: Constants.buttonSize,
+					height: Constants.buttonSize
+				)
+				.background(FKColor.Background.canvas)
+				.clipShape(RoundedRectangle(cornerRadius: FKRadius.medium))
 				.overlay {
-					RoundedRectangle(cornerRadius: 12)
+					RoundedRectangle(cornerRadius: FKRadius.medium)
 						.stroke(
 							.tint,
-							lineWidth: isSelected ? 3 : 0
+							lineWidth: isSelected ? Constants.selectedLineWidth : 0
 						)
 				}
 		}
@@ -64,4 +80,16 @@ private struct IconPickerButton: View {
 		.accessibilityLabel(String(localized: "onb_custom_room.icon_button \(iconName)"))
 		.accessibilityAddTraits(isSelected ? .isSelected : [])
 	}
+}
+
+#Preview {
+	@Previewable @State var icon = ""
+
+	IconPickerGridView(
+		icons: IconPickerOptions.icons,
+		selectedIcon: icon,
+		onIconSelected: { selectedIcon in
+			icon = selectedIcon
+		}
+	)
 }

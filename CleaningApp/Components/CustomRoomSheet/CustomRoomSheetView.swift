@@ -61,9 +61,13 @@ struct CustomRoomSheetView: View {
 					IconPickerGridView(
 						icons: presenter.icons,
 						selectedIcon: presenter.selectedIcon,
-						onIconSelected: presenter.onIconSelected
+						onIconSelected: { selectedIcon in
+							isTextFieldFocused = false
+							presenter.onIconSelected(selectedIcon)
+						}
 					)
-//					.padding(.vertical, FKSpacing.default)
+					.padding(.vertical, FKSpacing.default) // To ommit List / Form styling
+					.removeListRowFormatting()
 				} header: {
 					Text(LocalizedStringKey("onb_custom_room.icon_title"))
 				}
