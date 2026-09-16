@@ -15,7 +15,6 @@ final class RoomsDetailsPresenter {
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
-	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
 	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
 	private(set) var isLoading = true
@@ -71,7 +70,6 @@ final class RoomsDetailsPresenter {
 				try interactor.fetchAllCompletedTasks(for: task.id)
 			}
 			self.completedTasks = completedTasks
-			completedTaskIDs = Set(completedTasks.map(\.taskId))
 			completionTrend = interactor.makeCompletionTrend(
 				from: completedTasks,
 				tasks: tasks,
