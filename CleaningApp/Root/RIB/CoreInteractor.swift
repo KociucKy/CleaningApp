@@ -11,6 +11,7 @@ struct CoreInteractor {
 	private let completedTaskManager: CompletedTaskManager
 	private let skippedTaskManager: SkippedTaskManager
 	private let notificationScheduler: any NotificationScheduling
+	private let completionTrendService: any CompletionTrendServicing
 	private let onboardingState: OnboardingState
 
 	var onboardingCompletionToken: Int {
@@ -25,6 +26,7 @@ struct CoreInteractor {
 		completedTaskManager = container.resolve(CompletedTaskManager.self)!
 		skippedTaskManager = container.resolve(SkippedTaskManager.self)!
 		notificationScheduler = container.resolve(NotificationScheduling.self)!
+		completionTrendService = container.resolve(CompletionTrendServicing.self)!
 		onboardingState = container.resolve(OnboardingState.self)!
 	}
 
@@ -38,8 +40,22 @@ struct CoreInteractor {
 		try roomManager.save(item)
 	}
 
+	func updateRoom(_ item: Room) throws {
+		try roomManager.update(item)
+	}
+
 	func deleteRoom(_ item: Room) throws {
 		try roomManager.delete(item)
+	}
+
+	func saveCustomRoom(name: String, icon: String) throws {
+		let room = Room(
+			name: name,
+			kind: .customRoom,
+			isCustom: true,
+			customIcon: icon
+		)
+		try roomManager.save(room)
 	}
 
 	// MARK: - Room Task Manager
@@ -60,6 +76,10 @@ struct CoreInteractor {
 		try roomTaskManager.delete(item)
 	}
 
+	func updateRoomTask(_ item: RoomTask) throws {
+		try roomTaskManager.update(item)
+	}
+
 	// MARK: - Completed Task Manager
 
 	func fetchAllCompletedTasks() throws -> [CompletedTask] {
@@ -76,6 +96,20 @@ struct CoreInteractor {
 
 	func deleteCompletedTask(_ item: CompletedTask) throws {
 		try completedTaskManager.delete(item)
+	}
+
+	// MARK: - Completion Trend Service
+
+	func makeCompletionTrend(
+		from completedTasks: [CompletedTask],
+		tasks: [RoomTask],
+		range: CompletionTrendRange
+	) -> [CompletionChartDataPoint] {
+		completionTrendService.makeCompletionTrend(
+			from: completedTasks,
+			tasks: tasks,
+			range: range
+		)
 	}
 
 	// MARK: - Skipped Task Manager

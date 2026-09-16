@@ -1,3 +1,4 @@
+import FulhamKit
 import NavigationKit
 import SwiftUI
 
@@ -6,21 +7,147 @@ import SwiftUI
 struct RoomsView: View {
 	// MARK: - Properties
 
-	@State var presenter: RoomsPresenter
+	@Environment(\.tabBarSelection) private var tabBarSelection
+	@Namespace private var roomTransitionNamespace
+	@State private var presenter: RoomsPresenter
+	@State private var roomsGridID = UUID()
+
+	private var roomsTabIsActive: Bool {
+		tabBarSelection == nil || tabBarSelection == String(localized: "tab.rooms")
+	}
+
+	// MARK: - Init
+
+	init(presenter: RoomsPresenter) {
+		_presenter = State(initialValue: presenter)
+	}
 
 	// MARK: - Body
 
 	var body: some View {
-		Text("rooms.nav_title")
-			.navigationTitle("rooms.nav_title")
-			.navigationBarTitleDisplayMode(.large)
+		Group {
+			switch presenter.state {
+				case .isLoading:
+					ProgressView()
+				case .loaded:
+					roomsGridView
+				case .error(let errorString):
+					errorBanner(message: errorString)
+				case .empty:
+					emptyStateView
+			}
+		}
+		.navigationTitle("rooms.nav_title")
+		.navigationSubtitle("Manage your spaces")
+		.toolbarTitleDisplayMode(.inlineLarge)
+		.onAppear(perform: presenter.onAppearFetch)
+		.onDisappear {
+			if #unavailable(iOS 27) {
+				roomsGridID = UUID()
+			}
+		}
+		.toolbar {
+			ToolbarItem(placement: .primaryAction) {
+				Button(
+					"Add",
+					systemImage: "plus",
+					role: .confirm,
+					action: presenter.onAddButtonTapped
+				)
+			}
+		}
+		.toast($presenter.toast)
+		.background(FKColor.Background.primary)
+		.scrollEdgeEffectStyle(.soft, for: .all)
+	}
+
+	// MARK: - Views
+
+	@ViewBuilder
+	private var roomsGridView: some View {
+		if #available(iOS 27, *) {
+			RoomsGridView(
+				rooms: presenter.rooms,
+				animationConfiguration: presenter.animationConfiguration,
+				isActive: roomsTabIsActive,
+				cardView: roomCard(for:)
+			)
+		} else {
+			RoomsGridView(
+				rooms: presenter.rooms,
+				animationConfiguration: presenter.animationConfiguration,
+				isActive: roomsTabIsActive,
+				cardView: roomCard(for:)
+			)
+			.id(roomsGridID)
+		}
+	}
+
+	private func roomCard(for room: Room) -> some View {
+		Button {
+			FKHaptics.selection()
+			presenter.onRoomCardTapped(room: room, namespace: roomTransitionNamespace)
+		} label: {
+			RoomCardView(
+				room: room,
+				editAction: {
+					presenter.editRoom(room: room)
+				},
+				deleteAction: {
+					presenter.onDeleteRoomButtonTapped(room: room)
+				}
+			)
+		}
+		.buttonStyle(.fkFade)
+		.matchedTransitionSource(id: room.id, in: roomTransitionNamespace)
+	}
+
+	private var emptyStateView: some View {
+		FKEmptyStateView(
+			icon: "house",
+			title: "No rooms yet",
+			message: "Rooms will appear here once you create them"
+		)
+	}
+
+	private func errorBanner(message: String) -> some View {
+		VStack {
+			Text(message)
+				.font(FKTypography.body)
+				.foregroundStyle(Color(FKColor.Label.primary))
+				.padding(FKSpacing.default)
+				.frame(maxWidth: .infinity)
+				.background(Color(FKColor.Background.canvas))
+			Spacer()
+		}
 	}
 }
 
 // MARK: - Preview
 
-#Preview {
+#Preview("Normal state") {
 	let container = DevPreview.shared.container
+	container.register(RoomManager.self, service: RoomManager(repository: MockRoomRepository()))
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+
+	return RouterView { router in
+		builder.roomsView(router: router)
+	}
+}
+
+#Preview("Empty State") {
+	let container = DevPreview.shared.container
+	container.register(RoomManager.self, service: RoomManager(repository: MockRoomRepository(items: [])))
+	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+
+	return RouterView { router in
+		builder.roomsView(router: router)
+	}
+}
+
+#Preview("Error state") {
+	let container = DevPreview.shared.container
+	container.register(RoomManager.self, service: RoomManager(repository: MockRoomRepository(error: NSError(domain: "", code: 404))))
 	let builder = CoreBuilder(interactor: CoreInteractor(container: container))
 
 	return RouterView { router in

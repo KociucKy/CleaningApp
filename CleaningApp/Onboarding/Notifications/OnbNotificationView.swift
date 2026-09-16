@@ -28,7 +28,6 @@ struct OnbNotificationView: View {
 			benefitsSection
 			Spacer()
 		}
-		.navigationBarHidden(true)
 		.safeAreaInset(edge: .bottom) {
 			bottomBar
 				.padding(.horizontal, FKSpacing.large)
@@ -89,11 +88,14 @@ struct OnbNotificationView: View {
 	// MARK: - Bottom Bar
 
 	private var bottomBar: some View {
-		VStack(spacing: FKSpacing.medium) {
-			allowButton
-			Button("common.action.skip", action: presenter.onSkipPressed)
-				.font(FKTypography.secondaryLabel)
-				.foregroundStyle(FKColor.Label.secondary)
+		VStack {
+			VStack(spacing: FKSpacing.medium) {
+				allowButton
+				Button("common.action.skip", action: presenter.onSkipPressed)
+					.font(FKTypography.secondaryLabel)
+					.foregroundStyle(FKColor.Label.secondary)
+			}
+			OnbProgressView(stage: .notifications)
 		}
 	}
 

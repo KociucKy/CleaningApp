@@ -1,4 +1,5 @@
-import Foundation
+import FulhamKit
+import SwiftUI
 
 // MARK: - RoomsPresenter
 
@@ -7,13 +8,113 @@ import Foundation
 final class RoomsPresenter {
 	// MARK: - Properties
 
+	enum State {
+		case isLoading
+		case loaded
+		case error(String)
+		case empty
+	}
+
 	private let interactor: any RoomsInteractor
 	private let router: any RoomsRouter
+
+	private(set) var rooms: [Room] = []
+	var state: State = .isLoading
+	var toast: FKToast?
+	var animationConfiguration = RoomsAnimationConfiguration()
 
 	// MARK: - Init
 
 	init(interactor: any RoomsInteractor, router: any RoomsRouter) {
 		self.interactor = interactor
 		self.router = router
+	}
+
+	// MARK: - Methods
+
+	private func fetchRooms() {
+		do {
+			let fetchedRooms = try interactor.fetchAllRooms()
+			rooms = fetchedRooms.sorted { $0.createdAt > $1.createdAt }
+			if rooms.isEmpty {
+				state = .empty
+			} else {
+				state = .loaded
+			}
+		} catch {
+			let errorMessage = "Failed to load rooms"
+			state = .error(errorMessage)
+		}
+	}
+
+	func increaseAnimationConfigurationRunID() {
+		animationConfiguration.runID += 1
+	}
+
+	// MARK: - Actions
+
+	func onAppearFetch() {
+		fetchRooms()
+	}
+
+	func onRoomCardTapped(room: Room, namespace: Namespace.ID) {
+		router.presentRoomsDetailsView(room: room, namespace: namespace)
+	}
+
+	func onAddButtonTapped() {
+		router.presentAddCustomRoomSheet { [weak self] in
+			self?.onCustomRoomSheetDismissed()
+		}
+	}
+
+	func onDeleteRoomButtonTapped(room: Room) {
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete \(room.name)",
+			subtitle: nil,
+			buttons: { @MainActor in
+				Group {
+					Button("Yes", role: .destructive) {
+						FKHaptics.notification(.warning)
+						self.deleteRoom(room: room)
+					}
+					Button("Cancel", role: .cancel) {
+						self.router.dismissAlert()
+					}
+				}.any()
+			}
+		)
+	}
+
+	func editRoom(room: Room) {
+		router.presentCustomRoomSheet(room: room) { [weak self] _ in
+			self?.fetchRooms()
+		}
+	}
+
+	// MARK: - Private
+
+	private func onCustomRoomSheetDismissed() {
+		let previousCount = rooms.count
+		fetchRooms()
+		if rooms.count > previousCount {
+			toast = FKToast(
+				message: String(localized: "rooms.custom_room_added_toast"),
+				style: .success,
+				duration: 3.0
+			)
+		}
+	}
+
+	private func deleteRoom(room: Room) {
+		do {
+			try interactor.deleteRoom(room)
+			withAnimation {
+				fetchRooms()
+			}
+		} catch {
+			let errorMessage = "Error while deleting a room"
+			toast = FKToast(message: errorMessage)
+		}
 	}
 }

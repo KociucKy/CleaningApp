@@ -40,6 +40,7 @@ struct OnbRoomSelectionView: View {
 		.navigationTitle("onb_room_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
 		.navigationBarBackButtonHidden()
+		.scrollEdgeEffectStyle(.soft, for: .top)
 		.toolbar {
 			if presenter.hasSelection {
 				ToolbarItem(placement: .topBarLeading) {
@@ -68,13 +69,16 @@ struct OnbRoomSelectionView: View {
 	// MARK: - SubViews
 
 	private var controlButtonsView: some View {
-		OnbControlButtonsView(
-			buttonLabel: "common.action.next",
-			showSkipButton: true,
-			isPrimaryButtonDisabled: !presenter.hasSelection,
-			primaryAction: presenter.onNextButtonPressed,
-			skipAction: presenter.onSkipButtonPressed
-		)
+		VStack {
+			OnbControlButtonsView(
+				buttonLabel: "common.action.next",
+				showSkipButton: true,
+				isPrimaryButtonDisabled: !presenter.hasSelection,
+				primaryAction: presenter.onNextButtonPressed,
+				skipAction: presenter.onSkipButtonPressed
+			)
+			OnbProgressView(stage: .roomSelection)
+		}
 	}
 
 	private func roomCell(_ room: RoomType, index: Int) -> some View {

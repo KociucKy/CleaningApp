@@ -80,6 +80,29 @@ struct CoreBuilder: Builder {
 		)
 	}
 
+	func roomsDetailsView(router: Router, room: Room) -> some View {
+		RoomsDetailsView(
+			presenter: RoomsDetailsPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self),
+				room: room
+			)
+		)
+	}
+
+	func roomsDetailsTaskCompletionView(
+		router: Router,
+		props: RoomsDetailsTaskCompletionProps
+	) -> some View {
+		RoomsDetailsTaskCompletionView(
+			presenter: RoomsDetailsTaskCompletionPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			),
+			props: props
+		)
+	}
+
 	func settingsView(router: Router) -> some View {
 		SettingsView(
 			presenter: SettingsPresenter(
@@ -116,5 +139,58 @@ struct CoreBuilder: Builder {
 
 	func deviceDebugView() -> some View {
 		DeviceInfoView()
+	}
+
+	// MARK: - Custom Room Sheet (Rooms Context)
+
+	func customRoomSheetView(
+		router: Router,
+		room: Room? = nil,
+		onRoomSaved: ((Room) -> Void)? = nil
+	) -> some View {
+		CustomRoomSheetView(
+			presenter: CustomRoomSheetPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self),
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
+		)
+	}
+
+	// MARK: - Custom Task Sheet
+
+	func customTaskSheetView(
+		router: Router,
+		roomId: UUID,
+		task: RoomTask?,
+		onTaskSaved: @escaping (RoomTask) -> Void
+	) -> some View {
+		CustomTaskSheetView(
+			presenter: AddCustomTaskSheetPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self),
+				roomId: roomId,
+				task: task,
+				onTaskSaved: onTaskSaved
+			)
+		)
+	}
+
+	func iconPickerView(
+		sheetRouter: CoreRouter,
+		roomName: String,
+		room: Room?,
+		onRoomSaved: ((Room) -> Void)?
+	) -> some View {
+		IconPickerView(
+			presenter: IconPickerPresenter(
+				interactor: interactor,
+				router: sheetRouter,
+				roomName: roomName,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
+		)
 	}
 }

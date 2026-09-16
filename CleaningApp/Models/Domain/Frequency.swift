@@ -14,6 +14,27 @@ enum Frequency: Equatable, Codable, Hashable {
 	case biannually
 	case yearly
 
+	// MARK: - Canonicalization
+
+	var canonicalized: Frequency {
+		switch self {
+			case .everyOtherDay:
+				.everyXDays(2)
+			case .everyOtherWeek:
+				.everyXWeeks(2)
+			case .monthly:
+				.timesPerMonth(1)
+			case .quarterly:
+				.everyXMonths(3)
+			case .biannually:
+				.everyXMonths(6)
+			case .yearly:
+				.everyXMonths(12)
+			default:
+				self
+		}
+	}
+
 	// MARK: - Display
 
 	var displayName: String {

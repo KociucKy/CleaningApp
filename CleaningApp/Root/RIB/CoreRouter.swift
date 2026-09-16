@@ -10,7 +10,7 @@ struct CoreRouter {
 	let router: Router
 	let builder: CoreBuilder
 
-	// MARK: - Navigation
+	// MARK: - Core Navigation
 
 	func dismissScreen() {
 		router.dismissScreen()
@@ -30,6 +30,24 @@ struct CoreRouter {
 
 	func dismissAlert() {
 		router.dismissAlert()
+	}
+
+	func showAlert(_ option: AlertType, title: String, subtitle: String?, buttons: (@MainActor @Sendable () -> AnyView)?) {
+		router.showAlert(
+			option,
+			title: title,
+			subtitle: subtitle,
+				buttons: buttons
+		)
+	}
+
+	func showAlert(error: Error) {
+		router.showAlert(
+			.alert,
+			title: "Error",
+			subtitle: error.localizedDescription,
+			buttons: nil
+		)
 	}
 
 	// MARK: - Dev Settings
@@ -61,6 +79,77 @@ struct CoreRouter {
 	func presentDeviceDebugView() {
 		router.showScreen(.push, onDismiss: nil) { _ in
 			builder.deviceDebugView()
+		}
+	}
+
+	// MARK: - Rooms
+
+	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?) {
+		router.showScreen(
+			.sheetWithDetents([.large]),
+			onDismiss: onDismiss
+		) { router in
+			builder.customRoomSheetView(router: router, room: nil, onRoomSaved: nil)
+		}
+	}
+
+	func presentCustomRoomSheet(
+		room: Room,
+		onRoomSaved: @escaping (Room) -> Void
+	) {
+		router.showScreen(
+			.sheetWithDetents([.medium]),
+			onDismiss: nil
+		) { router in
+			builder.customRoomSheetView(
+				router: router,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
+		}
+	}
+
+	func presentRoomsDetailsView(room: Room, namespace: Namespace.ID) {
+		router.showScreen(.zoom(sourceID: room.id, namespace: namespace), onDismiss: nil) { router in
+			builder.roomsDetailsView(router: router, room: room)
+		}
+	}
+
+	func presentRoomsDetailsTaskCompletionSheet(
+		props: RoomsDetailsTaskCompletionProps,
+		onDismiss: (() -> Void)?
+	) {
+		router.showScreen(.sheetWithDetents([.fraction(0.7)]), onDismiss: onDismiss) { router in
+			builder.roomsDetailsTaskCompletionView(router: router, props: props)
+		}
+	}
+
+	func presentIconPicker(
+		room: Room,
+		onRoomSaved: @escaping (Room) -> Void
+	) {
+		router.showScreen(.sheetWithDetents([.large]), onDismiss: nil) { router in
+			builder.iconPickerView(
+				sheetRouter: CoreRouter(router: router, builder: builder),
+				roomName: room.name,
+				room: room,
+				onRoomSaved: onRoomSaved
+			)
+		}
+	}
+
+	func presentCustomTaskSheet(
+		roomId: UUID,
+		task: RoomTask?,
+		onTaskSaved: @escaping (RoomTask) -> Void
+	) {
+		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+			builder.customTaskSheetView(
+				router: router,
+				roomId: roomId,
+				task: task,
+				onTaskSaved: onTaskSaved
+			)
 		}
 	}
 }

@@ -13,7 +13,7 @@ private struct TestRouter: Router {
 	func showScreen<T: View>(
 		_: SegueOption,
 		onDismiss _: (() -> Void)?,
-		@ViewBuilder destination _: @escaping (any Router) -> T
+		@ViewBuilder destination _: @escaping (Router) -> T
 	) {}
 
 	func dismissScreen() {}
@@ -24,15 +24,17 @@ private struct TestRouter: Router {
 		_: AlertType,
 		title _: String,
 		subtitle _: String?,
-		buttons _: (@Sendable () -> AnyView)?
+		buttons _: (@MainActor @Sendable () -> AnyView)?
 	) {}
 
 	func dismissAlert() {}
 
-	func showModal(
+	func showAlert(error: Error) {}
+
+	func showModal<T: View>(
 		transition _: AnyTransition,
 		backgroundColor _: Color,
-		@ViewBuilder destination _: @escaping () -> some View
+		@ViewBuilder destination _: @escaping () -> T
 	) {}
 
 	func dismissModal() {}

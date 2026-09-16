@@ -55,24 +55,38 @@ struct OnboardingRouter {
 	}
 
 	func presentCustomRoomSheet() {
-		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+		router.showScreen(.sheetWithDetents([.large]), onDismiss: nil) { router in
 			builder.customRoomSheetView(router: router)
 		}
 	}
 
-	func presentCustomTaskSheet(for roomType: RoomType) {
+	func presentCustomTaskSheet(for roomType: RoomType, task: RoomTask? = nil) {
 		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
-			builder.customTaskSheetView(router: router, roomType: roomType)
+			builder.customTaskSheetView(router: router, roomType: roomType, task: task)
 		}
 	}
 
-	func presentCustomTaskSheet(for customRoom: CustomRoomSelection) {
+	func presentCustomTaskSheet(for customRoom: CustomRoomSelection, task: RoomTask? = nil) {
 		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
-			builder.customTaskSheetView(router: router, customRoomId: customRoom.id)
+			builder.customTaskSheetView(router: router, customRoomId: customRoom.id, task: task)
 		}
 	}
 
 	func showIconPickerView(roomName: String) {
+		router.showScreen(.push, onDismiss: nil) { _ in
+			builder.iconPickerView(sheetRouter: self, roomName: roomName)
+		}
+	}
+}
+
+// MARK: - CustomRoomSheetRouter
+
+extension OnboardingRouter: CustomRoomSheetRouter {
+	func showIconPicker(
+		roomName: String,
+		room: Room?,
+		onRoomSaved: ((Room) -> Void)?
+	) {
 		router.showScreen(.push, onDismiss: nil) { _ in
 			builder.iconPickerView(sheetRouter: self, roomName: roomName)
 		}

@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 import NavigationKit
 
 // MARK: - RoomsRouter
@@ -6,6 +6,11 @@ import NavigationKit
 @MainActor
 protocol RoomsRouter {
 	func dismissScreen()
+	func presentRoomsDetailsView(room: Room, namespace: Namespace.ID)
+	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?)
+	func presentCustomRoomSheet(room: Room, onRoomSaved: @escaping (Room) -> Void)
+	func showAlert(_ option: AlertType, title: String, subtitle: String?, buttons: (@MainActor @Sendable () -> AnyView)?)
+	func dismissAlert()
 }
 
 extension CoreRouter: RoomsRouter {}

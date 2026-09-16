@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - CompletedTaskMapperTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct CompletedTaskMapperTests {
 	private let mapper = CompletedTaskMapper()

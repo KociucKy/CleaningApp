@@ -7,6 +7,7 @@ protocol RoomTaskRepository {
 	func fetchAll(for roomId: UUID) throws -> [RoomTaskEntity]
 	func save(_ item: RoomTaskEntity) throws
 	func delete(_ item: RoomTaskEntity) throws
+	func update(_ item: RoomTaskEntity) throws
 }
 
 @MainActor
@@ -51,6 +52,20 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 			return
 		}
 		mainContext.delete(existingEntity)
+		try mainContext.save()
+	}
+
+	func update(_ item: RoomTaskEntity) throws {
+		guard let existingEntity = try fetch(by: item.id) else {
+			return
+		}
+
+		existingEntity.name = item.name
+		existingEntity.room = item.room
+		existingEntity.frequencyEncoded = item.frequencyEncoded
+		existingEntity.estimatedDuration = item.estimatedDuration
+		existingEntity.createdAt = item.createdAt
+
 		try mainContext.save()
 	}
 
