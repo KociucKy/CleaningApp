@@ -32,6 +32,10 @@ struct RoomsDetailsView: View {
 				value: presenter.animate
 			)
 			.onScrollVisibilityChange(threshold: 0.01) { isVisible in
+				guard presenter.isHeaderVisible != isVisible else {
+					return
+				}
+
 				withAnimation(.easeInOut(duration: 0.2)) {
 					presenter.isHeaderVisible = isVisible
 				}
