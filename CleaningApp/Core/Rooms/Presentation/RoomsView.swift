@@ -100,17 +100,6 @@ struct RoomsView: View {
 		}
 		.buttonStyle(.fkFade)
 		.matchedTransitionSource(id: room.id, in: roomTransitionNamespace)
-		.contextMenu {
-			Button {} label: {
-				Label("Edit", systemImage: "pencil")
-			}
-
-			Divider()
-
-			Button(role: .destructive) {} label: {
-				Label("Delete", systemImage: "trash")
-			}
-		}
 	}
 
 	private var emptyStateView: some View {
