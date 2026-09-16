@@ -90,6 +90,10 @@ struct CoreInteractor {
 		try completedTaskManager.fetchAll(for: taskId)
 	}
 
+	func fetchAllCompletedTasks(forTaskIDs taskIDs: [UUID]) throws -> [CompletedTask] {
+		try completedTaskManager.fetchAll(forTaskIDs: taskIDs)
+	}
+
 	func saveCompletedTask(_ item: CompletedTask) throws {
 		try completedTaskManager.save(item)
 	}

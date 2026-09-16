@@ -5,6 +5,7 @@ import SwiftData
 protocol CompletedTaskRepository {
 	func fetchAll() throws -> [CompletedTaskEntity]
 	func fetchAllForTaskId(_ id: UUID) throws -> [CompletedTaskEntity]
+	func fetchAllForTaskIDs(_ ids: [UUID]) throws -> [CompletedTaskEntity]
 	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity?
 	func save(_ item: CompletedTaskEntity) throws
 	func delete(_ item: CompletedTaskEntity) throws
@@ -38,6 +39,18 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 			sortBy: [SortDescriptor(
 				\.completedAt
 			)]
+		)
+		return try mainContext.fetch(descriptor)
+	}
+
+	func fetchAllForTaskIDs(_ ids: [UUID]) throws -> [CompletedTaskEntity] {
+		guard !ids.isEmpty else {
+			return []
+		}
+
+		let descriptor = FetchDescriptor<CompletedTaskEntity>(
+			predicate: #Predicate { ids.contains($0.taskId) },
+			sortBy: [SortDescriptor(\.completedAt)]
 		)
 		return try mainContext.fetch(descriptor)
 	}

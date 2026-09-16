@@ -16,6 +16,7 @@ final class RoomsDetailsPresenter {
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
+	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
 	private(set) var isLoading = true
 	private var completedTasks: [CompletedTask] = []
@@ -66,10 +67,10 @@ final class RoomsDetailsPresenter {
 				seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
 			}
 			tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
-			let completedTasks = try tasks.flatMap { task in
-				try interactor.fetchAllCompletedTasks(for: task.id)
-			}
+			let taskIDs = tasks.map(\.id)
+			let completedTasks = try interactor.fetchAllCompletedTasks(forTaskIDs: taskIDs)
 			self.completedTasks = completedTasks
+			completedTaskIDs = Set(completedTasks.map(\.taskId))
 			completionTrend = interactor.makeCompletionTrend(
 				from: completedTasks,
 				tasks: tasks,

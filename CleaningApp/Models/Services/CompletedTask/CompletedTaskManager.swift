@@ -29,6 +29,11 @@ final class CompletedTaskManager {
 		return entities.map(mapper.toDomain)
 	}
 
+	func fetchAll(forTaskIDs taskIDs: [UUID]) throws -> [CompletedTask] {
+		let entities = try repository.fetchAllForTaskIDs(taskIDs)
+		return entities.map(mapper.toDomain)
+	}
+
 	func save(_ item: CompletedTask) throws {
 		let entity = mapper.toEntity(item)
 		try repository.save(entity)

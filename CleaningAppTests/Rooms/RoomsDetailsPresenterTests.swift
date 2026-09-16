@@ -28,9 +28,13 @@ struct RoomsDetailsPresenterTests {
             estimatedDuration: .fifteenMinutes
         )
         let completedTask = CompletedTask(taskId: firstTask.id)
+        let unrelatedCompletion = CompletedTask(taskId: UUID())
         let interactor = TestInteractor(
             tasks: [secondTask, firstTask],
-            completions: [firstTask.id: [completedTask]]
+            completions: [
+                firstTask.id: [completedTask],
+                unrelatedCompletion.taskId: [unrelatedCompletion]
+            ]
         )
         let presenter = makePresenter(room: Room(name: "Kitchen", kind: .kitchen), interactor: interactor)
 
@@ -43,6 +47,7 @@ struct RoomsDetailsPresenterTests {
         #expect(presenter.totalTasksCount == 2)
         #expect(presenter.totalDuration == 20)
         #expect(presenter.hasAnyCompletions)
+        #expect(interactor.completedTasksFetchCount == 1)
         #expect(!presenter.isLoading)
         #expect(presenter.errorMessage == nil)
     }
@@ -102,6 +107,7 @@ struct RoomsDetailsPresenterTests {
         let completions: [UUID: [CompletedTask]]
         let error: Error?
         private(set) var fetchCount = 0
+        private(set) var completedTasksFetchCount = 0
 
         init(
             tasks: [RoomTask] = [],
@@ -121,11 +127,13 @@ struct RoomsDetailsPresenterTests {
             return tasks.filter { $0.roomId == roomId }
         }
 
-        func fetchAllCompletedTasks(for taskId: UUID) throws -> [CompletedTask] {
+        func fetchAllCompletedTasks(forTaskIDs taskIDs: [UUID]) throws -> [CompletedTask] {
             if let error {
                 throw error
             }
-            return completions[taskId] ?? []
+            completedTasksFetchCount += 1
+            let taskIDSet = Set(taskIDs)
+            return completions.values.flatMap { $0 }.filter { taskIDSet.contains($0.taskId) }
         }
 
         func makeCompletionTrend(
