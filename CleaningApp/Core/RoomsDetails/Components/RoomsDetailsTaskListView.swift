@@ -8,21 +8,6 @@ struct RoomsDetailsTaskListView: View {
 	let onDeleteTaskButtonTapped: (RoomTask) -> Void
 	let onEditTaskButtonTapped: (RoomTask) -> Void
 
-	private func taskPresentationID(for task: RoomTask) -> String {
-		[
-			task.id.uuidString,
-			task.name,
-			String(task.estimatedDuration.rawValue),
-			task.frequency.displayName
-		].joined(separator: "-")
-	}
-
-	private var taskListPresentationID: String {
-		tasks
-			.map(taskPresentationID(for:))
-			.joined(separator: "|")
-	}
-
 	var body: some View {
 		Section(frequencyTitle) {
 			ForEach(tasks) { task in
@@ -33,7 +18,6 @@ struct RoomsDetailsTaskListView: View {
 						onCompleteTaskButtonTapped(task)
 					}
 				)
-				.id(taskPresentationID(for: task))
 				.swipeActions(allowsFullSwipe: false) {
 					Button("Delete", systemImage: "trash") {
 						onDeleteTaskButtonTapped(task)
@@ -46,11 +30,10 @@ struct RoomsDetailsTaskListView: View {
 					Button("Completed now", systemImage: "checkmark") {}
 						.tint(.green)
 				}
-				}
 			}
-			.id(taskListPresentationID)
 		}
 	}
+}
 
 #Preview {
 	List {
