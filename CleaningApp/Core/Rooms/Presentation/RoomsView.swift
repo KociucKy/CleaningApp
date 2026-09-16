@@ -27,20 +27,14 @@ struct RoomsView: View {
 	var body: some View {
 		Group {
 			switch presenter.state {
-			case .isLoading:
-				ProgressView()
-			case .loaded:
-				RoomsGridView(
-					rooms: presenter.rooms,
-					animationConfiguration: presenter.animationConfiguration,
-					isActive: roomsTabIsActive,
-					cardView: roomCard(for:)
-				)
-				.id(roomsGridID)
-			case .error(let errorString):
-				errorBanner(message: errorString)
-			case .empty:
-				emptyStateView
+				case .isLoading:
+					ProgressView()
+				case .loaded:
+					roomsGridView
+				case .error(let errorString):
+					errorBanner(message: errorString)
+				case .empty:
+					emptyStateView
 			}
 		}
 		.navigationTitle("rooms.nav_title")
@@ -48,7 +42,9 @@ struct RoomsView: View {
 		.toolbarTitleDisplayMode(.inlineLarge)
 		.onAppear(perform: presenter.onAppearFetch)
 		.onDisappear {
-			roomsGridID = UUID()
+			if #unavailable(iOS 27) {
+				roomsGridID = UUID()
+			}
 		}
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
@@ -66,6 +62,26 @@ struct RoomsView: View {
 	}
 
 	// MARK: - Views
+
+	@ViewBuilder
+	private var roomsGridView: some View {
+		if #available(iOS 27, *) {
+			RoomsGridView(
+				rooms: presenter.rooms,
+				animationConfiguration: presenter.animationConfiguration,
+				isActive: roomsTabIsActive,
+				cardView: roomCard(for:)
+			)
+		} else {
+			RoomsGridView(
+				rooms: presenter.rooms,
+				animationConfiguration: presenter.animationConfiguration,
+				isActive: roomsTabIsActive,
+				cardView: roomCard(for:)
+			)
+			.id(roomsGridID)
+		}
+	}
 
 	private func roomCard(for room: Room) -> some View {
 		Button {
