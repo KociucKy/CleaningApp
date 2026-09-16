@@ -7,6 +7,7 @@ struct RoomsGridView<Content: View>: View {
 	// MARK: - Properties
 
 	@State private var isVisible = false
+	@State private var hasAppeared = false
 	private let columns = [
 		GridItem(.flexible(), spacing: FKSpacing.medium),
 		GridItem(.flexible(), spacing: FKSpacing.medium)
@@ -35,12 +36,14 @@ struct RoomsGridView<Content: View>: View {
 			.padding(.horizontal, FKSpacing.large)
 		}
 		.onAppear {
-			if isActive {
+			if isActive, !hasAppeared {
+				hasAppeared = true
 				restartAnimation()
 			}
 		}
 		.onChange(of: isActive) { _, active in
 			if active {
+				hasAppeared = true
 				restartAnimation()
 			} else {
 				hideCards()
