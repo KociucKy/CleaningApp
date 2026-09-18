@@ -14,6 +14,7 @@ struct CustomTaskSheetView: View {
 	@State var presenter: AddCustomTaskSheetPresenter
 	@FocusState private var isTaskNameFocused: Bool
 
+
 	// MARK: - Body
 
 	var body: some View {
@@ -47,6 +48,7 @@ struct CustomTaskSheetView: View {
 		.navigationTitle("onb_custom_task.title")
 		.navigationBarTitleDisplayMode(.inline)
 		.presentationDragIndicator(.visible)
+		.presentationSizing(.fitted)
 		.onAppear {
 			isTaskNameFocused = true
 		}

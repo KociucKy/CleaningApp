@@ -33,6 +33,7 @@ struct RoomsDetailsTaskCompletionView: View {
 	@State private var presenter: RoomsDetailsTaskCompletionPresenter
 	let props: RoomsDetailsTaskCompletionProps
 
+
 	init(
 		presenter: RoomsDetailsTaskCompletionPresenter,
 		props: RoomsDetailsTaskCompletionProps
@@ -65,6 +66,7 @@ struct RoomsDetailsTaskCompletionView: View {
 				.animation(.easeOut(duration: Constants.contentAnimationDuration).delay(Constants.completionActionAnimationDelay), value: presenter.hasAppeared)
 		}
 		.padding(.horizontal, FKSpacing.large)
+		.presentationSizing(.fitted)
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
 				Button("rooms_details_task_completion.cancel", systemImage: "xmark", role: .cancel, action: presenter.onCloseButtonTapped)
