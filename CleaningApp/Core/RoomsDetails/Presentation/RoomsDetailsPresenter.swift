@@ -67,8 +67,7 @@ final class RoomsDetailsPresenter {
 				seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
 			}
 			tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
-			let taskIDs = tasks.map(\.id)
-			let completedTasks = try interactor.fetchAllCompletedTasks(forTaskIDs: taskIDs)
+			let completedTasks = try interactor.fetchAllCompletedTasks(forRoomId: roomId)
 			self.completedTasks = completedTasks
 			completedTaskIDs = Set(completedTasks.map(\.taskId))
 			completionTrend = interactor.makeCompletionTrend(

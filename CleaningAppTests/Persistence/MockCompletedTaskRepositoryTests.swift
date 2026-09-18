@@ -38,6 +38,20 @@ struct MockCompletedTaskRepositoryTests {
 		#expect(result.isEmpty)
 	}
 
+	@Test func fetchAllForRoom_returnsHistoricalItemsForRoomId() throws {
+		let repo = MockCompletedTaskRepository()
+		let roomId = UUID()
+		repo.items = [
+			CompletedTaskEntity(taskId: UUID(), roomId: roomId),
+			CompletedTaskEntity(taskId: UUID(), roomId: UUID())
+		]
+
+		let result = try repo.fetchAllForRoomId(roomId)
+
+		#expect(result.count == 1)
+		#expect(result.first?.roomId == roomId)
+	}
+
 	// MARK: - save
 
 	@Test(.tags(.adding)) func save_insertsNewEntity() throws {
