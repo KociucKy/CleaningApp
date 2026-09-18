@@ -9,8 +9,7 @@ struct RoomsGridView<Content: View>: View {
 	@State private var isVisible = false
 	@State private var hasAppeared = false
 	private let columns = [
-		GridItem(.flexible(), spacing: FKSpacing.medium),
-		GridItem(.flexible(), spacing: FKSpacing.medium)
+		GridItem(.adaptive(minimum: 160), spacing: FKSpacing.medium)
 	]
 	let rooms: [Room]
 	let animationConfiguration: RoomsAnimationConfiguration
