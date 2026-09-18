@@ -37,11 +37,19 @@ final class RoomsDetailsTaskCompletionPresenter {
 		router.dismissScreen()
 	}
 
-	func onMarkAsCompletedButtonTapped(taskId: UUID) {
-		let completedTask = CompletedTask(
-			taskId: taskId,
-			completedAt: completedAt
-		)
+    func onMarkAsCompletedButtonTapped(
+        taskId: UUID,
+        roomId: UUID?,
+        roomName: String?,
+        taskName: String?
+    ) {
+        let completedTask = CompletedTask(
+            taskId: taskId,
+            roomId: roomId,
+            roomName: roomName,
+            taskName: taskName,
+            completedAt: completedAt
+        )
 		do {
 			try interactor.saveCompletedTask(completedTask)
 		} catch {

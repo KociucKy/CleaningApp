@@ -78,7 +78,9 @@ final class CompletionTrendService: CompletionTrendServicing {
         return dates.map { date in
             let completions = completionsByBucket[date] ?? []
             let taskCounts = completions.reduce(into: [String: Int]()) { counts, completion in
-                let taskName = taskNamesByID[completion.taskId] ?? "Unknown task"
+                let taskName = completion.taskName
+                    ?? taskNamesByID[completion.taskId]
+                    ?? "Unknown task"
                 counts[taskName, default: 0] += 1
             }
 
