@@ -15,8 +15,8 @@ final class RoomsDetailsPresenter {
 	private(set) var tasks: [RoomTask] = []
 	private(set) var frequencies: [Frequency] = []
 	private(set) var tasksByFrequency: [Frequency: [RoomTask]] = [:]
-	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrend: [CompletionChartDataPoint] = []
+	private(set) var completedTaskIDs: Set<UUID> = []
 	private(set) var completionTrendRange: CompletionTrendRange = .sevenDays
 	private(set) var isLoading = true
 	private var completedTasks: [CompletedTask] = []
@@ -67,9 +67,7 @@ final class RoomsDetailsPresenter {
 				seenFrequencies.insert(task.frequency).inserted ? task.frequency : nil
 			}
 			tasksByFrequency = Dictionary(grouping: tasks, by: \.frequency)
-			let completedTasks = try tasks.flatMap { task in
-				try interactor.fetchAllCompletedTasks(for: task.id)
-			}
+			let completedTasks = try interactor.fetchAllCompletedTasks(forRoomId: roomId)
 			self.completedTasks = completedTasks
 			completedTaskIDs = Set(completedTasks.map(\.taskId))
 			completionTrend = interactor.makeCompletionTrend(
@@ -174,8 +172,10 @@ final class RoomsDetailsPresenter {
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
-				taskId: task.id,
-				taskName: task.name
+                    taskId: task.id,
+                    roomId: room.id,
+                    roomName: room.name,
+                    taskName: task.name
 			),
 			onDismiss: { [weak self] in
 				guard let self else {

@@ -10,6 +10,7 @@ struct CustomRoomSheetView: View {
 	@State var presenter: CustomRoomSheetPresenter
 	@FocusState private var isTextFieldFocused: Bool
 
+
 	// MARK: - Body
 
 	var body: some View {
@@ -17,6 +18,7 @@ struct CustomRoomSheetView: View {
 			.navigationTitle(LocalizedStringKey(presenter.isEditing ? "Edit room" : "onb_custom_room.sheet_title"))
 			.navigationBarTitleDisplayMode(.inline)
 			.presentationDragIndicator(.visible)
+			.presentationSizing(.fitted)
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
 					Button("common.action.cancel") {

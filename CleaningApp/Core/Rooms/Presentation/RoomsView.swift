@@ -106,8 +106,10 @@ struct RoomsView: View {
 		FKEmptyStateView(
 			icon: "house",
 			title: "No rooms yet",
-			message: "Rooms will appear here once you create them"
+			message: "Rooms will appear here once you create them",
+			action: (label: "Add room", handler: presenter.onAddButtonTapped)
 		)
+		.buttonStyle(.borderedProminent)
 	}
 
 	private func errorBanner(message: String) -> some View {

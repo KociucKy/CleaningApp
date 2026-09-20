@@ -13,6 +13,7 @@ struct IconPickerView: View {
 
 	@State var presenter: IconPickerPresenter
 
+
 	// MARK: - Body
 
 	var body: some View {
@@ -27,6 +28,7 @@ struct IconPickerView: View {
 		}
 		.navigationTitle(LocalizedStringKey("onb_custom_room.icon_picker_title"))
 		.navigationBarTitleDisplayMode(.inline)
+		.presentationSizing(.fitted)
 		.toolbar {
 			ToolbarItem(placement: .confirmationAction) {
 				Button("common.action.done") {

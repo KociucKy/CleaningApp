@@ -86,7 +86,7 @@ struct CoreRouter {
 
 	func presentAddCustomRoomSheet(onDismiss: (() -> Void)?) {
 		router.showScreen(
-			.sheetWithDetents([.large]),
+			.sheet,
 			onDismiss: onDismiss
 		) { router in
 			builder.customRoomSheetView(router: router, room: nil, onRoomSaved: nil)
@@ -98,7 +98,7 @@ struct CoreRouter {
 		onRoomSaved: @escaping (Room) -> Void
 	) {
 		router.showScreen(
-			.sheetWithDetents([.medium]),
+			.sheet,
 			onDismiss: nil
 		) { router in
 			builder.customRoomSheetView(
@@ -119,7 +119,7 @@ struct CoreRouter {
 		props: RoomsDetailsTaskCompletionProps,
 		onDismiss: (() -> Void)?
 	) {
-		router.showScreen(.sheetWithDetents([.fraction(0.7)]), onDismiss: onDismiss) { router in
+		router.showScreen(.sheet, onDismiss: onDismiss) { router in
 			builder.roomsDetailsTaskCompletionView(router: router, props: props)
 		}
 	}
@@ -128,7 +128,7 @@ struct CoreRouter {
 		room: Room,
 		onRoomSaved: @escaping (Room) -> Void
 	) {
-		router.showScreen(.sheetWithDetents([.large]), onDismiss: nil) { router in
+		router.showScreen(.sheet, onDismiss: nil) { router in
 			builder.iconPickerView(
 				sheetRouter: CoreRouter(router: router, builder: builder),
 				roomName: room.name,
@@ -143,7 +143,7 @@ struct CoreRouter {
 		task: RoomTask?,
 		onTaskSaved: @escaping (RoomTask) -> Void
 	) {
-		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+		router.showScreen(.sheet, onDismiss: nil) { router in
 			builder.customTaskSheetView(
 				router: router,
 				roomId: roomId,

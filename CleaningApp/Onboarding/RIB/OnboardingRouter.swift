@@ -55,19 +55,19 @@ struct OnboardingRouter {
 	}
 
 	func presentCustomRoomSheet() {
-		router.showScreen(.sheetWithDetents([.large]), onDismiss: nil) { router in
+		router.showScreen(.sheet, onDismiss: nil) { router in
 			builder.customRoomSheetView(router: router)
 		}
 	}
 
 	func presentCustomTaskSheet(for roomType: RoomType, task: RoomTask? = nil) {
-		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+		router.showScreen(.sheet, onDismiss: nil) { router in
 			builder.customTaskSheetView(router: router, roomType: roomType, task: task)
 		}
 	}
 
 	func presentCustomTaskSheet(for customRoom: CustomRoomSelection, task: RoomTask? = nil) {
-		router.showScreen(.sheetWithDetents([.medium]), onDismiss: nil) { router in
+		router.showScreen(.sheet, onDismiss: nil) { router in
 			builder.customTaskSheetView(router: router, customRoomId: customRoom.id, task: task)
 		}
 	}

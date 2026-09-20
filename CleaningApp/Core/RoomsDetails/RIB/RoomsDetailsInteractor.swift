@@ -3,7 +3,8 @@ import Foundation
 @MainActor
 protocol RoomsDetailsInteractor {
     func fetchAllRoomTasks(for roomId: UUID) throws -> [RoomTask]
-    func fetchAllCompletedTasks(for taskId: UUID) throws -> [CompletedTask]
+    func fetchAllCompletedTasks(forTaskIDs taskIDs: [UUID]) throws -> [CompletedTask]
+    func fetchAllCompletedTasks(forRoomId roomId: UUID) throws -> [CompletedTask]
 	func makeCompletionTrend(
 		from completedTasks: [CompletedTask],
 		tasks: [RoomTask],

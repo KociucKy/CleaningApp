@@ -2,8 +2,22 @@ import FulhamKit
 import SwiftUI
 
 struct RoomsDetailsTaskCompletionProps {
-	let taskId: UUID
-	let taskName: String
+    let taskId: UUID
+    let roomId: UUID?
+    let roomName: String?
+    let taskName: String
+
+    init(
+        taskId: UUID,
+        roomId: UUID? = nil,
+        roomName: String? = nil,
+        taskName: String
+    ) {
+        self.taskId = taskId
+        self.roomId = roomId
+        self.roomName = roomName
+        self.taskName = taskName
+    }
 }
 
 struct RoomsDetailsTaskCompletionView: View {
@@ -32,6 +46,7 @@ struct RoomsDetailsTaskCompletionView: View {
 
 	@State private var presenter: RoomsDetailsTaskCompletionPresenter
 	let props: RoomsDetailsTaskCompletionProps
+
 
 	init(
 		presenter: RoomsDetailsTaskCompletionPresenter,
@@ -65,6 +80,7 @@ struct RoomsDetailsTaskCompletionView: View {
 				.animation(.easeOut(duration: Constants.contentAnimationDuration).delay(Constants.completionActionAnimationDelay), value: presenter.hasAppeared)
 		}
 		.padding(.horizontal, FKSpacing.large)
+		.presentationSizing(.fitted)
 		.toolbar {
 			ToolbarItem(placement: .cancellationAction) {
 				Button("rooms_details_task_completion.cancel", systemImage: "xmark", role: .cancel, action: presenter.onCloseButtonTapped)
@@ -126,7 +142,12 @@ struct RoomsDetailsTaskCompletionView: View {
 
 	private var completionAction: some View {
 		Button("rooms_details_task_completion.mark_as_completed") {
-			presenter.onMarkAsCompletedButtonTapped(taskId: props.taskId)
+				presenter.onMarkAsCompletedButtonTapped(
+					taskId: props.taskId,
+					roomId: props.roomId,
+					roomName: props.roomName,
+					taskName: props.taskName
+				)
 		}
 		.buttonStyle(.glassProminent)
 		.controlSize(.large)
