@@ -103,6 +103,10 @@ struct CoreBuilder: Builder {
 		)
 	}
 
+	func activityLogView(router: Router) -> some View {
+		ActivityLogView()
+	}
+
 	func settingsView(router: Router) -> some View {
 		SettingsView(
 			presenter: SettingsPresenter(
