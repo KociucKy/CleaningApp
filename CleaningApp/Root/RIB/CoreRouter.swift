@@ -124,6 +124,12 @@ struct CoreRouter {
 		}
 	}
 
+	func presentActivityLogView() {
+		router.showScreen(.sheet, onDismiss: nil) { router in
+			builder.activityLogView(router: router)
+		}
+	}
+
 	func presentIconPicker(
 		room: Room,
 		onRoomSaved: @escaping (Room) -> Void

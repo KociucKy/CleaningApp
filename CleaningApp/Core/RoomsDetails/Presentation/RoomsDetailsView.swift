@@ -103,7 +103,9 @@ struct RoomsDetailsView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				Button("History", systemImage: "book.fill") {}
+				Button("History", systemImage: "book.fill") {
+					presenter.onHistoryButtonTapped()
+				}
 			}
 			ToolbarItem(placement: .topBarTrailing) {
 				Menu {

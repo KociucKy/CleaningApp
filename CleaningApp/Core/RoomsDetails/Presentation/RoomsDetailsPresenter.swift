@@ -172,10 +172,10 @@ final class RoomsDetailsPresenter {
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
-                    taskId: task.id,
-                    roomId: room.id,
-                    roomName: room.name,
-                    taskName: task.name
+				taskId: task.id,
+				roomId: room.id,
+				roomName: room.name,
+				taskName: task.name
 			),
 			onDismiss: { [weak self] in
 				guard let self else {
@@ -198,6 +198,10 @@ final class RoomsDetailsPresenter {
 				}
 			}
 		}
+	}
+
+	func onHistoryButtonTapped() {
+		router.presentActivityLogView()
 	}
 
 	// MARK: - Private
