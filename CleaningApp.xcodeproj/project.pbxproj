@@ -99,6 +99,7 @@
 		88A3C290306050ED0021DF5E /* ActivityLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C28F306050ED0021DF5E /* ActivityLogPresenter.swift */; };
 		88A3C292306051220021DF5E /* ActivityLogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C291306051220021DF5E /* ActivityLogInteractor.swift */; };
 		88A3C294306051640021DF5E /* ActivityLogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C293306051640021DF5E /* ActivityLogRouter.swift */; };
+		88A3C296306051A20021DF5E /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C295306051A20021DF5E /* ActivityLogView.swift */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
 		8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */; };
@@ -319,6 +320,7 @@
 		88A3C28F306050ED0021DF5E /* ActivityLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogPresenter.swift; sourceTree = "<group>"; };
 		88A3C291306051220021DF5E /* ActivityLogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogInteractor.swift; sourceTree = "<group>"; };
 		88A3C293306051640021DF5E /* ActivityLogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogRouter.swift; sourceTree = "<group>"; };
+		88A3C295306051A20021DF5E /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
 		8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 			isa = PBXGroup;
 			children = (
 				88A3C28F306050ED0021DF5E /* ActivityLogPresenter.swift */,
+				88A3C295306051A20021DF5E /* ActivityLogView.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1472,6 +1475,7 @@
 				48668AC67D4AEE75279DAB5E /* OnbTaskSelectionPresenter.swift in Sources */,
 				550DC677AAFFD98CB7843423 /* OnbTaskSelectionView.swift in Sources */,
 				77C0D5902876F8474A3BC312 /* OnbWelcomePresenter.swift in Sources */,
+				88A3C296306051A20021DF5E /* ActivityLogView.swift in Sources */,
 				64DC84D0DE1D3E689AD0071A /* OnbWelcomeView.swift in Sources */,
 				C8634A6248FC6139588DF63E /* OnboardingBuilder.swift in Sources */,
 				B3BA9D3493C330DC700727B8 /* OnboardingCompletedPresenter.swift in Sources */,
