@@ -17,21 +17,8 @@ struct RoomsDetailsCompletionChartView: View {
 		dataPoints.map(\.completedCount)
 	}
 
-	private var xAxisDates: [Date] {
-		switch range {
-		case .sevenDays:
-			dataPoints.map(\.date)
-		case .thirtyDays:
-			dataPoints.enumerated().compactMap { index, dataPoint in
-				index.isMultiple(of: 5) ? dataPoint.date : nil
-			}
-		case .ninetyDays, .oneYear:
-			dataPoints.enumerated().compactMap { index, dataPoint in
-				index.isMultiple(of: 2) || index == dataPoints.count - 1
-					? dataPoint.date
-					: nil
-			}
-		}
+	private var xAxisDesiredCount: Int {
+		max(min(dataPoints.count, 6), 1)
 	}
 
 	private var xAxisLabelFormat: Date.FormatStyle {
@@ -77,14 +64,14 @@ struct RoomsDetailsCompletionChartView: View {
 		}
 		.chartYScale(domain: 0 ... maximumCount)
 		.chartXAxis {
-			AxisMarks(values: xAxisDates) { _ in
+			AxisMarks(values: .automatic(desiredCount: xAxisDesiredCount)) { _ in
 				AxisGridLine()
 				AxisTick()
 				AxisValueLabel(format: xAxisLabelFormat)
 			}
 		}
 		.chartYAxis {
-			AxisMarks(position: .leading, values: .stride(by: 1))
+			AxisMarks(position: .leading, values: .automatic(desiredCount: 5))
 		}
 		.chartYAxisLabel(position: .leading) {
 			Text(String(localized: "chart.axis.finished_tasks", defaultValue: "Finished tasks"))
@@ -95,20 +82,26 @@ struct RoomsDetailsCompletionChartView: View {
 		.chartOverlay { proxy in
 			GeometryReader { geometry in
 				if let selectedDataPoint,
-				   let xPosition = proxy.position(forX: selectedDataPoint.date)
+				   let xPosition = proxy.position(forX: selectedDataPoint.date),
+					   let plotFrame = proxy.plotFrame
 				{
-					let overlayWidth = min(max(geometry.size.width - 24, 0), 220)
+					let plotRect = geometry[plotFrame]
+						let horizontalPadding = geometry.size.width * 0.04
+						let availableWidth = min(
+							max(geometry.size.width - horizontalPadding * 2, 0),
+							plotRect.width
+						)
 					let centeredX = min(
-						max(xPosition, overlayWidth / 2 + 12),
-						geometry.size.width - overlayWidth / 2 - 12
+						max(xPosition, plotRect.minX + availableWidth / 2),
+						plotRect.maxX - availableWidth / 2
 					)
 					selectedDayView(for: selectedDataPoint)
-						.frame(width: overlayWidth)
-						.position(x: centeredX, y: 70)
+						.frame(maxWidth: availableWidth, alignment: .leading)
+						.position(x: centeredX, y: plotRect.minY + plotRect.height * 0.2)
 				}
 			}
 		}
-		.frame(height: 180)
+		
 		.accessibilityValue(accessibilityValue)
 	}
 
