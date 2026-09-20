@@ -104,7 +104,12 @@ struct CoreBuilder: Builder {
 	}
 
 	func activityLogView(router: Router) -> some View {
-		ActivityLogView()
+		ActivityLogView(
+			presenter: ActivityLogPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			)
+		)
 	}
 
 	func settingsView(router: Router) -> some View {
