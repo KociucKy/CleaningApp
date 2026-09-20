@@ -1,11 +1,11 @@
 import Foundation
-import NavigationKit
 
 // MARK: - RoomsInteractor
 
 @MainActor
 protocol RoomsInteractor {
-	// TODO: Define Rooms interactor methods
+	func fetchAllRooms() throws -> [Room]
+	func deleteRoom(_ item: Room) throws
 }
 
 extension CoreInteractor: RoomsInteractor {}

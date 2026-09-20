@@ -1,0 +1,20 @@
+import Foundation
+
+@MainActor
+protocol RoomsDetailsInteractor {
+    func fetchAllRoomTasks(for roomId: UUID) throws -> [RoomTask]
+    func fetchAllCompletedTasks(forTaskIDs taskIDs: [UUID]) throws -> [CompletedTask]
+    func fetchAllCompletedTasks(forRoomId roomId: UUID) throws -> [CompletedTask]
+	func makeCompletionTrend(
+		from completedTasks: [CompletedTask],
+		tasks: [RoomTask],
+		range: CompletionTrendRange
+	) -> [CompletionChartDataPoint]
+    func saveCompletedTask(_ task: CompletedTask) throws
+    func deleteCompletedTask(_ task: CompletedTask) throws
+	func deleteRoom(_ item: Room) throws
+	func deleteRoomTask(_ item: RoomTask) throws
+	func updateRoomTask(_ item: RoomTask) throws
+}
+
+extension CoreInteractor: RoomsDetailsInteractor {}

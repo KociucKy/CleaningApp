@@ -86,6 +86,8 @@ struct OnboardingInteractorTests {
 		#expect(predefinedRooms.count == 2)
 		#expect(predefinedRooms.contains { $0.kind == .kitchen })
 		#expect(predefinedRooms.contains { $0.kind == .bedroom })
+		#expect(predefinedRooms.first { $0.kind == .kitchen }?.name == RoomType.kitchen.localizedName)
+		#expect(predefinedRooms.first { $0.kind == .bedroom }?.name == RoomType.bedroom.localizedName)
 	}
 
 	@Test func saveAndCompleteOnboarding_customRoomsHaveZeroTasks() throws {

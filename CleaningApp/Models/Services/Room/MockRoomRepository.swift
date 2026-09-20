@@ -4,12 +4,23 @@ import Foundation
 final class MockRoomRepository: RoomRepository {
 	// MARK: - Properties
 
-	var items: [RoomEntity] = RoomEntity.mocks
+	var items: [RoomEntity]
+	var error: Error?
+
+	// MARK: - Init
+	init(
+		items: [RoomEntity] = RoomEntity.mocks,
+		error: Error? = nil
+	) {
+		self.items = items
+		self.error = error
+	}
 
 	// MARK: - Methods
 
 	func fetchAll() throws -> [RoomEntity] {
-		items
+		guard error == nil else { throw error! }
+		return items
 	}
 
 	func fetch(by id: UUID) throws -> RoomEntity? {
@@ -22,6 +33,13 @@ final class MockRoomRepository: RoomRepository {
 		} else {
 			items.append(item)
 		}
+	}
+
+	func update(_ item: RoomEntity) throws {
+		guard let index = items.firstIndex(where: { $0.id == item.id }) else {
+			return
+		}
+		items[index] = item
 	}
 
 	func delete(_ item: RoomEntity) throws {

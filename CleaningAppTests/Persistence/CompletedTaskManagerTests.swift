@@ -4,7 +4,7 @@ import Testing
 
 // MARK: - CompletedTaskManagerTests
 
-@Suite(.tags(.persistence))
+@Suite(.tags(.persistence, .rooms))
 @MainActor
 struct CompletedTaskManagerTests {
 	// MARK: - fetchAll
@@ -43,6 +43,21 @@ struct CompletedTaskManagerTests {
 		let manager = CompletedTaskManager(repository: MockCompletedTaskRepository())
 		let tasks = try manager.fetchAll(for: UUID())
 		#expect(tasks.isEmpty)
+	}
+
+	@Test func fetchAllForRoom_returnsHistoricalDomainModels() throws {
+		let repo = MockCompletedTaskRepository()
+		let roomId = UUID()
+		repo.items = [
+			CompletedTaskEntity(taskId: UUID(), roomId: roomId),
+			CompletedTaskEntity(taskId: UUID(), roomId: UUID())
+		]
+		let manager = CompletedTaskManager(repository: repo)
+
+		let tasks = try manager.fetchAll(forRoomId: roomId)
+
+		#expect(tasks.count == 1)
+		#expect(tasks.first?.roomId == roomId)
 	}
 
 	// MARK: - save

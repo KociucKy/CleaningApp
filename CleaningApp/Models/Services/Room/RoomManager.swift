@@ -29,6 +29,11 @@ final class RoomManager {
 		try repository.save(entity)
 	}
 
+	func update(_ item: Room) throws {
+		let entity = mapper.toEntity(item)
+		try repository.update(entity)
+	}
+
 	func delete(_ item: Room) throws {
 		let entity = mapper.toEntity(item)
 		try repository.delete(entity)

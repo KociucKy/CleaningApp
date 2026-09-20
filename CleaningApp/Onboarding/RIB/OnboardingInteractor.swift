@@ -101,6 +101,10 @@ struct OnboardingInteractor {
 		flowState.addCustomTask(task, for: room)
 	}
 
+	func updateTask(_ task: RoomTask, for room: RoomType) {
+		flowState.updateTask(task, for: room)
+	}
+
 	func removeCustomTask(_ task: RoomTask, for room: RoomType) {
 		flowState.removeCustomTask(task, for: room)
 	}
@@ -113,6 +117,10 @@ struct OnboardingInteractor {
 
 	func addTaskToCustomRoom(_ task: RoomTask, roomId: UUID) {
 		flowState.addTaskToCustomRoom(task, roomId: roomId)
+	}
+
+	func updateTask(_ task: RoomTask, inCustomRoom roomId: UUID) {
+		flowState.updateTask(task, inCustomRoom: roomId)
 	}
 
 	func removeTaskFromCustomRoom(_ task: RoomTask, roomId: UUID) {
@@ -160,7 +168,7 @@ struct OnboardingInteractor {
 			// 1. Save predefined rooms first — tasks depend on their IDs existing in the store.
 			var savedRooms: [Room] = []
 			for roomType in flowState.selectedRooms {
-				let room = Room(name: roomType.rawValue, kind: roomType)
+				let room = Room(name: roomType.localizedName, kind: roomType)
 				try roomManager.save(room)
 				savedRooms.append(room)
 			}
@@ -204,5 +212,17 @@ struct OnboardingInteractor {
 
 	func completeOnboarding() {
 		appState.updateViewState(showOnboarding: false)
+	}
+}
+
+// MARK: - CustomRoomSheetInteractor
+
+extension OnboardingInteractor: CustomRoomSheetInteractor {
+	func saveCustomRoom(name: String, icon: String) throws {
+		addCustomRoom(name: name, icon: icon)
+	}
+
+	func updateRoom(_ room: Room) throws {
+		// Room editing is unavailable during onboarding.
 	}
 }

@@ -68,6 +68,7 @@ struct OnbTaskSelectionView: View {
 		.background(FKColor.Background.primary)
 		.navigationTitle("onb_task_selection.nav_title")
 		.navigationBarTitleDisplayMode(.inline)
+		.scrollEdgeEffectStyle(.soft, for: .top)
 		.safeAreaBar(edge: .bottom) {
 			controlButtonsView
 				.opacity(presenter.buttonVisible ? 1 : 0)
@@ -191,7 +192,18 @@ struct OnbTaskSelectionView: View {
 			.accessibilityAddTraits(isSelected ? .isSelected : [])
 			.buttonStyle(.fkFade)
 
-			if showDeleteButton {
+			Button {
+					FKHaptics.selection()
+					editTask(task, in: section)
+				} label: {
+					Image(systemName: "pencil")
+						.font(FKTypography.caption)
+						.foregroundStyle(Color.accentColor)
+				}
+				.buttonStyle(.plain)
+				.accessibilityLabel(Text("common.action.edit"))
+
+				if showDeleteButton {
 				Button {
 					FKHaptics.selection()
 					deleteTask(task, from: section)
@@ -207,12 +219,15 @@ struct OnbTaskSelectionView: View {
 	}
 
 	private var controlButtonsView: some View {
-		OnbControlButtonsView(
-			buttonLabel: "common.action.next",
-			showSkipButton: true,
-			primaryAction: presenter.onNextButtonPressed,
-			skipAction: presenter.onSkipButtonPressed
-		)
+		VStack {
+			OnbControlButtonsView(
+				buttonLabel: "common.action.next",
+				showSkipButton: true,
+				primaryAction: presenter.onNextButtonPressed,
+				skipAction: presenter.onSkipButtonPressed
+			)
+			OnbProgressView(stage: .taskSelection)
+		}
 	}
 
 	private func addCustomTaskButton(for section: RoomSection) -> some View {
@@ -287,6 +302,15 @@ struct OnbTaskSelectionView: View {
 			presenter.onTaskRowPressed(task, for: room)
 		case let .custom(customRoom):
 			presenter.onCustomRoomTaskRowPressed(task, in: customRoom)
+		}
+	}
+
+	private func editTask(_ task: RoomTask, in section: RoomSection) {
+		switch section {
+		case let .predefined(room):
+			presenter.onEditTask(task, for: room)
+		case let .custom(customRoom):
+			presenter.onEditCustomRoomTask(task, in: customRoom)
 		}
 	}
 
