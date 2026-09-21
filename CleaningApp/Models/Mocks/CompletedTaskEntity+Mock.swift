@@ -1,7 +1,7 @@
 import Foundation
 
 extension CompletedTaskEntity {
-	static let mockId = UUID(uuidString: "00000000-0000-0000-0002-000000000001")!
+	static let mockId = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
 
 	// MARK: - Mocks
 

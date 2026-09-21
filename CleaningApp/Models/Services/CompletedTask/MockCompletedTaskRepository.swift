@@ -4,7 +4,13 @@ import Foundation
 final class MockCompletedTaskRepository: CompletedTaskRepository {
 	// MARK: - Properties
 
-	var items: [CompletedTaskEntity] = CompletedTaskEntity.mocks
+	var items: [CompletedTaskEntity]
+
+	// MARK: - Init
+
+	init(items: [CompletedTaskEntity] = CompletedTaskEntity.mocks) {
+		self.items = items
+	}
 
 	// MARK: - CompletedTaskRepository
 
