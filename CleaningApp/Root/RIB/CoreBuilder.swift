@@ -103,11 +103,12 @@ struct CoreBuilder: Builder {
 		)
 	}
 
-	func activityLogView(router: Router) -> some View {
+	func activityLogView(router: Router, room: Room) -> some View {
 		ActivityLogView(
 			presenter: ActivityLogPresenter(
 				interactor: interactor,
-				router: CoreRouter(router: router, builder: self)
+				router: CoreRouter(router: router, builder: self),
+					room: room
 			)
 		)
 	}

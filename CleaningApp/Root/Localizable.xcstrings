@@ -44,6 +44,9 @@
         }
       }
     },
+    "%lldm" : {
+
+    },
     "1 year" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -88,7 +91,13 @@
         }
       }
     },
-    "Activity Log View" : {
+    "Activity" : {
+
+    },
+    "Activity by task" : {
+
+    },
+    "Activity unavailable" : {
 
     },
     "Add" : {
@@ -314,6 +323,9 @@
         }
       }
     },
+    "Close" : {
+
+    },
     "common.action.add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -469,6 +481,9 @@
           }
         }
       }
+    },
+    "Complete a task in this room and it will appear here." : {
+
     },
     "Completed" : {
       "extractionState" : "stale",
@@ -1192,6 +1207,9 @@
           }
         }
       }
+    },
+    "No completions yet" : {
+
     },
     "No tasks finished" : {
       "extractionState" : "stale",
@@ -2625,6 +2643,9 @@
       }
     },
     "Save" : {
+
+    },
+    "See how often each task gets done in this room." : {
 
     },
     "settings.nav_title" : {

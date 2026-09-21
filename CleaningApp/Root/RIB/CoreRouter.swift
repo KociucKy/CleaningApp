@@ -124,9 +124,9 @@ struct CoreRouter {
 		}
 	}
 
-	func presentActivityLogView() {
+	func presentActivityLogView(room: Room) {
 		router.showScreen(.sheet, onDismiss: nil) { router in
-			builder.activityLogView(router: router)
+			builder.activityLogView(router: router, room: room)
 		}
 	}
 

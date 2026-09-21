@@ -201,7 +201,7 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onHistoryButtonTapped() {
-		router.presentActivityLogView()
+		router.presentActivityLogView(room: room)
 	}
 
 	// MARK: - Private
