@@ -52,22 +52,6 @@ struct ActivityLogView: View {
 	}
 }
 
-struct ActivityLogListView: View {
-	let completions: [CompletedTask]
-
-	var body: some View {
-		List(completions) { completion in
-			VStack(alignment: .leading) {
-				Text(completion.taskName ?? "No task name")
-					.font(FKTypography.bodyBold)
-				Text(completion.completedAt.formatted())
-					.font(FKTypography.footnoteEmphasis)
-					.foregroundStyle(.secondary)
-			}
-		}
-	}
-}
-
 // MARK: - Preview
 
 #Preview("Loaded") {
