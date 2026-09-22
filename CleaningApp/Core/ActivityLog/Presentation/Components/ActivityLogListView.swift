@@ -10,12 +10,15 @@ struct ActivityLogListView: View {
 
 	var body: some View {
 		List(completions) { completion in
-			VStack(alignment: .leading) {
-				Text(completion.taskName ?? "No task name")
-					.font(FKTypography.bodyBold)
-				Text(completion.completedAt.formatted())
-					.font(FKTypography.footnoteEmphasis)
-					.foregroundStyle(.secondary)
+			ActivityLogListRowView(
+				taskName: completion.taskName ?? "No task name",
+				completedAt: completion.completedAt.formatted()
+			)
+			.swipeActions {
+				Button("Delete", systemImage: "trash", action: {})
+					.tint(.red)
+				Button("Edit", systemImage: "pencil", action: {})
+					.tint(.orange)
 			}
 		}
 	}

@@ -2,7 +2,7 @@ import SwiftUI
 import FulhamKit
 
 struct ActivityLogListRowView: View {
-	var taskName: String = "No task name"
+	let taskName: String
 	let completedAt: String
 
 	var body: some View {
