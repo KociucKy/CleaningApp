@@ -3446,9 +3446,6 @@
         }
       }
     },
-    "Test" : {
-
-    },
     "Week of" : {
       "extractionState" : "stale",
       "localizations" : {
