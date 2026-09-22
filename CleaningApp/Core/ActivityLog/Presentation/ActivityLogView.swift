@@ -1,4 +1,5 @@
 import SwiftUI
+import FulhamKit
 
 // MARK: - ActivityLogView
 
@@ -21,7 +22,7 @@ struct ActivityLogView: View {
 			case .isLoading:
 				ProgressView()
 			case .loaded:
-				ActivityLogListView()
+				ActivityLogListView(completions: presenter.completions)
 			case .empty:
 				ContentUnavailableView(
 					"No activity yet",
@@ -52,8 +53,18 @@ struct ActivityLogView: View {
 }
 
 struct ActivityLogListView: View {
+	let completions: [CompletedTask]
+
 	var body: some View {
-		Text("")
+		List(completions) { completion in
+			VStack(alignment: .leading) {
+				Text(completion.taskName ?? "No task name")
+					.font(FKTypography.bodyBold)
+				Text(completion.completedAt.formatted())
+					.font(FKTypography.footnoteEmphasis)
+					.foregroundStyle(.secondary)
+			}
+		}
 	}
 }
 
