@@ -160,7 +160,7 @@ struct RoomsDetailsView: View {
 	private var emptyStateView: some View {
 		VStack(spacing: 0) {
 			FKEmptyStateView(
-				icon: "list.bullet.clipboard.fill",
+				icon: "list.bullet.clipboard",
 				title: "No tasks added"
 			)
 			Button("Add task") {
