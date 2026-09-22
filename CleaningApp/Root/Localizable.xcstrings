@@ -44,9 +44,6 @@
         }
       }
     },
-    "%lldm" : {
-
-    },
     "1 year" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -92,9 +89,6 @@
       }
     },
     "Activity" : {
-
-    },
-    "Activity by task" : {
 
     },
     "Activity unavailable" : {
@@ -1209,9 +1203,6 @@
       }
     },
     "No activity yet" : {
-
-    },
-    "No completions yet" : {
 
     },
     "No tasks finished" : {
@@ -2646,9 +2637,6 @@
       }
     },
     "Save" : {
-
-    },
-    "See how often each task gets done in this room." : {
 
     },
     "settings.nav_title" : {
