@@ -101,6 +101,7 @@
 		88A3C294306051640021DF5E /* ActivityLogRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C293306051640021DF5E /* ActivityLogRouter.swift */; };
 		88A3C296306051A20021DF5E /* ActivityLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C295306051A20021DF5E /* ActivityLogView.swift */; };
 		88A3C29A30631AF60021DF5E /* ActivityLogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C29930631AF60021DF5E /* ActivityLogListView.swift */; };
+		88A3C29C30631B5B0021DF5E /* ActivityLogListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3C29B30631B5B0021DF5E /* ActivityLogListRowView.swift */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
 		8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */; };
@@ -323,6 +324,7 @@
 		88A3C293306051640021DF5E /* ActivityLogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogRouter.swift; sourceTree = "<group>"; };
 		88A3C295306051A20021DF5E /* ActivityLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogView.swift; sourceTree = "<group>"; };
 		88A3C29930631AF60021DF5E /* ActivityLogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogListView.swift; sourceTree = "<group>"; };
+		88A3C29B30631B5B0021DF5E /* ActivityLogListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogListRowView.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
 		8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
@@ -728,6 +730,7 @@
 			isa = PBXGroup;
 			children = (
 				88A3C29930631AF60021DF5E /* ActivityLogListView.swift */,
+				88A3C29B30631B5B0021DF5E /* ActivityLogListRowView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1543,6 +1546,7 @@
 				382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */,
 				49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */,
 				9D7A5059B5AD6E3500490283 /* SkippedTaskManager.swift in Sources */,
+				88A3C29C30631B5B0021DF5E /* ActivityLogListRowView.swift in Sources */,
 				DA04A1941432AF5A4D59AEB0 /* SkippedTaskMapper.swift in Sources */,
 				86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */,
 				D51191FEAE209E4EE95EF76E /* TabBarView.swift in Sources */,
