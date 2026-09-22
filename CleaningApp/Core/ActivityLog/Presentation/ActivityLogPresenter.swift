@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 // MARK: - ActivityLogPresenter
 
@@ -49,6 +49,24 @@ final class ActivityLogPresenter {
 		} catch {
 			state = .error("Unable to load this room’s activity.")
 		}
+	}
+
+	func onDeleteButtonTapped() {
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete this record?",
+			subtitle: nil,
+			buttons: { @MainActor [weak self] in
+				Group {
+					Button("Delete", role: .destructive) {
+						
+					}
+					Button("Cancel", role: .cancel) {
+						self?.router.dismissAlert()
+					}
+				}.any()
+			}
+		)
 	}
 	
 	func onCloseButtonTapped() {
