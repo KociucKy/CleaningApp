@@ -88,7 +88,10 @@
         }
       }
     },
-    "Activity Log View" : {
+    "Activity" : {
+
+    },
+    "Activity unavailable" : {
 
     },
     "Add" : {
@@ -314,6 +317,9 @@
         }
       }
     },
+    "Close" : {
+
+    },
     "common.action.add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -469,6 +475,9 @@
           }
         }
       }
+    },
+    "Complete a task in this room and it will appear here." : {
+
     },
     "Completed" : {
       "extractionState" : "stale",
@@ -1192,6 +1201,9 @@
           }
         }
       }
+    },
+    "No activity yet" : {
+
     },
     "No tasks finished" : {
       "extractionState" : "stale",
