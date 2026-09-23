@@ -51,7 +51,7 @@ final class ActivityLogPresenter {
 		}
 	}
 
-	func onDeleteButtonTapped() {
+	func onDeleteButtonTapped(item: CompletedTask) {
 		router.showAlert(
 			.alert,
 			title: "Are you sure you want to delete this record?",
@@ -59,7 +59,7 @@ final class ActivityLogPresenter {
 			buttons: { @MainActor [weak self] in
 				Group {
 					Button("Delete", role: .destructive) {
-						
+						self?.deleteCompletedTask(item)
 					}
 					Button("Cancel", role: .cancel) {
 						self?.router.dismissAlert()
@@ -71,5 +71,15 @@ final class ActivityLogPresenter {
 	
 	func onCloseButtonTapped() {
 		router.dismissScreen()
+	}
+
+	// MARK: - Private
+
+	private func deleteCompletedTask(_ item: CompletedTask) {
+		do {
+			try interactor.deleteCompletedTask(item)
+		} catch {
+			
+		}
 	}
 }

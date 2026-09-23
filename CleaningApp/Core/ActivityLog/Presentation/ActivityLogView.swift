@@ -24,7 +24,9 @@ struct ActivityLogView: View {
 			case .loaded:
 				ActivityLogListView(
 					completions: presenter.completions,
-					onDeleteAction: presenter.onDeleteButtonTapped
+					onDeleteAction: { completion in
+						presenter.onDeleteButtonTapped(item: completion)
+					}
 				)
 			case .empty:
 				ContentUnavailableView(
