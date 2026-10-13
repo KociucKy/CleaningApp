@@ -6,6 +6,7 @@ struct ActivityLogListView: View {
 	
 	let completions: [CompletedTask]
 	let onDeleteAction: (CompletedTask) -> Void
+	let onEditAction: (CompletedTask) -> Void
 	
 	// MARK: - Body
 	
@@ -21,7 +22,9 @@ struct ActivityLogListView: View {
 						}
 					)
 					.tint(.red)
-					Button("Edit", systemImage: "pencil", action: {})
+					Button("Edit", systemImage: "pencil") {
+							onEditAction(completion)
+						}
 						.tint(.orange)
 				}
 		}
@@ -31,5 +34,9 @@ struct ActivityLogListView: View {
 // MARK: - Preview
 
 #Preview {
-	ActivityLogListView(completions: CompletedTask.mocks) { _ in }
+	ActivityLogListView(
+			completions: CompletedTask.mocks,
+			onDeleteAction: { _ in },
+			onEditAction: { _ in }
+		)
 }
