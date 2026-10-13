@@ -6,12 +6,16 @@ struct ActivityLogListView: View {
 	let completions: [CompletedTask]
 	let onDeleteAction: (CompletedTask) -> Void
 	let onEditAction: (CompletedTask) -> Void
+	let onCompletionAppearAction: (CompletedTask) -> Void
 	
 	// MARK: - Body
 	
 	var body: some View {
 		List(completions) { completion in
 			ActivityLogListRowView(completedTask: completion)
+				.onAppear {
+					onCompletionAppearAction(completion)
+				}
 				.swipeActions {
 					Button(
 						"common.action.delete",
@@ -36,6 +40,7 @@ struct ActivityLogListView: View {
 	ActivityLogListView(
 			completions: CompletedTask.mocks,
 			onDeleteAction: { _ in },
-			onEditAction: { _ in }
+			onEditAction: { _ in },
+			onCompletionAppearAction: { _ in }
 		)
 }

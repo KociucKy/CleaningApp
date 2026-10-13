@@ -40,6 +40,19 @@ final class MockCompletedTaskRepository: CompletedTaskRepository {
 		return items.filter { $0.roomId == id }
 	}
 
+	func fetchAllForRoomId(_ id: UUID, limit: Int, offset: Int) throws -> [CompletedTaskEntity] {
+		if let error {
+			throw error
+		}
+
+		return items
+			.filter { $0.roomId == id }
+			.sorted { $0.completedAt > $1.completedAt }
+			.dropFirst(offset)
+			.prefix(limit)
+			.map { $0 }
+	}
+
 	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity? {
 		items.filter { $0.id == id }.first
 	}

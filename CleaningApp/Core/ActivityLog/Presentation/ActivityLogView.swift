@@ -28,6 +28,9 @@ struct ActivityLogView: View {
 					},
 					onEditAction: { completion in
 						presenter.onEditButtonTapped(item: completion)
+					},
+					onCompletionAppearAction: { completion in
+						presenter.onCompletionAppeared(completion)
 					}
 				)
 			case .empty:

@@ -5,7 +5,9 @@ import SwiftUI
 @Observable
 @MainActor
 final class ActivityLogPresenter {
-    // MARK: - Properties
+	// MARK: - Properties
+
+	private static let pageSize = 50
 
     enum State {
         case isLoading
@@ -18,7 +20,9 @@ final class ActivityLogPresenter {
     private let router: any ActivityLogRouter
     let room: Room
 
-    private(set) var completions: [CompletedTask] = []
+	private(set) var completions: [CompletedTask] = []
+	private var hasMoreCompletions = false
+	private var isLoadingMore = false
     private(set) var state: State = .isLoading
 
     // MARK: - Init
@@ -42,15 +46,42 @@ final class ActivityLogPresenter {
         reloadActivity()
     }
 
-    func reloadActivity() {
-        do {
-            completions = try interactor.fetchAllCompletedTasks(forRoomId: room.id)
-                .sorted { $0.completedAt > $1.completedAt }
-            state = completions.isEmpty ? .empty : .loaded
-        } catch {
-            state = .error(String(localized: "activity_log.error.load"))
-        }
-    }
+	func reloadActivity() {
+		do {
+			let page = try fetchCompletionsPage(offset: 0)
+			completions = page.completions
+			hasMoreCompletions = page.hasMore
+			state = completions.isEmpty ? .empty : .loaded
+		} catch {
+			state = .error(String(localized: "activity_log.error.load"))
+		}
+	}
+
+	func onCompletionAppeared(_ completion: CompletedTask) {
+		guard completion.id == completions.last?.id,
+			  hasMoreCompletions,
+			  !isLoadingMore else {
+			return
+		}
+
+		isLoadingMore = true
+		defer {
+			isLoadingMore = false
+		}
+
+		do {
+			let page = try fetchCompletionsPage(offset: completions.count)
+			completions.append(contentsOf: page.completions)
+			hasMoreCompletions = page.hasMore
+		} catch {
+			router.showAlert(
+				.alert,
+				title: String(localized: "activity_log.error.load"),
+				subtitle: nil,
+				buttons: nil
+			)
+		}
+	}
 
     func onDeleteButtonTapped(item: CompletedTask) {
         router.showAlert(
@@ -85,7 +116,7 @@ final class ActivityLogPresenter {
 
     // MARK: - Private
 
-    private func deleteCompletedTask(_ item: CompletedTask) {
+	private func deleteCompletedTask(_ item: CompletedTask) {
         router.dismissAlert()
 
         do {
@@ -98,6 +129,19 @@ final class ActivityLogPresenter {
                 subtitle: nil,
                 buttons: nil
             )
-        }
-    }
+		}
+	}
+
+	private func fetchCompletionsPage(offset: Int) throws -> (completions: [CompletedTask], hasMore: Bool) {
+		let fetchedCompletions = try interactor.fetchCompletedTasks(
+			forRoomId: room.id,
+			limit: Self.pageSize + 1,
+			offset: offset
+		)
+
+		return (
+			Array(fetchedCompletions.prefix(Self.pageSize)),
+			fetchedCompletions.count > Self.pageSize
+		)
+	}
 }
