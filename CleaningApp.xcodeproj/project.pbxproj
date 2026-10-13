@@ -105,6 +105,7 @@
 		88C4B3AE307E86BC00E8EDB1 /* ActivityLogEditPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C4B3AD307E86BC00E8EDB1 /* ActivityLogEditPresenter.swift */; };
 		88C4B3B0307E86BC00E8EDB1 /* ActivityLogEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C4B3AF307E86BC00E8EDB1 /* ActivityLogEditView.swift */; };
 		88C4B3B3307E9D4D00E8EDB1 /* ActivityLogPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C4B3B2307E9D4D00E8EDB1 /* ActivityLogPresenterTests.swift */; };
+		88C4B3B7307EA91A00E8EDB1 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C4B3B6307EA91A00E8EDB1 /* ScheduleView.swift */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
 		8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */; };
@@ -331,6 +332,7 @@
 		88C4B3AD307E86BC00E8EDB1 /* ActivityLogEditPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogEditPresenter.swift; sourceTree = "<group>"; };
 		88C4B3AF307E86BC00E8EDB1 /* ActivityLogEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogEditView.swift; sourceTree = "<group>"; };
 		88C4B3B2307E9D4D00E8EDB1 /* ActivityLogPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogPresenterTests.swift; sourceTree = "<group>"; };
+		88C4B3B6307EA91A00E8EDB1 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
 		8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
@@ -752,6 +754,22 @@
 			path = ActivityLog;
 			sourceTree = "<group>";
 		};
+		88C4B3B4307EA8FC00E8EDB1 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				88C4B3B5307EA90D00E8EDB1 /* Presentation */,
+			);
+			path = Schedule;
+			sourceTree = "<group>";
+		};
+		88C4B3B5307EA90D00E8EDB1 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				88C4B3B6307EA91A00E8EDB1 /* ScheduleView.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -768,6 +786,7 @@
 			children = (
 				7301EF559F913E608B8A2817 /* DevSettings */,
 				5B6B6BF327E774FE52091B59 /* Home */,
+				88C4B3B4307EA8FC00E8EDB1 /* Schedule */,
 				803CD88694A8B12BAF94752E /* Rooms */,
 				3A31D08C76DD0AB1C5FAD7D7 /* RoomsDetails */,
 				88A3C28C306050CA0021DF5E /* ActivityLog */,
@@ -1517,6 +1536,7 @@
 				5DBA4E7C03C3324C2275BD44 /* OnboardingInteractor.swift in Sources */,
 				F1BE66D69425DCC8F8DD848B /* OnboardingRouter.swift in Sources */,
 				D259031F274518977EC57557 /* OnboardingState.swift in Sources */,
+				88C4B3B7307EA91A00E8EDB1 /* ScheduleView.swift in Sources */,
 				E164CD2C78747647D3957F92 /* Room+Mock.swift in Sources */,
 				1D97EC665660AFA851BBA56C /* Room.swift in Sources */,
 				A4FDE7B5601D25083D4AEE8D /* RoomCardView.swift in Sources */,

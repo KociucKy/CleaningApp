@@ -1361,11 +1361,18 @@
         }
       }
     },
-    "Manage your spaces" : {
+    "rooms.nav_subtitle" : {
+      "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your spaces"
+          }
+        },
         "pl" : {
           "stringUnit" : {
-            "state" : "machine_translated",
+            "state" : "translated",
             "value" : "Zarządzaj swoimi pomieszczeniami"
           }
         }
@@ -2821,16 +2828,6 @@
     "Save" : {
 
     },
-    "Schedule" : {
-      "localizations" : {
-        "pl" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Harmonogram"
-          }
-        }
-      }
-    },
     "settings.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2878,6 +2875,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pokoje"
+          }
+        }
+      }
+    },
+    "tab.schedule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harmonogram"
           }
         }
       }

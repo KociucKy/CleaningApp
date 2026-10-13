@@ -38,7 +38,7 @@ struct RoomsView: View {
 			}
 		}
 		.navigationTitle("rooms.nav_title")
-		.navigationSubtitle("Manage your spaces")
+		.navigationSubtitle("rooms.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
 		.onAppear(perform: presenter.onAppearFetch)
 		.onDisappear {
