@@ -88,11 +88,18 @@ final class ActivityLogPresenter {
     // MARK: - Private
 
     private func deleteCompletedTask(_ item: CompletedTask) {
+        router.dismissAlert()
+
         do {
             try interactor.deleteCompletedTask(item)
             reloadActivity()
         } catch {
-            state = .error(String(localized: "activity_log.error.delete"))
+            router.showAlert(
+                .alert,
+                title: String(localized: "activity_log.error.delete"),
+                subtitle: nil,
+                buttons: nil
+            )
         }
     }
 }
