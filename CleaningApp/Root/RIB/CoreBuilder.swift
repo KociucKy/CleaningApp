@@ -37,7 +37,7 @@ struct CoreBuilder: Builder {
 					}
 				),
 				TabBarScreen(
-					title: "Schedule",
+					title: String(localized: "Schedule"),
 					systemImage: "calendar.badge",
 					screen: {
 						Text("Schedule").any()
