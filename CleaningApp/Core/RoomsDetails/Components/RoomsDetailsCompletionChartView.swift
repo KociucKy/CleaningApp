@@ -3,46 +3,53 @@ import SwiftUI
 
 struct RoomsDetailsCompletionChartView: View {
 	// MARK: - Properties
-
+	
+	private enum Constants {
+		
+		static let chartHeight: CGFloat = 230
+		static let horizontalPaddingRatio: CGFloat = 0.04
+		static let maximumVisibleTaskCount = 3
+	}
+	
 	let dataPoints: [CompletionChartDataPoint]
 	let range: CompletionTrendRange
-
+	
 	@State private var selectedDate: Date?
-
+	
 	private var maximumCount: Int {
 		max(dataPoints.map(\.completedCount).max() ?? 0, 1)
 	}
-
+	
 	private var completionCounts: [Int] {
 		dataPoints.map(\.completedCount)
 	}
-
+	
 	private var xAxisDesiredCount: Int {
 		max(min(dataPoints.count, 6), 1)
 	}
-
+	
 	private var xAxisLabelFormat: Date.FormatStyle {
 		switch range {
 		case .sevenDays:
-			.dateTime.weekday(.abbreviated)
+				.dateTime.weekday(.abbreviated)
 		case .thirtyDays, .ninetyDays:
-			.dateTime.month(.abbreviated).day()
+				.dateTime.month(.abbreviated).day()
 		case .oneYear:
-			.dateTime.month(.abbreviated)
+				.dateTime.month(.abbreviated)
 		}
 	}
-
+	
 	private var xAxisUnit: Calendar.Component {
 		switch range {
 		case .sevenDays, .thirtyDays:
-			.day
+				.day
 		case .ninetyDays:
-			.weekOfYear
+				.weekOfYear
 		case .oneYear:
-			.month
+				.month
 		}
 	}
-
+	
 	private var selectedDataPoint: CompletionChartDataPoint? {
 		guard let selectedDate else {
 			return nil
@@ -51,9 +58,9 @@ struct RoomsDetailsCompletionChartView: View {
 			abs($0.date.timeIntervalSince(selectedDate)) < abs($1.date.timeIntervalSince(selectedDate))
 		}
 	}
-
+	
 	// MARK: - Body
-
+	
 	var body: some View {
 		Chart(dataPoints) { dataPoint in
 			BarMark(
@@ -83,40 +90,48 @@ struct RoomsDetailsCompletionChartView: View {
 			GeometryReader { geometry in
 				if let selectedDataPoint,
 				   let xPosition = proxy.position(forX: selectedDataPoint.date),
-					   let plotFrame = proxy.plotFrame
+				   let plotFrame = proxy.plotFrame
 				{
 					let plotRect = geometry[plotFrame]
-						let horizontalPadding = geometry.size.width * 0.04
-						let availableWidth = min(
-							max(geometry.size.width - horizontalPadding * 2, 0),
-							plotRect.width
-						)
+					let horizontalPadding = geometry.size.width * Constants.horizontalPaddingRatio
+					let availableWidth = min(
+						max(geometry.size.width - horizontalPadding * 2, 0),
+						plotRect.width
+					)
 					let centeredX = min(
 						max(xPosition, plotRect.minX + availableWidth / 2),
 						plotRect.maxX - availableWidth / 2
 					)
 					selectedDayView(for: selectedDataPoint)
-						.frame(maxWidth: availableWidth, alignment: .leading)
-						.position(x: centeredX, y: plotRect.minY + plotRect.height * 0.2)
+						.frame(width: availableWidth, alignment: .leading)
+						.offset(
+							x: centeredX - availableWidth / 2,
+							y: plotRect.minY
+						)
 				}
 			}
 		}
 		
+		.frame(height: Constants.chartHeight)
 		.accessibilityValue(accessibilityValue)
 	}
-
+	
 	// MARK: - Views
-
+	
 	private func selectedDayView(for dataPoint: CompletionChartDataPoint) -> some View {
-		VStack(alignment: .leading, spacing: 8) {
+		let taskNames = dataPoint.taskCounts.keys.sorted()
+		let visibleTaskNames = taskNames.prefix(Constants.maximumVisibleTaskCount)
+		let hiddenTaskCount = taskNames.count - visibleTaskNames.count
+		
+		return VStack(alignment: .leading, spacing: 8) {
 			Text(selectedPeriodTitle(for: dataPoint.date))
 				.font(.headline)
-
-			if dataPoint.taskCounts.isEmpty {
+			
+			if taskNames.isEmpty {
 				Text(String(localized: "chart.empty.no_tasks_finished", defaultValue: "No tasks finished"))
 					.foregroundStyle(.secondary)
 			} else {
-				ForEach(dataPoint.taskCounts.keys.sorted(), id: \.self) { taskName in
+				ForEach(visibleTaskNames, id: \.self) { taskName in
 					let count = dataPoint.taskCounts[taskName] ?? 0
 					HStack(spacing: 8) {
 						Image(systemName: "checkmark.circle.fill")
@@ -128,6 +143,11 @@ struct RoomsDetailsCompletionChartView: View {
 						}
 					}
 				}
+				
+				if hiddenTaskCount > 0 {
+					Text("+\(hiddenTaskCount) more tasks")
+						.foregroundStyle(.secondary)
+				}
 			}
 		}
 		.padding(10)
@@ -135,7 +155,9 @@ struct RoomsDetailsCompletionChartView: View {
 		.shadow(radius: 4, y: 2)
 		.accessibilityElement(children: .combine)
 	}
-
+	
+	// MARK: - Methods
+	
 	private func selectedPeriodTitle(for date: Date) -> String {
 		switch range {
 		case .sevenDays, .thirtyDays:
@@ -146,9 +168,9 @@ struct RoomsDetailsCompletionChartView: View {
 			date.formatted(.dateTime.month(.wide).year())
 		}
 	}
-
+	
 	// MARK: - Accessibility
-
+	
 	private var accessibilityValue: String {
 		let total = dataPoints.reduce(0) { $0 + $1.completedCount }
 		return "\(String(localized: "chart.accessibility.completions_in_selected_range", defaultValue: "Completions in selected range")): \(total)"
