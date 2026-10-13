@@ -1361,23 +1361,6 @@
         }
       }
     },
-    "rooms.nav_subtitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Manage your spaces"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Zarządzaj swoimi pomieszczeniami"
-          }
-        }
-      }
-    },
     "Mark as completed" : {
 
     },
@@ -2808,6 +2791,23 @@
         }
       }
     },
+    "rooms.nav_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your spaces"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zarządzaj swoimi pomieszczeniami"
+          }
+        }
+      }
+    },
     "rooms.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2826,6 +2826,9 @@
       }
     },
     "Save" : {
+
+    },
+    "Schedule" : {
 
     },
     "settings.nav_title" : {
