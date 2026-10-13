@@ -1,4 +1,3 @@
-import FulhamKit
 import SwiftUI
 
 struct ActivityLogListView: View {
