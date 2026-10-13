@@ -1,25 +1,26 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct ActivityLogListRowView: View {
-	let taskName: String
-	let completedAt: String
+	let completedTask: CompletedTask
 
 	var body: some View {
 		VStack(alignment: .leading) {
-			Text(taskName)
+			Text(completedTask.taskName ?? "No task name")
 				.font(FKTypography.bodyBold)
-			Text(completedAt)
+			Text(completedTask.completedAt.formatted())
 				.font(FKTypography.footnoteEmphasis)
 				.foregroundStyle(.secondary)
 		}
-
 	}
 }
 
 #Preview {
 	ActivityLogListRowView(
-		taskName: "Sweep the floor",
-		completedAt: "26/08/2026, 17:12"
+		completedTask: CompletedTask(
+			taskId: UUID(),
+			taskName: "Sweep the floor",
+			completedAt: Date()
+		)
 	)
 }

@@ -5,17 +5,17 @@ import SwiftUI
 
 struct RoomsDetailsView: View {
 	// MARK: - Properties
-
+	
 	private enum Constants {
 		static let emptyStateStrokeLineWidth: CGFloat = 2.0
 		static let emptyStateStrokeDash: [CGFloat] = [13.0]
 	}
-
+	
 	@Environment(\.colorScheme) private var colorScheme
 	@State var presenter: RoomsDetailsPresenter
-
+	
 	// MARK: - Body
-
+	
 	var body: some View {
 		List {
 			RoomsDetailsHeaderView(
@@ -35,13 +35,13 @@ struct RoomsDetailsView: View {
 				guard presenter.isHeaderVisible != isVisible else {
 					return
 				}
-
+				
 				withAnimation(.easeInOut(duration: 0.2)) {
 					presenter.isHeaderVisible = isVisible
 				}
 			}
 			.removeListRowFormatting()
-
+			
 			Section {
 				RoomsDetailsMetricsView(
 					taskCount: presenter.totalTasksCount,
@@ -55,7 +55,7 @@ struct RoomsDetailsView: View {
 					value: presenter.animate
 				)
 			}
-
+			
 			if presenter.hasAnyCompletions {
 				Section {
 					Picker(
@@ -73,21 +73,21 @@ struct RoomsDetailsView: View {
 					.labelsHidden()
 					.accessibilityLabel(String(localized: "chart.accessibility.completion_range", defaultValue: "Completion range"))
 					.listRowSeparator(.hidden)
-
-						RoomsDetailsCompletionChartView(
-							dataPoints: presenter.completionTrend,
-							range: presenter.completionTrendRange
-						)
-						.opacity(presenter.animate ? 1 : 0)
-						.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
-						.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
-						.animation(
-							presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
-							value: presenter.animate
-						)
+					
+					RoomsDetailsCompletionChartView(
+						dataPoints: presenter.completionTrend,
+						range: presenter.completionTrendRange
+					)
+					.opacity(presenter.animate ? 1 : 0)
+					.offset(y: presenter.animate ? 0 : presenter.animationConfig.offset)
+					.scaleEffect(presenter.animate ? 1 : presenter.animationConfig.scale)
+					.animation(
+						presenter.animationConfig.animation.delay(presenter.animationConfig.delay(for: 2)),
+						value: presenter.animate
+					)
 				}
 			}
-
+			
 			if presenter.frequencies.isNotEmpty {
 				listingView
 			} else {
@@ -126,7 +126,7 @@ struct RoomsDetailsView: View {
 		}
 		.scrollEdgeEffectStyle(.soft, for: .all)
 	}
-
+	
 	@ContentBuilder
 	private var listingView: some View {
 		ForEach(Array(presenter.frequencies.enumerated()), id: \.element) { index, frequency in
@@ -134,6 +134,7 @@ struct RoomsDetailsView: View {
 				RoomsDetailsTaskListView(
 					frequencyTitle: frequency.displayName,
 					tasks: tasks,
+					completedTaskIDs: presenter.completedTaskIDs,
 					onCompleteTaskButtonTapped: { task in
 						presenter.onTaskCompletionTapped(task)
 					},
@@ -156,7 +157,7 @@ struct RoomsDetailsView: View {
 			}
 		}
 	}
-
+	
 	private var emptyStateView: some View {
 		VStack(spacing: 0) {
 			FKEmptyStateView(

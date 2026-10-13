@@ -22,7 +22,12 @@ struct ActivityLogView: View {
 			case .isLoading:
 				ProgressView()
 			case .loaded:
-				ActivityLogListView(completions: presenter.completions)
+				ActivityLogListView(
+					completions: presenter.completions,
+					onDeleteAction: { completion in
+						presenter.onDeleteButtonTapped(item: completion)
+					}
+				)
 			case .empty:
 				ContentUnavailableView(
 					"No activity yet",

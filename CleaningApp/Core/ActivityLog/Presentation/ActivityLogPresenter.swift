@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 // MARK: - ActivityLogPresenter
 
@@ -40,7 +40,10 @@ final class ActivityLogPresenter {
 		guard case .isLoading = state else {
 			return
 		}
-		
+		reloadActivity()
+	}
+
+	func reloadActivity() {
 		do {
 			tasks = try interactor.fetchAllRoomTasks(for: room.id)
 			completions = try interactor.fetchAllCompletedTasks(forRoomId: room.id)
@@ -50,8 +53,37 @@ final class ActivityLogPresenter {
 			state = .error("Unable to load this room’s activity.")
 		}
 	}
+
+	func onDeleteButtonTapped(item: CompletedTask) {
+		router.showAlert(
+			.alert,
+			title: "Are you sure you want to delete this record?",
+			subtitle: nil,
+			buttons: { @MainActor [weak self] in
+				Group {
+					Button("Delete", role: .destructive) {
+						self?.deleteCompletedTask(item)
+					}
+					Button("Cancel", role: .cancel) {
+						self?.router.dismissAlert()
+					}
+				}.any()
+			}
+		)
+	}
 	
 	func onCloseButtonTapped() {
 		router.dismissScreen()
+	}
+
+	// MARK: - Private
+
+	private func deleteCompletedTask(_ item: CompletedTask) {
+		do {
+			try interactor.deleteCompletedTask(item)
+			reloadActivity()
+		} catch {
+			state = .error("Unable to delete this activity record.")
+		}
 	}
 }

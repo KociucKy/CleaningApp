@@ -480,7 +480,6 @@
 
     },
     "Completed" : {
-      "extractionState" : "stale",
       "localizations" : {
         "pl" : {
           "stringUnit" : {
@@ -1191,6 +1190,9 @@
           }
         }
       }
+    },
+    "Mark as completed" : {
+
     },
     "Next" : {
       "localizations" : {

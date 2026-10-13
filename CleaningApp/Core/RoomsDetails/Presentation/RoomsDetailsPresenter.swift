@@ -201,7 +201,15 @@ final class RoomsDetailsPresenter {
 	}
 
 	func onHistoryButtonTapped() {
-		router.presentActivityLogView(room: room)
+		router.presentActivityLogView(room: room) { [weak self] in
+			guard let self else {
+				return
+			}
+
+			withAnimation {
+				reloadTasks(for: room.id)
+			}
+		}
 	}
 
 	// MARK: - Private

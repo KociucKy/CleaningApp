@@ -4,6 +4,7 @@ import SwiftUI
 struct RoomsDetailsTaskListView: View {
 	let frequencyTitle: String
 	let tasks: [RoomTask]
+	let completedTaskIDs: Set<UUID>
 	let onCompleteTaskButtonTapped: (RoomTask) -> Void
 	let onDeleteTaskButtonTapped: (RoomTask) -> Void
 	let onEditTaskButtonTapped: (RoomTask) -> Void
@@ -14,6 +15,7 @@ struct RoomsDetailsTaskListView: View {
 				RoomsDetailsTaskListRowView(
 					taskName: task.name,
 					taskEstimatedDuration: task.estimatedDuration.rawValue,
+					isCompleted: completedTaskIDs.contains(task.id),
 					onCompleteButtonTapped: {
 						onCompleteTaskButtonTapped(task)
 					}
@@ -40,6 +42,7 @@ struct RoomsDetailsTaskListView: View {
 		RoomsDetailsTaskListView(
 			frequencyTitle: "Daily",
 			tasks: RoomTask.mocks,
+			completedTaskIDs: [],
 			onCompleteTaskButtonTapped: { _ in },
 			onDeleteTaskButtonTapped: { _ in },
 			onEditTaskButtonTapped: { _ in }
