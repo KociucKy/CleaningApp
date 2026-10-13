@@ -5,17 +5,23 @@ final class MockCompletedTaskRepository: CompletedTaskRepository {
 	// MARK: - Properties
 
 	var items: [CompletedTaskEntity]
+	var error: Error?
 
 	// MARK: - Init
 
-	init(items: [CompletedTaskEntity] = CompletedTaskEntity.mocks) {
+	init(
+		items: [CompletedTaskEntity] = CompletedTaskEntity.mocks,
+		error: Error? = nil
+	) {
 		self.items = items
+		self.error = error
 	}
 
 	// MARK: - CompletedTaskRepository
 
 	func fetchAll() throws -> [CompletedTaskEntity] {
-		items
+		guard error == nil else { throw error! }
+		return items
 	}
 
 	func fetchAllForTaskId(_ id: UUID) throws -> [CompletedTaskEntity] {
@@ -28,7 +34,10 @@ final class MockCompletedTaskRepository: CompletedTaskRepository {
 	}
 
 	func fetchAllForRoomId(_ id: UUID) throws -> [CompletedTaskEntity] {
-		items.filter { $0.roomId == id }
+		if let error {
+			throw error
+		}
+		return items.filter { $0.roomId == id }
 	}
 
 	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity? {
