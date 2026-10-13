@@ -43,6 +43,13 @@ final class MockCompletedTaskRepository: CompletedTaskRepository {
 		}
 	}
 
+	func update(_ item: CompletedTaskEntity) throws {
+		guard let index = items.firstIndex(where: { $0.id == item.id }) else {
+			return
+		}
+		items[index] = item
+	}
+
 	func delete(_ item: CompletedTaskEntity) throws {
 		items.removeAll { $0.id == item.id }
 	}

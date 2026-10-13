@@ -102,6 +102,10 @@ struct CoreInteractor {
 		try completedTaskManager.save(item)
 	}
 
+	func updateCompletedTask(_ item: CompletedTask) throws {
+		try completedTaskManager.update(item)
+	}
+
 	func deleteCompletedTask(_ item: CompletedTask) throws {
 		try completedTaskManager.delete(item)
 	}

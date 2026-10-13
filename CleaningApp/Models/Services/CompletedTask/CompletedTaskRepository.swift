@@ -9,6 +9,7 @@ protocol CompletedTaskRepository {
 	func fetchAllForRoomId(_ id: UUID) throws -> [CompletedTaskEntity]
 	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity?
 	func save(_ item: CompletedTaskEntity) throws
+	func update(_ item: CompletedTaskEntity) throws
 	func delete(_ item: CompletedTaskEntity) throws
 }
 
@@ -74,6 +75,21 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 
 	func save(_ entity: CompletedTaskEntity) throws {
 		mainContext.insert(entity)
+		try mainContext.save()
+	}
+
+	func update(_ item: CompletedTaskEntity) throws {
+		guard let existingEntity = try fetchSingle(for: item.id) else {
+			return
+		}
+
+		existingEntity.taskId = item.taskId
+		existingEntity.roomId = item.roomId
+		existingEntity.roomName = item.roomName
+		existingEntity.taskName = item.taskName
+		existingEntity.completedAt = item.completedAt
+		existingEntity.measuredDuration = item.measuredDuration
+
 		try mainContext.save()
 	}
 
