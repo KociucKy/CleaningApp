@@ -489,6 +489,9 @@
         }
       }
     },
+    "Completed at" : {
+
+    },
     "Completed now" : {
 
     },
@@ -632,6 +635,9 @@
           }
         }
       }
+    },
+    "Edit activity" : {
+
     },
     "Edit room" : {
 

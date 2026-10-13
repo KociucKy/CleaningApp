@@ -113,6 +113,16 @@ struct CoreBuilder: Builder {
 		)
 	}
 
+	func activityLogEditView(router: Router, completedTask: CompletedTask) -> some View {
+		ActivityLogEditView(
+			presenter: ActivityLogEditPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self),
+				completedTask: completedTask
+			)
+		)
+	}
+
 	func settingsView(router: Router) -> some View {
 		SettingsView(
 			presenter: SettingsPresenter(
