@@ -20,6 +20,7 @@ struct ActivityLogEditView: View {
         DatePicker(
             "Completed at",
             selection: $presenter.completedAt,
+            in: ...Date.now,
             displayedComponents: [.date, .hourAndMinute]
         )
         .datePickerStyle(.graphical)
