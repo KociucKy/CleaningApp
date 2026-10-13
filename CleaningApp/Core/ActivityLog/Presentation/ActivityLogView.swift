@@ -63,7 +63,10 @@ struct ActivityLogView: View {
 
 #Preview("Loaded") {
     let container = DevPreview.shared.container
-    container.register(CompletedTaskRepository.self, service: MockCompletedTaskRepository())
+    container.register(
+        CompletedTaskManager.self,
+        service: CompletedTaskManager(repository: MockCompletedTaskRepository())
+    )
     let interactor = CoreInteractor(container: container)
     let builder = CoreBuilder(interactor: interactor)
     let room = Room.mock
@@ -78,7 +81,10 @@ struct ActivityLogView: View {
 
 #Preview("Empty state") {
     let container = DevPreview.shared.container
-    container.register(CompletedTaskRepository.self, service: MockCompletedTaskRepository(items: []))
+    container.register(
+        CompletedTaskManager.self,
+        service: CompletedTaskManager(repository: MockCompletedTaskRepository(items: []))
+    )
     let interactor = CoreInteractor(container: container)
     let builder = CoreBuilder(interactor: interactor)
     let room = Room.mock
