@@ -53,8 +53,22 @@ final class ActivityLogPresenter {
 			hasMoreCompletions = page.hasMore
 			state = completions.isEmpty ? .empty : .loaded
 		} catch {
-			state = .error(String(localized: "activity_log.error.load"))
+			guard !completions.isEmpty else {
+				state = .error(String(localized: "activity_log.error.load"))
+				return
+			}
+
+			router.showAlert(
+				.alert,
+				title: String(localized: "activity_log.error.load"),
+				subtitle: nil,
+				buttons: nil
+			)
 		}
+	}
+
+	func onRetryButtonTapped() {
+		reloadActivity()
 	}
 
 	func onCompletionAppeared(_ completion: CompletedTask) {

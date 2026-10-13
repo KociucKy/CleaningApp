@@ -2481,6 +2481,9 @@
         }
       }
     },
+    "Retry" : {
+
+    },
     "room_type.bathroom" : {
       "extractionState" : "manual",
       "localizations" : {

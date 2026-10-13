@@ -31,7 +31,8 @@ struct ActivityLogView: View {
 					},
 					onCompletionAppearAction: { completion in
 						presenter.onCompletionAppeared(completion)
-					}
+					},
+					onRefreshAction: presenter.reloadActivity
 				)
 			case .empty:
 				ContentUnavailableView(
@@ -40,11 +41,14 @@ struct ActivityLogView: View {
 					description: Text("activity_log.empty.description")
 				)
 			case .error(let errorMessage):
-				ContentUnavailableView(
-					"activity_log.unavailable.title",
-					systemImage: "exclamationmark.triangle",
-					description: Text(errorMessage)
-				)
+					ContentUnavailableView {
+						Label("activity_log.unavailable.title", systemImage: "exclamationmark.triangle")
+					} description: {
+						Text(errorMessage)
+					} actions: {
+						Button("Retry", systemImage: "arrow.clockwise", action: presenter.onRetryButtonTapped)
+							.buttonStyle(.borderedProminent)
+					}
 			}
 		}
 		.navigationTitle("activity_log.title")

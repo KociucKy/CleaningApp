@@ -7,6 +7,7 @@ struct ActivityLogListView: View {
 	let onDeleteAction: (CompletedTask) -> Void
 	let onEditAction: (CompletedTask) -> Void
 	let onCompletionAppearAction: (CompletedTask) -> Void
+	let onRefreshAction: () -> Void
 	
 	// MARK: - Body
 	
@@ -29,7 +30,10 @@ struct ActivityLogListView: View {
 							onEditAction(completion)
 						}
 						.tint(.orange)
-				}
+			}
+		}
+		.refreshable {
+			onRefreshAction()
 		}
 	}
 }
@@ -41,6 +45,7 @@ struct ActivityLogListView: View {
 			completions: CompletedTask.mocks,
 			onDeleteAction: { _ in },
 			onEditAction: { _ in },
-			onCompletionAppearAction: { _ in }
+			onCompletionAppearAction: { _ in },
+			onRefreshAction: {}
 		)
 }
