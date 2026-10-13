@@ -2828,8 +2828,39 @@
     "Save" : {
 
     },
-    "Schedule" : {
-
+    "schedule.nav_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Review your plan for the week"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sprawdź plan na ten tydzień"
+          }
+        }
+      }
+    },
+    "schedule.nav_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harmonogram"
+          }
+        }
+      }
     },
     "settings.nav_title" : {
       "extractionState" : "manual",

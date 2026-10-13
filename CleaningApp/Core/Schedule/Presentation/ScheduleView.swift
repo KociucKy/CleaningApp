@@ -17,7 +17,9 @@ struct ScheduleView: View {
 		VStack {
 			
 		}
-		.navigationTitle("Schedule")
+		.navigationTitle("schedule.nav_title")
+		.navigationSubtitle("schedule.nav_subtitle")
+		.toolbarTitleDisplayMode(.inlineLarge)
 	}
 }
 
