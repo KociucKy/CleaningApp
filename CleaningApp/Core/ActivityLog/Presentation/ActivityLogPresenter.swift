@@ -18,7 +18,6 @@ final class ActivityLogPresenter {
     private let router: any ActivityLogRouter
     let room: Room
 
-    private(set) var tasks: [RoomTask] = []
     private(set) var completions: [CompletedTask] = []
     private(set) var state: State = .isLoading
 
@@ -45,7 +44,6 @@ final class ActivityLogPresenter {
 
     func reloadActivity() {
         do {
-            tasks = try interactor.fetchAllRoomTasks(for: room.id)
             completions = try interactor.fetchAllCompletedTasks(forRoomId: room.id)
                 .sorted { $0.completedAt > $1.completedAt }
             state = completions.isEmpty ? .empty : .loaded
