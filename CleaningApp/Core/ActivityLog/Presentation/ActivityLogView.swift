@@ -81,6 +81,33 @@ struct ActivityLogView: View {
 	}
 }
 
+#Preview("Paginated history") {
+	let container = DevPreview.shared.container
+	let room = Room.mock
+	let completions = (0 ..< 75).map { index in
+		CompletedTaskEntity(
+			taskId: UUID(),
+			roomId: room.id,
+			roomName: room.name,
+			taskName: "Task \(index + 1)",
+			completedAt: .now.addingTimeInterval(-Double(index * 60))
+		)
+	}
+	container.register(
+		CompletedTaskManager.self,
+		service: CompletedTaskManager(repository: MockCompletedTaskRepository(items: completions))
+	)
+	let interactor = CoreInteractor(container: container)
+	let builder = CoreBuilder(interactor: interactor)
+
+	return RouterView { router in
+		builder.activityLogView(
+			router: router,
+			room: room
+		)
+	}
+}
+
 #Preview("Empty state") {
 	let container = DevPreview.shared.container
 	container.register(
