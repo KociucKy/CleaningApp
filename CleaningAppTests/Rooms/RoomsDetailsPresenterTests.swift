@@ -136,6 +136,13 @@ struct RoomsDetailsPresenterTests {
             return completions.values.flatMap { $0 }.filter { taskIDSet.contains($0.taskId) }
         }
 
+        func fetchAllCompletedTasks(forRoomId _: UUID) throws -> [CompletedTask] {
+            if let error {
+                throw error
+            }
+            return completions.values.flatMap { $0 }
+        }
+
         func makeCompletionTrend(
             from completedTasks: [CompletedTask],
             tasks: [RoomTask],
@@ -187,5 +194,7 @@ struct RoomsDetailsPresenterTests {
             task: RoomTask?,
             onTaskSaved: @escaping (RoomTask) -> Void
         ) {}
+
+        func presentActivityLogView(room _: Room, onDismiss _: (() -> Void)?) {}
     }
 }

@@ -172,10 +172,10 @@ final class RoomsDetailsPresenter {
 	func onTaskCompletionTapped(_ task: RoomTask) {
 		router.presentRoomsDetailsTaskCompletionSheet(
 			props: RoomsDetailsTaskCompletionProps(
-                    taskId: task.id,
-                    roomId: room.id,
-                    roomName: room.name,
-                    taskName: task.name
+				taskId: task.id,
+				roomId: room.id,
+				roomName: room.name,
+				taskName: task.name
 			),
 			onDismiss: { [weak self] in
 				guard let self else {
@@ -196,6 +196,18 @@ final class RoomsDetailsPresenter {
 				withAnimation {
 					self.reloadTasks(for: self.room.id)
 				}
+			}
+		}
+	}
+
+	func onHistoryButtonTapped() {
+		router.presentActivityLogView(room: room) { [weak self] in
+			guard let self else {
+				return
+			}
+
+			withAnimation {
+				reloadTasks(for: room.id)
 			}
 		}
 	}

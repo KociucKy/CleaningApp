@@ -124,6 +124,21 @@ struct CoreRouter {
 		}
 	}
 
+	func presentActivityLogView(room: Room, onDismiss: (() -> Void)?) {
+		router.showScreen(.sheet, onDismiss: onDismiss) { router in
+			builder.activityLogView(router: router, room: room)
+		}
+	}
+
+	func presentActivityLogEditView(
+		completedTask: CompletedTask,
+		onDismiss: (() -> Void)?
+	) {
+		router.showScreen(.sheet, onDismiss: onDismiss) { router in
+			builder.activityLogEditView(router: router, completedTask: completedTask)
+		}
+	}
+
 	func presentIconPicker(
 		room: Room,
 		onRoomSaved: @escaping (Room) -> Void

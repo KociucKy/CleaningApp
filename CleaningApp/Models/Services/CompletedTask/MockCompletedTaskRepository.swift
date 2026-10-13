@@ -4,12 +4,24 @@ import Foundation
 final class MockCompletedTaskRepository: CompletedTaskRepository {
 	// MARK: - Properties
 
-	var items: [CompletedTaskEntity] = CompletedTaskEntity.mocks
+	var items: [CompletedTaskEntity]
+	var error: Error?
+
+	// MARK: - Init
+
+	init(
+		items: [CompletedTaskEntity] = CompletedTaskEntity.mocks,
+		error: Error? = nil
+	) {
+		self.items = items
+		self.error = error
+	}
 
 	// MARK: - CompletedTaskRepository
 
 	func fetchAll() throws -> [CompletedTaskEntity] {
-		items
+		guard error == nil else { throw error! }
+		return items
 	}
 
 	func fetchAllForTaskId(_ id: UUID) throws -> [CompletedTaskEntity] {
@@ -22,7 +34,23 @@ final class MockCompletedTaskRepository: CompletedTaskRepository {
 	}
 
 	func fetchAllForRoomId(_ id: UUID) throws -> [CompletedTaskEntity] {
-		items.filter { $0.roomId == id }
+		if let error {
+			throw error
+		}
+		return items.filter { $0.roomId == id }
+	}
+
+	func fetchAllForRoomId(_ id: UUID, limit: Int, offset: Int) throws -> [CompletedTaskEntity] {
+		if let error {
+			throw error
+		}
+
+		return items
+			.filter { $0.roomId == id }
+			.sorted { $0.completedAt > $1.completedAt }
+			.dropFirst(offset)
+			.prefix(limit)
+			.map { $0 }
 	}
 
 	func fetchSingle(for id: UUID) throws -> CompletedTaskEntity? {
@@ -35,6 +63,13 @@ final class MockCompletedTaskRepository: CompletedTaskRepository {
 		} else {
 			items.append(item)
 		}
+	}
+
+	func update(_ item: CompletedTaskEntity) throws {
+		guard let index = items.firstIndex(where: { $0.id == item.id }) else {
+			return
+		}
+		items[index] = item
 	}
 
 	func delete(_ item: CompletedTaskEntity) throws {

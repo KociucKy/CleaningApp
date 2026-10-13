@@ -1,7 +1,7 @@
 import Foundation
 
 extension Room {
-	static let mockId = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
+	static let mockId = UUID(uuidString: "00000000-0000-0001-0000-000000000001")!
 
 	// MARK: - Mocks
 
