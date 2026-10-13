@@ -50,21 +50,21 @@ final class ActivityLogPresenter {
                 .sorted { $0.completedAt > $1.completedAt }
             state = completions.isEmpty ? .empty : .loaded
         } catch {
-            state = .error("Unable to load this room’s activity.")
+            state = .error(String(localized: "activity_log.error.load"))
         }
     }
 
     func onDeleteButtonTapped(item: CompletedTask) {
         router.showAlert(
             .alert,
-            title: "Are you sure you want to delete this record?",
+            title: String(localized: "activity_log.delete.confirmation"),
             subtitle: nil,
             buttons: { @MainActor [weak self] in
                 Group {
-                    Button("Delete", role: .destructive) {
+                    Button("common.action.delete", role: .destructive) {
                         self?.deleteCompletedTask(item)
                     }
-                    Button("Cancel", role: .cancel) {
+                    Button("common.action.cancel", role: .cancel) {
                         self?.router.dismissAlert()
                     }
                 }.any()
@@ -92,7 +92,7 @@ final class ActivityLogPresenter {
             try interactor.deleteCompletedTask(item)
             reloadActivity()
         } catch {
-            state = .error("Unable to delete this activity record.")
+            state = .error(String(localized: "activity_log.error.delete"))
         }
     }
 }

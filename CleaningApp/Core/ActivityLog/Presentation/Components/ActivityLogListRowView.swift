@@ -6,7 +6,7 @@ struct ActivityLogListRowView: View {
 
 	var body: some View {
 		VStack(alignment: .leading) {
-			Text(completedTask.taskName ?? "No task name")
+			Text(completedTask.taskName ?? String(localized: "activity_log.no_task_name"))
 				.font(FKTypography.bodyBold)
 			Text(completedTask.completedAt.formatted())
 				.font(FKTypography.footnoteEmphasis)

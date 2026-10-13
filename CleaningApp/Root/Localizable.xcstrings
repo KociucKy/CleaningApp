@@ -88,11 +88,165 @@
         }
       }
     },
-    "Activity" : {
-
+    "activity_log_edit.completed_at" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Completed at"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończono"
+          }
+        }
+      }
     },
-    "Activity unavailable" : {
-
+    "activity_log_edit.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edit activity"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edycja aktywności"
+          }
+        }
+      }
+    },
+    "activity_log.delete.confirmation" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Are you sure you want to delete this record?"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Czy na pewno chcesz usunąć ten wpis?"
+          }
+        }
+      }
+    },
+    "activity_log.empty.description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Complete a task in this room and it will appear here."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ukończ zadanie w tym pokoju, a pojawi się tutaj."
+          }
+        }
+      }
+    },
+    "activity_log.empty.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No activity yet"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Brak aktywności"
+          }
+        }
+      }
+    },
+    "activity_log.error.delete" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Unable to delete this activity record."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nie można usunąć tego wpisu aktywności."
+          }
+        }
+      }
+    },
+    "activity_log.error.load" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Unable to load this room’s activity."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Nie można wczytać aktywności tego pokoju."
+          }
+        }
+      }
+    },
+    "activity_log.no_task_name" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "No task name"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Brak nazwy zadania"
+          }
+        }
+      }
+    },
+    "activity_log.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Activity"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aktywność"
+          }
+        }
+      }
+    },
+    "activity_log.unavailable.title" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Activity unavailable"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Aktywność jest niedostępna"
+          }
+        }
+      }
     },
     "Add" : {
       "localizations" : {
@@ -317,9 +471,6 @@
         }
       }
     },
-    "Close" : {
-
-    },
     "common.action.add" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -423,7 +574,20 @@
       }
     },
     "common.action.edit" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edit"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edytuj"
+          }
+        }
+      }
     },
     "common.action.finish" : {
       "extractionState" : "manual",
@@ -459,6 +623,22 @@
         }
       }
     },
+    "common.action.save" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Save"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zapisz"
+          }
+        }
+      }
+    },
     "common.action.skip" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -476,9 +656,6 @@
         }
       }
     },
-    "Complete a task in this room and it will appear here." : {
-
-    },
     "Completed" : {
       "localizations" : {
         "pl" : {
@@ -488,9 +665,6 @@
           }
         }
       }
-    },
-    "Completed at" : {
-
     },
     "Completed now" : {
 
@@ -635,9 +809,6 @@
           }
         }
       }
-    },
-    "Edit activity" : {
-
     },
     "Edit room" : {
 
@@ -1209,9 +1380,6 @@
           }
         }
       }
-    },
-    "No activity yet" : {
-
     },
     "No tasks finished" : {
       "extractionState" : "stale",

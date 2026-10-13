@@ -33,24 +33,24 @@ struct ActivityLogView: View {
                 )
             case .empty:
                 ContentUnavailableView(
-                    "No activity yet",
+                    "activity_log.empty.title",
                     systemImage: "checkmark.circle",
-                    description: Text("Complete a task in this room and it will appear here.")
+                    description: Text("activity_log.empty.description")
                 )
             case .error(let errorMessage):
                 ContentUnavailableView(
-                    "Activity unavailable",
+                    "activity_log.unavailable.title",
                     systemImage: "exclamationmark.triangle",
                     description: Text(errorMessage)
                 )
             }
         }
-        .navigationTitle("Activity")
+        .navigationTitle("activity_log.title")
         .toolbarTitleDisplayMode(.inline)
         .scrollEdgeEffectStyle(.soft, for: .top)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Close", action: presenter.onCloseButtonTapped)
+                Button("common.action.close", action: presenter.onCloseButtonTapped)
             }
         }
         .onAppear {

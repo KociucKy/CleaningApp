@@ -18,7 +18,7 @@ struct ActivityLogEditView: View {
 
     var body: some View {
         DatePicker(
-            "Completed at",
+            "activity_log_edit.completed_at",
             selection: $presenter.completedAt,
             in: ...Date.now,
             displayedComponents: [.date, .hourAndMinute]
@@ -26,14 +26,14 @@ struct ActivityLogEditView: View {
         .datePickerStyle(.graphical)
         .padding()
         .presentationSizing(.fitted)
-        .navigationTitle("Edit activity")
+        .navigationTitle("activity_log_edit.title")
         .toolbarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel", action: presenter.onCancelButtonTapped)
+                Button("common.action.cancel", action: presenter.onCancelButtonTapped)
             }
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save", action: presenter.onSaveButtonTapped)
+                Button("common.action.save", action: presenter.onSaveButtonTapped)
             }
         }
     }

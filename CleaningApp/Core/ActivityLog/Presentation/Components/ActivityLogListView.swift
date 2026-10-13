@@ -15,14 +15,14 @@ struct ActivityLogListView: View {
 			ActivityLogListRowView(completedTask: completion)
 				.swipeActions {
 					Button(
-						"Delete",
+						"common.action.delete",
 						systemImage: "trash",
 						action: {
 							onDeleteAction(completion)
 						}
 					)
 					.tint(.red)
-					Button("Edit", systemImage: "pencil") {
+					Button("common.action.edit", systemImage: "pencil") {
 							onEditAction(completion)
 						}
 						.tint(.orange)
