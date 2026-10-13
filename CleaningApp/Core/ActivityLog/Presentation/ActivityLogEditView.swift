@@ -19,7 +19,7 @@ struct ActivityLogEditView: View {
     var body: some View {
         DatePicker(
             "activity_log_edit.completed_at",
-            selection: $presenter.completedAt,
+            selection: completedAtBinding,
             in: ...Date.now,
             displayedComponents: [.date, .hourAndMinute]
         )
@@ -36,5 +36,25 @@ struct ActivityLogEditView: View {
                 Button("common.action.save", action: presenter.onSaveButtonTapped)
             }
         }
+    }
+
+    // MARK: - Private
+
+    private var completedAtBinding: Binding<Date> {
+        Binding(
+            get: { presenter.completedAt },
+            set: { presenter.completedAt = min($0, .now) }
+        )
+    }
+}
+
+#Preview {
+    let container = DevPreview.shared.container
+    let interactor = CoreInteractor(container: container)
+    let builder = CoreBuilder(interactor: interactor)
+    let completedTask = CompletedTask.mock
+
+    return RouterView { router in
+        builder.activityLogEditView(router: router, completedTask: completedTask)
     }
 }

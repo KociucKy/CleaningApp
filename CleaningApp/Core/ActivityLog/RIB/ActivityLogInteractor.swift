@@ -2,8 +2,11 @@ import Foundation
 
 @MainActor
 protocol ActivityLogInteractor {
-	func fetchAllRoomTasks(for roomId: UUID) throws -> [RoomTask]
-	func fetchAllCompletedTasks(forRoomId roomId: UUID) throws -> [CompletedTask]
+	func fetchCompletedTasks(
+		forRoomId roomId: UUID,
+		limit: Int,
+		offset: Int
+	) throws -> [CompletedTask]
 	func updateCompletedTask(_ item: CompletedTask) throws
 	func deleteCompletedTask(_ item: CompletedTask) throws
 }
