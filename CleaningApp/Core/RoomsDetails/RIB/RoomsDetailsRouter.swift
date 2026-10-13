@@ -25,7 +25,7 @@ protocol RoomsDetailsRouter {
 		onTaskSaved: @escaping (RoomTask) -> Void
 	)
 
-	func presentActivityLogView(room: Room)
+	func presentActivityLogView(room: Room, onDismiss: (() -> Void)?)
 }
 
 extension CoreRouter: RoomsDetailsRouter {}

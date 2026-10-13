@@ -40,7 +40,10 @@ final class ActivityLogPresenter {
 		guard case .isLoading = state else {
 			return
 		}
-		
+		reloadActivity()
+	}
+
+	func reloadActivity() {
 		do {
 			tasks = try interactor.fetchAllRoomTasks(for: room.id)
 			completions = try interactor.fetchAllCompletedTasks(forRoomId: room.id)
@@ -78,8 +81,9 @@ final class ActivityLogPresenter {
 	private func deleteCompletedTask(_ item: CompletedTask) {
 		do {
 			try interactor.deleteCompletedTask(item)
+			reloadActivity()
 		} catch {
-			
+			state = .error("Unable to delete this activity record.")
 		}
 	}
 }

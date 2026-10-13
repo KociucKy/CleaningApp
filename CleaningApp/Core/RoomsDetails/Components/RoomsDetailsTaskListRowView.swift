@@ -1,9 +1,10 @@
-import SwiftUI
 import FulhamKit
+import SwiftUI
 
 struct RoomsDetailsTaskListRowView: View {
 	let taskName: String
 	let taskEstimatedDuration: Int
+	let isCompleted: Bool
 	let onCompleteButtonTapped: () -> Void
 
 	var body: some View {
@@ -19,8 +20,10 @@ struct RoomsDetailsTaskListRowView: View {
 			Button {
 				onCompleteButtonTapped()
 			} label: {
-				Image(systemName: "checkmark.circle.fill")
+				Image(systemName: isCompleted ? "checkmark.circle.fill" : "circle")
 					.font(.title2)
+					.foregroundStyle(isCompleted ? .green : .secondary)
+					.accessibilityLabel(isCompleted ? "Completed" : "Mark as completed")
 			}
 		}
 	}
@@ -30,7 +33,8 @@ struct RoomsDetailsTaskListRowView: View {
 	List {
 		RoomsDetailsTaskListRowView(
 			taskName: "Wipe the floor",
-			taskEstimatedDuration: 12
+			taskEstimatedDuration: 12,
+			isCompleted: true
 		) {
 			print("Completed")
 		}
