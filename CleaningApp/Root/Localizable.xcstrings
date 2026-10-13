@@ -11,11 +11,24 @@
         }
       }
     },
+    "%@ is intentionally light." : {
+
+    },
     "%lld min" : {
 
     },
     "%lld minutes" : {
 
+    },
+    "%lld tasks • %lld min planned" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld tasks • %2$lld min planned"
+          }
+        }
+      }
     },
     "%lld/%lld" : {
       "localizations" : {
@@ -90,6 +103,12 @@
           }
         }
       }
+    },
+    "A clear day — enjoy the space." : {
+
+    },
+    "A focused Monday" : {
+
     },
     "activity_log_edit.completed_at" : {
       "localizations" : {
@@ -1384,6 +1403,12 @@
           }
         }
       }
+    },
+    "Not completed" : {
+
+    },
+    "Nothing planned" : {
+
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -2828,6 +2853,9 @@
     "Save" : {
 
     },
+    "Schedule" : {
+
+    },
     "schedule.nav_subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2861,6 +2889,9 @@
           }
         }
       }
+    },
+    "Selected" : {
+
     },
     "settings.nav_title" : {
       "extractionState" : "manual",
@@ -3674,6 +3705,9 @@
         }
       }
     },
+    "Three small wins before lunch." : {
+
+    },
     "Week of" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3706,6 +3740,9 @@
       }
     },
     "Yes" : {
+
+    },
+    "Your week at a glance" : {
 
     }
   },
