@@ -1,6 +1,18 @@
 import SwiftUI
 
 struct ScheduleView: View {
+	// MARK: - Properties
+
+	@State private var presenter: SchedulePresenter
+
+	// MARK: - Init
+
+	init(presenter: SchedulePresenter) {
+		_presenter = State(initialValue: presenter)
+	}
+
+	// MARK: - Body
+
 	var body: some View {
 		VStack {
 			
@@ -8,6 +20,8 @@ struct ScheduleView: View {
 		.navigationTitle("Schedule")
 	}
 }
+
+// MARK: - Preview
 
 #Preview {
 	let container = DevPreview.shared.container

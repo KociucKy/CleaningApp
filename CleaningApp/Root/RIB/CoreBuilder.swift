@@ -82,7 +82,12 @@ struct CoreBuilder: Builder {
 	}
 
 	func scheduleView(router: Router) -> some View {
-		ScheduleView()
+		ScheduleView(
+			presenter: SchedulePresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			)
+		)
 	}
 
 	func roomsView(router: Router) -> some View {
