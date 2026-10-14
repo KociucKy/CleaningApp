@@ -107,9 +107,6 @@
     "A clear day — enjoy the space." : {
 
     },
-    "A focused Monday" : {
-
-    },
     "activity_log_edit.completed_at" : {
       "localizations" : {
         "en" : {
@@ -2853,9 +2850,6 @@
     "Save" : {
 
     },
-    "Schedule" : {
-
-    },
     "schedule.nav_subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -3705,9 +3699,6 @@
         }
       }
     },
-    "Three small wins before lunch." : {
-
-    },
     "Week of" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3740,9 +3731,6 @@
       }
     },
     "Yes" : {
-
-    },
-    "Your week at a glance" : {
 
     }
   },
