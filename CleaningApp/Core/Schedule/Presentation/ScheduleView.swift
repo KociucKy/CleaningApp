@@ -21,8 +21,13 @@ struct ScheduleView: View {
 	// MARK: - Body
 	
 	var body: some View {
-		TabView {
-			
+		TabView(selection: $selectedDay) {
+			ForEach(Weekday.allCases) { day in
+				ZStack {
+					Color.blue.ignoresSafeArea()
+					Text(day.name)
+				}
+			}
 		}
 		.tabViewStyle(.page(indexDisplayMode: .never))
 		.navigationTitle("schedule.nav_title")
