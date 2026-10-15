@@ -1,4 +1,5 @@
 import SwiftUI
+import FulhamKit
 
 // MARK: - ScheduleView
 
@@ -20,49 +21,75 @@ struct ScheduleView: View {
 	// MARK: - Body
 	
 	var body: some View {
+		TabView {
+			
+		}
+		.tabViewStyle(.page(indexDisplayMode: .never))
+		.navigationTitle("schedule.nav_title")
+		.navigationSubtitle("schedule.nav_subtitle")
+		.toolbarTitleDisplayMode(.inlineLarge)
+		.toolbar {
+			ToolbarItem(placement: .topBarTrailing) {
+				Menu {
+					ForEach(Weekday.allCases) { weekday in
+						Button {
+							selectedDay = weekday
+						} label: {
+							let isSelected = selectedDay == weekday
+							return HStack {
+								Image(systemName: isSelected ? "checkmark" : "")
+								Text(weekday.name)
+							}
+						}
+					}
+				} label: {
+					Text(selectedDay.name)
+				}
+
+			}
+		}
+	}
+	
+	private var bodyContent: some View {
 		TabView(selection: $selectedDay) {
 			ForEach(Weekday.allCases) { day in
-				List {
-					Section {
-						daySummary(for: day)
-							.listRowSeparator(.hidden)
+					List {
+						Section {
+							daySummary(for: day)
+								.listRowBackground(Color.clear)
 					}
 					
 					Section {
 						let tasks = Self.weeklyTasks[day] ?? []
-						
 						if tasks.isEmpty {
 							emptySchedule(for: day)
-								.listRowSeparator(.hidden)
-								.listRowInsets(.init(top: 4, leading: 20, bottom: 4, trailing: 20))
-								.listRowBackground(Color.clear)
-						} else {
-							ForEach(tasks) { task in
-								taskCard(task)
-									.listRowSeparator(.hidden)
-									.listRowInsets(.init(top: 8, leading: 20, bottom: 4, trailing: 20))
-									.listRowBackground(Color.clear)
-							}
+							} else {
+								ForEach(tasks) { task in
+									taskCard(task)
+										.listRowBackground(Color.clear)
+										.listRowInsets(.init(top: 4, leading: 16, bottom: 4, trailing: 16))
+										.listRowSeparator(.hidden)
+								}
 						}
 					}
 				}
-				.listStyle(.plain)
-				.tag(day)
+					.tag(day)
+					.listStyle(.plain)
+					.scrollEdgeEffectStyle(.soft, for: .top)
 			}
 		}
 		.tabViewStyle(.page(indexDisplayMode: .never))
-		.safeAreaInset(edge: .top) {
-			dayPicker
-				.background(.bar)
-		}
 		.navigationTitle("schedule.nav_title")
 		.navigationSubtitle("schedule.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
-		.scrollEdgeEffectStyle(.soft, for: .top)
+		.safeAreaBar(edge: .top, spacing: 0) {
+			dayPicker
+				.background(.bar)
+		}
 	}
 	
 	// MARK: - Header
-	
+
 	private var dayPicker: some View {
 		ScrollView(.horizontal) {
 			GlassEffectContainer(spacing: 8) {
@@ -76,23 +103,15 @@ struct ScheduleView: View {
 							VStack(spacing: 2) {
 								Text(day.shortName)
 									.font(.caption.weight(.semibold))
-								Text(day.date)
-									.font(.headline)
 							}
-							.frame(width: 48, height: 54)
-							.foregroundStyle(day == selectedDay ? .white : .accent)
-							.background {
-								if day == selectedDay {
-									Capsule()
-										.fill(Color.accent.gradient)
-								}
-							}
+							.frame(width: 48, height: 40)
+							.foregroundStyle(day == selectedDay ? .blue : .primary)
 						}
 						.buttonStyle(.plain)
-						.scheduleGlass(
+						.subtleGlass(
 							interactive: true,
-							shape: .capsule,
-							tint: day == selectedDay ? .blue : nil
+							tint: day == selectedDay ? .blue.opacity(0.18) : nil,
+							shape: .capsule
 						)
 						.accessibilityLabel(day.name)
 						.accessibilityValue(day == selectedDay ? "Selected" : "")
@@ -128,8 +147,8 @@ struct ScheduleView: View {
 			ProgressView(value: Double(completedCount), total: Double(max(tasks.count, 1)))
 				.tint(.blue)
 		}
-		.padding(18)
-		.scheduleGlass(shape: .rect(cornerRadius: 24), tint: .blue.opacity(0.3))
+		.padding(16)
+		.subtleGlass(shape: .rect(cornerRadius: 20))
 		.accessibilityElement(children: .combine)
 	}
 	
@@ -141,7 +160,6 @@ struct ScheduleView: View {
 		}
 		.frame(maxWidth: .infinity)
 		.padding(.vertical, 44)
-		.scheduleGlass(shape: .rect(cornerRadius: 24), tint: .blue.opacity(0.2))
 	}
 	
 	private func taskCard(_ task: ScheduleTask) -> some View {
@@ -149,8 +167,6 @@ struct ScheduleView: View {
 		let detail = "\(task.room) • \(task.duration) min"
 		let accessibilityLabel = "\(task.name), \(task.room), \(task.duration) minutes"
 		let accessibilityHint = "Double-tap to mark as \(isCompleted ? "not completed" : "completed")"
-		let cardTint = task.tint ?? .blue.opacity(0.18)
-		
 		return Button {
 			toggleCompletion(for: task)
 		} label: {
@@ -178,10 +194,10 @@ struct ScheduleView: View {
 					.foregroundStyle(.tertiary)
 					.opacity(isCompleted ? 0 : 1)
 			}
-			.padding(16)
+			.padding()
 		}
 		.buttonStyle(.plain)
-		.scheduleGlass(interactive: true, shape: .rect(cornerRadius: 20), tint: cardTint)
+		.subtleGlass(tint: .blue.opacity(0.08), shape: .rect(cornerRadius: 16))
 		.accessibilityLabel(accessibilityLabel)
 		.accessibilityValue(isCompleted ? "Completed" : "Not completed")
 		.accessibilityHint(accessibilityHint)
@@ -198,27 +214,23 @@ struct ScheduleView: View {
 	}
 }
 
-// MARK: - Liquid Glass
+// MARK: - Subtle Glass
 
 private extension View {
-	@ViewBuilder
-	func scheduleGlass<S: Shape>(
-		interactive: Bool = false,
-		shape: S,
-		tint: Color? = nil
-	) -> some View {
-		if #available(iOS 26, *) {
-			let glass = tint.map { Glass.regular.tint($0) } ?? .regular
-			
-			if interactive {
-				self.glassEffect(glass.interactive(), in: shape)
-			} else {
-				self.glassEffect(glass, in: shape)
-			}
-		} else {
-			self.background(.ultraThinMaterial, in: shape)
-		}
-	}
+    @ViewBuilder
+    func subtleGlass<S: Shape>(
+        interactive: Bool = false,
+        tint: Color? = nil,
+        shape: S
+    ) -> some View {
+        let glass = tint.map { Glass.regular.tint($0) } ?? .regular
+
+        if interactive {
+            self.glassEffect(glass.interactive(), in: shape)
+        } else {
+            self.glassEffect(glass, in: shape)
+        }
+    }
 }
 
 // MARK: - ScheduleView.Weekday
