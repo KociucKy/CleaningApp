@@ -28,18 +28,21 @@ struct ScheduleView: View {
 		ScrollView(.horizontal, showsIndicators: false) {
 			HStack(spacing: 0) {
 				ForEach(Weekday.allCases) { day in
-					ZStack {
-						day.color
-							.ignoresSafeArea()
-							.containerRelativeFrame([.horizontal, .vertical])
-						Text(day.name)
+					List {
+						Section {
+							daySummary(for: day)
+								.removeListRowFormatting()
+						}
 					}
+					.containerRelativeFrame(.horizontal)
 				}
 			}
 			.scrollTargetLayout()
 		}
 		.scrollTargetBehavior(.paging)
 		.scrollPosition(id: $selectedDay, anchor: .center)
+		.scrollEdgeEffectStyle(.soft, for: .top)
+		.background(FKColor.Background.primary)
 		.navigationTitle("schedule.nav_title")
 		.navigationSubtitle("schedule.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
@@ -200,19 +203,6 @@ extension ScheduleView {
 			case .friday: "Friday"
 			case .saturday: "Saturday"
 			case .sunday: "Sunday"
-			}
-		}
-
-		// Temp
-		var color: Color {
-			switch self {
-			case .monday: .orange
-			case .tuesday: .purple
-			case .wednesday: .green
-			case .thursday: .blue
-			case .friday: .brown
-			case .saturday: .pink
-			case .sunday: .teal
 			}
 		}
 		
