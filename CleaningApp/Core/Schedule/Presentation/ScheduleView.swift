@@ -7,29 +7,39 @@ import FulhamKit
 struct ScheduleView: View {
 	// MARK: - Properties
 	
+	private enum Constants {
+		static let topContentMargin: CGFloat = 48
+	}
+
 	@State private var presenter: SchedulePresenter
-	@State private var selectedDay: Weekday
+		@State private var selectedDay: Weekday?
 	@State private var completedTaskIDs: Set<UUID> = []
 	
 	// MARK: - Init
 	
 	init(presenter: SchedulePresenter) {
 		_presenter = State(initialValue: presenter)
-		_selectedDay = State(initialValue: .monday)
+			_selectedDay = State(initialValue: .monday)
 	}
 	
 	// MARK: - Body
 	
 	var body: some View {
-		TabView(selection: $selectedDay) {
-			ForEach(Weekday.allCases) { day in
-				ZStack {
-					Color.blue.ignoresSafeArea()
-					Text(day.name)
+		ScrollView(.horizontal, showsIndicators: false) {
+			HStack(spacing: 0) {
+				ForEach(Weekday.allCases) { day in
+					ZStack {
+						day.color
+							.ignoresSafeArea()
+							.containerRelativeFrame([.horizontal, .vertical])
+						Text(day.name)
+					}
 				}
 			}
+			.scrollTargetLayout()
 		}
-		.tabViewStyle(.page(indexDisplayMode: .never))
+		.scrollTargetBehavior(.paging)
+		.scrollPosition(id: $selectedDay, anchor: .center)
 		.navigationTitle("schedule.nav_title")
 		.navigationSubtitle("schedule.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
@@ -38,7 +48,9 @@ struct ScheduleView: View {
 				Menu {
 					ForEach(Weekday.allCases) { weekday in
 						Button {
-							selectedDay = weekday
+							withAnimation(.smooth) {
+								selectedDay = weekday
+							}
 						} label: {
 							let isSelected = selectedDay == weekday
 							return HStack {
@@ -47,86 +59,11 @@ struct ScheduleView: View {
 							}
 						}
 					}
-				} label: {
-					Text(selectedDay.name)
+					} label: {
+						Text(selectedDay?.name ?? "")
 				}
-
 			}
 		}
-	}
-	
-	private var bodyContent: some View {
-		TabView(selection: $selectedDay) {
-			ForEach(Weekday.allCases) { day in
-					List {
-						Section {
-							daySummary(for: day)
-								.listRowBackground(Color.clear)
-					}
-					
-					Section {
-						let tasks = Self.weeklyTasks[day] ?? []
-						if tasks.isEmpty {
-							emptySchedule(for: day)
-							} else {
-								ForEach(tasks) { task in
-									taskCard(task)
-										.listRowBackground(Color.clear)
-										.listRowInsets(.init(top: 4, leading: 16, bottom: 4, trailing: 16))
-										.listRowSeparator(.hidden)
-								}
-						}
-					}
-				}
-					.tag(day)
-					.listStyle(.plain)
-					.scrollEdgeEffectStyle(.soft, for: .top)
-			}
-		}
-		.tabViewStyle(.page(indexDisplayMode: .never))
-		.navigationTitle("schedule.nav_title")
-		.navigationSubtitle("schedule.nav_subtitle")
-		.toolbarTitleDisplayMode(.inlineLarge)
-		.safeAreaBar(edge: .top, spacing: 0) {
-			dayPicker
-				.background(.bar)
-		}
-	}
-	
-	// MARK: - Header
-
-	private var dayPicker: some View {
-		ScrollView(.horizontal) {
-			GlassEffectContainer(spacing: 8) {
-				HStack(spacing: 8) {
-					ForEach(Weekday.allCases) { day in
-						Button {
-							withAnimation(.smooth) {
-								selectedDay = day
-							}
-						} label: {
-							VStack(spacing: 2) {
-								Text(day.shortName)
-									.font(.caption.weight(.semibold))
-							}
-							.frame(width: 48, height: 40)
-							.foregroundStyle(day == selectedDay ? .blue : .primary)
-						}
-						.buttonStyle(.plain)
-						.subtleGlass(
-							interactive: true,
-							tint: day == selectedDay ? .blue.opacity(0.18) : nil,
-							shape: .capsule
-						)
-						.accessibilityLabel(day.name)
-						.accessibilityValue(day == selectedDay ? "Selected" : "")
-					}
-				}
-				.padding(.horizontal, 20)
-			}
-		}
-		.scrollIndicators(.hidden)
-		.padding(.bottom, 8)
 	}
 	
 	private func daySummary(for day: Weekday) -> some View {
@@ -152,8 +89,9 @@ struct ScheduleView: View {
 			ProgressView(value: Double(completedCount), total: Double(max(tasks.count, 1)))
 				.tint(.blue)
 		}
+		.frame(maxWidth: .infinity, alignment: .leading)
 		.padding(16)
-		.subtleGlass(shape: .rect(cornerRadius: 20))
+		.background(FKColor.Background.canvas)
 		.accessibilityElement(children: .combine)
 	}
 	
@@ -202,7 +140,8 @@ struct ScheduleView: View {
 			.padding()
 		}
 		.buttonStyle(.plain)
-		.subtleGlass(tint: .blue.opacity(0.08), shape: .rect(cornerRadius: 16))
+		.frame(maxWidth: .infinity)
+		.background(FKColor.Background.canvas)
 		.accessibilityLabel(accessibilityLabel)
 		.accessibilityValue(isCompleted ? "Completed" : "Not completed")
 		.accessibilityHint(accessibilityHint)
@@ -261,6 +200,19 @@ extension ScheduleView {
 			case .friday: "Friday"
 			case .saturday: "Saturday"
 			case .sunday: "Sunday"
+			}
+		}
+
+		// Temp
+		var color: Color {
+			switch self {
+			case .monday: .orange
+			case .tuesday: .purple
+			case .wednesday: .green
+			case .thursday: .blue
+			case .friday: .brown
+			case .saturday: .pink
+			case .sunday: .teal
 			}
 		}
 		
@@ -359,14 +311,14 @@ private extension ScheduleView {
 		let builder = CoreBuilder(interactor: interactor)
 		
 		return RouterView { router in
-			ScheduleView(
-				presenter: SchedulePresenter(
-					interactor: interactor,
-					router: CoreRouter(router: router, builder: builder)
+				ScheduleView(
+					presenter: SchedulePresenter(
+						interactor: interactor,
+						router: CoreRouter(router: router, builder: builder)
+					)
 				)
-			)
+			}
 		}
-	}
 }
 
 #Preview("Monday Focus") {
