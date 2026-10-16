@@ -12,7 +12,7 @@ struct ScheduleView: View {
 	}
 
 	@State private var presenter: SchedulePresenter
-		@State private var selectedDay: Weekday?
+	@State private var selectedDay: Weekday?
 	@State private var completedTaskIDs: Set<UUID> = []
 	
 	// MARK: - Init
@@ -32,6 +32,16 @@ struct ScheduleView: View {
 						Section {
 							daySummary(for: day)
 								.removeListRowFormatting()
+						}
+						Section {
+							let tasks = Self.weeklyTasks[day] ?? []
+							if tasks.isNotEmpty {
+								ForEach(tasks) { task in
+									taskCard(task)
+								}
+							} else {
+								emptySchedule(for: day)
+							}
 						}
 					}
 					.containerRelativeFrame(.horizontal)
@@ -140,11 +150,9 @@ struct ScheduleView: View {
 					.foregroundStyle(.tertiary)
 					.opacity(isCompleted ? 0 : 1)
 			}
-			.padding()
 		}
-		.buttonStyle(.plain)
+		.buttonStyle(.fkFade)
 		.frame(maxWidth: .infinity)
-		.background(FKColor.Background.canvas)
 		.accessibilityLabel(accessibilityLabel)
 		.accessibilityValue(isCompleted ? "Completed" : "Not completed")
 		.accessibilityHint(accessibilityHint)
