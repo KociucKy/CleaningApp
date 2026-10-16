@@ -128,7 +128,9 @@ struct ScheduleView: View {
 			HStack(spacing: FKSpacing.large) {
 				Image(systemName: isCompleted ? "checkmark.circle.fill" : task.symbolName)
 					.font(FKTypography.sectionHeader)
-					.foregroundStyle(isCompleted ? .green : .blue)
+					.foregroundStyle(.accent.gradient)
+					.padding(FKSpacing.default)
+					.background(.accent.opacity(0.2), in: .circle)
 					.frame(width: 28)
 				
 				VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
