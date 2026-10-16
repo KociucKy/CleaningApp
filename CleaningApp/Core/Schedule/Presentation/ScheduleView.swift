@@ -83,27 +83,26 @@ struct ScheduleView: View {
 		let tasks = Self.weeklyTasks[day] ?? []
 		let completedCount = tasks.filter { completedTaskIDs.contains($0.id) }.count
 		
-		return VStack(alignment: .leading, spacing: 8) {
+		return VStack(alignment: .leading, spacing: FKSpacing.default) {
 			HStack(alignment: .firstTextBaseline) {
 				Text(day.name)
-					.font(.title.weight(.bold))
-				
+					.font(FKTypography.statValue)
 				Spacer()
-				
 				Text("\(completedCount)/\(tasks.count)")
-					.font(.subheadline.weight(.semibold))
-					.foregroundStyle(.blue)
+					.font(FKTypography.secondaryLabel)
+					.fontWeight(.semibold)
+					.foregroundStyle(.accent)
 			}
 			
 			Text(tasks.isEmpty ? "A clear day — enjoy the space." : "\(tasks.count) tasks • \(tasks.totalMinutes) min planned")
-				.font(.subheadline)
+				.font(FKTypography.secondaryLabel)
 				.foregroundStyle(.secondary)
 			
 			ProgressView(value: Double(completedCount), total: Double(max(tasks.count, 1)))
-				.tint(.blue)
+				.tint(.accent)
 		}
 		.frame(maxWidth: .infinity, alignment: .leading)
-		.padding(16)
+		.padding(FKSpacing.large)
 		.background(FKColor.Background.canvas)
 		.accessibilityElement(children: .combine)
 	}
@@ -126,27 +125,27 @@ struct ScheduleView: View {
 		return Button {
 			toggleCompletion(for: task)
 		} label: {
-			HStack(spacing: 14) {
+			HStack(spacing: FKSpacing.large) {
 				Image(systemName: isCompleted ? "checkmark.circle.fill" : task.symbolName)
-					.font(.title3)
+					.font(FKTypography.sectionHeader)
 					.foregroundStyle(isCompleted ? .green : .blue)
 					.frame(width: 28)
 				
-				VStack(alignment: .leading, spacing: 4) {
+				VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
 					Text(task.name)
-						.font(.headline)
+						.font(FKTypography.ctaLabel)
 						.strikethrough(isCompleted, color: .secondary)
 						.foregroundStyle(isCompleted ? .secondary : .primary)
 					
 					Text(detail)
-						.font(.subheadline)
+						.font(FKTypography.secondaryLabel)
 						.foregroundStyle(.secondary)
 				}
 				
 				Spacer()
 				
 				Image(systemName: "circle")
-					.font(.title3)
+					.font(FKTypography.sectionHeader)
 					.foregroundStyle(.tertiary)
 					.opacity(isCompleted ? 0 : 1)
 			}
