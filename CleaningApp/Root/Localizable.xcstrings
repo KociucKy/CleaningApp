@@ -11,11 +11,24 @@
         }
       }
     },
+    "%@ is intentionally light." : {
+
+    },
     "%lld min" : {
 
     },
     "%lld minutes" : {
 
+    },
+    "%lld tasks • %lld min planned" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld tasks • %2$lld min planned"
+          }
+        }
+      }
     },
     "%lld/%lld" : {
       "localizations" : {
@@ -90,6 +103,9 @@
           }
         }
       }
+    },
+    "A clear day — enjoy the space." : {
+
     },
     "activity_log_edit.completed_at" : {
       "localizations" : {
@@ -1361,16 +1377,6 @@
         }
       }
     },
-    "Manage your spaces" : {
-      "localizations" : {
-        "pl" : {
-          "stringUnit" : {
-            "state" : "machine_translated",
-            "value" : "Zarządzaj swoimi pomieszczeniami"
-          }
-        }
-      }
-    },
     "Mark as completed" : {
 
     },
@@ -1394,6 +1400,12 @@
           }
         }
       }
+    },
+    "Not completed" : {
+
+    },
+    "Nothing planned" : {
+
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -2801,6 +2813,23 @@
         }
       }
     },
+    "rooms.nav_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage your spaces"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zarządzaj swoimi pomieszczeniami"
+          }
+        }
+      }
+    },
     "rooms.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2820,6 +2849,40 @@
     },
     "Save" : {
 
+    },
+    "schedule.nav_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Review your plan for the week"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Sprawdź plan na ten tydzień"
+          }
+        }
+      }
+    },
+    "schedule.nav_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harmonogram"
+          }
+        }
+      }
     },
     "settings.nav_title" : {
       "extractionState" : "manual",
@@ -2868,6 +2931,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pokoje"
+          }
+        }
+      }
+    },
+    "tab.schedule" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schedule"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harmonogram"
           }
         }
       }

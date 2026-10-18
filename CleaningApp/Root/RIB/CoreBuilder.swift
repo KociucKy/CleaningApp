@@ -37,6 +37,16 @@ struct CoreBuilder: Builder {
 					}
 				),
 				TabBarScreen(
+					title: String(localized: "tab.schedule"),
+					systemImage: "calendar.badge",
+					screen: {
+						RouterView { router in
+							scheduleView(router: router)
+						}
+						.any()
+					}
+				),
+				TabBarScreen(
 					title: String(localized: "tab.rooms"),
 					systemImage: "house.fill",
 					screen: {
@@ -65,6 +75,15 @@ struct CoreBuilder: Builder {
 	func homeView(router: Router) -> some View {
 		HomeView(
 			presenter: HomeViewPresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: self)
+			)
+		)
+	}
+
+	func scheduleView(router: Router) -> some View {
+		ScheduleView(
+			presenter: SchedulePresenter(
 				interactor: interactor,
 				router: CoreRouter(router: router, builder: self)
 			)

@@ -38,13 +38,11 @@ struct RoomsView: View {
 			}
 		}
 		.navigationTitle("rooms.nav_title")
-		.navigationSubtitle("Manage your spaces")
+		.navigationSubtitle("rooms.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
 		.onAppear(perform: presenter.onAppearFetch)
 		.onDisappear {
-			if #unavailable(iOS 27) {
 				roomsGridID = UUID()
-			}
 		}
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
@@ -65,22 +63,13 @@ struct RoomsView: View {
 
 	@ViewBuilder
 	private var roomsGridView: some View {
-		if #available(iOS 27, *) {
-			RoomsGridView(
-				rooms: presenter.rooms,
-				animationConfiguration: presenter.animationConfiguration,
-				isActive: roomsTabIsActive,
-				cardView: roomCard(for:)
-			)
-		} else {
-			RoomsGridView(
-				rooms: presenter.rooms,
-				animationConfiguration: presenter.animationConfiguration,
-				isActive: roomsTabIsActive,
-				cardView: roomCard(for:)
-			)
-			.id(roomsGridID)
-		}
+		RoomsGridView(
+			rooms: presenter.rooms,
+			animationConfiguration: presenter.animationConfiguration,
+			isActive: roomsTabIsActive,
+			cardView: roomCard(for:)
+		)
+		.id(roomsGridID)
 	}
 
 	private func roomCard(for room: Room) -> some View {

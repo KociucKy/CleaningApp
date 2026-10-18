@@ -25,7 +25,10 @@ final class RoomsPresenter {
 
 	// MARK: - Init
 
-	init(interactor: any RoomsInteractor, router: any RoomsRouter) {
+	init(
+		interactor: any RoomsInteractor,
+		router: any RoomsRouter
+	) {
 		self.interactor = interactor
 		self.router = router
 	}
