@@ -8,6 +8,7 @@ struct RoomTask: Identifiable, Equatable, Hashable {
 	var roomId: UUID
 	var frequency: Frequency
 	var estimatedDuration: TaskDuration
+	var learnedDuration: Int?
 	let createdAt: Date
 
 	// MARK: - Init
@@ -18,6 +19,7 @@ struct RoomTask: Identifiable, Equatable, Hashable {
 		roomId: UUID,
 		frequency: Frequency,
 		estimatedDuration: TaskDuration,
+		learnedDuration: Int? = nil,
 		createdAt: Date = Date()
 	) {
 		self.id = id
@@ -25,6 +27,7 @@ struct RoomTask: Identifiable, Equatable, Hashable {
 		self.roomId = roomId
 		self.frequency = frequency
 		self.estimatedDuration = estimatedDuration
+		self.learnedDuration = learnedDuration
 		self.createdAt = createdAt
 	}
 

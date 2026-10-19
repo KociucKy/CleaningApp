@@ -10,6 +10,7 @@ final class CompletedTaskEntity {
     var roomId: UUID?
     var roomName: String?
     var taskName: String?
+    var scheduledTaskId: UUID?
     var completedAt: Date
     var measuredDuration: Int?
 
@@ -21,6 +22,7 @@ final class CompletedTaskEntity {
         roomId: UUID? = nil,
         roomName: String? = nil,
         taskName: String? = nil,
+        scheduledTaskId: UUID? = nil,
         completedAt: Date = Date(),
         measuredDuration: Int? = nil
     ) {
@@ -29,6 +31,7 @@ final class CompletedTaskEntity {
         self.roomId = roomId
         self.roomName = roomName
         self.taskName = taskName
+        self.scheduledTaskId = scheduledTaskId
         self.completedAt = completedAt
         self.measuredDuration = measuredDuration
     }
