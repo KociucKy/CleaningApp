@@ -26,6 +26,19 @@ CleaningApp currently stores rooms, recurring cleaning tasks, completions, and s
 - If capacity runs out, the scheduler persists the occurrence as backlog. Backlog is visible to the user and has priority when Monday's new plan is generated.
 - Monthly and longer frequencies target the appropriate calendar period while distributing occurrences across applicable weeks.
 
+## Scheduling Approach Agreed So Far
+
+- Canonicalize aliases (`everyOtherDay`, `monthly`, `quarterly`, and similar) before scheduling, then handle interval, weekly-quota, monthly-quota, and long-interval frequencies consistently.
+- Use local calendar days and inject the planning date/calendar into the scheduling service for deterministic behavior and testing.
+- For weekly and monthly quota frequencies, use cumulative quota accounting rather than independently rounding each planning window. A task's first partial period is pro-rated from its activation date; later full periods receive their full quota.
+- Use rolling activity intervals for `everyXDays`, `everyXWeeks`, and `everyXMonths`. Recent completions and reserved future occurrences provide cadence context; `createdAt` is the initial anchor when no activity exists.
+- Process candidates in this priority order: persisted backlog, overdue occurrences, then regular recurrence occurrences. Within each tier, place the least flexible work first (longer tasks, then tasks with fewer eligible days).
+- Place backlog and overdue work on the earliest eligible day, using workload balance as the tie-breaker. Place regular work by greatest same-task separation, then the lowest projected daily-load standard deviation, lowest resulting load, and earliest date.
+- Persist schedule occurrences as an immutable-intent chain. Each occurrence retains its original scheduled date and lifecycle status; a reallocated successor links to the occurrence it carries forward.
+- Keep completion and skip history as the audit trail and add an optional exact link from each history record to its scheduled occurrence. Undoing a skip cancels its linked successor and restores the original occurrence to today.
+- Keep recurrence and allocation logic in a pure `SchedulingService` that accepts explicit value inputs and returns a schedule mutation. A `CleaningScheduleCoordinator` loads and persists data through managers and exposes lifecycle operations to feature interactors.
+- Add an optional persisted `learnedDuration` to `RoomTask`. Until a future learning feature writes it, the scheduler uses `learnedDuration ?? estimatedDuration.rawValue`.
+
 ## Capabilities
 
 ### New Capabilities
