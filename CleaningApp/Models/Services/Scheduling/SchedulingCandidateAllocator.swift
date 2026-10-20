@@ -35,7 +35,7 @@ final class SchedulingCandidateAllocator {
         var unplacedCandidates: [SchedulingCandidate] = []
 
         for candidate in sortedCandidates {
-            guard let date = firstEligibleDate(
+            guard let date = preferredDate(
                 for: candidate,
                 horizon: horizon,
                 dailyLimit: dailyLimit,
@@ -150,14 +150,14 @@ final class SchedulingCandidateAllocator {
         }
     }
 
-    private func firstEligibleDate(
+    private func preferredDate(
         for candidate: SchedulingCandidate,
         horizon: SchedulingHorizon,
         dailyLimit: Int,
         dayStates: [DayState],
         calendar: Calendar
     ) -> Date? {
-        horizon.days.first { day in
+        let eligibleDays = horizon.days.filter { day in
             isEligible(
                 candidate,
                 for: day,
@@ -166,6 +166,126 @@ final class SchedulingCandidateAllocator {
                 calendar: calendar
             )
         }
+
+        guard candidate.kind == .regular else {
+            return eligibleDays.first
+        }
+
+        guard let firstEligibleDay = eligibleDays.first else {
+            return nil
+        }
+
+        return eligibleDays.dropFirst().reduce(firstEligibleDay) { preferredDay, day in
+            isPreferredRegularDay(
+                day,
+                over: preferredDay,
+                for: candidate,
+                dayStates: dayStates,
+                calendar: calendar
+            ) ? day : preferredDay
+        }
+    }
+
+    private func isPreferredRegularDay(
+        _ first: Date,
+        over second: Date,
+        for candidate: SchedulingCandidate,
+        dayStates: [DayState],
+        calendar: Calendar
+    ) -> Bool {
+        let firstSeparation = nearestOccurrenceDistance(
+            for: candidate.task.id,
+            from: first,
+            dayStates: dayStates,
+            calendar: calendar
+        )
+        let secondSeparation = nearestOccurrenceDistance(
+            for: candidate.task.id,
+            from: second,
+            dayStates: dayStates,
+            calendar: calendar
+        )
+        if firstSeparation != secondSeparation {
+            return firstSeparation > secondSeparation
+        }
+
+        let firstVariance = projectedLoadVariance(
+            placing: candidate,
+            on: first,
+            dayStates: dayStates
+        )
+        let secondVariance = projectedLoadVariance(
+            placing: candidate,
+            on: second,
+            dayStates: dayStates
+        )
+        if firstVariance != secondVariance {
+            return firstVariance < secondVariance
+        }
+
+        let firstResultingLoad = resultingLoad(
+            placing: candidate,
+            on: first,
+            dayStates: dayStates
+        )
+        let secondResultingLoad = resultingLoad(
+            placing: candidate,
+            on: second,
+            dayStates: dayStates
+        )
+        if firstResultingLoad != secondResultingLoad {
+            return firstResultingLoad < secondResultingLoad
+        }
+
+        return first < second
+    }
+
+    private func nearestOccurrenceDistance(
+        for taskID: UUID,
+        from date: Date,
+        dayStates: [DayState],
+        calendar: Calendar
+    ) -> Int {
+        let occurrenceDates = dayStates
+            .filter { $0.taskIDs.contains(taskID) }
+            .map(\.date)
+        guard !occurrenceDates.isEmpty else {
+            return .max
+        }
+
+        return occurrenceDates.compactMap {
+            calendar.dateComponents([.day], from: $0, to: date).day.map(abs)
+        }.min() ?? 0
+    }
+
+    private func projectedLoadVariance(
+        placing candidate: SchedulingCandidate,
+        on date: Date,
+        dayStates: [DayState]
+    ) -> Double {
+        let projectedLoads = dayStates.map { dayState in
+            Double(dayState.load + (dayState.date == date ? candidate.effectiveDuration : 0))
+        }
+        guard !projectedLoads.isEmpty else {
+            return 0
+        }
+
+        let average = projectedLoads.reduce(0, +) / Double(projectedLoads.count)
+        return projectedLoads.reduce(0) { result, load in
+            result + pow(load - average, 2)
+        } / Double(projectedLoads.count)
+    }
+
+    private func resultingLoad(
+        placing candidate: SchedulingCandidate,
+        on date: Date,
+        dayStates: [DayState]
+    ) -> Int {
+        guard let dayState = dayStates.first(where: { $0.date == date }) else {
+            return .max
+        }
+
+        return dayState.load + candidate.effectiveDuration
     }
 
     private func isEligible(
