@@ -199,6 +199,48 @@ struct CleaningScheduleCoordinatorTests {
         #expect(try skippedTaskManager.fetchAll().isEmpty)
     }
 
+    @Test func endDay_postponesIncompleteWorkAndSchedulesOneSuccessor() throws {
+        let endedAt = try makeDate(day: 25)
+        let tomorrow = try makeDate(day: 26)
+        let room = RoomEntity(name: "Kitchen", icon: "fork.knife")
+        let roomTaskManager = RoomTaskManager(
+            taskRepository: MockRoomTaskRepository(items: []),
+            roomRepository: MockRoomRepository(items: [room])
+        )
+        let scheduledTaskManager = ScheduledTaskManager(repository: MockScheduledTaskRepository())
+        let task = RoomTask(
+            name: "Clean counters",
+            roomId: room.id,
+            frequency: .weekly,
+            estimatedDuration: .fifteenMinutes,
+            createdAt: try makeDate(day: 1)
+        )
+        let occurrence = ScheduledTask(
+            taskId: task.id,
+            scheduledDate: endedAt,
+            createdAt: endedAt,
+            updatedAt: endedAt
+        )
+        try roomTaskManager.save(task)
+        try scheduledTaskManager.save(occurrence)
+        let skippedTaskRepository = MockSkippedTaskRepository()
+        skippedTaskRepository.items = []
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: roomTaskManager,
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: CompletedTaskManager(repository: MockCompletedTaskRepository(items: [])),
+            skippedTaskManager: SkippedTaskManager(repository: skippedTaskRepository),
+            calendar: calendar
+        )
+
+        let mutation = try coordinator.endDay(endedAt: endedAt, dailyLimit: 30)
+
+        #expect(try scheduledTaskManager.fetchSingle(for: occurrence.id)?.status == .postponed)
+        #expect(mutation.occurrencesToCreate.count == 1)
+        #expect(mutation.occurrencesToCreate.first?.sourceOccurrenceId == occurrence.id)
+        #expect(mutation.occurrencesToCreate.first?.scheduledDate == tomorrow)
+    }
+
     // MARK: - Private
 
     private func makeDate(day: Int) throws -> Date {

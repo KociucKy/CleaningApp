@@ -165,4 +165,22 @@ final class CleaningScheduleCoordinator {
         }
         try skippedTaskManager.delete(skippedTask)
     }
+
+    @discardableResult
+    func endDay(endedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
+        let endDate = calendar.startOfDay(for: endedAt)
+        let incompleteOccurrences = try scheduledTaskManager.fetchAll().filter {
+            $0.status == .planned && $0.scheduledDate <= endDate
+        }
+        for var occurrence in incompleteOccurrences {
+            occurrence.status = .postponed
+            occurrence.updatedAt = endedAt
+            try scheduledTaskManager.update(occurrence)
+        }
+        guard let tomorrow = calendar.date(byAdding: .day, value: 1, to: endDate) else {
+            throw CleaningScheduleCoordinatorError.couldNotCalculateSuccessorDate
+        }
+
+        return try refresh(today: tomorrow, dailyLimit: dailyLimit)
+    }
 }
