@@ -24,7 +24,13 @@ final class SchedulingOccurrenceAnalyzer {
                 }
             ),
             backlogOccurrences: sorted(
-                scheduledTasks.filter { $0.status == .postponed }
+                scheduledTasks.filter { occurrence in
+                    occurrence.status == .postponed
+                        && !scheduledTasks.contains {
+                            $0.status == .planned
+                                && $0.sourceOccurrenceId == occurrence.id
+                        }
+                }
             )
         )
     }
