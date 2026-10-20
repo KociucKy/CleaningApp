@@ -93,6 +93,55 @@ final class SchedulingService {
         )
     }
 
+    func makeSkipSuccessorMutation(
+        task: RoomTask,
+        skippedOccurrence: ScheduledTask,
+        input: SchedulingInput
+    ) -> ScheduleMutation {
+        let horizon = makeHorizon(today: input.today, calendar: input.calendar)
+        let analysis = occurrenceAnalyzer.analyze(
+            scheduledTasks: input.scheduledTasks,
+            horizon: horizon
+        )
+        guard !analysis.preservedOccurrences.contains(where: { $0.taskId == task.id }) else {
+            return ScheduleMutation()
+        }
+        let candidate = SchedulingCandidate(
+            task: task,
+            kind: .backlog,
+            earliestDate: horizon.startDate,
+            originalScheduledDate: skippedOccurrence.originalScheduledDate,
+            sourceOccurrenceId: skippedOccurrence.id
+        )
+        let allocation = candidateAllocator.allocate(
+            candidates: [candidate],
+            tasks: input.tasks,
+            horizon: horizon,
+            preservedOccurrences: analysis.preservedOccurrences,
+            dailyLimit: input.dailyLimit,
+            calendar: input.calendar
+        )
+        let occurrencesToCreate = allocation.allocations.map {
+            makePlannedOccurrence(
+                from: $0.candidate,
+                scheduledDate: $0.scheduledDate,
+                now: input.today
+            )
+        } + allocation.unplacedCandidates.map {
+            ScheduledTask(
+                taskId: $0.task.id,
+                scheduledDate: input.today,
+                originalScheduledDate: $0.originalScheduledDate ?? input.today,
+                status: .postponed,
+                sourceOccurrenceId: $0.sourceOccurrenceId,
+                createdAt: input.today,
+                updatedAt: input.today
+            )
+        }
+
+        return ScheduleMutation(occurrencesToCreate: occurrencesToCreate)
+    }
+
     // MARK: - Private
 
     private func makePlannedOccurrence(

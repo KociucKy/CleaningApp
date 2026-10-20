@@ -6,4 +6,6 @@ import Foundation
 enum CleaningScheduleCoordinatorError: Error {
     case scheduledTaskNotFound
     case scheduledTaskIsNotPlanned
+    case roomTaskNotFound
+    case couldNotCalculateSuccessorDate
 }

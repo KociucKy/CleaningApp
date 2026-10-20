@@ -81,4 +81,59 @@ final class CleaningScheduleCoordinator {
             )
         )
     }
+
+    @discardableResult
+    func skip(
+        scheduledTaskId: UUID,
+        skippedAt: Date,
+        dailyLimit: Int
+    ) throws -> ScheduleMutation {
+        guard var scheduledTask = try scheduledTaskManager.fetchSingle(for: scheduledTaskId) else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskNotFound
+        }
+        guard scheduledTask.status == .planned else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskIsNotPlanned
+        }
+        guard let task = try roomTaskManager.fetchAll().first(where: { $0.id == scheduledTask.taskId }) else {
+            throw CleaningScheduleCoordinatorError.roomTaskNotFound
+        }
+        guard let tomorrow = calendar.date(
+            byAdding: .day,
+            value: 1,
+            to: calendar.startOfDay(for: skippedAt)
+        ) else {
+            throw CleaningScheduleCoordinatorError.couldNotCalculateSuccessorDate
+        }
+
+        scheduledTask.status = .skipped
+        scheduledTask.updatedAt = skippedAt
+        try scheduledTaskManager.update(scheduledTask)
+        try skippedTaskManager.save(
+            SkippedTask(
+                taskId: scheduledTask.taskId,
+                scheduledTaskId: scheduledTask.id,
+                originalDate: scheduledTask.originalScheduledDate,
+                skippedAt: skippedAt
+            )
+        )
+
+        let mutation = schedulingService.makeSkipSuccessorMutation(
+            task: task,
+            skippedOccurrence: scheduledTask,
+            input: SchedulingInput(
+                tasks: try roomTaskManager.fetchAll(),
+                scheduledTasks: try scheduledTaskManager.fetchAll(),
+                completedTasks: try completedTaskManager.fetchAll(),
+                skippedTasks: try skippedTaskManager.fetchAll(),
+                today: tomorrow,
+                dailyLimit: dailyLimit,
+                calendar: calendar
+            )
+        )
+        for occurrence in mutation.occurrencesToCreate {
+            try scheduledTaskManager.save(occurrence)
+        }
+
+        return mutation
+    }
 }
