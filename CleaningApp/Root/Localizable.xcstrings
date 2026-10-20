@@ -297,6 +297,9 @@
         }
       }
     },
+    "Backlog: %lld" : {
+
+    },
     "Cancel" : {
 
     },
@@ -2883,6 +2886,9 @@
           }
         }
       }
+    },
+    "Scheduled: %lld" : {
+
     },
     "settings.nav_title" : {
       "extractionState" : "manual",

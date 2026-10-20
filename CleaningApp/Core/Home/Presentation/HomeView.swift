@@ -12,6 +12,8 @@ struct HomeView: View {
 		VStack {
 			Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
 			Text("Tasks: \(presenter.tasks.count)")
+			Text("Scheduled: \(presenter.plannedScheduledTaskCount)")
+			Text("Backlog: \(presenter.backlogScheduledTaskCount)")
 		}
 		.navigationTitle("home.nav_title")
 		.toolbarTitleDisplayMode(.inlineLarge)

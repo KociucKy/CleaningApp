@@ -17,6 +17,14 @@ final class HomeViewPresenter {
 		interactor.onboardingCompletionToken
 	}
 
+	var plannedScheduledTaskCount: Int {
+		scheduledTasks.filter { $0.status == .planned }.count
+	}
+
+	var backlogScheduledTaskCount: Int {
+		scheduledTasks.filter { $0.status == .postponed }.count
+	}
+
 	// MARK: - Init
 
 	init(interactor: any HomeInteractor, router: any HomeRouter) {
