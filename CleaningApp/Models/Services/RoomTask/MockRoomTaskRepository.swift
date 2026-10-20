@@ -43,6 +43,7 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 		items[index].room = item.room
 		items[index].frequencyEncoded = item.frequencyEncoded
 		items[index].estimatedDuration = item.estimatedDuration
+		items[index].learnedDuration = item.learnedDuration
 		items[index].createdAt = item.createdAt
 	}
 }

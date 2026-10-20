@@ -30,6 +30,7 @@
 		25491FD14B4A6F667DBBEC16 /* DevSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D83865EC65889C8B49CF196 /* DevSettingsPresenter.swift */; };
 		25EC335969C490E6BD7DB8BA /* RoomsDetailsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33A9B8FB872948246AE6238 /* RoomsDetailsInteractor.swift */; };
 		26C0F12C4CDF6C8FF1E11ABB /* OnbPaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */; };
+		28069B44CD7862FD45196237 /* MockScheduledTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44ADCC7B00B9BEE6383B6B /* MockScheduledTaskRepository.swift */; };
 		28387D997FACADC98053400E /* DevSettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4832DF1F3E46A4B23CC6AC09 /* DevSettingsRouter.swift */; };
 		2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 408067551CAAF0AE88EA3756 /* RoomTaskEntity.swift */; };
 		2A69B4112D1BA1628A8FEB7F /* test_labelRowView_defaultState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 83068B7A009345878BBC347C /* test_labelRowView_defaultState.1.png */; };
@@ -86,6 +87,7 @@
 		66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */; };
 		69534D7AFD21A196EE86962E /* LogKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65750B7A5986D2A2D68B50C2 /* LogKit */; };
 		69F3FEC4D16414E30CA72F77 /* OnbNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FEC69AB80185DCF65F978C /* OnbNotificationView.swift */; };
+		6E47BD8491BB488F58C78552 /* ScheduledTaskMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A282ECB1395195E9C100B0E5 /* ScheduledTaskMapper.swift */; };
 		6F7C5EDC60FBF13E4E638E1A /* OnboardingStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6079C6F86C66799CC26CC9D4 /* OnboardingStateTests.swift */; };
 		705F9EA71A291971BF243EEE /* UserDefaultsKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = A638A932DB0BC851620820DF /* UserDefaultsKitUI */; };
 		70EF9E9F8F6636597954B23B /* ActivityLogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5779B02C0B4D9EF518AC7E1F /* ActivityLogInteractor.swift */; };
@@ -175,6 +177,7 @@
 		DBB6DE06B1F2E991B2B4AA2C /* CharacterLimitModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3613D74373BED31C0373A6C /* CharacterLimitModifier.swift */; };
 		DC02F98566436257122AF3F5 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */; };
 		DDBADE5D694A2976DC1E3E44 /* test_notificationView_loadingState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 41F248ACFF734B1E30DDD6F2 /* test_notificationView_loadingState.1.png */; };
+		DDF112E4FA71A45ECDEF8E37 /* ScheduledTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8EA471BB6EADB15C33C68B /* ScheduledTaskRepository.swift */; };
 		E164CD2C78747647D3957F92 /* Room+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87032E920792FA6C55583745 /* Room+Mock.swift */; };
 		E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86AC4AEA1AD192DB3785306 /* RoomTask.swift */; };
 		E3EFDAD9DFC040A35024FD96 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B6243B88FBB9C3D754DB8E /* ScheduleInteractor.swift */; };
@@ -202,6 +205,7 @@
 		F713FBE77100726A8879DFE0 /* RoomsDetailsTaskCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F77748F45540E3AD3AE1C2 /* RoomsDetailsTaskCompletionView.swift */; };
 		F72C63E34F55FDC8D9C1B997 /* RoomsDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5404884461FE3C23C9C7F69C /* RoomsDetailsPresenter.swift */; };
 		F7CD1C424A4859850CCD8C7D /* Date+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8BB9667E129602A1179F7 /* Date+Mock.swift */; };
+		F8CAE6D31C09A198D3A7D761 /* ScheduledTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0E61CFF6194C16ED2986D7 /* ScheduledTaskManager.swift */; };
 		FAAFCE7F92843AD41AEBEC37 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 497A6AA21D4872AA478FDEC5 /* SnapshotTesting */; };
 		FAC6AE77E04DC7B53D7B8EA8 /* ActivityLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D04953E9B9BF4A20C857F9 /* ActivityLogPresenter.swift */; };
 		FB7CCC5686C0C3F0D06F85D6 /* test_completedView_withTimePickerHidden.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60562AEE8E54C16ADCCC6571 /* test_completedView_withTimePickerHidden.1.png */; };
@@ -252,6 +256,7 @@
 		1C53ECC62CF234163BA9CD9E /* RoomsDetailsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsPresenterTests.swift; sourceTree = "<group>"; };
 		1D2CA94807F27CEB7C64AB55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1E88A6C669C60BF10EE27FC5 /* MockRoomTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomTaskRepositoryTests.swift; sourceTree = "<group>"; };
+		1E8EA471BB6EADB15C33C68B /* ScheduledTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTaskRepository.swift; sourceTree = "<group>"; };
 		1F7DA6C92F992053E7CEF011 /* SchedulePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenter.swift; sourceTree = "<group>"; };
 		2159FE401EE1E70E92081E26 /* CustomRoomSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRoomSelection.swift; sourceTree = "<group>"; };
 		253ACAE1CDAA9681FB41FFC9 /* CompletedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskRepository.swift; sourceTree = "<group>"; };
@@ -361,6 +366,7 @@
 		9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionView.swift; sourceTree = "<group>"; };
 		A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepository.swift; sourceTree = "<group>"; };
 		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A282ECB1395195E9C100B0E5 /* ScheduledTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTaskMapper.swift; sourceTree = "<group>"; };
 		A3DE1C5F6D74423E090DC61D /* TaskDurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDurationTests.swift; sourceTree = "<group>"; };
 		A457688452077C69D253D2D9 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingState.swift; sourceTree = "<group>"; };
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
@@ -406,6 +412,7 @@
 		E7F8BB9667E129602A1179F7 /* Date+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Mock.swift"; sourceTree = "<group>"; };
 		ECD1EE002FF785F44BD8224D /* OnbAddCustomTaskSheetPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbAddCustomTaskSheetPresenter.swift; sourceTree = "<group>"; };
 		ED08D06923381287C6F065CA /* RoomsAnimationConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsAnimationConfiguration.swift; sourceTree = "<group>"; };
+		EE44ADCC7B00B9BEE6383B6B /* MockScheduledTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScheduledTaskRepository.swift; sourceTree = "<group>"; };
 		F074EC2419C66EA6F2B5975E /* test_roomSelectionView_noSelection.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_roomSelectionView_noSelection.1.png; sourceTree = "<group>"; };
 		F33A9B8FB872948246AE6238 /* RoomsDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsInteractor.swift; sourceTree = "<group>"; };
 		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -414,6 +421,7 @@
 		F81D35F1DCFD4D6BD2FB0DF0 /* test_controlButtonsView_disabled.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_controlButtonsView_disabled.1.png; sourceTree = "<group>"; };
 		F86AC4AEA1AD192DB3785306 /* RoomTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTask.swift; sourceTree = "<group>"; };
 		F93126C7994D919E714D9C25 /* SkippedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskManager.swift; sourceTree = "<group>"; };
+		FA0E61CFF6194C16ED2986D7 /* ScheduledTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTaskManager.swift; sourceTree = "<group>"; };
 		FAA4B641320ABE196ADACC20 /* CompletedTaskMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskMapperTests.swift; sourceTree = "<group>"; };
 		FB5A9C576A7C640EB96E1125 /* CoreRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRouter.swift; sourceTree = "<group>"; };
 		FD494FB36F4F40B6D3D54408 /* CustomRoomSheetRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRoomSheetRouter.swift; sourceTree = "<group>"; };
@@ -487,6 +495,17 @@
 				504A859856B0C63D7A70EB6B /* RoomsRouter.swift */,
 			);
 			path = RIB;
+			sourceTree = "<group>";
+		};
+		216D2C24B38D782F964D39E2 /* ScheduledTask */ = {
+			isa = PBXGroup;
+			children = (
+				EE44ADCC7B00B9BEE6383B6B /* MockScheduledTaskRepository.swift */,
+				FA0E61CFF6194C16ED2986D7 /* ScheduledTaskManager.swift */,
+				A282ECB1395195E9C100B0E5 /* ScheduledTaskMapper.swift */,
+				1E8EA471BB6EADB15C33C68B /* ScheduledTaskRepository.swift */,
+			);
+			path = ScheduledTask;
 			sourceTree = "<group>";
 		};
 		29FE87D4876C2488BE525953 /* RoomSelection */ = {
@@ -981,6 +1000,7 @@
 				2F54EC34148B7FF787FD9BFC /* Notification */,
 				A16529A774B2511473A8A808 /* Room */,
 				E040689873443C66C624CC84 /* RoomTask */,
+				216D2C24B38D782F964D39E2 /* ScheduledTask */,
 				112C8C39668F8CFEF7BBFC96 /* SkippedTask */,
 			);
 			path = Services;
@@ -1262,7 +1282,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_DD8A83B7-9357-4ABA-AC16-CCDF1629516F" /* Shared */ = {
+		"TEMP_3D842AA1-F715-421F-BF47-03EF5B8C4084" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1548,6 +1568,7 @@
 				8DA72524D1E100909D845BC8 /* MockCompletedTaskRepository.swift in Sources */,
 				9FEC96F9E05AB066CC46CD80 /* MockRoomRepository.swift in Sources */,
 				79A97CC86E0AE1ADB58A22FB /* MockRoomTaskRepository.swift in Sources */,
+				28069B44CD7862FD45196237 /* MockScheduledTaskRepository.swift in Sources */,
 				36A47369ED0088DF2C941642 /* MockSkippedTaskRepository.swift in Sources */,
 				900487D7A3420EF54901A9FB /* NotificationScheduler.swift in Sources */,
 				7793C4C28CE8111E5AEF8E79 /* OnbAddCustomTaskSheetPresenter.swift in Sources */,
@@ -1617,6 +1638,9 @@
 				1832698B1956F111F9AA5C88 /* ScheduleView.swift in Sources */,
 				2FFA191F4DF446B2FFF6A13B /* ScheduledTask.swift in Sources */,
 				D0A24EAA55F0220E3037132C /* ScheduledTaskEntity.swift in Sources */,
+				F8CAE6D31C09A198D3A7D761 /* ScheduledTaskManager.swift in Sources */,
+				6E47BD8491BB488F58C78552 /* ScheduledTaskMapper.swift in Sources */,
+				DDF112E4FA71A45ECDEF8E37 /* ScheduledTaskRepository.swift in Sources */,
 				618C1B527BA948BF88A63F6E /* ScheduledTaskStatus.swift in Sources */,
 				8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */,
 				BC5F8DDFD7DD8676BC6A1E3B /* SettingsPresenter.swift in Sources */,

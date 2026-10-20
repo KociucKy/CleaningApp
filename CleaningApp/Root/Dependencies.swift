@@ -20,6 +20,7 @@ struct Dependencies {
 	init(config: BuildConfiguration) {
 		let roomManager: RoomManager
 		let roomTaskManager: RoomTaskManager
+		let scheduledTaskManager: ScheduledTaskManager
 		let completedTaskManager: CompletedTaskManager
 		let skippedTaskManager: SkippedTaskManager
 		let notificationScheduler: any NotificationScheduling
@@ -30,6 +31,7 @@ struct Dependencies {
 		let modelContainer = try! ModelContainer(
 			for: RoomEntity.self,
 			RoomTaskEntity.self,
+			ScheduledTaskEntity.self,
 			SkippedTaskEntity.self,
 			CompletedTaskEntity.self
 		)
@@ -42,6 +44,9 @@ struct Dependencies {
 			roomTaskManager = RoomTaskManager(
 				taskRepository: MockRoomTaskRepository(),
 				roomRepository: MockRoomRepository()
+			)
+			scheduledTaskManager = ScheduledTaskManager(
+				repository: MockScheduledTaskRepository()
 			)
 			completedTaskManager = CompletedTaskManager(
 				repository: MockCompletedTaskRepository()
@@ -63,6 +68,9 @@ struct Dependencies {
 				taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
 				roomRepository: SwiftDataRoomRepository(container: modelContainer)
 			)
+			scheduledTaskManager = ScheduledTaskManager(
+				repository: SwiftDataScheduledTaskRepository(container: modelContainer)
+			)
 			completedTaskManager = CompletedTaskManager(
 				repository: SwiftDataCompletedTaskRepository(container: modelContainer)
 			)
@@ -79,6 +87,9 @@ struct Dependencies {
 				taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
 				roomRepository: SwiftDataRoomRepository(container: modelContainer)
 			)
+			scheduledTaskManager = ScheduledTaskManager(
+				repository: SwiftDataScheduledTaskRepository(container: modelContainer)
+			)
 			completedTaskManager = CompletedTaskManager(
 				repository: SwiftDataCompletedTaskRepository(container: modelContainer)
 			)
@@ -92,6 +103,7 @@ struct Dependencies {
 		let dependencyContainer = DependencyContainer()
 		dependencyContainer.register(RoomManager.self, service: roomManager)
 		dependencyContainer.register(RoomTaskManager.self, service: roomTaskManager)
+		dependencyContainer.register(ScheduledTaskManager.self, service: scheduledTaskManager)
 		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
 		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
 		dependencyContainer.register(NotificationScheduling.self, service: notificationScheduler)
@@ -114,6 +126,7 @@ final class DevPreview {
 
 	let roomManager: RoomManager
 	let roomTaskManager: RoomTaskManager
+	let scheduledTaskManager: ScheduledTaskManager
 	let completedTaskManager: CompletedTaskManager
 	let skippedTaskManager: SkippedTaskManager
 	let notificationScheduler: any NotificationScheduling
@@ -125,6 +138,7 @@ final class DevPreview {
 		let container = DependencyContainer()
 		container.register(RoomManager.self, service: roomManager)
 		container.register(RoomTaskManager.self, service: roomTaskManager)
+		container.register(ScheduledTaskManager.self, service: scheduledTaskManager)
 		container.register(CompletedTaskManager.self, service: completedTaskManager)
 		container.register(SkippedTaskManager.self, service: skippedTaskManager)
 		container.register(NotificationScheduling.self, service: notificationScheduler)
@@ -144,6 +158,9 @@ final class DevPreview {
 		roomTaskManager = RoomTaskManager(
 			taskRepository: MockRoomTaskRepository(),
 			roomRepository: MockRoomRepository()
+		)
+		scheduledTaskManager = ScheduledTaskManager(
+			repository: MockScheduledTaskRepository()
 		)
 		completedTaskManager = CompletedTaskManager(
 			repository: MockCompletedTaskRepository()
