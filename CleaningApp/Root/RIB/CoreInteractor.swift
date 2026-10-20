@@ -8,8 +8,10 @@ struct CoreInteractor {
 
 	private let roomManager: RoomManager
 	private let roomTaskManager: RoomTaskManager
+	private let scheduledTaskManager: ScheduledTaskManager
 	private let completedTaskManager: CompletedTaskManager
 	private let skippedTaskManager: SkippedTaskManager
+	private let cleaningScheduleCoordinator: CleaningScheduleCoordinator
 	private let notificationScheduler: any NotificationScheduling
 	private let completionTrendService: any CompletionTrendServicing
 	private let onboardingState: OnboardingState
@@ -23,8 +25,10 @@ struct CoreInteractor {
 	init(container: DependencyContainer) {
 		roomManager = container.resolve(RoomManager.self)!
 		roomTaskManager = container.resolve(RoomTaskManager.self)!
+		scheduledTaskManager = container.resolve(ScheduledTaskManager.self)!
 		completedTaskManager = container.resolve(CompletedTaskManager.self)!
 		skippedTaskManager = container.resolve(SkippedTaskManager.self)!
+		cleaningScheduleCoordinator = container.resolve(CleaningScheduleCoordinator.self)!
 		notificationScheduler = container.resolve(NotificationScheduling.self)!
 		completionTrendService = container.resolve(CompletionTrendServicing.self)!
 		onboardingState = container.resolve(OnboardingState.self)!
@@ -78,6 +82,44 @@ struct CoreInteractor {
 
 	func updateRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.update(item)
+	}
+
+	// MARK: - Schedule
+
+	func fetchAllScheduledTasks() throws -> [ScheduledTask] {
+		try scheduledTaskManager.fetchAll()
+	}
+
+	func refreshSchedule(today: Date, dailyLimit: Int) throws -> ScheduleMutation {
+		try cleaningScheduleCoordinator.refresh(today: today, dailyLimit: dailyLimit)
+	}
+
+	func completeScheduledTask(
+		id: UUID,
+		completedAt: Date,
+		measuredDuration: Int? = nil
+	) throws {
+		try cleaningScheduleCoordinator.complete(
+			scheduledTaskId: id,
+			completedAt: completedAt,
+			measuredDuration: measuredDuration
+		)
+	}
+
+	func skipScheduledTask(id: UUID, skippedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
+		try cleaningScheduleCoordinator.skip(
+			scheduledTaskId: id,
+			skippedAt: skippedAt,
+			dailyLimit: dailyLimit
+		)
+	}
+
+	func undoSkipScheduledTask(id: UUID, restoredAt: Date) throws {
+		try cleaningScheduleCoordinator.undoSkip(scheduledTaskId: id, restoredAt: restoredAt)
+	}
+
+	func endScheduleDay(endedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
+		try cleaningScheduleCoordinator.endDay(endedAt: endedAt, dailyLimit: dailyLimit)
 	}
 
 	// MARK: - Completed Task Manager
