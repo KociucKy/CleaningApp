@@ -44,6 +44,7 @@
 		34A82987A704275C5331ACA7 /* FrequencySelectorOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA425ED6832C136C5DBC9D5 /* FrequencySelectorOption.swift */; };
 		36A47369ED0088DF2C941642 /* MockSkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D848D3402978105382264E4 /* MockSkippedTaskRepository.swift */; };
 		382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CD74458F72229A3BDA2080 /* SkippedTaskEntity+Mock.swift */; };
+		3A338C33065EA05896ED7D70 /* SchedulingHorizon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F802E2E3CB58E091DA8B1E48 /* SchedulingHorizon.swift */; };
 		3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629102C8551A4E9CC65038E /* RoomEntity.swift */; };
 		3D4A7D4D7E4C6F9C9B0CFE01 /* ActivityLogEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560D89BD93DB087944DE7BCF /* ActivityLogEditView.swift */; };
 		3E25499452BF7E95FA91FBCF /* RoomsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECF267DAA633770548AEE70 /* RoomsInteractor.swift */; };
@@ -105,6 +106,8 @@
 		7ABF1134FF1908DFBD12E7B5 /* CompletionTrendRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED4EC946A82C37F45705E2D /* CompletionTrendRange.swift */; };
 		807D70518AE4ACBA68674C60 /* RoomsAnimationConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7D93FB416C78D071E6CE78 /* RoomsAnimationConfigurationTests.swift */; };
 		84107A9C6340714D62902177 /* OnbRoomSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */; };
+		84FE8098589F87D725A02449 /* SchedulingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDC38077D72E353A1AB861D /* SchedulingService.swift */; };
+		8507E3665C672560B0555D70 /* ScheduleMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3006BCA3FAC2F308FC8EA64 /* ScheduleMutation.swift */; };
 		86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
@@ -183,6 +186,7 @@
 		E3EFDAD9DFC040A35024FD96 /* ScheduleInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B6243B88FBB9C3D754DB8E /* ScheduleInteractor.swift */; };
 		E4B4C7CF50D56D5107B41795 /* RoomTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980C93F8E1DFDEE582165063 /* RoomTaskManager.swift */; };
 		E55434BDFC8B1A2CC8C7CED4 /* KeyboardDismissModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050D9E4A1C4F954D515C09B7 /* KeyboardDismissModifier.swift */; };
+		E677438DF9F90DD6B5B94323 /* SchedulingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A6903602F76F483F09159F /* SchedulingServiceTests.swift */; };
 		E6BA6EC4C3FB1C648641F578 /* SkippedTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5F4A7D8285B6B89C62F14 /* SkippedTaskManagerTests.swift */; };
 		E722788F3936D9DDD99763F4 /* IconPickerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B61AB41932231F2472879 /* IconPickerPresenter.swift */; };
 		E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0131CBDD97DCE485D442B8F0 /* RoomTask+Mock.swift */; };
@@ -209,6 +213,7 @@
 		FAAFCE7F92843AD41AEBEC37 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 497A6AA21D4872AA478FDEC5 /* SnapshotTesting */; };
 		FAC6AE77E04DC7B53D7B8EA8 /* ActivityLogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D04953E9B9BF4A20C857F9 /* ActivityLogPresenter.swift */; };
 		FB7CCC5686C0C3F0D06F85D6 /* test_completedView_withTimePickerHidden.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 60562AEE8E54C16ADCCC6571 /* test_completedView_withTimePickerHidden.1.png */; };
+		FC6D49478BCE117C5A126605 /* SchedulingInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E1DDFAAF291A62DEB12144 /* SchedulingInput.swift */; };
 		FCF5B26D24CAA016CDC05DCE /* MockRoomRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79ABC8C62B23EDC507697F22 /* MockRoomRepositoryTests.swift */; };
 		FD6BEF8D8A877CC0163254D3 /* OnboardingFlowStateCustomTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C01FFCCCB282C084F7927F6 /* OnboardingFlowStateCustomTaskTests.swift */; };
 		FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A9C576A7C640EB96E1125 /* CoreRouter.swift */; };
@@ -322,6 +327,7 @@
 		6436FDACB6DF5492119B6B52 /* SkippedTaskMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskMapperTests.swift; sourceTree = "<group>"; };
 		6659749A775BE740EE83556A /* OnboardingFlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowState.swift; sourceTree = "<group>"; };
 		69C0FCD90787AF38F4060F8E /* ActivityLogListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogListView.swift; sourceTree = "<group>"; };
+		69E1DDFAAF291A62DEB12144 /* SchedulingInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingInput.swift; sourceTree = "<group>"; };
 		6AC41E3B949AAB29120B26DC /* RoomCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCardView.swift; sourceTree = "<group>"; };
 		6D69DE434EC1AC78114225DB /* RoomRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomRepository.swift; sourceTree = "<group>"; };
 		6F9E29C111325DB3C5415DE8 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -329,6 +335,7 @@
 		761928BFF5966EA948E72736 /* icon.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = icon.json; sourceTree = "<group>"; };
 		77D04953E9B9BF4A20C857F9 /* ActivityLogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogPresenter.swift; sourceTree = "<group>"; };
 		77F8AE788BE2C115414BB53E /* OnboardingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractor.swift; sourceTree = "<group>"; };
+		78A6903602F76F483F09159F /* SchedulingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingServiceTests.swift; sourceTree = "<group>"; };
 		78D8476AF41A889E1E0EA066 /* Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		79ABC8C62B23EDC507697F22 /* MockRoomRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRoomRepositoryTests.swift; sourceTree = "<group>"; };
 		7CB13E24CABC15BE2FF5F9EB /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
@@ -349,6 +356,7 @@
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8A9D6F8AF1F5A0B35F8B91EC /* OnbTaskSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbTaskSelectionPresenter.swift; sourceTree = "<group>"; };
 		8AFB2660AFC1015011F40E05 /* OnbWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbWelcomeView.swift; sourceTree = "<group>"; };
+		8CDC38077D72E353A1AB861D /* SchedulingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingService.swift; sourceTree = "<group>"; };
 		8D545ADCE72D97A5C1DA5951 /* OnboardingRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingRouter.swift; sourceTree = "<group>"; };
 		8E4767ACD3FB04C230D7563A /* RoomTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTaskManagerTests.swift; sourceTree = "<group>"; };
 		924F4864B60C167979E2D3A1 /* ScheduleRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleRouter.swift; sourceTree = "<group>"; };
@@ -371,6 +379,7 @@
 		A457688452077C69D253D2D9 /* OnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingState.swift; sourceTree = "<group>"; };
 		AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		B06AF8CB201F1768C153A84F /* RoomTypeSuggestedTasksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTypeSuggestedTasksTests.swift; sourceTree = "<group>"; };
+		B3006BCA3FAC2F308FC8EA64 /* ScheduleMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMutation.swift; sourceTree = "<group>"; };
 		B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
 		B3613D74373BED31C0373A6C /* CharacterLimitModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLimitModifier.swift; sourceTree = "<group>"; };
 		B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSkippedTaskRepositoryTests.swift; sourceTree = "<group>"; };
@@ -418,6 +427,7 @@
 		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
+		F802E2E3CB58E091DA8B1E48 /* SchedulingHorizon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingHorizon.swift; sourceTree = "<group>"; };
 		F81D35F1DCFD4D6BD2FB0DF0 /* test_controlButtonsView_disabled.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_controlButtonsView_disabled.1.png; sourceTree = "<group>"; };
 		F86AC4AEA1AD192DB3785306 /* RoomTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTask.swift; sourceTree = "<group>"; };
 		F93126C7994D919E714D9C25 /* SkippedTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkippedTaskManager.swift; sourceTree = "<group>"; };
@@ -591,6 +601,7 @@
 				F3420AB3F1C12A0C70410CE3 /* Onboarding */,
 				9CC52A86C7C8D812CC434FF4 /* Persistence */,
 				F39E73C2DDB1133C16FA9B99 /* Rooms */,
+				E2C6E0FD112EFC6988D027A5 /* Scheduling */,
 			);
 			path = CleaningAppTests;
 			sourceTree = "<group>";
@@ -1001,6 +1012,7 @@
 				A16529A774B2511473A8A808 /* Room */,
 				E040689873443C66C624CC84 /* RoomTask */,
 				216D2C24B38D782F964D39E2 /* ScheduledTask */,
+				C3F1064B6DBB52FCEB9AD486 /* Scheduling */,
 				112C8C39668F8CFEF7BBFC96 /* SkippedTask */,
 			);
 			path = Services;
@@ -1013,6 +1025,17 @@
 				2D89F83BD66E81895CBC6BAD /* RIB */,
 			);
 			path = Schedule;
+			sourceTree = "<group>";
+		};
+		C3F1064B6DBB52FCEB9AD486 /* Scheduling */ = {
+			isa = PBXGroup;
+			children = (
+				B3006BCA3FAC2F308FC8EA64 /* ScheduleMutation.swift */,
+				F802E2E3CB58E091DA8B1E48 /* SchedulingHorizon.swift */,
+				69E1DDFAAF291A62DEB12144 /* SchedulingInput.swift */,
+				8CDC38077D72E353A1AB861D /* SchedulingService.swift */,
+			);
+			path = Scheduling;
 			sourceTree = "<group>";
 		};
 		C9566E55B39871CAA65FF050 /* Mocks */ = {
@@ -1121,6 +1144,14 @@
 				DBFD30CCAA82A3C08CE78EB3 /* RoomTaskRepository.swift */,
 			);
 			path = RoomTask;
+			sourceTree = "<group>";
+		};
+		E2C6E0FD112EFC6988D027A5 /* Scheduling */ = {
+			isa = PBXGroup;
+			children = (
+				78A6903602F76F483F09159F /* SchedulingServiceTests.swift */,
+			);
+			path = Scheduling;
 			sourceTree = "<group>";
 		};
 		E41CFAC35762AF36E40245ED /* TaskDuration */ = {
@@ -1282,7 +1313,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_3D842AA1-F715-421F-BF47-03EF5B8C4084" /* Shared */ = {
+		"TEMP_3BFB977D-0391-462D-A952-025177239AA0" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1499,6 +1530,7 @@
 				807D70518AE4ACBA68674C60 /* RoomsAnimationConfigurationTests.swift in Sources */,
 				3F1BC93E23FACB31CAFBDE03 /* RoomsDetailsPresenterTests.swift in Sources */,
 				F1575336B37DA69694069BFB /* RoomsPresenterTests.swift in Sources */,
+				E677438DF9F90DD6B5B94323 /* SchedulingServiceTests.swift in Sources */,
 				E6BA6EC4C3FB1C648641F578 /* SkippedTaskManagerTests.swift in Sources */,
 				56011B88B335A95A59AE97DC /* SkippedTaskMapperTests.swift in Sources */,
 				66A8BF445AA2908B69FE2A23 /* Tags.swift in Sources */,
@@ -1633,6 +1665,7 @@
 				FFE747391A6D57EA4A0660C4 /* RoomsRouter.swift in Sources */,
 				89DC31823EE76FF28881636B /* RoomsView.swift in Sources */,
 				E3EFDAD9DFC040A35024FD96 /* ScheduleInteractor.swift in Sources */,
+				8507E3665C672560B0555D70 /* ScheduleMutation.swift in Sources */,
 				A4E09DE0F5A8C594A0F83533 /* SchedulePresenter.swift in Sources */,
 				EB4D938B95A09E8E090F1E03 /* ScheduleRouter.swift in Sources */,
 				1832698B1956F111F9AA5C88 /* ScheduleView.swift in Sources */,
@@ -1642,6 +1675,9 @@
 				6E47BD8491BB488F58C78552 /* ScheduledTaskMapper.swift in Sources */,
 				DDF112E4FA71A45ECDEF8E37 /* ScheduledTaskRepository.swift in Sources */,
 				618C1B527BA948BF88A63F6E /* ScheduledTaskStatus.swift in Sources */,
+				3A338C33065EA05896ED7D70 /* SchedulingHorizon.swift in Sources */,
+				FC6D49478BCE117C5A126605 /* SchedulingInput.swift in Sources */,
+				84FE8098589F87D725A02449 /* SchedulingService.swift in Sources */,
 				8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */,
 				BC5F8DDFD7DD8676BC6A1E3B /* SettingsPresenter.swift in Sources */,
 				5A9A6932D3BCAAA765310A22 /* SettingsRouter.swift in Sources */,
