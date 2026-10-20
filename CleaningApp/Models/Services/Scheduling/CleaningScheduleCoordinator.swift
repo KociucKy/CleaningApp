@@ -136,4 +136,33 @@ final class CleaningScheduleCoordinator {
 
         return mutation
     }
+
+    func undoSkip(scheduledTaskId: UUID, restoredAt: Date) throws {
+        guard var scheduledTask = try scheduledTaskManager.fetchSingle(for: scheduledTaskId) else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskNotFound
+        }
+        guard scheduledTask.status == .skipped else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskIsNotSkipped
+        }
+        guard let skippedTask = try skippedTaskManager.fetchAll().first(where: {
+            $0.scheduledTaskId == scheduledTaskId
+        }) else {
+            throw CleaningScheduleCoordinatorError.skippedTaskHistoryNotFound
+        }
+
+        scheduledTask.status = .planned
+        scheduledTask.updatedAt = restoredAt
+        try scheduledTaskManager.update(scheduledTask)
+
+        let successors = try scheduledTaskManager.fetchAll().filter {
+            $0.sourceOccurrenceId == scheduledTaskId
+                && ($0.status == .planned || $0.status == .postponed)
+        }
+        for var successor in successors {
+            successor.status = .cancelled
+            successor.updatedAt = restoredAt
+            try scheduledTaskManager.update(successor)
+        }
+        try skippedTaskManager.delete(skippedTask)
+    }
 }

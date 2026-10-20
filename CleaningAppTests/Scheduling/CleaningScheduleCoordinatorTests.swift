@@ -150,6 +150,55 @@ struct CleaningScheduleCoordinatorTests {
         #expect(mutation.occurrencesToCreate.first?.scheduledDate == expectedSuccessorDate)
     }
 
+    @Test func undoSkip_restoresOriginalAndCancelsSuccessor() throws {
+        let today = try makeDate(day: 25)
+        let room = RoomEntity(name: "Kitchen", icon: "fork.knife")
+        let roomTaskManager = RoomTaskManager(
+            taskRepository: MockRoomTaskRepository(items: []),
+            roomRepository: MockRoomRepository(items: [room])
+        )
+        let scheduledTaskManager = ScheduledTaskManager(repository: MockScheduledTaskRepository())
+        let skippedTaskRepository = MockSkippedTaskRepository()
+        skippedTaskRepository.items = []
+        let skippedTaskManager = SkippedTaskManager(repository: skippedTaskRepository)
+        let original = ScheduledTask(
+            taskId: UUID(),
+            scheduledDate: today,
+            status: .skipped,
+            createdAt: today,
+            updatedAt: today
+        )
+        let successor = ScheduledTask(
+            taskId: original.taskId,
+            scheduledDate: try makeDate(day: 26),
+            sourceOccurrenceId: original.id,
+            createdAt: today,
+            updatedAt: today
+        )
+        let skippedTask = SkippedTask(
+            taskId: original.taskId,
+            scheduledTaskId: original.id,
+            originalDate: original.originalScheduledDate,
+            skippedAt: today
+        )
+        try scheduledTaskManager.save(original)
+        try scheduledTaskManager.save(successor)
+        try skippedTaskManager.save(skippedTask)
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: roomTaskManager,
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: CompletedTaskManager(repository: MockCompletedTaskRepository(items: [])),
+            skippedTaskManager: skippedTaskManager,
+            calendar: calendar
+        )
+
+        try coordinator.undoSkip(scheduledTaskId: original.id, restoredAt: today)
+
+        #expect(try scheduledTaskManager.fetchSingle(for: original.id)?.status == .planned)
+        #expect(try scheduledTaskManager.fetchSingle(for: successor.id)?.status == .cancelled)
+        #expect(try skippedTaskManager.fetchAll().isEmpty)
+    }
+
     // MARK: - Private
 
     private func makeDate(day: Int) throws -> Date {
