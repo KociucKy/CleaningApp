@@ -9,6 +9,7 @@ final class HomeViewPresenter {
 
 	private(set) var rooms: [Room] = []
 	private(set) var tasks: [RoomTask] = []
+	private(set) var scheduledTasks: [ScheduledTask] = []
 	private let interactor: any HomeInteractor
 	private let router: any HomeRouter
 
@@ -35,6 +36,7 @@ final class HomeViewPresenter {
 		do {
 			rooms = try interactor.fetchAllRooms()
 			tasks = try interactor.fetchAllRoomTasks()
+			scheduledTasks = try interactor.fetchAllScheduledTasks()
 		} catch {}
 	}
 }
