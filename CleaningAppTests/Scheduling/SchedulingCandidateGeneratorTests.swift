@@ -235,6 +235,67 @@ struct SchedulingCandidateGeneratorTests {
         #expect(candidates.isEmpty)
     }
 
+    @Test func makeRegularCandidates_generatesOneDueWeeklyIntervalOccurrence() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "Every Other Week",
+            frequency: .everyOtherWeek,
+            createdDay: 1
+        )
+        let completion = CompletedTask(
+            taskId: task.id,
+            completedAt: try makeDate(day: 1)
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task], completedTasks: [completion]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 1)
+    }
+
+    @Test func makeRegularCandidates_doesNotGenerateMonthlyIntervalBeforeDueDate() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "Quarterly",
+            frequency: .quarterly,
+            createdDay: 1
+        )
+        let completion = CompletedTask(
+            taskId: task.id,
+            completedAt: try makeDate(day: 1, month: 8)
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task], completedTasks: [completion]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.isEmpty)
+    }
+
+    @Test func makeRegularCandidates_generatesNewLongIntervalTaskWithoutActivity() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(name: "Yearly", frequency: .yearly)
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 1)
+    }
+
     @Test func makeRegularCandidates_subtractsCompletedReservedAndUrgentWork() throws {
         let horizon = try makeHorizon()
         let task = try makeTask(name: "Daily", frequency: .daily)
@@ -282,7 +343,8 @@ struct SchedulingCandidateGeneratorTests {
         name: String,
         frequency: Frequency = .timesPerWeek(1),
         learnedDuration: Int? = nil,
-        createdDay: Int = 19
+        createdDay: Int = 19,
+        createdMonth: Int = 10
     ) throws -> RoomTask {
         RoomTask(
             name: name,
@@ -290,7 +352,7 @@ struct SchedulingCandidateGeneratorTests {
             frequency: frequency,
             estimatedDuration: .fifteenMinutes,
             learnedDuration: learnedDuration,
-            createdAt: try makeDate(day: createdDay)
+            createdAt: try makeDate(day: createdDay, month: createdMonth)
         )
     }
 
@@ -306,12 +368,12 @@ struct SchedulingCandidateGeneratorTests {
         )
     }
 
-    private func makeDate(day: Int) throws -> Date {
+    private func makeDate(day: Int, month: Int = 10) throws -> Date {
         let components = DateComponents(
             calendar: calendar,
             timeZone: TimeZone(secondsFromGMT: 0),
             year: 2026,
-            month: 10,
+            month: month,
             day: day
         )
         return try #require(calendar.date(from: components))

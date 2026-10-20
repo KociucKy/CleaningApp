@@ -55,6 +55,8 @@ final class SchedulingCandidateGenerator {
                     activationDate: activationDate,
                     horizon: horizon,
                     calendar: input.calendar,
+                    completedTasks: input.completedTasks,
+                    scheduledTasks: input.scheduledTasks,
                     recurrenceCalculator: recurrenceCalculator
                 )
                 let fulfilledCount = fulfilledCount(
@@ -129,6 +131,8 @@ final class SchedulingCandidateGenerator {
         activationDate: Date,
         horizon: SchedulingHorizon,
         calendar: Calendar,
+        completedTasks: [CompletedTask],
+        scheduledTasks: [ScheduledTask],
         recurrenceCalculator: SchedulingRecurrenceCalculator
     ) -> (targetCount: Int, fulfillmentStartDate: Date) {
         switch recurrenceCalculator.rule(for: task.frequency) {
@@ -168,8 +172,28 @@ final class SchedulingCandidateGenerator {
                 calendar: calendar,
                 recurrenceCalculator: recurrenceCalculator
             )
-        case .intervalWeeks, .intervalMonths:
-            return (0, activationDate)
+        case let .intervalWeeks(interval):
+            return rollingIntervalDemand(
+                component: .weekOfYear,
+                interval: interval,
+                task: task,
+                activationDate: activationDate,
+                horizon: horizon,
+                completedTasks: completedTasks,
+                scheduledTasks: scheduledTasks,
+                calendar: calendar
+            )
+        case let .intervalMonths(interval):
+            return rollingIntervalDemand(
+                component: .month,
+                interval: interval,
+                task: task,
+                activationDate: activationDate,
+                horizon: horizon,
+                completedTasks: completedTasks,
+                scheduledTasks: scheduledTasks,
+                calendar: calendar
+            )
         }
     }
 
@@ -212,6 +236,48 @@ final class SchedulingCandidateGenerator {
         )
 
         return (targetCount, fulfillmentStartDate)
+    }
+
+    private func rollingIntervalDemand(
+        component: Calendar.Component,
+        interval: Int,
+        task: RoomTask,
+        activationDate: Date,
+        horizon: SchedulingHorizon,
+        completedTasks: [CompletedTask],
+        scheduledTasks: [ScheduledTask],
+        calendar: Calendar
+    ) -> (targetCount: Int, fulfillmentStartDate: Date) {
+        let completionDates = completedTasks.compactMap { completedTask -> Date? in
+            guard completedTask.taskId == task.id else {
+                return nil
+            }
+            let completionDate = calendar.startOfDay(for: completedTask.completedAt)
+            return completionDate <= horizon.endDate ? completionDate : nil
+        }
+        let reservationDates = scheduledTasks.compactMap { scheduledTask -> Date? in
+            guard scheduledTask.taskId == task.id,
+                  scheduledTask.status == .planned,
+                  scheduledTask.scheduledDate <= horizon.endDate
+            else {
+                return nil
+            }
+            return scheduledTask.scheduledDate
+        }
+        let latestActivityDate = (completionDates + reservationDates).max()
+
+        guard let latestActivityDate else {
+            return (1, activationDate)
+        }
+        guard let nextPreferredDate = calendar.date(
+            byAdding: component,
+            value: interval,
+            to: latestActivityDate
+        ) else {
+            return (0, activationDate)
+        }
+
+        return (nextPreferredDate <= horizon.endDate ? 1 : 0, activationDate)
     }
 
     private func fulfilledCount(
