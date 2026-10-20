@@ -56,4 +56,29 @@ final class CleaningScheduleCoordinator {
 
         return mutation
     }
+
+    func complete(
+        scheduledTaskId: UUID,
+        completedAt: Date,
+        measuredDuration: Int? = nil
+    ) throws {
+        guard var scheduledTask = try scheduledTaskManager.fetchSingle(for: scheduledTaskId) else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskNotFound
+        }
+        guard scheduledTask.status == .planned else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskIsNotPlanned
+        }
+
+        scheduledTask.status = .completed
+        scheduledTask.updatedAt = completedAt
+        try scheduledTaskManager.update(scheduledTask)
+        try completedTaskManager.save(
+            CompletedTask(
+                taskId: scheduledTask.taskId,
+                scheduledTaskId: scheduledTask.id,
+                completedAt: completedAt,
+                measuredDuration: measuredDuration
+            )
+        )
+    }
 }

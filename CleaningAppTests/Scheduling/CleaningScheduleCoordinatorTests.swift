@@ -51,6 +51,55 @@ struct CleaningScheduleCoordinatorTests {
         #expect(try scheduledTaskManager.fetchAll().first?.taskId == task.id)
     }
 
+    @Test func complete_updatesOccurrenceAndCreatesLinkedHistory() throws {
+        let completedAt = try makeDate(day: 25)
+        let room = RoomEntity(name: "Kitchen", icon: "fork.knife")
+        let roomRepository = MockRoomRepository(items: [room])
+        let roomTaskManager = RoomTaskManager(
+            taskRepository: MockRoomTaskRepository(items: []),
+            roomRepository: roomRepository
+        )
+        let scheduledTaskRepository = MockScheduledTaskRepository()
+        let completedTaskRepository = MockCompletedTaskRepository(items: [])
+        let scheduledTaskManager = ScheduledTaskManager(repository: scheduledTaskRepository)
+        let completedTaskManager = CompletedTaskManager(repository: completedTaskRepository)
+        let task = RoomTask(
+            name: "Clean counters",
+            roomId: room.id,
+            frequency: .daily,
+            estimatedDuration: .fifteenMinutes,
+            createdAt: try makeDate(day: 1)
+        )
+        let occurrence = ScheduledTask(
+            taskId: task.id,
+            scheduledDate: completedAt,
+            createdAt: completedAt,
+            updatedAt: completedAt
+        )
+        try scheduledTaskManager.save(occurrence)
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: roomTaskManager,
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: completedTaskManager,
+            skippedTaskManager: SkippedTaskManager(repository: MockSkippedTaskRepository()),
+            calendar: calendar
+        )
+
+        try coordinator.complete(
+            scheduledTaskId: occurrence.id,
+            completedAt: completedAt,
+            measuredDuration: 18
+        )
+
+        #expect(try scheduledTaskManager.fetchSingle(for: occurrence.id)?.status == .completed)
+        let completedTasks = try completedTaskManager.fetchAll()
+        #expect(completedTasks.count == 1)
+        #expect(completedTasks.first?.taskId == task.id)
+        #expect(completedTasks.first?.scheduledTaskId == occurrence.id)
+        #expect(completedTasks.first?.completedAt == completedAt)
+        #expect(completedTasks.first?.measuredDuration == 18)
+    }
+
     // MARK: - Private
 
     private func makeDate(day: Int) throws -> Date {

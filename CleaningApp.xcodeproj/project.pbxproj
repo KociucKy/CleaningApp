@@ -236,6 +236,7 @@
 		FDB65BA394B6948DE75964FD /* CoreRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB5A9C576A7C640EB96E1125 /* CoreRouter.swift */; };
 		FE317141715EFB0A57B22C11 /* OnbRoomSelectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */; };
 		FEC6AEED6C36C270F1F5DF49 /* RoomsDetailsTaskCompletionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C484CA9B4AB401A4D973D59 /* RoomsDetailsTaskCompletionRouter.swift */; };
+		FFAA9513DE466264209BC945 /* CleaningScheduleCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DA8899785FFD1944EA5E19 /* CleaningScheduleCoordinatorError.swift */; };
 		FFE747391A6D57EA4A0660C4 /* RoomsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504A859856B0C63D7A70EB6B /* RoomsRouter.swift */; };
 /* End PBXBuildFile section */
 
@@ -411,6 +412,7 @@
 		B3006BCA3FAC2F308FC8EA64 /* ScheduleMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleMutation.swift; sourceTree = "<group>"; };
 		B30DBF63930CF9748075DB42 /* OnbPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbPaywallView.swift; sourceTree = "<group>"; };
 		B3613D74373BED31C0373A6C /* CharacterLimitModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterLimitModifier.swift; sourceTree = "<group>"; };
+		B4DA8899785FFD1944EA5E19 /* CleaningScheduleCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleaningScheduleCoordinatorError.swift; sourceTree = "<group>"; };
 		B5103E41DB4A533D36412BB7 /* MockSkippedTaskRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSkippedTaskRepositoryTests.swift; sourceTree = "<group>"; };
 		B6197EE2F99B046159A537F2 /* SchedulingAllocationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingAllocationResult.swift; sourceTree = "<group>"; };
 		B6AE3D2C2777ECA1BF927C05 /* SchedulingCandidateAllocatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingCandidateAllocatorTests.swift; sourceTree = "<group>"; };
@@ -1074,6 +1076,7 @@
 			isa = PBXGroup;
 			children = (
 				5F1C999A54C52A9148E3BF55 /* CleaningScheduleCoordinator.swift */,
+				B4DA8899785FFD1944EA5E19 /* CleaningScheduleCoordinatorError.swift */,
 				EBD53D675FF4E0C7B9F347B3 /* ScheduledCandidateAllocation.swift */,
 				B3006BCA3FAC2F308FC8EA64 /* ScheduleMutation.swift */,
 				B6197EE2F99B046159A537F2 /* SchedulingAllocationResult.swift */,
@@ -1372,7 +1375,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_93428709-8516-4E34-AECA-FB20D737D124" /* Shared */ = {
+		"TEMP_6EE6DBC1-44DF-4C45-BF22-217D41E37D6D" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1624,6 +1627,7 @@
 				F65F3C97A4F30FE0F46BE971 /* Builder.swift in Sources */,
 				DBB6DE06B1F2E991B2B4AA2C /* CharacterLimitModifier.swift in Sources */,
 				D60852C8C0D0C7F3183A9414 /* CleaningScheduleCoordinator.swift in Sources */,
+				FFAA9513DE466264209BC945 /* CleaningScheduleCoordinatorError.swift in Sources */,
 				06478080EBDB7AE9B66F24CD /* CompletedTask+Mock.swift in Sources */,
 				E7A59BA1D50DEF6B096FA234 /* CompletedTask.swift in Sources */,
 				B1CCE19E38B4EE82E32A0F36 /* CompletedTaskEntity+Mock.swift in Sources */,
