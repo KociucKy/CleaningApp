@@ -27,6 +27,7 @@ struct Dependencies {
 		let onboardingState: OnboardingState
 		let onboardingFlowState = OnboardingFlowState()
 		let completionTrendService = CompletionTrendService()
+		let schedulingService = SchedulingService()
 		// swiftlint:disable:next force_try
 		let modelContainer = try! ModelContainer(
 			for: RoomEntity.self,
@@ -100,12 +101,22 @@ struct Dependencies {
 			onboardingState = OnboardingState()
 		}
 
+		let cleaningScheduleCoordinator = CleaningScheduleCoordinator(
+			roomTaskManager: roomTaskManager,
+			scheduledTaskManager: scheduledTaskManager,
+			completedTaskManager: completedTaskManager,
+			skippedTaskManager: skippedTaskManager,
+			schedulingService: schedulingService
+		)
+
 		let dependencyContainer = DependencyContainer()
 		dependencyContainer.register(RoomManager.self, service: roomManager)
 		dependencyContainer.register(RoomTaskManager.self, service: roomTaskManager)
 		dependencyContainer.register(ScheduledTaskManager.self, service: scheduledTaskManager)
 		dependencyContainer.register(CompletedTaskManager.self, service: completedTaskManager)
 		dependencyContainer.register(SkippedTaskManager.self, service: skippedTaskManager)
+		dependencyContainer.register(SchedulingService.self, service: schedulingService)
+		dependencyContainer.register(CleaningScheduleCoordinator.self, service: cleaningScheduleCoordinator)
 		dependencyContainer.register(NotificationScheduling.self, service: notificationScheduler)
 		dependencyContainer.register(CompletionTrendServicing.self, service: completionTrendService)
 		dependencyContainer.register(OnboardingState.self, service: onboardingState)
@@ -131,6 +142,8 @@ final class DevPreview {
 	let skippedTaskManager: SkippedTaskManager
 	let notificationScheduler: any NotificationScheduling
 	let completionTrendService: CompletionTrendService
+	let schedulingService: SchedulingService
+	let cleaningScheduleCoordinator: CleaningScheduleCoordinator
 	let onboardingState: OnboardingState
 	let onboardingFlowState: OnboardingFlowState
 
@@ -141,6 +154,8 @@ final class DevPreview {
 		container.register(ScheduledTaskManager.self, service: scheduledTaskManager)
 		container.register(CompletedTaskManager.self, service: completedTaskManager)
 		container.register(SkippedTaskManager.self, service: skippedTaskManager)
+		container.register(SchedulingService.self, service: schedulingService)
+		container.register(CleaningScheduleCoordinator.self, service: cleaningScheduleCoordinator)
 		container.register(NotificationScheduling.self, service: notificationScheduler)
 		container.register(CompletionTrendServicing.self, service: completionTrendService)
 		container.register(CompletionTrendServicing.self, service: completionTrendService)
@@ -174,6 +189,14 @@ final class DevPreview {
 			notificationScheduler = NotificationScheduler()
 		#endif
 		completionTrendService = CompletionTrendService()
+		schedulingService = SchedulingService()
+		cleaningScheduleCoordinator = CleaningScheduleCoordinator(
+			roomTaskManager: roomTaskManager,
+			scheduledTaskManager: scheduledTaskManager,
+			completedTaskManager: completedTaskManager,
+			skippedTaskManager: skippedTaskManager,
+			schedulingService: schedulingService
+		)
 		onboardingState = OnboardingState(showOnboarding: true)
 		onboardingFlowState = OnboardingFlowState()
 	}
