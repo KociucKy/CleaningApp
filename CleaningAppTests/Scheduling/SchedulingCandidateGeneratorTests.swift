@@ -10,6 +10,7 @@ struct SchedulingCandidateGeneratorTests {
     // MARK: - Properties
 
     private let generator = SchedulingCandidateGenerator()
+    private let recurrenceCalculator = SchedulingRecurrenceCalculator()
     private let calendar: Calendar = {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
@@ -96,6 +97,74 @@ struct SchedulingCandidateGeneratorTests {
         #expect(candidates.isEmpty)
     }
 
+    // MARK: - Regular Candidates
+
+    @Test func makeRegularCandidates_dailyTaskCreatesOneCandidatePerActiveDay() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(name: "Daily", frequency: .daily)
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 7)
+        #expect(candidates.allSatisfy { $0.kind == .regular })
+    }
+
+    @Test func makeRegularCandidates_proRatesNewWeeklyTaskForRemainingDays() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "Weekly",
+            frequency: .timesPerWeek(3),
+            createdDay: 21
+        )
+        let expectedEarliestDate = try makeDate(day: 21)
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 2)
+        #expect(candidates.allSatisfy { $0.earliestDate == expectedEarliestDate })
+    }
+
+    @Test func makeRegularCandidates_subtractsCompletedReservedAndUrgentWork() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(name: "Daily", frequency: .daily)
+        let reservedOccurrence = try makeOccurrence(task: task, day: 20)
+        let completion = CompletedTask(
+            taskId: task.id,
+            completedAt: try makeDate(day: 19)
+        )
+        let urgentCandidate = SchedulingCandidate(
+            task: task,
+            kind: .overdue,
+            earliestDate: try makeDate(day: 19)
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task], completedTasks: [completion]),
+            horizon: horizon,
+            analysis: SchedulingOccurrenceAnalysis(
+                preservedOccurrences: [reservedOccurrence],
+                overdueOccurrences: [],
+                backlogOccurrences: []
+            ),
+            urgentCandidates: [urgentCandidate],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 4)
+    }
+
     // MARK: - Private
 
     private func makeHorizon() throws -> SchedulingHorizon {
@@ -112,15 +181,17 @@ struct SchedulingCandidateGeneratorTests {
 
     private func makeTask(
         name: String,
-        learnedDuration: Int? = nil
+        frequency: Frequency = .timesPerWeek(1),
+        learnedDuration: Int? = nil,
+        createdDay: Int = 19
     ) throws -> RoomTask {
         RoomTask(
             name: name,
             roomId: UUID(),
-            frequency: .timesPerWeek(1),
+            frequency: frequency,
             estimatedDuration: .fifteenMinutes,
             learnedDuration: learnedDuration,
-            createdAt: try makeDate(day: 19)
+            createdAt: try makeDate(day: createdDay)
         )
     }
 
@@ -145,5 +216,28 @@ struct SchedulingCandidateGeneratorTests {
             day: day
         )
         return try #require(calendar.date(from: components))
+    }
+
+    private var emptyAnalysis: SchedulingOccurrenceAnalysis {
+        SchedulingOccurrenceAnalysis(
+            preservedOccurrences: [],
+            overdueOccurrences: [],
+            backlogOccurrences: []
+        )
+    }
+
+    private func makeInput(
+        tasks: [RoomTask],
+        completedTasks: [CompletedTask] = []
+    ) throws -> SchedulingInput {
+        SchedulingInput(
+            tasks: tasks,
+            scheduledTasks: [],
+            completedTasks: completedTasks,
+            skippedTasks: [],
+            today: try makeDate(day: 19),
+            dailyLimit: 30,
+            calendar: calendar
+        )
     }
 }
