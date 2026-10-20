@@ -36,6 +36,16 @@ final class ScheduledTaskManager {
         return entities.map(mapper.toDomain)
     }
 
+    func fetchActiveOccurrences(for taskId: UUID) throws -> [ScheduledTask] {
+        try fetchAll(for: taskId).filter {
+            $0.status == .planned || $0.status == .postponed
+        }
+    }
+
+    func fetchSuccessors(for sourceOccurrenceId: UUID) throws -> [ScheduledTask] {
+        try fetchAll().filter { $0.sourceOccurrenceId == sourceOccurrenceId }
+    }
+
     func fetchSingle(for id: UUID) throws -> ScheduledTask? {
         guard let entity = try repository.fetchSingle(for: id) else {
             return nil

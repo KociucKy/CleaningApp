@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D69DE434EC1AC78114225DB /* RoomRepository.swift */; };
 		03C9F87F67A8344A95F0A667 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = DAF75EB0EA1F15F9069C0DFD /* NavigationKit */; };
+		03EFF9949424A9F641D18C2D /* ScheduledTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12618D3EC8D0BA2192A13AA /* ScheduledTaskManagerTests.swift */; };
 		06478080EBDB7AE9B66F24CD /* CompletedTask+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E778565D867BBC1F458B46 /* CompletedTask+Mock.swift */; };
 		0704A92D2771CC0D5D61EA5A /* CustomRoomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27C91A094946BE20AF854429 /* CustomRoomSheetView.swift */; };
 		07A42F5D1C458C48C22E4658 /* OnbLabelRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */; };
@@ -403,6 +404,7 @@
 		9CB982D3CDB247F6711E3C78 /* CompletionChartDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionChartDataPoint.swift; sourceTree = "<group>"; };
 		9F22284197EE259C1B9CE2F8 /* OnbRoomSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionView.swift; sourceTree = "<group>"; };
 		A0584A84D725AC74AEA1BE67 /* MockCompletedTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCompletedTaskRepository.swift; sourceTree = "<group>"; };
+		A12618D3EC8D0BA2192A13AA /* ScheduledTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTaskManagerTests.swift; sourceTree = "<group>"; };
 		A19F91D494ECCA12B9150B8C /* CleaningApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CleaningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A282ECB1395195E9C100B0E5 /* ScheduledTaskMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledTaskMapper.swift; sourceTree = "<group>"; };
 		A3DE1C5F6D74423E090DC61D /* TaskDurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDurationTests.swift; sourceTree = "<group>"; };
@@ -1207,6 +1209,7 @@
 			isa = PBXGroup;
 			children = (
 				34E6D2D949078A62C4C95E81 /* CleaningScheduleCoordinatorTests.swift */,
+				A12618D3EC8D0BA2192A13AA /* ScheduledTaskManagerTests.swift */,
 				B6AE3D2C2777ECA1BF927C05 /* SchedulingCandidateAllocatorTests.swift */,
 				DC308FECA55E37F6DF32569B /* SchedulingCandidateGeneratorTests.swift */,
 				2F7678F4A3C496BF734FACB9 /* SchedulingOccurrenceAnalyzerTests.swift */,
@@ -1375,7 +1378,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_6EE6DBC1-44DF-4C45-BF22-217D41E37D6D" /* Shared */ = {
+		"TEMP_09EC4E1F-EEBA-4448-B865-40E302663E92" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1594,6 +1597,7 @@
 				807D70518AE4ACBA68674C60 /* RoomsAnimationConfigurationTests.swift in Sources */,
 				3F1BC93E23FACB31CAFBDE03 /* RoomsDetailsPresenterTests.swift in Sources */,
 				F1575336B37DA69694069BFB /* RoomsPresenterTests.swift in Sources */,
+				03EFF9949424A9F641D18C2D /* ScheduledTaskManagerTests.swift in Sources */,
 				C83319BDCDD1A87F475A7F8F /* SchedulingCandidateAllocatorTests.swift in Sources */,
 				785C9EB5CDC3E7FFEC5ABBAD /* SchedulingCandidateGeneratorTests.swift in Sources */,
 				D504380BE29D9829A2DF05DE /* SchedulingOccurrenceAnalyzerTests.swift in Sources */,
