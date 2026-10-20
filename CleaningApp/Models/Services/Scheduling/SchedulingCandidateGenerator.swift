@@ -50,7 +50,7 @@ final class SchedulingCandidateGenerator {
                     return []
                 }
 
-                let targetCount = regularTargetCount(
+                let demand = regularDemand(
                     for: task,
                     activationDate: activationDate,
                     horizon: horizon,
@@ -59,14 +59,14 @@ final class SchedulingCandidateGenerator {
                 )
                 let fulfilledCount = fulfilledCount(
                     for: task.id,
-                    activationDate: activationDate,
+                    fulfillmentStartDate: demand.fulfillmentStartDate,
                     horizon: horizon,
                     completedTasks: input.completedTasks,
                     preservedOccurrences: analysis.preservedOccurrences,
                     urgentCandidates: urgentCandidates,
                     calendar: input.calendar
                 )
-                let candidateCount = max(0, targetCount - fulfilledCount)
+                let candidateCount = max(0, demand.targetCount - fulfilledCount)
 
                 return (0 ..< candidateCount).map { _ in
                     SchedulingCandidate(
@@ -124,46 +124,99 @@ final class SchedulingCandidateGenerator {
         }
     }
 
-    private func regularTargetCount(
+    private func regularDemand(
         for task: RoomTask,
         activationDate: Date,
         horizon: SchedulingHorizon,
         calendar: Calendar,
         recurrenceCalculator: SchedulingRecurrenceCalculator
-    ) -> Int {
+    ) -> (targetCount: Int, fulfillmentStartDate: Date) {
         switch recurrenceCalculator.rule(for: task.frequency) {
         case .intervalDays(1):
-            return calendar.dateComponents(
+            let targetCount = calendar.dateComponents(
                 [.day],
                 from: activationDate,
                 to: horizon.endDate
             ).day.map { $0 + 1 } ?? 0
+            return (targetCount, activationDate)
         case let .intervalDays(interval):
             let activeDays = calendar.dateComponents(
                 [.day],
                 from: activationDate,
                 to: horizon.endDate
             ).day.map { $0 + 1 } ?? 0
-            return Int((Double(activeDays) / Double(interval)).rounded())
+            return (Int((Double(activeDays) / Double(interval)).rounded()), activationDate)
         case let .weeklyQuota(count):
             let activeDays = calendar.dateComponents(
                 [.day],
                 from: activationDate,
                 to: horizon.endDate
             ).day.map { $0 + 1 } ?? 0
-            return recurrenceCalculator.proRatedQuota(
-                totalOccurrences: count,
-                activeDays: activeDays,
-                periodDays: 7
+            return (
+                recurrenceCalculator.proRatedQuota(
+                    totalOccurrences: count,
+                    activeDays: activeDays,
+                    periodDays: 7
+                ),
+                activationDate
             )
-        case .intervalWeeks, .monthlyQuota, .intervalMonths:
-            return 0
+        case let .monthlyQuota(count):
+            return monthlyQuotaDemand(
+                count: count,
+                taskCreatedAt: task.createdAt,
+                horizon: horizon,
+                calendar: calendar,
+                recurrenceCalculator: recurrenceCalculator
+            )
+        case .intervalWeeks, .intervalMonths:
+            return (0, activationDate)
         }
+    }
+
+    private func monthlyQuotaDemand(
+        count: Int,
+        taskCreatedAt: Date,
+        horizon: SchedulingHorizon,
+        calendar: Calendar,
+        recurrenceCalculator: SchedulingRecurrenceCalculator
+    ) -> (targetCount: Int, fulfillmentStartDate: Date) {
+        guard let monthInterval = calendar.dateInterval(of: .month, for: horizon.endDate),
+              let monthEndDate = calendar.date(byAdding: .day, value: -1, to: monthInterval.end)
+        else {
+            return (0, horizon.startDate)
+        }
+
+        let fulfillmentStartDate = max(
+            monthInterval.start,
+            calendar.startOfDay(for: taskCreatedAt)
+        )
+        let activePeriodDays = calendar.dateComponents(
+            [.day],
+            from: fulfillmentStartDate,
+            to: monthEndDate
+        ).day.map { $0 + 1 } ?? 0
+        let activeDaysThroughHorizon = calendar.dateComponents(
+            [.day],
+            from: fulfillmentStartDate,
+            to: horizon.endDate
+        ).day.map { $0 + 1 } ?? 0
+        let firstPeriodQuota = recurrenceCalculator.proRatedQuota(
+            totalOccurrences: count,
+            activeDays: activePeriodDays,
+            periodDays: calendar.range(of: .day, in: .month, for: horizon.endDate)?.count ?? 0
+        )
+        let targetCount = recurrenceCalculator.proRatedQuota(
+            totalOccurrences: firstPeriodQuota,
+            activeDays: activeDaysThroughHorizon,
+            periodDays: activePeriodDays
+        )
+
+        return (targetCount, fulfillmentStartDate)
     }
 
     private func fulfilledCount(
         for taskID: UUID,
-        activationDate: Date,
+        fulfillmentStartDate: Date,
         horizon: SchedulingHorizon,
         completedTasks: [CompletedTask],
         preservedOccurrences: [ScheduledTask],
@@ -173,11 +226,11 @@ final class SchedulingCandidateGenerator {
         let completionCount = completedTasks.filter {
             let completionDate = calendar.startOfDay(for: $0.completedAt)
             return $0.taskId == taskID
-                && completionDate >= activationDate
+                && completionDate >= fulfillmentStartDate
                 && completionDate <= horizon.endDate
         }.count
         let preservedCount = preservedOccurrences.filter {
-            $0.taskId == taskID && $0.scheduledDate >= activationDate
+            $0.taskId == taskID && $0.scheduledDate >= fulfillmentStartDate
         }.count
         let urgentCount = urgentCandidates.filter { $0.task.id == taskID }.count
 

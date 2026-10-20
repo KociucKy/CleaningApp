@@ -174,6 +174,67 @@ struct SchedulingCandidateGeneratorTests {
         #expect(candidates.count == 3)
     }
 
+    @Test func makeRegularCandidates_usesCumulativeMonthlyQuota() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "Monthly",
+            frequency: .monthly,
+            createdDay: 1
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 1)
+    }
+
+    @Test func makeRegularCandidates_countsMonthlyCompletionFromEarlierWeek() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "Monthly",
+            frequency: .monthly,
+            createdDay: 1
+        )
+        let completion = CompletedTask(
+            taskId: task.id,
+            completedAt: try makeDate(day: 3)
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task], completedTasks: [completion]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.isEmpty)
+    }
+
+    @Test func makeRegularCandidates_proRatesNewMonthlyTaskForActiveMonth() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "New Monthly",
+            frequency: .monthly,
+            createdDay: 22
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.isEmpty)
+    }
+
     @Test func makeRegularCandidates_subtractsCompletedReservedAndUrgentWork() throws {
         let horizon = try makeHorizon()
         let task = try makeTask(name: "Daily", frequency: .daily)
