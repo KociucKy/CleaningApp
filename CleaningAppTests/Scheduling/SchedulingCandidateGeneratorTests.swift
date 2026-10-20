@@ -136,6 +136,44 @@ struct SchedulingCandidateGeneratorTests {
         #expect(candidates.allSatisfy { $0.earliestDate == expectedEarliestDate })
     }
 
+    @Test func makeRegularCandidates_generatesRollingEveryThreeDaysOccurrences() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(
+            name: "Every Three Days",
+            frequency: .everyXDays(3),
+            createdDay: 21
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 2)
+    }
+
+    @Test func makeRegularCandidates_subtractsCompletionForIntervalTask() throws {
+        let horizon = try makeHorizon()
+        let task = try makeTask(name: "Every Other Day", frequency: .everyOtherDay)
+        let completion = CompletedTask(
+            taskId: task.id,
+            completedAt: try makeDate(day: 19)
+        )
+
+        let candidates = generator.makeRegularCandidates(
+            input: try makeInput(tasks: [task], completedTasks: [completion]),
+            horizon: horizon,
+            analysis: emptyAnalysis,
+            urgentCandidates: [],
+            recurrenceCalculator: recurrenceCalculator
+        )
+
+        #expect(candidates.count == 3)
+    }
+
     @Test func makeRegularCandidates_subtractsCompletedReservedAndUrgentWork() throws {
         let horizon = try makeHorizon()
         let task = try makeTask(name: "Daily", frequency: .daily)

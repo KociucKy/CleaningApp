@@ -138,6 +138,13 @@ final class SchedulingCandidateGenerator {
                 from: activationDate,
                 to: horizon.endDate
             ).day.map { $0 + 1 } ?? 0
+        case let .intervalDays(interval):
+            let activeDays = calendar.dateComponents(
+                [.day],
+                from: activationDate,
+                to: horizon.endDate
+            ).day.map { $0 + 1 } ?? 0
+            return Int((Double(activeDays) / Double(interval)).rounded())
         case let .weeklyQuota(count):
             let activeDays = calendar.dateComponents(
                 [.day],
@@ -149,7 +156,7 @@ final class SchedulingCandidateGenerator {
                 activeDays: activeDays,
                 periodDays: 7
             )
-        case .intervalDays, .intervalWeeks, .monthlyQuota, .intervalMonths:
+        case .intervalWeeks, .monthlyQuota, .intervalMonths:
             return 0
         }
     }
