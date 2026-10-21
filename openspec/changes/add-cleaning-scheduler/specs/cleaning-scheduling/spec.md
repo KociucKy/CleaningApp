@@ -63,8 +63,12 @@ The system SHALL persist a candidate that cannot be assigned within the planning
 - **THEN** the system persists the candidate as postponed backlog instead of discarding it
 
 ### Requirement: Present the operational plan in ScheduleView
-The system SHALL present planned, postponed/backlog, and skipped schedule occurrences in the separate `ScheduleView` feature. `ScheduleView` SHALL obtain display data and lifecycle actions through its interactor and presenter, and SHALL NOT own mock schedule data or local completion state. `HomeView` SHALL remain outside the operational schedule UI scope.
+The system SHALL present planned, postponed/backlog, and skipped schedule occurrences in the separate `ScheduleView` feature. `ScheduleView` SHALL retain its Monday–Sunday pager, render occurrences only from the current planning date through Sunday, and leave earlier weekday pages intentionally empty. `ScheduleView` SHALL obtain display data and lifecycle actions through its interactor and presenter, and SHALL NOT own mock schedule data or local completion state. `HomeView` SHALL remain outside the operational schedule UI scope.
 
 #### Scenario: ScheduleView renders persisted occurrences
 - **WHEN** the user opens ScheduleView after occurrences have been persisted
 - **THEN** the view displays those occurrences from presenter-provided data rather than static mock tasks
+
+#### Scenario: Earlier weekday page is intentionally empty
+- **WHEN** the user opens ScheduleView on Wednesday
+- **THEN** the Monday and Tuesday pages contain no operational schedule tasks
