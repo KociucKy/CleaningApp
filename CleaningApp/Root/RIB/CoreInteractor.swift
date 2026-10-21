@@ -43,14 +43,22 @@ struct CoreInteractor {
 
 	func saveRoom(_ item: Room) throws {
 		try roomManager.save(item)
+		try refreshScheduleAfterStructureChange()
 	}
 
 	func updateRoom(_ item: Room) throws {
 		try roomManager.update(item)
+		try refreshScheduleAfterStructureChange()
 	}
 
 	func deleteRoom(_ item: Room) throws {
+		let roomTasks = try roomTaskManager.fetchAll(for: item.id)
+		for task in roomTasks {
+			try deleteScheduledOccurrences(for: task.id)
+			try roomTaskManager.delete(task)
+		}
 		try roomManager.delete(item)
+		try refreshScheduleAfterStructureChange()
 	}
 
 	func saveCustomRoom(name: String, icon: String) throws {
@@ -61,6 +69,7 @@ struct CoreInteractor {
 			customIcon: icon
 		)
 		try roomManager.save(room)
+		try refreshScheduleAfterStructureChange()
 	}
 
 	// MARK: - Room Task Manager
@@ -75,17 +84,18 @@ struct CoreInteractor {
 
 	func saveRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.save(item)
-		try refreshScheduleAfterTaskChange()
+		try refreshScheduleAfterStructureChange()
 	}
 
 	func deleteRoomTask(_ item: RoomTask) throws {
+		try deleteScheduledOccurrences(for: item.id)
 		try roomTaskManager.delete(item)
-		try refreshScheduleAfterTaskChange()
+		try refreshScheduleAfterStructureChange()
 	}
 
 	func updateRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.update(item)
-		try refreshScheduleAfterTaskChange()
+		try refreshScheduleAfterStructureChange()
 	}
 
 	// MARK: - Schedule
@@ -138,11 +148,18 @@ struct CoreInteractor {
 
 	// MARK: - Private
 
-	private func refreshScheduleAfterTaskChange() throws {
+	private func refreshScheduleAfterStructureChange() throws {
 		try cleaningScheduleCoordinator.refresh(
 			today: Date(),
 			dailyLimit: dailyScheduleLimit()
 		)
+	}
+
+	private func deleteScheduledOccurrences(for roomTaskID: UUID) throws {
+		let scheduledOccurrences = try scheduledTaskManager.fetchAll(for: roomTaskID)
+		for occurrence in scheduledOccurrences {
+			try scheduledTaskManager.delete(occurrence)
+		}
 	}
 
 	// MARK: - Completed Task Manager
