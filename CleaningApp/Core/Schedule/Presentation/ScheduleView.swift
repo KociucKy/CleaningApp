@@ -53,7 +53,8 @@ struct ScheduleView: View {
 		.scrollEdgeEffectStyle(.soft, for: .top)
 		.background(FKColor.Background.primary)
 		.onAppear {
-			presenter.fetchSchedule(today: Date())
+			let today = Date()
+			presenter.ensureSchedule(today: today)
 			selectedDay = presenter.currentWeekday
 		}
 		.navigationTitle("schedule.nav_title")

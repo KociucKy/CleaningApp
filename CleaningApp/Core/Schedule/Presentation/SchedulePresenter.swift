@@ -22,7 +22,8 @@ final class SchedulePresenter {
 
 	// MARK: - Methods
 
-	func fetchSchedule(today: Date, calendar: Calendar = .current) {
+	@discardableResult
+	func fetchSchedule(today: Date, calendar: Calendar = .current) -> Bool? {
 		do {
 			let rooms = try interactor.fetchAllRooms()
 			let tasks = try interactor.fetchAllRoomTasks()
@@ -30,13 +31,27 @@ final class SchedulePresenter {
 			let startDate = calendar.startOfDay(for: today)
 			currentWeekday = ScheduleView.Weekday(date: startDate, calendar: calendar)
 			tasksByWeekday = makeTasksByWeekday(
-			rooms: rooms,
-			tasks: tasks,
-			scheduledTasks: scheduledTasks,
-			startDate: startDate,
-			calendar: calendar
-		)
-		} catch {}
+				rooms: rooms,
+				tasks: tasks,
+				scheduledTasks: scheduledTasks,
+				startDate: startDate,
+				calendar: calendar
+			)
+
+			return scheduledTasks.contains { scheduledTask in
+				scheduledTask.status == .planned && scheduledTask.scheduledDate >= startDate
+			}
+		} catch {
+			return nil
+		}
+	}
+
+	func ensureSchedule(today: Date, calendar: Calendar = .current) {
+		guard let hasActivePlan = fetchSchedule(today: today, calendar: calendar), !hasActivePlan else {
+			return
+		}
+
+		refresh(today: today)
 	}
 
 	func tasks(for day: ScheduleView.Weekday) -> [ScheduleView.ScheduleTask] {
