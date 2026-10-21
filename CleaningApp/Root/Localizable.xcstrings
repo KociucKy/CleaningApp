@@ -3715,6 +3715,9 @@
         }
       }
     },
+    "Undo Skip" : {
+
+    },
     "Week of" : {
       "extractionState" : "stale",
       "localizations" : {

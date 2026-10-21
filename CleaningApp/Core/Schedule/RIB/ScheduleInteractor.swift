@@ -7,6 +7,7 @@ protocol ScheduleInteractor {
 	func fetchAllScheduledTasks() throws -> [ScheduledTask]
 	func completeScheduledTask(id: UUID, completedAt: Date, measuredDuration: Int?) throws
 	func skipScheduledTask(id: UUID, skippedAt: Date, dailyLimit: Int) throws -> ScheduleMutation
+	func undoSkipScheduledTask(id: UUID, restoredAt: Date) throws
 }
 
 extension CoreInteractor: ScheduleInteractor {}

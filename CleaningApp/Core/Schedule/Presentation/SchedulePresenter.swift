@@ -73,6 +73,17 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
+	func undoSkip(_ task: ScheduleView.ScheduleTask, restoredAt: Date = Date()) {
+		guard task.status == .skipped else {
+			return
+		}
+
+		do {
+			try interactor.undoSkipScheduledTask(id: task.id, restoredAt: restoredAt)
+			fetchSchedule(today: restoredAt)
+		} catch {}
+	}
+
 	// MARK: - Private
 
 	private func makeTasksByWeekday(

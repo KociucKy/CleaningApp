@@ -134,6 +134,13 @@ struct ScheduleView: View {
 					presenter.skip(task)
 				}
 			}
+		} else if task.status == .skipped {
+			taskCardContent(task)
+				.contextMenu {
+					Button("Undo Skip", systemImage: "arrow.uturn.backward") {
+						presenter.undoSkip(task)
+					}
+				}
 		} else {
 			taskCardContent(task)
 		}
