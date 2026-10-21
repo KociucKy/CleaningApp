@@ -53,6 +53,71 @@ struct SchedulingServiceTests {
         #expect(horizon.days.count == 1)
     }
 
+    @Test func makeHorizon_crossesYearBoundary() throws {
+        let today = try makeDate(year: 2026, month: 12, day: 31, hour: 14)
+        let expectedStartDate = try makeDate(year: 2026, month: 12, day: 31)
+        let expectedEndDate = try makeDate(year: 2027, month: 1, day: 3)
+
+        let horizon = service.makeHorizon(today: today, calendar: calendar)
+
+        #expect(horizon.startDate == expectedStartDate)
+        #expect(horizon.endDate == expectedEndDate)
+        #expect(horizon.days.count == 4)
+    }
+
+    @Test func makeHorizon_preservesCalendarDaysAcrossDaylightSavingTime() throws {
+        var pacificCalendar = Calendar(identifier: .gregorian)
+        pacificCalendar.timeZone = try #require(TimeZone(identifier: "America/Los_Angeles"))
+        let today = try makeDate(
+            calendar: pacificCalendar,
+            year: 2026,
+            month: 3,
+            day: 7,
+            hour: 14
+        )
+        let expectedStartDate = try makeDate(
+            calendar: pacificCalendar,
+            year: 2026,
+            month: 3,
+            day: 7
+        )
+        let expectedEndDate = try makeDate(
+            calendar: pacificCalendar,
+            year: 2026,
+            month: 3,
+            day: 8
+        )
+
+        let horizon = service.makeHorizon(today: today, calendar: pacificCalendar)
+
+        #expect(horizon.startDate == expectedStartDate)
+        #expect(horizon.endDate == expectedEndDate)
+        #expect(horizon.days.count == 2)
+    }
+
+    @Test func makeHorizon_normalizesToProvidedCalendarTimeZone() throws {
+        var warsawCalendar = Calendar(identifier: .gregorian)
+        warsawCalendar.timeZone = try #require(TimeZone(identifier: "Europe/Warsaw"))
+        let today = try makeDate(
+            calendar: warsawCalendar,
+            year: 2026,
+            month: 10,
+            day: 21,
+            hour: 23
+        )
+        let expectedStartDate = try makeDate(
+            calendar: warsawCalendar,
+            year: 2026,
+            month: 10,
+            day: 21
+        )
+
+        let horizon = service.makeHorizon(today: today, calendar: warsawCalendar)
+
+        #expect(horizon.startDate == expectedStartDate)
+        #expect(warsawCalendar.component(.day, from: horizon.endDate) == 25)
+    }
+
     // MARK: - Mutation
 
     @Test func makeMutation_preservesCurrentWeekAssignments() throws {
@@ -189,6 +254,24 @@ struct SchedulingServiceTests {
         let components = DateComponents(
             calendar: calendar,
             timeZone: TimeZone(secondsFromGMT: 0),
+            year: year,
+            month: month,
+            day: day,
+            hour: hour
+        )
+        return try #require(calendar.date(from: components))
+    }
+
+    private func makeDate(
+        calendar: Calendar,
+        year: Int,
+        month: Int,
+        day: Int,
+        hour: Int = 0
+    ) throws -> Date {
+        let components = DateComponents(
+            calendar: calendar,
+            timeZone: calendar.timeZone,
             year: year,
             month: month,
             day: day,
