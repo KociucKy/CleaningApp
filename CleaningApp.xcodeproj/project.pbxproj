@@ -91,6 +91,7 @@
 		660D48547BDC931810ED5C5B /* RoomsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0AC0E23A9B8115A456660C /* RoomsPresenter.swift */; };
 		66A8BF445AA2908B69FE2A23 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D8476AF41A889E1E0EA066 /* Tags.swift */; };
 		66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCB84AA7DEA6877F050EB2D /* RoomEntity+Mock.swift */; };
+		68037E026B53E248A76ABCFD /* SchedulePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC0BC18A192FA4C9DBAC7C3 /* SchedulePresenterTests.swift */; };
 		69534D7AFD21A196EE86962E /* LogKit in Frameworks */ = {isa = PBXBuildFile; productRef = 65750B7A5986D2A2D68B50C2 /* LogKit */; };
 		69F3FEC4D16414E30CA72F77 /* OnbNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FEC69AB80185DCF65F978C /* OnbNotificationView.swift */; };
 		6CA7BF357A9E64A0154CF86F /* ScheduledCandidateAllocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD53D675FF4E0C7B9F347B3 /* ScheduledCandidateAllocation.swift */; };
@@ -354,6 +355,7 @@
 		5E66FB96D40865EF4BB3857F /* CompletedTaskEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedTaskEntity.swift; sourceTree = "<group>"; };
 		5E7D93FB416C78D071E6CE78 /* RoomsAnimationConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsAnimationConfigurationTests.swift; sourceTree = "<group>"; };
 		5F1C999A54C52A9148E3BF55 /* CleaningScheduleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleaningScheduleCoordinator.swift; sourceTree = "<group>"; };
+		5FC0BC18A192FA4C9DBAC7C3 /* SchedulePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePresenterTests.swift; sourceTree = "<group>"; };
 		60562AEE8E54C16ADCCC6571 /* test_completedView_withTimePickerHidden.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_completedView_withTimePickerHidden.1.png; sourceTree = "<group>"; };
 		6079C6F86C66799CC26CC9D4 /* OnboardingStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStateTests.swift; sourceTree = "<group>"; };
 		63EEF6FC08A387BA14E5B0EA /* ActivityLogRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLogRouter.swift; sourceTree = "<group>"; };
@@ -1214,6 +1216,7 @@
 			children = (
 				34E6D2D949078A62C4C95E81 /* CleaningScheduleCoordinatorTests.swift */,
 				A12618D3EC8D0BA2192A13AA /* ScheduledTaskManagerTests.swift */,
+				5FC0BC18A192FA4C9DBAC7C3 /* SchedulePresenterTests.swift */,
 				B6AE3D2C2777ECA1BF927C05 /* SchedulingCandidateAllocatorTests.swift */,
 				DC308FECA55E37F6DF32569B /* SchedulingCandidateGeneratorTests.swift */,
 				2F7678F4A3C496BF734FACB9 /* SchedulingOccurrenceAnalyzerTests.swift */,
@@ -1384,7 +1387,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_6066AFBA-C06B-457C-BA63-8FD39E1BDB52" /* Shared */ = {
+		"TEMP_B40D1AD5-680A-4D4D-82C6-EDD957B6DD2C" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1603,6 +1606,7 @@
 				807D70518AE4ACBA68674C60 /* RoomsAnimationConfigurationTests.swift in Sources */,
 				3F1BC93E23FACB31CAFBDE03 /* RoomsDetailsPresenterTests.swift in Sources */,
 				F1575336B37DA69694069BFB /* RoomsPresenterTests.swift in Sources */,
+				68037E026B53E248A76ABCFD /* SchedulePresenterTests.swift in Sources */,
 				03EFF9949424A9F641D18C2D /* ScheduledTaskManagerTests.swift in Sources */,
 				C83319BDCDD1A87F475A7F8F /* SchedulingCandidateAllocatorTests.swift in Sources */,
 				785C9EB5CDC3E7FFEC5ABBAD /* SchedulingCandidateGeneratorTests.swift in Sources */,
