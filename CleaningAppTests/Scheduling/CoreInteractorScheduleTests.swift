@@ -28,4 +28,32 @@ struct CoreInteractorScheduleTests {
 
         #expect(try scheduledTaskManager.fetchAll(for: roomTask.id).isEmpty)
     }
+
+    @Test func deleteRoom_removesChildTasksAndTheirScheduledOccurrences() throws {
+        let dependencies = Dependencies(config: .mock)
+        let roomTaskManager = try #require(
+            dependencies.dependencyContainer.resolve(RoomTaskManager.self)
+        )
+        let scheduledTaskManager = try #require(
+            dependencies.dependencyContainer.resolve(ScheduledTaskManager.self)
+        )
+        let interactor = CoreInteractor(container: dependencies.dependencyContainer)
+        let room = Room(name: "Kitchen", kind: .kitchen)
+        let roomTask = RoomTask(
+            name: "Clean counters",
+            roomId: room.id,
+            frequency: .daily,
+            estimatedDuration: .fifteenMinutes
+        )
+        try interactor.saveRoom(room)
+        try roomTaskManager.save(roomTask)
+        try scheduledTaskManager.save(
+            ScheduledTask(taskId: roomTask.id, scheduledDate: Date())
+        )
+
+        try interactor.deleteRoom(room)
+
+        #expect(try roomTaskManager.fetchAll(for: room.id).isEmpty)
+        #expect(try scheduledTaskManager.fetchAll(for: roomTask.id).isEmpty)
+    }
 }

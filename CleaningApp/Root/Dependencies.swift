@@ -37,14 +37,15 @@ struct Dependencies {
 			CompletedTaskEntity.self
 		)
 
-		switch config {
-		case .mock:
-			roomManager = RoomManager(
-				repository: MockRoomRepository()
-			)
-			roomTaskManager = RoomTaskManager(
-				taskRepository: MockRoomTaskRepository(),
-				roomRepository: MockRoomRepository()
+			switch config {
+			case .mock:
+				let roomRepository = MockRoomRepository()
+				roomManager = RoomManager(
+					repository: roomRepository
+				)
+				roomTaskManager = RoomTaskManager(
+					taskRepository: MockRoomTaskRepository(),
+					roomRepository: roomRepository
 			)
 			scheduledTaskManager = ScheduledTaskManager(
 				repository: MockScheduledTaskRepository()
@@ -60,14 +61,15 @@ struct Dependencies {
 			#else
 				notificationScheduler = NotificationScheduler()
 			#endif
-			onboardingState = OnboardingState()
-		case .dev:
-			roomManager = RoomManager(
-				repository: SwiftDataRoomRepository(container: modelContainer)
-			)
-			roomTaskManager = RoomTaskManager(
-				taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
-				roomRepository: SwiftDataRoomRepository(container: modelContainer)
+				onboardingState = OnboardingState()
+			case .dev:
+				let roomRepository = SwiftDataRoomRepository(container: modelContainer)
+				roomManager = RoomManager(
+					repository: roomRepository
+				)
+				roomTaskManager = RoomTaskManager(
+					taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
+					roomRepository: roomRepository
 			)
 			scheduledTaskManager = ScheduledTaskManager(
 				repository: SwiftDataScheduledTaskRepository(container: modelContainer)
@@ -78,15 +80,16 @@ struct Dependencies {
 			skippedTaskManager = SkippedTaskManager(
 				repository: SwiftDataSkippedTaskRepository(container: modelContainer)
 			)
-			notificationScheduler = NotificationScheduler()
-			onboardingState = OnboardingState()
-		case .prod:
-			roomManager = RoomManager(
-				repository: SwiftDataRoomRepository(container: modelContainer)
-			)
-			roomTaskManager = RoomTaskManager(
-				taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
-				roomRepository: SwiftDataRoomRepository(container: modelContainer)
+				notificationScheduler = NotificationScheduler()
+				onboardingState = OnboardingState()
+			case .prod:
+				let roomRepository = SwiftDataRoomRepository(container: modelContainer)
+				roomManager = RoomManager(
+					repository: roomRepository
+				)
+				roomTaskManager = RoomTaskManager(
+					taskRepository: SwiftDataRoomTaskRepository(container: modelContainer),
+					roomRepository: roomRepository
 			)
 			scheduledTaskManager = ScheduledTaskManager(
 				repository: SwiftDataScheduledTaskRepository(container: modelContainer)
@@ -167,12 +170,13 @@ final class DevPreview {
 	// MARK: - Init
 
 	init() {
+		let roomRepository = MockRoomRepository()
 		roomManager = RoomManager(
-			repository: MockRoomRepository()
+			repository: roomRepository
 		)
 		roomTaskManager = RoomTaskManager(
 			taskRepository: MockRoomTaskRepository(),
-			roomRepository: MockRoomRepository()
+			roomRepository: roomRepository
 		)
 		scheduledTaskManager = ScheduledTaskManager(
 			repository: MockScheduledTaskRepository()
