@@ -120,7 +120,21 @@ struct ScheduleView: View {
 		.padding(.vertical, 44)
 	}
 	
+	@ViewBuilder
 	private func taskCard(_ task: ScheduleTask) -> some View {
+		if task.status == .planned {
+			Button {
+				presenter.complete(task)
+			} label: {
+				taskCardContent(task)
+			}
+			.buttonStyle(.fkFade)
+		} else {
+			taskCardContent(task)
+		}
+	}
+
+	private func taskCardContent(_ task: ScheduleTask) -> some View {
 		let isCompleted = task.status == .completed
 		let detail = "\(task.room) • \(task.duration) min"
 		let accessibilityLabel = "\(task.name), \(task.room), \(task.duration) minutes"

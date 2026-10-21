@@ -43,6 +43,21 @@ final class SchedulePresenter {
 		tasksByWeekday[day] ?? []
 	}
 
+	func complete(_ task: ScheduleView.ScheduleTask, completedAt: Date = Date()) {
+		guard task.status == .planned else {
+			return
+		}
+
+		do {
+			try interactor.completeScheduledTask(
+				id: task.id,
+				completedAt: completedAt,
+				measuredDuration: nil
+			)
+			fetchSchedule(today: completedAt)
+		} catch {}
+	}
+
 	// MARK: - Private
 
 	private func makeTasksByWeekday(
