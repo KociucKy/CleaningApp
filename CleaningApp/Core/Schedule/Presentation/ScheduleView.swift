@@ -13,7 +13,6 @@ struct ScheduleView: View {
 
 	@State private var presenter: SchedulePresenter
 	@State private var selectedDay: Weekday?
-	@State private var completedTaskIDs: Set<UUID> = []
 	
 	// MARK: - Init
 	
@@ -34,7 +33,7 @@ struct ScheduleView: View {
 								.removeListRowFormatting()
 						}
 						Section {
-							let tasks = Self.weeklyTasks[day] ?? []
+							let tasks = presenter.tasks(for: day)
 							if tasks.isNotEmpty {
 								ForEach(tasks) { task in
 									taskCard(task)
@@ -53,6 +52,10 @@ struct ScheduleView: View {
 		.scrollPosition(id: $selectedDay, anchor: .center)
 		.scrollEdgeEffectStyle(.soft, for: .top)
 		.background(FKColor.Background.primary)
+		.onAppear {
+			presenter.fetchSchedule(today: Date())
+			selectedDay = presenter.currentWeekday
+		}
 		.navigationTitle("schedule.nav_title")
 		.navigationSubtitle("schedule.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
@@ -80,8 +83,8 @@ struct ScheduleView: View {
 	}
 	
 	private func daySummary(for day: Weekday) -> some View {
-		let tasks = Self.weeklyTasks[day] ?? []
-		let completedCount = tasks.filter { completedTaskIDs.contains($0.id) }.count
+		let tasks = presenter.tasks(for: day)
+		let completedCount = tasks.filter { $0.status == .completed }.count
 		
 		return VStack(alignment: .leading, spacing: FKSpacing.default) {
 			HStack(alignment: .firstTextBaseline) {
@@ -118,14 +121,10 @@ struct ScheduleView: View {
 	}
 	
 	private func taskCard(_ task: ScheduleTask) -> some View {
-		let isCompleted = completedTaskIDs.contains(task.id)
+		let isCompleted = task.status == .completed
 		let detail = "\(task.room) • \(task.duration) min"
 		let accessibilityLabel = "\(task.name), \(task.room), \(task.duration) minutes"
-		let accessibilityHint = "Double-tap to mark as \(isCompleted ? "not completed" : "completed")"
-		return Button {
-			toggleCompletion(for: task)
-		} label: {
-			HStack(spacing: FKSpacing.large) {
+		return HStack(spacing: FKSpacing.large) {
 				Image(systemName: isCompleted ? "checkmark.circle.fill" : task.symbolName)
 					.font(FKTypography.sectionHeader)
 					.foregroundStyle(.accent.gradient)
@@ -150,23 +149,10 @@ struct ScheduleView: View {
 					.font(FKTypography.sectionHeader)
 					.foregroundStyle(.tertiary)
 					.opacity(isCompleted ? 0 : 1)
-			}
 		}
-		.buttonStyle(.fkFade)
 		.frame(maxWidth: .infinity)
 		.accessibilityLabel(accessibilityLabel)
 		.accessibilityValue(isCompleted ? "Completed" : "Not completed")
-		.accessibilityHint(accessibilityHint)
-	}
-	
-	// MARK: - Actions
-	
-	private func toggleCompletion(for task: ScheduleTask) {
-		if completedTaskIDs.contains(task.id) {
-			completedTaskIDs.remove(task.id)
-		} else {
-			completedTaskIDs.insert(task.id)
-		}
 	}
 }
 
@@ -192,7 +178,7 @@ private extension View {
 // MARK: - ScheduleView.Weekday
 
 extension ScheduleView {
-	enum Weekday: Int, CaseIterable, Identifiable {
+		enum Weekday: Int, CaseIterable, Identifiable {
 		case monday
 		case tuesday
 		case wednesday
@@ -222,6 +208,18 @@ extension ScheduleView {
 		var date: String {
 			"\(14 + rawValue)"
 		}
+
+		init(date: Date, calendar: Calendar) {
+			switch calendar.component(.weekday, from: date) {
+			case 2: self = .monday
+			case 3: self = .tuesday
+			case 4: self = .wednesday
+			case 5: self = .thursday
+			case 6: self = .friday
+			case 7: self = .saturday
+			default: self = .sunday
+			}
+		}
 	}
 }
 
@@ -234,21 +232,22 @@ extension ScheduleView {
 		let room: String
 		let duration: Int
 		let symbolName: String
-		let tint: Color?
+		let status: ScheduledTaskStatus
 		
 		init(
+			id: UUID,
 			name: String,
 			room: String,
 			duration: Int,
 			symbolName: String,
-			tint: Color? = nil
+			status: ScheduledTaskStatus
 		) {
-			id = UUID()
+			self.id = id
 			self.name = name
 			self.room = room
 			self.duration = duration
 			self.symbolName = symbolName
-			self.tint = tint
+			self.status = status
 		}
 	}
 }
@@ -259,47 +258,6 @@ private extension Array where Element == ScheduleView.ScheduleTask {
 	}
 }
 
-// MARK: - ScheduleView.MockData
-
-private extension ScheduleView {
-	static let weeklyTasks: [Weekday: [ScheduleTask]] = [
-		.monday: [
-			ScheduleTask(name: "Wipe kitchen counters", room: "Kitchen", duration: 10, symbolName: "sparkles"),
-			ScheduleTask(name: "Vacuum living room", room: "Living room", duration: 15, symbolName: "sofa"),
-			ScheduleTask(name: "Make the bed", room: "Bedroom", duration: 5, symbolName: "bed.double")
-		],
-		.tuesday: [
-			ScheduleTask(name: "Clean bathroom sink", room: "Bathroom", duration: 10, symbolName: "drop"),
-			ScheduleTask(name: "Sort the mail", room: "Hallway", duration: 10, symbolName: "envelope"),
-			ScheduleTask(name: "Water plants", room: "Living room", duration: 8, symbolName: "leaf")
-		],
-		.wednesday: [
-			ScheduleTask(name: "Change towels", room: "Bathroom", duration: 8, symbolName: "hand.raised"),
-			ScheduleTask(name: "Wipe desk", room: "Office", duration: 8, symbolName: "desktopcomputer"),
-			ScheduleTask(name: "Start a laundry load", room: "Laundry", duration: 10, symbolName: "washer")
-		],
-		.thursday: [
-			ScheduleTask(name: "Clean the stovetop", room: "Kitchen", duration: 12, symbolName: "fork.knife"),
-			ScheduleTask(name: "Dust shelves", room: "Living room", duration: 12, symbolName: "books.vertical"),
-			ScheduleTask(name: "Tidy bedside table", room: "Bedroom", duration: 5, symbolName: "lamp.table")
-		],
-		.friday: [
-			ScheduleTask(name: "Empty bathroom bin", room: "Bathroom", duration: 5, symbolName: "trash"),
-			ScheduleTask(name: "Sweep hallway", room: "Hallway", duration: 10, symbolName: "broom"),
-			ScheduleTask(name: "Freshen the sofa", room: "Living room", duration: 10, symbolName: "sofa")
-		],
-		.saturday: [
-			ScheduleTask(name: "Mop kitchen floor", room: "Kitchen", duration: 20, symbolName: "drop"),
-			ScheduleTask(name: "Change bed sheets", room: "Bedroom", duration: 15, symbolName: "bed.double"),
-			ScheduleTask(name: "Clean mirrors", room: "Bathroom", duration: 10, symbolName: "rectangle.on.rectangle")
-		],
-		.sunday: [
-			ScheduleTask(name: "Plan the week", room: "Home", duration: 10, symbolName: "calendar"),
-			ScheduleTask(name: "Reset entryway", room: "Hallway", duration: 10, symbolName: "door.left.hand.open"),
-			ScheduleTask(name: "Take out recycling", room: "Kitchen", duration: 8, symbolName: "arrow.3.trianglepath")
-		]
-	]
-}
 
 // MARK: - Preview
 
