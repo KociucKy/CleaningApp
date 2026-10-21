@@ -129,6 +129,11 @@ struct ScheduleView: View {
 				taskCardContent(task)
 			}
 			.buttonStyle(.fkFade)
+			.contextMenu {
+				Button("Skip task", systemImage: "arrowshape.turn.up.right") {
+					presenter.skip(task)
+				}
+			}
 		} else {
 			taskCardContent(task)
 		}

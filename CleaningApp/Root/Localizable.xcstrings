@@ -2917,6 +2917,9 @@
         }
       }
     },
+    "Skip task" : {
+
+    },
     "tab.home" : {
       "extractionState" : "manual",
       "localizations" : {

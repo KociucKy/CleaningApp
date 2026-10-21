@@ -58,6 +58,21 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
+	func skip(_ task: ScheduleView.ScheduleTask, skippedAt: Date = Date()) {
+		guard task.status == .planned else {
+			return
+		}
+
+		do {
+			_ = try interactor.skipScheduledTask(
+				id: task.id,
+				skippedAt: skippedAt,
+				dailyLimit: 30
+			)
+			fetchSchedule(today: skippedAt)
+		} catch {}
+	}
+
 	// MARK: - Private
 
 	private func makeTasksByWeekday(
