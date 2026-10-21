@@ -60,6 +60,14 @@ struct ScheduleView: View {
 		.navigationSubtitle("schedule.nav_subtitle")
 		.toolbarTitleDisplayMode(.inlineLarge)
 		.toolbar {
+			ToolbarItem(placement: .topBarLeading) {
+				Button {
+					presenter.refresh()
+				} label: {
+					Image(systemName: "arrow.clockwise")
+				}
+				.accessibilityLabel("Refresh schedule")
+			}
 			ToolbarItem(placement: .topBarTrailing) {
 				Menu {
 					ForEach(Weekday.allCases) { weekday in

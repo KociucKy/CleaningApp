@@ -84,6 +84,13 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
+	func refresh(today: Date = Date()) {
+		do {
+			_ = try interactor.refreshSchedule(today: today, dailyLimit: 30)
+			fetchSchedule(today: today)
+		} catch {}
+	}
+
 	// MARK: - Private
 
 	private func makeTasksByWeekday(
