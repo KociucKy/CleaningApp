@@ -9,6 +9,7 @@ final class SchedulePresenter {
 	private let router: any ScheduleRouter
 	private(set) var tasksByWeekday: [ScheduleView.Weekday: [ScheduleView.ScheduleTask]] = [:]
 	private(set) var currentWeekday: ScheduleView.Weekday = .monday
+	private var hasPastPlannedOccurrences = false
 
 	// MARK: - Init
 
@@ -30,6 +31,9 @@ final class SchedulePresenter {
 			let scheduledTasks = try interactor.fetchAllScheduledTasks()
 			let startDate = calendar.startOfDay(for: today)
 			currentWeekday = ScheduleView.Weekday(date: startDate, calendar: calendar)
+			hasPastPlannedOccurrences = scheduledTasks.contains { scheduledTask in
+				scheduledTask.status == .planned && scheduledTask.scheduledDate < startDate
+			}
 			tasksByWeekday = makeTasksByWeekday(
 				rooms: rooms,
 				tasks: tasks,
@@ -47,7 +51,18 @@ final class SchedulePresenter {
 	}
 
 	func ensureSchedule(today: Date, calendar: Calendar = .current) {
-		guard let hasActivePlan = fetchSchedule(today: today, calendar: calendar), !hasActivePlan else {
+		guard let hasActivePlan = fetchSchedule(today: today, calendar: calendar) else {
+			return
+		}
+		if hasPastPlannedOccurrences {
+			endElapsedScheduleDay(before: today, calendar: calendar)
+			guard let hasActivePlan = fetchSchedule(today: today, calendar: calendar), !hasActivePlan else {
+				return
+			}
+			refresh(today: today)
+			return
+		}
+		guard !hasActivePlan else {
 			return
 		}
 
@@ -110,6 +125,23 @@ final class SchedulePresenter {
 	}
 
 	// MARK: - Private
+
+	private func endElapsedScheduleDay(before today: Date, calendar: Calendar) {
+		guard let yesterday = calendar.date(
+			byAdding: .day,
+			value: -1,
+			to: calendar.startOfDay(for: today)
+		) else {
+			return
+		}
+
+		do {
+			_ = try interactor.endScheduleDay(
+				endedAt: yesterday,
+				dailyLimit: interactor.dailyScheduleLimit()
+			)
+		} catch {}
+	}
 
 	private func makeTasksByWeekday(
 		rooms: [Room],
