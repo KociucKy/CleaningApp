@@ -9,11 +9,23 @@ struct HomeView: View {
 	// MARK: - Body
 
 	var body: some View {
-		VStack {
-			Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
-			Text("Tasks: \(presenter.tasks.count)")
-			Text("Scheduled: \(presenter.plannedScheduledTaskCount)")
-			Text("Backlog: \(presenter.backlogScheduledTaskCount)")
+		List {
+			Section {
+				Text(String.localizedStringWithFormat(String(localized: "home.rooms_count"), Int64(presenter.rooms.count)))
+				Text("Tasks: \(presenter.tasks.count)")
+			}
+
+			Section("Scheduled") {
+				ForEach(presenter.plannedScheduledTaskRows) { row in
+					HomeScheduledTaskRowView(row: row)
+				}
+			}
+
+			Section("Backlog") {
+				ForEach(presenter.backlogScheduledTaskRows) { row in
+					HomeScheduledTaskRowView(row: row)
+				}
+			}
 		}
 		.navigationTitle("home.nav_title")
 		.toolbarTitleDisplayMode(.inlineLarge)

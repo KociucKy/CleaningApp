@@ -14,6 +14,16 @@
     "%@ is intentionally light." : {
 
     },
+    "%@, %lld minutes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$lld minutes"
+          }
+        }
+      }
+    },
     "%lld min" : {
 
     },
@@ -297,7 +307,7 @@
         }
       }
     },
-    "Backlog: %lld" : {
+    "Backlog" : {
 
     },
     "Cancel" : {
@@ -2887,7 +2897,7 @@
         }
       }
     },
-    "Scheduled: %lld" : {
+    "Scheduled" : {
 
     },
     "settings.nav_title" : {

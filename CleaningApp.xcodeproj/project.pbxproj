@@ -24,6 +24,7 @@
 		1C5711AB264E08430F647AA6 /* test_paywallView_defaultState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = C72F4A9A527F1C819EEB0B83 /* test_paywallView_defaultState.1.png */; };
 		1D97EC665660AFA851BBA56C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36804C9A9E2645C5D4A1FE98 /* Room.swift */; };
 		1FD77D2B434357FA51B4F794 /* test_welcomeView_defaultState.1.png in Resources */ = {isa = PBXBuildFile; fileRef = 16060AF62D91656F7E96B70B /* test_welcomeView_defaultState.1.png */; };
+		20629AA64FF5824105BFF07A /* HomeScheduledTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A0965BD82841971CF689A6 /* HomeScheduledTaskRow.swift */; };
 		216DCD2DC2F10A6112D43FC9 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 15D27D80E3A7D5D6CD12FE36 /* InfoPlist.xcstrings */; };
 		21C1BB28AFF5DE48DA36AE20 /* FulhamKit in Frameworks */ = {isa = PBXBuildFile; productRef = 125EFD511D0A1D887E4567A1 /* FulhamKit */; };
 		237172936FDC2D59BC4B430B /* FrequencyPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F3F8EC615D8F5142523664 /* FrequencyPickerView.swift */; };
@@ -98,6 +99,7 @@
 		6FC2D2E104E59377909FBAF8 /* CleaningScheduleCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E6D2D949078A62C4C95E81 /* CleaningScheduleCoordinatorTests.swift */; };
 		705F9EA71A291971BF243EEE /* UserDefaultsKitUI in Frameworks */ = {isa = PBXBuildFile; productRef = A638A932DB0BC851620820DF /* UserDefaultsKitUI */; };
 		70EF9E9F8F6636597954B23B /* ActivityLogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5779B02C0B4D9EF518AC7E1F /* ActivityLogInteractor.swift */; };
+		712B547B230B627D4BBBCB1D /* HomeScheduledTaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6C34C01CCEADC3ECF6BF0 /* HomeScheduledTaskRowView.swift */; };
 		718ECC3905400D415B6CCF08 /* test_roomSelectionView_noSelection.1.png in Resources */ = {isa = PBXBuildFile; fileRef = F074EC2419C66EA6F2B5975E /* test_roomSelectionView_noSelection.1.png */; };
 		719A3716C8C8798E37664570 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412CB179AA27D706A4C3A4A3 /* HomeView.swift */; };
 		737A6FE5102C857EA21B0831 /* RoomTypeSuggestedTasksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06AF8CB201F1768C153A84F /* RoomTypeSuggestedTasksTests.swift */; };
@@ -300,6 +302,7 @@
 		3073A6B2E1C35A8795FDF909 /* CompletionTrendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionTrendService.swift; sourceTree = "<group>"; };
 		3085BBA28EEBC3368BDFF501 /* OnbAddCustomTaskSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbAddCustomTaskSheetView.swift; sourceTree = "<group>"; };
 		32392E1421A41F17385F5113 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		33A0965BD82841971CF689A6 /* HomeScheduledTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScheduledTaskRow.swift; sourceTree = "<group>"; };
 		34E6D2D949078A62C4C95E81 /* CleaningScheduleCoordinatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CleaningScheduleCoordinatorTests.swift; sourceTree = "<group>"; };
 		35D2DE791C56B734F6A4075E /* CoreBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreBuilder.swift; sourceTree = "<group>"; };
 		36804C9A9E2645C5D4A1FE98 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -308,6 +311,7 @@
 		396AAFF45301D9A04D2EA477 /* test_controlButtonsView_withSkipButton.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_controlButtonsView_withSkipButton.1.png; sourceTree = "<group>"; };
 		3B5055E6B544B127B8F987E9 /* OnbControlButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbControlButtonsView.swift; sourceTree = "<group>"; };
 		3B55790A22FF5DF367E8A89F /* RoomsDetailsTaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsTaskListView.swift; sourceTree = "<group>"; };
+		3BB6C34C01CCEADC3ECF6BF0 /* HomeScheduledTaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScheduledTaskRowView.swift; sourceTree = "<group>"; };
 		3C01FFCCCB282C084F7927F6 /* OnboardingFlowStateCustomTaskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowStateCustomTaskTests.swift; sourceTree = "<group>"; };
 		3D8EECF718304829CC34D3FE /* OnbProgressStage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbProgressStage.swift; sourceTree = "<group>"; };
 		3EFBAD6E48F7CE6860959568 /* test_completedView_withTimePickerVisible.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_completedView_withTimePickerVisible.1.png; sourceTree = "<group>"; };
@@ -1360,6 +1364,8 @@
 		FD55E5D4A0BB408704BA6DD9 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				33A0965BD82841971CF689A6 /* HomeScheduledTaskRow.swift */,
+				3BB6C34C01CCEADC3ECF6BF0 /* HomeScheduledTaskRowView.swift */,
 				412CB179AA27D706A4C3A4A3 /* HomeView.swift */,
 				4B57201C3ADFF355EE94767B /* HomeViewPresenter.swift */,
 			);
@@ -1378,7 +1384,7 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_09EC4E1F-EEBA-4448-B865-40E302663E92" /* Shared */ = {
+		"TEMP_6066AFBA-C06B-457C-BA63-8FD39E1BDB52" /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -1664,6 +1670,8 @@
 				34A82987A704275C5331ACA7 /* FrequencySelectorOption.swift in Sources */,
 				5E303E39EEC1FBD73AB1FCA5 /* HomeInteractor.swift in Sources */,
 				238A0C206F55340CB3AA64AE /* HomeRouter.swift in Sources */,
+				20629AA64FF5824105BFF07A /* HomeScheduledTaskRow.swift in Sources */,
+				712B547B230B627D4BBBCB1D /* HomeScheduledTaskRowView.swift in Sources */,
 				719A3716C8C8798E37664570 /* HomeView.swift in Sources */,
 				B6A3028E4B7EAC772A5BC130 /* HomeViewPresenter.swift in Sources */,
 				2B01472E33D965966E70C36D /* IconPickerGridView.swift in Sources */,
