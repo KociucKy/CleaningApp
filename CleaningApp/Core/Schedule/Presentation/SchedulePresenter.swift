@@ -67,7 +67,7 @@ final class SchedulePresenter {
 			_ = try interactor.skipScheduledTask(
 				id: task.id,
 				skippedAt: skippedAt,
-				dailyLimit: 30
+				dailyLimit: interactor.dailyScheduleLimit()
 			)
 			fetchSchedule(today: skippedAt)
 		} catch {}
@@ -86,7 +86,10 @@ final class SchedulePresenter {
 
 	func refresh(today: Date = Date()) {
 		do {
-			_ = try interactor.refreshSchedule(today: today, dailyLimit: 30)
+			_ = try interactor.refreshSchedule(
+				today: today,
+				dailyLimit: interactor.dailyScheduleLimit()
+			)
 			fetchSchedule(today: today)
 		} catch {}
 	}

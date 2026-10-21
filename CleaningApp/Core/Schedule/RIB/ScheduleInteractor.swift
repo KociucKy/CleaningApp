@@ -9,6 +9,7 @@ protocol ScheduleInteractor {
 	func skipScheduledTask(id: UUID, skippedAt: Date, dailyLimit: Int) throws -> ScheduleMutation
 	func undoSkipScheduledTask(id: UUID, restoredAt: Date) throws
 	func refreshSchedule(today: Date, dailyLimit: Int) throws -> ScheduleMutation
+	func dailyScheduleLimit() -> Int
 }
 
 extension CoreInteractor: ScheduleInteractor {}

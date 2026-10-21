@@ -1,14 +1,11 @@
 import Foundation
+import UserDefaultsKit
 
 // MARK: - CoreInteractor
 
 @MainActor
 struct CoreInteractor {
 	// MARK: - Properties
-
-	private enum Constants {
-		static let defaultDailyLimit = 30
-	}
 
 	private let roomManager: RoomManager
 	private let roomTaskManager: RoomTaskManager
@@ -101,6 +98,16 @@ struct CoreInteractor {
 		try cleaningScheduleCoordinator.refresh(today: today, dailyLimit: dailyLimit)
 	}
 
+	func dailyScheduleLimit() -> Int {
+		UserDefaultsStore.standard.get(.dailyScheduleLimit)
+	}
+
+	func updateDailyScheduleLimit(_ dailyLimit: Int) throws {
+		let updatedLimit = min(max(dailyLimit, 5), 120)
+		UserDefaultsStore.standard.set(updatedLimit, for: .dailyScheduleLimit)
+		try cleaningScheduleCoordinator.refresh(today: Date(), dailyLimit: updatedLimit)
+	}
+
 	func completeScheduledTask(
 		id: UUID,
 		completedAt: Date,
@@ -134,7 +141,7 @@ struct CoreInteractor {
 	private func refreshScheduleAfterTaskChange() throws {
 		try cleaningScheduleCoordinator.refresh(
 			today: Date(),
-			dailyLimit: Constants.defaultDailyLimit
+			dailyLimit: dailyScheduleLimit()
 		)
 	}
 

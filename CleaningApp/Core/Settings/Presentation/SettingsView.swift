@@ -9,9 +9,22 @@ struct SettingsView: View {
 	// MARK: - Body
 
 	var body: some View {
-		Text("settings.nav_title")
+		Form {
+			Section("Schedule") {
+				Stepper(
+					"Daily limit: \(presenter.dailyScheduleLimit) min",
+					value: Binding(
+						get: { presenter.dailyScheduleLimit },
+						set: presenter.updateDailyScheduleLimit
+					),
+					in: 5 ... 120,
+					step: 5
+				)
+			}
+		}
 			.navigationTitle("settings.nav_title")
 			.toolbarTitleDisplayMode(.inlineLarge)
+			.onAppear(perform: presenter.fetchSettings)
 	}
 }
 

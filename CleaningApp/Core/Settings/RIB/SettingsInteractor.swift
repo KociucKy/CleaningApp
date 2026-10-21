@@ -5,7 +5,8 @@ import NavigationKit
 
 @MainActor
 protocol SettingsInteractor {
-	// TODO: Define Settings interactor methods
+	func dailyScheduleLimit() -> Int
+	func updateDailyScheduleLimit(_ dailyLimit: Int) throws
 }
 
 extension CoreInteractor: SettingsInteractor {}

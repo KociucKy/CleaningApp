@@ -723,6 +723,9 @@
         }
       }
     },
+    "Daily limit: %lld min" : {
+
+    },
     "Day" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2861,6 +2864,9 @@
       }
     },
     "Save" : {
+
+    },
+    "Schedule" : {
 
     },
     "schedule.nav_subtitle" : {
