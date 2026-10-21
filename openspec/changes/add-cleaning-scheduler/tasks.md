@@ -29,12 +29,13 @@
 - [ ] 3.6 Implement day-end carry-forward flow that marks incomplete occurrences postponed and preserves one active overdue representation per task.
 - [ ] 3.7 Register repositories, managers, scheduling service, and coordinator in `DependencyContainer` for production and MOCK builds.
 
-## 4. Feature Integration
+## 4. Schedule Feature Integration
 
-- [ ] 4.1 Extend the relevant interactor protocols and `CoreInteractor` with schedule query, refresh, completion, skip, and undo operations.
-- [ ] 4.2 Trigger scheduling refresh after task creation, editing, deletion, room-structure changes, and the agreed app/day refresh events.
-- [ ] 4.3 Expose schedule and skipped/backlog data to the Home feature without moving scheduling rules into presenters or views.
-- [ ] 4.4 Display effective duration using learned duration when present and the user estimate otherwise.
+- [ ] 4.1 Extend `ScheduleInteractor` and `CoreInteractor` with schedule query, refresh, completion, skip, and undo operations.
+- [ ] 4.2 Refactor the existing mock-backed `ScheduleView` and `SchedulePresenter` to render scheduled, backlog, and skipped occurrences without moving scheduling rules into presentation.
+- [ ] 4.3 Replace `ScheduleView`'s local completion state with coordinator-backed complete, skip, and undo actions.
+- [ ] 4.4 Trigger scheduling refresh after task creation, editing, deletion, room-structure changes, and the agreed app/day refresh events.
+- [ ] 4.5 Display effective duration using learned duration when present and the user estimate otherwise.
 
 ## 5. Tests and Verification
 

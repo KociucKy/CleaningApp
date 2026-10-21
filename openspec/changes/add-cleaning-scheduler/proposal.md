@@ -55,8 +55,8 @@ CleaningApp currently stores rooms, recurring cleaning tasks, completions, and s
 
 - **Domain and persistence:** Adds scheduled-occurrence models, SwiftData entities, mapping, repository, manager, and mock implementations. It also prepares a separate persisted learned-duration field for a later duration-learning feature.
 - **Services:** Adds a synchronous scheduling service that evaluates recurrence and assigns eligible occurrences to calendar days.
-- **Architecture:** Exposes scheduling and schedule-query operations through the Home feature's interactor layer; presenters and views remain free of scheduling logic.
-- **UI:** This proposal enables a future Home daily-plan view and backlog/skipped-item presentation. Their detailed visual design is outside this change unless included in the implementation tasks later.
+- **Architecture:** Exposes scheduling and schedule-query operations through feature interactor layers; presenters and views remain free of scheduling logic.
+- **UI:** `ScheduleView` is the separate operational surface for the daily-plan pager, backlog, and skipped-item presentation. `HomeView` remains unchanged by this scheduling feature. The existing mock-backed Schedule feature is refactored to consume presenter-provided schedule data and lifecycle actions.
 - **Testing:** Requires deterministic calendar/date tests, recurrence tests for every `Frequency` case, lifecycle tests, and capacity/distribution tests using the Mock scheme.
 
 ## Non-Goals

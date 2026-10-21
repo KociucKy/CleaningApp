@@ -143,6 +143,6 @@ Add `learnedDuration: Int?` to `RoomTask` and `RoomTaskEntity`. Migrate mappers,
 
 ## Open Questions
 
-- The exact user-facing Home schedule and backlog presentation are intentionally deferred to the Home feature work.
+- `ScheduleView` is the dedicated operational screen for the schedule pager and task lifecycle actions. Its existing visual structure is retained while mock types and local completion state are replaced with presenter-provided schedule data. `HomeView` is outside this feature’s UI scope.
 - The daily time limit needs a Settings persistence design before it becomes user-configurable; this change uses the existing product default of 30 minutes.
 - The future learned-duration feature must choose its estimator (for example, median or rolling average) and minimum sample count.
