@@ -9,6 +9,30 @@ import Testing
 struct CoreInteractorScheduleTests {
     // MARK: - Tests
 
+    @Test func saveRoomTask_refreshesSchedule() throws {
+        let dependencies = Dependencies(config: .mock)
+        let scheduledTaskManager = try #require(
+            dependencies.dependencyContainer.resolve(ScheduledTaskManager.self)
+        )
+        let interactor = CoreInteractor(container: dependencies.dependencyContainer)
+        let room = Room(name: "Kitchen", kind: .kitchen)
+        let roomTask = RoomTask(
+            name: "Clean counters",
+            roomId: room.id,
+            frequency: .daily,
+            estimatedDuration: .fifteenMinutes
+        )
+        try interactor.saveRoom(room)
+
+        try interactor.saveRoomTask(roomTask)
+
+        #expect(
+            try scheduledTaskManager.fetchAll().contains { occurrence in
+                occurrence.taskId == roomTask.id && occurrence.status == .planned
+            }
+        )
+    }
+
     @Test func deleteRoomTask_removesItsScheduledOccurrences() throws {
         let dependencies = Dependencies(config: .mock)
         let scheduledTaskManager = try #require(
