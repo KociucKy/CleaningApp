@@ -6,6 +6,10 @@ import Foundation
 struct CoreInteractor {
 	// MARK: - Properties
 
+	private enum Constants {
+		static let defaultDailyLimit = 30
+	}
+
 	private let roomManager: RoomManager
 	private let roomTaskManager: RoomTaskManager
 	private let scheduledTaskManager: ScheduledTaskManager
@@ -74,14 +78,17 @@ struct CoreInteractor {
 
 	func saveRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.save(item)
+		try refreshScheduleAfterTaskChange()
 	}
 
 	func deleteRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.delete(item)
+		try refreshScheduleAfterTaskChange()
 	}
 
 	func updateRoomTask(_ item: RoomTask) throws {
 		try roomTaskManager.update(item)
+		try refreshScheduleAfterTaskChange()
 	}
 
 	// MARK: - Schedule
@@ -120,6 +127,15 @@ struct CoreInteractor {
 
 	func endScheduleDay(endedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
 		try cleaningScheduleCoordinator.endDay(endedAt: endedAt, dailyLimit: dailyLimit)
+	}
+
+	// MARK: - Private
+
+	private func refreshScheduleAfterTaskChange() throws {
+		try cleaningScheduleCoordinator.refresh(
+			today: Date(),
+			dailyLimit: Constants.defaultDailyLimit
+		)
 	}
 
 	// MARK: - Completed Task Manager
