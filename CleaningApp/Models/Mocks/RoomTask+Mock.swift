@@ -1,7 +1,7 @@
 import Foundation
 
 extension RoomTask {
-	static let mockId = UUID(uuidString: "00000000-0000-0000-0001-000000000001")!
+	static let mockId = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
 
 	static var mock: RoomTask {
 		.mocks.first!
