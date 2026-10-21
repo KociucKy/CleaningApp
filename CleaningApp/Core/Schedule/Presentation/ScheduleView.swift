@@ -175,18 +175,31 @@ struct ScheduleView: View {
 					Text(detail)
 						.font(FKTypography.secondaryLabel)
 						.foregroundStyle(.secondary)
+
+					if task.status != .planned {
+						Text(task.statusDescription)
+							.font(FKTypography.secondaryLabel)
+							.foregroundStyle(task.status == .postponed ? .orange : .secondary)
+					}
 				}
 				
 				Spacer()
-				
-				Image(systemName: "circle")
-					.font(FKTypography.sectionHeader)
-					.foregroundStyle(.tertiary)
-					.opacity(isCompleted ? 0 : 1)
+
+				if task.status == .skipped {
+					Button("Undo Skip") {
+						presenter.undoSkip(task)
+					}
+					.buttonStyle(.borderless)
+				} else {
+					Image(systemName: "circle")
+						.font(FKTypography.sectionHeader)
+						.foregroundStyle(.tertiary)
+						.opacity(isCompleted ? 0 : 1)
+				}
 		}
 		.frame(maxWidth: .infinity)
 		.accessibilityLabel(accessibilityLabel)
-		.accessibilityValue(isCompleted ? "Completed" : "Not completed")
+		.accessibilityValue(task.statusDescription)
 	}
 }
 
@@ -267,6 +280,16 @@ extension ScheduleView {
 		let duration: Int
 		let symbolName: String
 		let status: ScheduledTaskStatus
+
+		var statusDescription: String {
+			switch status {
+			case .planned: "Planned"
+			case .completed: "Completed"
+			case .skipped: "Skipped"
+			case .postponed: "Backlog"
+			case .cancelled: "Cancelled"
+			}
+		}
 		
 		init(
 			id: UUID,
