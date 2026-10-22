@@ -80,8 +80,6 @@ final class SchedulingService {
                     scheduledDate: $0.scheduledDate,
                     now: input.today
                 )
-            } + allocation.unplacedCandidates.compactMap {
-                makePostponedOccurrence(from: $0, now: input.today)
             },
             occurrencesToUpdate: occurrenceUpdates(
                 for: allocation.allocations + allocation.unplacedCandidates.map {
@@ -154,23 +152,6 @@ final class SchedulingService {
             scheduledDate: scheduledDate,
             originalScheduledDate: candidate.originalScheduledDate ?? scheduledDate,
             sourceOccurrenceId: candidate.sourceOccurrenceId,
-            createdAt: now,
-            updatedAt: now
-        )
-    }
-
-    private func makePostponedOccurrence(
-        from candidate: SchedulingCandidate,
-        now: Date
-    ) -> ScheduledTask? {
-        guard candidate.sourceOccurrenceId == nil else {
-            return nil
-        }
-
-        return ScheduledTask(
-            taskId: candidate.task.id,
-            scheduledDate: now,
-            status: .postponed,
             createdAt: now,
             updatedAt: now
         )

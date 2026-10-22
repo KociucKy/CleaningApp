@@ -191,7 +191,7 @@ struct SchedulingServiceTests {
         ])
     }
 
-    @Test func makeMutation_turnsUnplaceableRegularWorkIntoBacklog() throws {
+    @Test func makeMutation_returnsUnplaceableRegularWorkToGeneralPool() throws {
         let today = try makeDate(year: 2026, month: 10, day: 25)
         let blockerTask = try makeTask(name: "Blocker", frequency: .weekly)
         let task = try makeTask(name: "Daily", frequency: .daily)
@@ -211,9 +211,27 @@ struct SchedulingServiceTests {
             )
         )
 
-        #expect(mutation.occurrencesToCreate.count == 1)
-        #expect(mutation.occurrencesToCreate.first?.taskId == task.id)
-        #expect(mutation.occurrencesToCreate.first?.status == .postponed)
+        #expect(mutation.occurrencesToCreate.isEmpty)
+        #expect(mutation.occurrencesToUpdate.isEmpty)
+    }
+
+    @Test func makeMutation_onThursdayDoesNotCreateBacklogForInitialSetupOverflow() throws {
+        let today = try makeDate(year: 2026, month: 10, day: 22)
+        let tasks = try (1 ... 30).map { index in
+            try makeTask(name: "Task \(index)", frequency: .weekly)
+        }
+
+        let mutation = service.makeMutation(
+            input: makeInput(
+                tasks: tasks,
+                today: today,
+                dailyLimit: 30
+            )
+        )
+
+        #expect(mutation.occurrencesToCreate.allSatisfy { $0.status == .planned })
+        #expect(mutation.occurrencesToCreate.count < tasks.count)
+        #expect(mutation.occurrencesToUpdate.isEmpty)
     }
 
     // MARK: - Private
