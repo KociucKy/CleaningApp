@@ -3035,6 +3035,16 @@
         }
       }
     },
+    "schedule.action.uncomplete" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cofnij wykonanie"
+          }
+        }
+      }
+    },
     "schedule.nav_subtitle" : {
       "extractionState" : "manual",
       "localizations" : {

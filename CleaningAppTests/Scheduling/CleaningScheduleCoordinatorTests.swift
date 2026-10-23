@@ -100,6 +100,101 @@ struct CleaningScheduleCoordinatorTests {
         #expect(completedTasks.first?.measuredDuration == 18)
     }
 
+    @Test func uncomplete_restoresOccurrenceAndDeletesLinkedHistory() throws {
+        let today = try makeDate(day: 25)
+        let room = RoomEntity(name: "Kitchen", icon: "fork.knife")
+        let roomTaskManager = RoomTaskManager(
+            taskRepository: MockRoomTaskRepository(items: []),
+            roomRepository: MockRoomRepository(items: [room])
+        )
+        let scheduledTaskManager = ScheduledTaskManager(repository: MockScheduledTaskRepository())
+        let completedTaskManager = CompletedTaskManager(repository: MockCompletedTaskRepository(items: []))
+        let occurrence = ScheduledTask(
+            taskId: UUID(),
+            scheduledDate: today,
+            status: .completed,
+            createdAt: today,
+            updatedAt: today
+        )
+        let completedTask = CompletedTask(
+            taskId: occurrence.taskId,
+            scheduledTaskId: occurrence.id,
+            completedAt: today
+        )
+        try scheduledTaskManager.save(occurrence)
+        try completedTaskManager.save(completedTask)
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: roomTaskManager,
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: completedTaskManager,
+            skippedTaskManager: SkippedTaskManager(repository: MockSkippedTaskRepository()),
+            calendar: calendar
+        )
+
+        try coordinator.uncomplete(
+            scheduledTaskId: occurrence.id,
+            uncompletedAt: today,
+            dailyLimit: 30
+        )
+
+        #expect(try scheduledTaskManager.fetchSingle(for: occurrence.id)?.status == .planned)
+        #expect(try completedTaskManager.fetchAll().isEmpty)
+    }
+
+    @Test func uncomplete_movesElapsedOccurrenceIntoTodaysPlan() throws {
+        let yesterday = try makeDate(day: 24)
+        let today = try makeDate(day: 25)
+        let room = RoomEntity(name: "Kitchen", icon: "fork.knife")
+        let task = RoomTask(
+            name: "Clean counters",
+            roomId: room.id,
+            frequency: .weekly,
+            estimatedDuration: .fifteenMinutes,
+            createdAt: try makeDate(day: 1)
+        )
+        let roomTaskManager = RoomTaskManager(
+            taskRepository: MockRoomTaskRepository(items: []),
+            roomRepository: MockRoomRepository(items: [room])
+        )
+        let scheduledTaskManager = ScheduledTaskManager(repository: MockScheduledTaskRepository())
+        let completedTaskManager = CompletedTaskManager(repository: MockCompletedTaskRepository(items: []))
+        let occurrence = ScheduledTask(
+            taskId: task.id,
+            scheduledDate: yesterday,
+            status: .completed,
+            createdAt: yesterday,
+            updatedAt: yesterday
+        )
+        try roomTaskManager.save(task)
+        try scheduledTaskManager.save(occurrence)
+        try completedTaskManager.save(
+            CompletedTask(
+                taskId: task.id,
+                scheduledTaskId: occurrence.id,
+                completedAt: yesterday
+            )
+        )
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: roomTaskManager,
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: completedTaskManager,
+            skippedTaskManager: SkippedTaskManager(repository: MockSkippedTaskRepository()),
+            calendar: calendar
+        )
+
+        let mutation = try coordinator.uncomplete(
+            scheduledTaskId: occurrence.id,
+            uncompletedAt: today,
+            dailyLimit: 30
+        )
+
+        #expect(try scheduledTaskManager.fetchSingle(for: occurrence.id)?.status == .postponed)
+        #expect(mutation.occurrencesToCreate.count == 1)
+        #expect(mutation.occurrencesToCreate.first?.scheduledDate == today)
+        #expect(mutation.occurrencesToCreate.first?.sourceOccurrenceId == occurrence.id)
+        #expect(try completedTaskManager.fetchAll().isEmpty)
+    }
+
     @Test func skip_createsLinkedSuccessorNoEarlierThanTomorrow() throws {
         let skippedAt = try makeDate(day: 25)
         let expectedSuccessorDate = try makeDate(day: 26)

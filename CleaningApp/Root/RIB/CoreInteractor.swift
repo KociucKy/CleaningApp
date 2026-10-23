@@ -130,6 +130,18 @@ struct CoreInteractor {
 		)
 	}
 
+	func uncompleteScheduledTask(
+		id: UUID,
+		uncompletedAt: Date,
+		dailyLimit: Int
+	) throws -> ScheduleMutation {
+		try cleaningScheduleCoordinator.uncomplete(
+			scheduledTaskId: id,
+			uncompletedAt: uncompletedAt,
+			dailyLimit: dailyLimit
+		)
+	}
+
 	func skipScheduledTask(id: UUID, skippedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
 		try cleaningScheduleCoordinator.skip(
 			scheduledTaskId: id,

@@ -88,6 +88,21 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
+	func uncomplete(_ task: ScheduleView.ScheduleTask, uncompletedAt: Date = Date()) {
+		guard task.status == .completed else {
+			return
+		}
+
+		do {
+			_ = try interactor.uncompleteScheduledTask(
+				id: task.id,
+				uncompletedAt: uncompletedAt,
+				dailyLimit: interactor.dailyScheduleLimit()
+			)
+			fetchSchedule(today: uncompletedAt)
+		} catch {}
+	}
+
 	func skip(_ task: ScheduleView.ScheduleTask, skippedAt: Date = Date()) {
 		guard task.status == .planned else {
 			return

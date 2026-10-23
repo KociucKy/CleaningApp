@@ -150,6 +150,13 @@ struct ScheduleView: View {
 						presenter.undoSkip(task)
 					}
 				}
+		} else if task.status == .completed {
+			taskCardContent(task)
+				.contextMenu {
+					Button("schedule.action.uncomplete", systemImage: "arrow.uturn.backward") {
+						presenter.uncomplete(task)
+					}
+				}
 		} else {
 			taskCardContent(task)
 		}

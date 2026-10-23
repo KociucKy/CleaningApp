@@ -83,6 +83,32 @@ final class CleaningScheduleCoordinator {
     }
 
     @discardableResult
+    func uncomplete(
+        scheduledTaskId: UUID,
+        uncompletedAt: Date,
+        dailyLimit: Int
+    ) throws -> ScheduleMutation {
+        guard var scheduledTask = try scheduledTaskManager.fetchSingle(for: scheduledTaskId) else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskNotFound
+        }
+        guard scheduledTask.status == .completed else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskIsNotCompleted
+        }
+        guard let completedTask = try completedTaskManager.fetchAll().first(where: {
+            $0.scheduledTaskId == scheduledTaskId
+        }) else {
+            throw CleaningScheduleCoordinatorError.completedTaskHistoryNotFound
+        }
+
+        scheduledTask.status = .planned
+        scheduledTask.updatedAt = uncompletedAt
+        try scheduledTaskManager.update(scheduledTask)
+        try completedTaskManager.delete(completedTask)
+
+        return try refresh(today: uncompletedAt, dailyLimit: dailyLimit)
+    }
+
+    @discardableResult
     func skip(
         scheduledTaskId: UUID,
         skippedAt: Date,

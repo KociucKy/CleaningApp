@@ -96,6 +96,14 @@ struct SchedulePresenterTests {
 
         func completeScheduledTask(id: UUID, completedAt: Date, measuredDuration: Int?) throws {}
 
+        func uncompleteScheduledTask(
+            id: UUID,
+            uncompletedAt: Date,
+            dailyLimit: Int
+        ) throws -> ScheduleMutation {
+            ScheduleMutation()
+        }
+
         func skipScheduledTask(id: UUID, skippedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
             ScheduleMutation()
         }
