@@ -141,6 +141,64 @@ struct CleaningScheduleCoordinatorTests {
         #expect(try completedTaskManager.fetchAll().isEmpty)
     }
 
+    @Test func uncomplete_todayDoesNotFillNewlyAvailableCapacity() throws {
+        let today = try makeDate(day: 25)
+        let room = RoomEntity(name: "Kitchen", icon: "fork.knife")
+        let restoredTask = RoomTask(
+            name: "Clean counters",
+            roomId: room.id,
+            frequency: .daily,
+            estimatedDuration: .fifteenMinutes,
+            createdAt: try makeDate(day: 1)
+        )
+        let generalPoolTask = RoomTask(
+            name: "Clean sink",
+            roomId: room.id,
+            frequency: .daily,
+            estimatedDuration: .fifteenMinutes,
+            createdAt: try makeDate(day: 1)
+        )
+        let roomTaskManager = RoomTaskManager(
+            taskRepository: MockRoomTaskRepository(items: []),
+            roomRepository: MockRoomRepository(items: [room])
+        )
+        let scheduledTaskManager = ScheduledTaskManager(repository: MockScheduledTaskRepository())
+        let completedTaskManager = CompletedTaskManager(repository: MockCompletedTaskRepository(items: []))
+        let occurrence = ScheduledTask(
+            taskId: restoredTask.id,
+            scheduledDate: today,
+            status: .completed,
+            createdAt: today,
+            updatedAt: today
+        )
+        try roomTaskManager.save(restoredTask)
+        try roomTaskManager.save(generalPoolTask)
+        try scheduledTaskManager.save(occurrence)
+        try completedTaskManager.save(
+            CompletedTask(
+                taskId: restoredTask.id,
+                scheduledTaskId: occurrence.id,
+                completedAt: today
+            )
+        )
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: roomTaskManager,
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: completedTaskManager,
+            skippedTaskManager: SkippedTaskManager(repository: MockSkippedTaskRepository()),
+            calendar: calendar
+        )
+
+        let mutation = try coordinator.uncomplete(
+            scheduledTaskId: occurrence.id,
+            uncompletedAt: today,
+            dailyLimit: 30
+        )
+
+        #expect(mutation == ScheduleMutation())
+        #expect(try scheduledTaskManager.fetchAll().map(\.taskId) == [restoredTask.id])
+    }
+
     @Test func uncomplete_movesElapsedOccurrenceIntoTodaysPlan() throws {
         let yesterday = try makeDate(day: 24)
         let today = try makeDate(day: 25)

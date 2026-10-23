@@ -105,6 +105,10 @@ final class CleaningScheduleCoordinator {
         try scheduledTaskManager.update(scheduledTask)
         try completedTaskManager.delete(completedTask)
 
+        guard scheduledTask.scheduledDate < calendar.startOfDay(for: uncompletedAt) else {
+            return ScheduleMutation()
+        }
+
         return try refresh(today: uncompletedAt, dailyLimit: dailyLimit)
     }
 
