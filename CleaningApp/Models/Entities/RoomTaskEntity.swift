@@ -10,6 +10,7 @@ final class RoomTaskEntity {
 	var room: RoomEntity?
 	var frequencyEncoded: String
 	var estimatedDuration: Int
+	var learnedDuration: Int?
 	var createdAt: Date
 
 	// MARK: - Init
@@ -20,6 +21,7 @@ final class RoomTaskEntity {
 		room: RoomEntity? = nil,
 		frequencyEncoded: String,
 		estimatedDuration: Int,
+		learnedDuration: Int? = nil,
 		createdAt: Date = Date()
 	) {
 		self.id = id
@@ -27,6 +29,7 @@ final class RoomTaskEntity {
 		self.room = room
 		self.frequencyEncoded = frequencyEncoded
 		self.estimatedDuration = estimatedDuration
+		self.learnedDuration = learnedDuration
 		self.createdAt = createdAt
 	}
 }

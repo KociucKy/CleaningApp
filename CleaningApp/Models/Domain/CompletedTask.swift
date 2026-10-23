@@ -8,6 +8,7 @@ struct CompletedTask: Identifiable {
     let roomId: UUID?
     let roomName: String?
     let taskName: String?
+    let scheduledTaskId: UUID?
     let completedAt: Date
     var measuredDuration: Int?
 
@@ -19,6 +20,7 @@ struct CompletedTask: Identifiable {
         roomId: UUID? = nil,
         roomName: String? = nil,
         taskName: String? = nil,
+        scheduledTaskId: UUID? = nil,
         completedAt: Date = Date(),
         measuredDuration: Int? = nil
     ) {
@@ -27,6 +29,7 @@ struct CompletedTask: Identifiable {
         self.roomId = roomId
         self.roomName = roomName
         self.taskName = taskName
+        self.scheduledTaskId = scheduledTaskId
         self.completedAt = completedAt
         self.measuredDuration = measuredDuration
     }

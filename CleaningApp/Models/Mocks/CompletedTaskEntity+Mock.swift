@@ -14,12 +14,21 @@ extension CompletedTaskEntity {
 		[
 			.init(
 				id: mockId,
-				taskId: UUID(uuidString: "00000000-0000-0000-0001-000000000001")!,
-				roomId: UUID(uuidString: "00000000-0000-0001-0000-000000000001"),
+				taskId: RoomTaskEntity.mockId,
+				roomId: RoomEntity.mockId,
 				roomName: "Living Room",
 				taskName: "Vacuum floor",
 				completedAt: Date.randomPast(daysBack: 3),
 				measuredDuration: 15
+			),
+			.init(
+				id: UUID(uuidString: "00000000-0000-0000-0000-000000000002")!,
+				taskId: RoomTaskEntity.mockId,
+				roomId: RoomEntity.mockId,
+				roomName: "Living Room",
+				taskName: "Vacuum floor",
+				completedAt: Date.randomPast(daysBack: 7),
+				measuredDuration: nil
 			)
 		]
 	}

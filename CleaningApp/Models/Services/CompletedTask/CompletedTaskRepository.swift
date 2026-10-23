@@ -98,6 +98,7 @@ final class SwiftDataCompletedTaskRepository: CompletedTaskRepository {
 		existingEntity.roomId = item.roomId
 		existingEntity.roomName = item.roomName
 		existingEntity.taskName = item.taskName
+		existingEntity.scheduledTaskId = item.scheduledTaskId
 		existingEntity.completedAt = item.completedAt
 		existingEntity.measuredDuration = item.measuredDuration
 

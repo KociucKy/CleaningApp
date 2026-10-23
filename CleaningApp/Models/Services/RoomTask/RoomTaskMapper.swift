@@ -16,6 +16,7 @@ struct RoomTaskMapper {
 			roomId: entity.room?.id ?? UUID(),
 			frequency: frequencyEncoder.decode(entity.frequencyEncoded),
 			estimatedDuration: TaskDuration(rawValue: entity.estimatedDuration) ?? .fifteenMinutes,
+			learnedDuration: entity.learnedDuration,
 			createdAt: entity.createdAt
 		)
 	}
@@ -27,6 +28,7 @@ struct RoomTaskMapper {
 			room: roomEntity,
 			frequencyEncoded: frequencyEncoder.encode(domain.frequency),
 			estimatedDuration: domain.estimatedDuration.rawValue,
+			learnedDuration: domain.learnedDuration,
 			createdAt: domain.createdAt
 		)
 	}

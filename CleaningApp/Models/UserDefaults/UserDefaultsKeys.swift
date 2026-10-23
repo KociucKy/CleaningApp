@@ -5,6 +5,10 @@ extension UserDefaultsKey where Value == Bool {
 	static let showOnboarding = UserDefaultsKey("showOnboarding", defaultValue: true)
 }
 
+extension UserDefaultsKey where Value == Int {
+	static let dailyScheduleLimit = UserDefaultsKey("dailyScheduleLimit", defaultValue: 30)
+}
+
 extension UserDefaultsKey where Value == Date {
 	static let notificationTime = UserDefaultsKey("notificationTime", defaultValue: {
 		var components = DateComponents()

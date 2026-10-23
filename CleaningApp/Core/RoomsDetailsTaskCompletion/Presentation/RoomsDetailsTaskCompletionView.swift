@@ -66,9 +66,27 @@ struct RoomsDetailsTaskCompletionView: View {
 				animateSymbol: presenter.animateSymbol
 			)
 			VStack(spacing: FKSpacing.large) {
-				presetRow(title: "rooms_details_task_completion.just_now", subtitle: "rooms_details_task_completion.just_now_subtitle", offset: Constants.justNowOffset, icon: "bolt.fill", entranceDelay: Constants.firstPresetAnimationDelay)
-				presetRow(title: "rooms_details_task_completion.fifteen_minutes", subtitle: "rooms_details_task_completion.fifteen_minutes_subtitle", offset: Constants.fifteenMinutesAgoOffset, icon: "clock", entranceDelay: Constants.secondPresetAnimationDelay)
-				presetRow(title: "rooms_details_task_completion.one_hour", subtitle: "rooms_details_task_completion.one_hour_subtitle", offset: Constants.oneHourAgoOffset, icon: "clock.arrow.circlepath", entranceDelay: Constants.thirdPresetAnimationDelay)
+				presetRow(
+					title: "rooms_details_task_completion.just_now",
+					subtitle: "rooms_details_task_completion.just_now_subtitle",
+					offset: Constants.justNowOffset,
+					icon: "bolt.fill",
+					entranceDelay: Constants.firstPresetAnimationDelay
+				)
+				presetRow(
+					title: "rooms_details_task_completion.fifteen_minutes",
+					subtitle: "rooms_details_task_completion.fifteen_minutes_subtitle",
+					offset: Constants.fifteenMinutesAgoOffset,
+					icon: "clock",
+					entranceDelay: Constants.secondPresetAnimationDelay
+				)
+				presetRow(
+					title: "rooms_details_task_completion.one_hour",
+					subtitle: "rooms_details_task_completion.one_hour_subtitle",
+					offset: Constants.oneHourAgoOffset,
+					icon: "clock.arrow.circlepath",
+					entranceDelay: Constants.thirdPresetAnimationDelay
+				)
 			}
 			dateAndTimePicker
 				.opacity(presenter.hasAppeared ? Constants.visibleOpacity : Constants.hiddenOpacity)

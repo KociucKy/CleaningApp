@@ -19,7 +19,9 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 	}
 
 	func fetchAll(for roomId: UUID) throws -> [RoomTaskEntity] {
-		items
+		items.compactMap { item in
+			item.room?.id == roomId ? item : nil
+		}
 	}
 
 	func save(_ item: RoomTaskEntity) throws {
@@ -43,6 +45,7 @@ final class MockRoomTaskRepository: RoomTaskRepository {
 		items[index].room = item.room
 		items[index].frequencyEncoded = item.frequencyEncoded
 		items[index].estimatedDuration = item.estimatedDuration
+		items[index].learnedDuration = item.learnedDuration
 		items[index].createdAt = item.createdAt
 	}
 }

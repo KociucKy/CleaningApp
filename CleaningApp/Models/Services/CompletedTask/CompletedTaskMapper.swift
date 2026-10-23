@@ -8,6 +8,7 @@ struct CompletedTaskMapper {
             roomId: entity.roomId,
             roomName: entity.roomName,
             taskName: entity.taskName,
+            scheduledTaskId: entity.scheduledTaskId,
             completedAt: entity.completedAt,
             measuredDuration: entity.measuredDuration
         )
@@ -20,6 +21,7 @@ struct CompletedTaskMapper {
             roomId: domain.roomId,
             roomName: domain.roomName,
             taskName: domain.taskName,
+            scheduledTaskId: domain.scheduledTaskId,
             completedAt: domain.completedAt,
             measuredDuration: domain.measuredDuration
         )

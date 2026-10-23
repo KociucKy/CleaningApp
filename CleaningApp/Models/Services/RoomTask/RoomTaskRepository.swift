@@ -64,6 +64,7 @@ final class SwiftDataRoomTaskRepository: RoomTaskRepository {
 		existingEntity.room = item.room
 		existingEntity.frequencyEncoded = item.frequencyEncoded
 		existingEntity.estimatedDuration = item.estimatedDuration
+		existingEntity.learnedDuration = item.learnedDuration
 		existingEntity.createdAt = item.createdAt
 
 		try mainContext.save()

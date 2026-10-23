@@ -12,13 +12,50 @@
       }
     },
     "%@ is intentionally light." : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%@ jest celowo mniej obciążony."
+          }
+        }
+      }
+    },
+    "%@, %lld minutes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@, %2$lld minutes"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%1$@, %2$lld min"
+          }
+        }
+      }
     },
     "%lld min" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%lld min"
+          }
+        }
+      }
     },
     "%lld minutes" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "%lld min"
+          }
+        }
+      }
     },
     "%lld tasks • %lld min planned" : {
       "localizations" : {
@@ -26,6 +63,12 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld tasks • %2$lld min planned"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zadania: %1$lld • zaplanowano: %2$lld min"
           }
         }
       }
@@ -58,7 +101,14 @@
       }
     },
     "+%lld more tasks" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Więcej zadań: +%lld"
+          }
+        }
+      }
     },
     "1 year" : {
       "extractionState" : "stale",
@@ -105,7 +155,14 @@
       }
     },
     "A clear day — enjoy the space." : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Spokojny dzień — ciesz się porządkiem."
+          }
+        }
+      }
     },
     "activity_log_edit.completed_at" : {
       "localizations" : {
@@ -278,7 +335,14 @@
       }
     },
     "Add task" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dodaj zadanie"
+          }
+        }
+      }
     },
     "app_name" : {
       "extractionState" : "manual",
@@ -297,11 +361,35 @@
         }
       }
     },
+    "Backlog" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zaległości"
+          }
+        }
+      }
+    },
     "Cancel" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Anuluj"
+          }
+        }
+      }
     },
     "Change room icon" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zmień ikonę pokoju"
+          }
+        }
+      }
     },
     "chart.accessibility.completion_range" : {
       "extractionState" : "extracted_with_value",
@@ -686,7 +774,14 @@
       }
     },
     "Completed now" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Wykonaj teraz"
+          }
+        }
+      }
     },
     "Completion range" : {
       "extractionState" : "stale",
@@ -706,6 +801,16 @@
           "stringUnit" : {
             "state" : "machine_translated",
             "value" : "Ukończenia w wybranym zakresie"
+          }
+        }
+      }
+    },
+    "Daily limit: %lld min" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Dzienny limit: %lld min"
           }
         }
       }
@@ -732,7 +837,14 @@
       }
     },
     "Delete room" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Usuń pokój"
+          }
+        }
+      }
     },
     "dev_settings.button.app_store_review" : {
       "extractionState" : "manual",
@@ -830,13 +942,34 @@
       }
     },
     "Edit room" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edytuj pokój"
+          }
+        }
+      }
     },
     "Edit Task" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Edytuj zadanie"
+          }
+        }
+      }
     },
     "Estimated time" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Szacowany czas"
+          }
+        }
+      }
     },
     "Every X days" : {
       "localizations" : {
@@ -1341,7 +1474,14 @@
       }
     },
     "History" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Historia"
+          }
+        }
+      }
     },
     "home.nav_title" : {
       "extractionState" : "manual",
@@ -1378,7 +1518,14 @@
       }
     },
     "Mark as completed" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Oznacz jako wykonane"
+          }
+        }
+      }
     },
     "Next" : {
       "localizations" : {
@@ -1401,11 +1548,15 @@
         }
       }
     },
-    "Not completed" : {
-
-    },
     "Nothing planned" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Brak zaplanowanych zadań"
+          }
+        }
+      }
     },
     "notification.daily_reminder.body" : {
       "extractionState" : "manual",
@@ -2496,8 +2647,25 @@
         }
       }
     },
+    "Refresh schedule" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Odśwież harmonogram"
+          }
+        }
+      }
+    },
     "Retry" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Spróbuj ponownie"
+          }
+        }
+      }
     },
     "room_type.bathroom" : {
       "extractionState" : "manual",
@@ -2848,7 +3016,34 @@
       }
     },
     "Save" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zapisz"
+          }
+        }
+      }
+    },
+    "Schedule" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Harmonogram"
+          }
+        }
+      }
+    },
+    "schedule.action.uncomplete" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cofnij wykonanie"
+          }
+        }
+      }
     },
     "schedule.nav_subtitle" : {
       "extractionState" : "manual",
@@ -2884,6 +3079,16 @@
         }
       }
     },
+    "Scheduled" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Zaplanowane"
+          }
+        }
+      }
+    },
     "settings.nav_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2897,6 +3102,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ustawienia"
+          }
+        }
+      }
+    },
+    "Skip task" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Pomiń zadanie"
           }
         }
       }
@@ -2970,7 +3185,14 @@
       }
     },
     "Task details" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Szczegóły zadania"
+          }
+        }
+      }
     },
     "task.change_bed_linen" : {
       "extractionState" : "manual",
@@ -3696,6 +3918,16 @@
         }
       }
     },
+    "Undo Skip" : {
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Cofnij pominięcie"
+          }
+        }
+      }
+    },
     "Week of" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3728,7 +3960,14 @@
       }
     },
     "Yes" : {
-
+      "localizations" : {
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Tak"
+          }
+        }
+      }
     }
   },
   "version" : "1.3"

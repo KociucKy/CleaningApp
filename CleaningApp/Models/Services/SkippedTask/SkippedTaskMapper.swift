@@ -5,6 +5,7 @@ struct SkippedTaskMapper {
 		SkippedTask(
 			id: entity.id,
 			taskId: entity.taskId,
+			scheduledTaskId: entity.scheduledTaskId,
 			originalDate: entity.originalDate,
 			skippedAt: entity.skippedAt
 		)
@@ -14,6 +15,7 @@ struct SkippedTaskMapper {
 		SkippedTaskEntity(
 			id: domain.id,
 			taskId: domain.taskId,
+			scheduledTaskId: domain.scheduledTaskId,
 			originalDate: domain.originalDate,
 			skippedAt: domain.skippedAt
 		)
