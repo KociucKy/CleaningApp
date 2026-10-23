@@ -121,6 +121,7 @@
 		84FE8098589F87D725A02449 /* SchedulingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CDC38077D72E353A1AB861D /* SchedulingService.swift */; };
 		8507E3665C672560B0555D70 /* ScheduleMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3006BCA3FAC2F308FC8EA64 /* ScheduleMutation.swift */; };
 		86837E43A0089B26E566FB5E /* SkippedTaskRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FB83C23FDBCF830D22DD63 /* SkippedTaskRepository.swift */; };
+		886E9A4F308B8AA000C79E8F /* ScheduleEmptyDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A4E308B8AA000C79E8F /* ScheduleEmptyDayView.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -388,6 +389,7 @@
 		87032E920792FA6C55583745 /* Room+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Room+Mock.swift"; sourceTree = "<group>"; };
 		8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
 		8834079B5E957AD219BD9406 /* OnboardingInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractorTests.swift; sourceTree = "<group>"; };
+		886E9A4E308B8AA000C79E8F /* ScheduleEmptyDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEmptyDayView.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 		886E9A4D308B8A7500C79E8F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				886E9A4E308B8AA000C79E8F /* ScheduleEmptyDayView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1726,6 +1729,7 @@
 				A34805429F822001BC54028F /* RoomMapper.swift in Sources */,
 				036C06F38607D55E3EA061BF /* RoomRepository.swift in Sources */,
 				E74E53ADFF13A455219603B4 /* RoomTask+Mock.swift in Sources */,
+				886E9A4F308B8AA000C79E8F /* ScheduleEmptyDayView.swift in Sources */,
 				E1AF4D272E0941C338433696 /* RoomTask.swift in Sources */,
 				0ED34BC6FFDFA516241F8464 /* RoomTaskEntity+Mock.swift in Sources */,
 				2927FD9D0A22F97F62D35136 /* RoomTaskEntity.swift in Sources */,

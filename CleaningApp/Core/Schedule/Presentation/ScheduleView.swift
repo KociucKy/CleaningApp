@@ -39,7 +39,7 @@ struct ScheduleView: View {
 									taskCard(task)
 								}
 							} else {
-								emptySchedule(for: day)
+								ScheduleEmptyDayView(weekdayName: day.name)
 							}
 						}
 					}
@@ -117,16 +117,6 @@ struct ScheduleView: View {
 		.padding(FKSpacing.large)
 		.background(FKColor.Background.canvas)
 		.accessibilityElement(children: .combine)
-	}
-	
-	private func emptySchedule(for day: Weekday) -> some View {
-		ContentUnavailableView {
-			Label("Nothing planned", systemImage: "sparkles")
-		} description: {
-			Text("\(day.name) is intentionally light.")
-		}
-		.frame(maxWidth: .infinity)
-		.padding(.vertical, 44)
 	}
 	
 	@ViewBuilder
