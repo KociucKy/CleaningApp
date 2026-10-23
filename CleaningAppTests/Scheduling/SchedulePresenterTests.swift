@@ -58,6 +58,14 @@ struct SchedulePresenterTests {
         #expect(interactor.refreshCalls == [today])
     }
 
+    @Test func weekdayName_usesProvidedCalendarLocale() {
+        var polishCalendar = Calendar(identifier: .gregorian)
+        polishCalendar.locale = Locale(identifier: "pl")
+
+        #expect(ScheduleView.Weekday.monday.localizedName(in: polishCalendar) == "Poniedziałek")
+        #expect(ScheduleView.Weekday.thursday.localizedShortName(in: polishCalendar) == "Czw.")
+    }
+
     // MARK: - Private
 
     private func makeDate(day: Int) throws -> Date {

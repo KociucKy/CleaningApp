@@ -245,19 +245,11 @@ extension ScheduleView {
 		var id: Self { self }
 		
 		var name: String {
-			switch self {
-			case .monday: "Monday"
-			case .tuesday: "Tuesday"
-			case .wednesday: "Wednesday"
-			case .thursday: "Thursday"
-			case .friday: "Friday"
-			case .saturday: "Saturday"
-			case .sunday: "Sunday"
-			}
+			localizedName(in: .current)
 		}
 		
 		var shortName: String {
-			String(name.prefix(3)).uppercased()
+			localizedShortName(in: .current)
 		}
 		
 		var date: String {
@@ -273,6 +265,28 @@ extension ScheduleView {
 			case 6: self = .friday
 			case 7: self = .saturday
 			default: self = .sunday
+			}
+		}
+
+		func localizedName(in calendar: Calendar) -> String {
+			calendar.weekdaySymbols[calendarWeekday - 1]
+				.capitalized(with: calendar.locale ?? .current)
+		}
+
+		func localizedShortName(in calendar: Calendar) -> String {
+			calendar.shortWeekdaySymbols[calendarWeekday - 1]
+				.capitalized(with: calendar.locale ?? .current)
+		}
+
+		private var calendarWeekday: Int {
+			switch self {
+			case .monday: 2
+			case .tuesday: 3
+			case .wednesday: 4
+			case .thursday: 5
+			case .friday: 6
+			case .saturday: 7
+			case .sunday: 1
 			}
 		}
 	}
