@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -322,7 +322,7 @@
 		412CB179AA27D706A4C3A4A3 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		41F248ACFF734B1E30DDD6F2 /* test_notificationView_loadingState.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_notificationView_loadingState.1.png; sourceTree = "<group>"; };
 		4325DD39EB7707891EB00879 /* RoomsDetailsMetricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsMetricsView.swift; sourceTree = "<group>"; };
-		4367AA79DD53134C2C3E29B7 /* center.svg */ = {isa = PBXFileReference; path = center.svg; sourceTree = "<group>"; };
+		4367AA79DD53134C2C3E29B7 /* center.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = center.svg; sourceTree = "<group>"; };
 		440A9B5B30983F33CAB554C4 /* CustomRoomSheetInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRoomSheetInteractor.swift; sourceTree = "<group>"; };
 		4479391C7C88BBC2A825E1FF /* IconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		45089A8A7E444365B6CE1BD7 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
@@ -470,7 +470,7 @@
 		EE44ADCC7B00B9BEE6383B6B /* MockScheduledTaskRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockScheduledTaskRepository.swift; sourceTree = "<group>"; };
 		F074EC2419C66EA6F2B5975E /* test_roomSelectionView_noSelection.1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_roomSelectionView_noSelection.1.png; sourceTree = "<group>"; };
 		F33A9B8FB872948246AE6238 /* RoomsDetailsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsDetailsInteractor.swift; sourceTree = "<group>"; };
-		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		F4F3B9AE5A041B9FCCDD9D7A /* .gitkeep */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		F78DF47D03FC2C5F91144DDF /* OnbLabelRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbLabelRowView.swift; sourceTree = "<group>"; };
 		F7B16005425E2A6063DA54F3 /* DevSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevSettingsInteractor.swift; sourceTree = "<group>"; };
 		F802E2E3CB58E091DA8B1E48 /* SchedulingHorizon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulingHorizon.swift; sourceTree = "<group>"; };
@@ -825,6 +825,13 @@
 			path = TaskSelection;
 			sourceTree = "<group>";
 		};
+		886E9A4D308B8A7500C79E8F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		8988A54F458CAD4B13B1882B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -857,6 +864,7 @@
 			children = (
 				1F7DA6C92F992053E7CEF011 /* SchedulePresenter.swift */,
 				7CB13E24CABC15BE2FF5F9EB /* ScheduleView.swift */,
+				886E9A4D308B8A7500C79E8F /* Components */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1390,13 +1398,6 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		"TEMP_82B4B194-CF12-4DCD-8A15-B758575709BE" /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1489,7 +1490,6 @@
 				FA9CA5FBB931873B66DDF855 /* XCRemoteSwiftPackageReference "UserDefaultsKit" */,
 				4515E511434084380F8DE8D8 /* XCRemoteSwiftPackageReference "UtilitiesKit" */,
 			);
-			preferredProjectObjectVersion = 77;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

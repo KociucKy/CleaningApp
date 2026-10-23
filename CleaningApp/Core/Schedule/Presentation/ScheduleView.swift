@@ -340,23 +340,18 @@ private extension Array where Element == ScheduleView.ScheduleTask {
 
 // MARK: - Preview
 
-private extension ScheduleView {
-	static var preview: some View {
-		let container = DevPreview.shared.container
-		let interactor = CoreInteractor(container: container)
-		let builder = CoreBuilder(interactor: interactor)
-		
-		return RouterView { router in
-				ScheduleView(
-					presenter: SchedulePresenter(
-						interactor: interactor,
-						router: CoreRouter(router: router, builder: builder)
-					)
-				)
-			}
-		}
+#Preview("Monday Focus") {
+	let container = DevPreview.shared.container
+	let interactor = CoreInteractor(container: container)
+	let builder = CoreBuilder(interactor: interactor)
+	
+	return RouterView { router in
+		ScheduleView(
+			presenter: SchedulePresenter(
+				interactor: interactor,
+				router: CoreRouter(router: router, builder: builder)
+			)
+		)
+	}
 }
 
-#Preview("Monday Focus") {
-	ScheduleView.preview
-}
