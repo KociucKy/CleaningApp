@@ -29,11 +29,11 @@ struct ScheduleView: View {
 				ForEach(Weekday.allCases) { day in
 					List {
 						Section {
-							daySummary(for: day)
+							ScheduleDaySummaryView(summary: presenter.summary(for: day))
 								.removeListRowFormatting()
 						}
-							Section {
-								taskSection(for: day)
+						Section {
+							taskSection(for: day)
 						}
 					}
 					.containerRelativeFrame(.horizontal)
@@ -84,34 +84,6 @@ struct ScheduleView: View {
 		}
 	}
 	
-	private func daySummary(for day: Weekday) -> some View {
-		let tasks = presenter.tasks(for: day)
-		let completedCount = tasks.filter { $0.status == .completed }.count
-		
-		return VStack(alignment: .leading, spacing: FKSpacing.default) {
-			HStack(alignment: .firstTextBaseline) {
-				Text(day.name)
-					.font(FKTypography.statValue)
-				Spacer()
-				Text("\(completedCount)/\(tasks.count)")
-					.font(FKTypography.secondaryLabel)
-					.fontWeight(.semibold)
-					.foregroundStyle(.accent)
-			}
-			
-			Text(tasks.isEmpty ? "A clear day — enjoy the space." : "\(tasks.count) tasks • \(tasks.totalMinutes) min planned")
-				.font(FKTypography.secondaryLabel)
-				.foregroundStyle(.secondary)
-			
-			ProgressView(value: Double(completedCount), total: Double(max(tasks.count, 1)))
-				.tint(.accent)
-		}
-		.frame(maxWidth: .infinity, alignment: .leading)
-		.padding(FKSpacing.large)
-		.background(FKColor.Background.canvas)
-		.accessibilityElement(children: .combine)
-	}
-
 	@ViewBuilder
 	private func taskSection(for day: Weekday) -> some View {
 		let tasks = presenter.tasks(for: day)
@@ -167,25 +139,6 @@ struct ScheduleView: View {
 			}
 		)
 	}
-}
-
-// MARK: - Subtle Glass
-
-private extension View {
-    @ViewBuilder
-    func subtleGlass<S: Shape>(
-        interactive: Bool = false,
-        tint: Color? = nil,
-        shape: S
-    ) -> some View {
-        let glass = tint.map { Glass.regular.tint($0) } ?? .regular
-
-        if interactive {
-            self.glassEffect(glass.interactive(), in: shape)
-        } else {
-            self.glassEffect(glass, in: shape)
-        }
-    }
 }
 
 // MARK: - ScheduleView.Weekday
@@ -250,16 +203,10 @@ extension ScheduleView {
 	}
 }
 
-private extension Array where Element == ScheduleTaskRow {
-	var totalMinutes: Int {
-		reduce(0) { $0 + $1.duration }
-	}
-}
-
 
 // MARK: - Preview
 
-#Preview("Monday Focus") {
+#Preview {
 	let container = DevPreview.shared.container
 	let interactor = CoreInteractor(container: container)
 	let builder = CoreBuilder(interactor: interactor)
