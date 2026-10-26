@@ -124,6 +124,8 @@
 		886E9A4F308B8AA000C79E8F /* ScheduleEmptyDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A4E308B8AA000C79E8F /* ScheduleEmptyDayView.swift */; };
 		886E9A51308B8B6A00C79E8F /* ScheduleTaskCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A50308B8B6A00C79E8F /* ScheduleTaskCardView.swift */; };
 		886E9A53308FBE0D00C79E8F /* ScheduleTaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A52308FBE0D00C79E8F /* ScheduleTaskRow.swift */; };
+		886E9A55308FC1CF00C79E8F /* ScheduleDaySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A54308FC1CF00C79E8F /* ScheduleDaySummaryView.swift */; };
+		886E9A57308FC1CF00C79E8F /* ScheduleDaySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A56308FC1CF00C79E8F /* ScheduleDaySummary.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -394,6 +396,8 @@
 		886E9A4E308B8AA000C79E8F /* ScheduleEmptyDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEmptyDayView.swift; sourceTree = "<group>"; };
 		886E9A50308B8B6A00C79E8F /* ScheduleTaskCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTaskCardView.swift; sourceTree = "<group>"; };
 		886E9A52308FBE0D00C79E8F /* ScheduleTaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTaskRow.swift; sourceTree = "<group>"; };
+		886E9A54308FC1CF00C79E8F /* ScheduleDaySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDaySummaryView.swift; sourceTree = "<group>"; };
+		886E9A56308FC1CF00C79E8F /* ScheduleDaySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDaySummary.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -836,6 +840,7 @@
 			children = (
 				886E9A4E308B8AA000C79E8F /* ScheduleEmptyDayView.swift */,
 				886E9A50308B8B6A00C79E8F /* ScheduleTaskCardView.swift */,
+				886E9A54308FC1CF00C79E8F /* ScheduleDaySummaryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -874,6 +879,7 @@
 				7CB13E24CABC15BE2FF5F9EB /* ScheduleView.swift */,
 				886E9A4D308B8A7500C79E8F /* Components */,
 				886E9A52308FBE0D00C79E8F /* ScheduleTaskRow.swift */,
+				886E9A56308FC1CF00C79E8F /* ScheduleDaySummary.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1781,6 +1787,7 @@
 				4973A324FCA1405DA7E6E8BE /* SchedulingAllocationResult.swift in Sources */,
 				F8844D7AC545B79E3C1609CD /* SchedulingCandidate.swift in Sources */,
 				3E65F0E7553A48414D4DDF98 /* SchedulingCandidateAllocator.swift in Sources */,
+				886E9A57308FC1CF00C79E8F /* ScheduleDaySummary.swift in Sources */,
 				E928AF85A8C1CDFD0BE2A7D3 /* SchedulingCandidateGenerator.swift in Sources */,
 				3AA8B487F078F21B934DE11B /* SchedulingCandidateKind.swift in Sources */,
 				A16DECA26E2C7609B459EC5E /* SchedulingFrequencyRule.swift in Sources */,
@@ -1796,6 +1803,7 @@
 				ED1D59F87167E393AC90C389 /* SettingsView.swift in Sources */,
 				A13717E8F3F42DF8615BF890 /* SkippedTask+Mock.swift in Sources */,
 				EF77B6D3CD4F5C3EE96F2112 /* SkippedTask.swift in Sources */,
+				886E9A55308FC1CF00C79E8F /* ScheduleDaySummaryView.swift in Sources */,
 				382A635835A8925DF2738026 /* SkippedTaskEntity+Mock.swift in Sources */,
 				49F3A5D7C2C42CB99A4CAB91 /* SkippedTaskEntity.swift in Sources */,
 				9D7A5059B5AD6E3500490283 /* SkippedTaskManager.swift in Sources */,

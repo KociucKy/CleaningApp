@@ -68,6 +68,7 @@
       }
     },
     "%lld tasks • %lld min planned" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -165,6 +166,7 @@
       }
     },
     "A clear day — enjoy the space." : {
+      "extractionState" : "stale",
       "localizations" : {
         "pl" : {
           "stringUnit" : {
