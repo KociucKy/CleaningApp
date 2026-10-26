@@ -25,18 +25,24 @@ struct ScheduleView: View {
 	
 	var body: some View {
 		ScrollView(.horizontal, showsIndicators: false) {
-			HStack(spacing: 0) {
-				ForEach(Weekday.allCases) { day in
-					List {
-						Section {
-							ScheduleDaySummaryView(summary: presenter.summary(for: day))
-								.removeListRowFormatting()
-						}
-						Section {
-							taskSection(for: day)
-						}
-					}
-					.containerRelativeFrame(.horizontal)
+				HStack(spacing: 0) {
+					ForEach(Weekday.allCases) { day in
+						ScheduleTasksListView(
+							summary: presenter.summary(for: day),
+							tasks: presenter.tasks(for: day),
+							onComplete: { task in
+								presenter.complete(task)
+							},
+							onSkip: { task in
+								presenter.skip(task)
+							},
+							onUndoSkip: { task in
+								presenter.undoSkip(task)
+							},
+							onUncomplete: { task in
+								presenter.uncomplete(task)
+							}
+						)
 				}
 			}
 			.scrollTargetLayout()
@@ -84,55 +90,6 @@ struct ScheduleView: View {
 		}
 	}
 	
-	@ViewBuilder
-	private func taskSection(for day: Weekday) -> some View {
-		ForEach(presenter.tasks(for: day)) { task in
-			taskCard(task)
-		}
-	}
-
-	@ViewBuilder
-	private func taskCard(_ task: ScheduleTaskRow) -> some View {
-		switch task.status {
-		case .planned:
-			Button {
-				presenter.complete(task)
-			} label: {
-				taskCardContent(task)
-			}
-			.buttonStyle(.fkFade)
-			.contextMenu {
-				Button("Skip task", systemImage: "arrowshape.turn.up.right") {
-					presenter.skip(task)
-				}
-			}
-		case .skipped:
-			taskCardContent(task)
-				.contextMenu {
-					Button("Undo Skip", systemImage: "arrow.uturn.backward") {
-						presenter.undoSkip(task)
-					}
-				}
-		case .completed:
-			taskCardContent(task)
-				.contextMenu {
-					Button("schedule.action.uncomplete", systemImage: "arrow.uturn.backward") {
-						presenter.uncomplete(task)
-					}
-				}
-		case .postponed, .cancelled:
-			taskCardContent(task)
-		}
-	}
-
-	private func taskCardContent(_ task: ScheduleTaskRow) -> some View {
-		ScheduleTaskCardView(
-			task: task,
-			onUndoSkipButtonTapped: { task in
-				presenter.undoSkip(task)
-			}
-		)
-	}
 }
 
 // MARK: - ScheduleView.Weekday
