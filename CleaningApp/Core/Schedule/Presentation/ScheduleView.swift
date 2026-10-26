@@ -5,169 +5,103 @@ import FulhamKit
 
 @MainActor
 struct ScheduleView: View {
-	// MARK: - Properties
-	
-	private enum Constants {
-		static let topContentMargin: CGFloat = 48
-	}
+    // MARK: - Properties
 
-	@State private var presenter: SchedulePresenter
-	@State private var selectedDay: Weekday?
-	
-	// MARK: - Init
-	
-	init(presenter: SchedulePresenter) {
-		_presenter = State(initialValue: presenter)
-			_selectedDay = State(initialValue: .monday)
-	}
-	
-	// MARK: - Body
-	
-	var body: some View {
-		ScrollView(.horizontal, showsIndicators: false) {
-				HStack(spacing: 0) {
-					ForEach(Weekday.allCases) { day in
-						ScheduleTasksListView(
-							summary: presenter.summary(for: day),
-							tasks: presenter.tasks(for: day),
-							onComplete: { task in
-								presenter.complete(task)
-							},
-							onSkip: { task in
-								presenter.skip(task)
-							},
-							onUndoSkip: { task in
-								presenter.undoSkip(task)
-							},
-							onUncomplete: { task in
-								presenter.uncomplete(task)
-							}
-						)
-				}
-			}
-			.scrollTargetLayout()
-		}
-		.scrollTargetBehavior(.paging)
-		.scrollPosition(id: $selectedDay, anchor: .center)
-		.scrollEdgeEffectStyle(.soft, for: .top)
-		.background(FKColor.Background.primary)
-		.onAppear {
-			let today = Date()
-			presenter.ensureSchedule(today: today)
-			selectedDay = presenter.currentWeekday
-		}
-		.navigationTitle("schedule.nav_title")
-		.navigationSubtitle("schedule.nav_subtitle")
-		.toolbarTitleDisplayMode(.inlineLarge)
-		.toolbar {
-			ToolbarItem(placement: .topBarLeading) {
-				Button {
-					presenter.refresh()
-				} label: {
-					Image(systemName: "arrow.clockwise")
-				}
-				.accessibilityLabel("Refresh schedule")
-			}
-			ToolbarItem(placement: .topBarTrailing) {
-				Menu {
-					ForEach(Weekday.allCases) { weekday in
-						Button {
-							withAnimation(.smooth) {
-								selectedDay = weekday
-							}
-						} label: {
-							let isSelected = selectedDay == weekday
-							return HStack {
-								Image(systemName: isSelected ? "checkmark" : "")
-								Text(weekday.name)
-							}
-						}
-					}
-					} label: {
-						Text(selectedDay?.name ?? "")
-				}
-			}
-		}
-	}
-	
+    @State private var presenter: SchedulePresenter
+    @State private var selectedDay: ScheduleWeekday?
+
+    // MARK: - Init
+
+    init(presenter: SchedulePresenter) {
+        _presenter = State(initialValue: presenter)
+        _selectedDay = State(initialValue: .monday)
+    }
+
+    // MARK: - Body
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 0) {
+                ForEach(ScheduleWeekday.allCases) { day in
+                    ScheduleTasksListView(
+                        summary: presenter.summary(for: day),
+                        tasks: presenter.tasks(for: day),
+                        onComplete: { task in
+                            presenter.complete(task)
+                        },
+                        onSkip: { task in
+                            presenter.skip(task)
+                        },
+                        onUndoSkip: { task in
+                            presenter.undoSkip(task)
+                        },
+                        onUncomplete: { task in
+                            presenter.uncomplete(task)
+                        }
+                    )
+                }
+            }
+            .scrollTargetLayout()
+        }
+        .scrollTargetBehavior(.paging)
+        .scrollPosition(id: $selectedDay, anchor: .center)
+        .scrollEdgeEffectStyle(.soft, for: .top)
+        .background(FKColor.Background.primary)
+        .onAppear {
+            let today = Date()
+            presenter.ensureSchedule(today: today)
+            selectedDay = presenter.currentWeekday
+        }
+        .navigationTitle("schedule.nav_title")
+        .navigationSubtitle("schedule.nav_subtitle")
+        .toolbarTitleDisplayMode(.inlineLarge)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    presenter.refresh()
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                }
+                .accessibilityLabel("Refresh schedule")
+            }
+
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    ForEach(ScheduleWeekday.allCases) { weekday in
+                        Button {
+                            withAnimation(.smooth) {
+                                selectedDay = weekday
+                            }
+                        } label: {
+                            let isSelected = selectedDay == weekday
+
+                            HStack {
+                                Image(systemName: isSelected ? "checkmark" : "")
+                                Text(weekday.name)
+                            }
+                        }
+                    }
+                } label: {
+                    Text(selectedDay?.name ?? "")
+                }
+            }
+        }
+    }
 }
-
-// MARK: - ScheduleView.Weekday
-
-extension ScheduleView {
-		enum Weekday: Int, CaseIterable, Identifiable {
-		case monday
-		case tuesday
-		case wednesday
-		case thursday
-		case friday
-		case saturday
-		case sunday
-		
-		var id: Self { self }
-		
-		var name: String {
-			localizedName(in: .current)
-		}
-		
-		var shortName: String {
-			localizedShortName(in: .current)
-		}
-		
-		var date: String {
-			"\(14 + rawValue)"
-		}
-
-		init(date: Date, calendar: Calendar) {
-			switch calendar.component(.weekday, from: date) {
-			case 2: self = .monday
-			case 3: self = .tuesday
-			case 4: self = .wednesday
-			case 5: self = .thursday
-			case 6: self = .friday
-			case 7: self = .saturday
-			default: self = .sunday
-			}
-		}
-
-		func localizedName(in calendar: Calendar) -> String {
-			calendar.weekdaySymbols[calendarWeekday - 1]
-				.capitalized(with: calendar.locale ?? .current)
-		}
-
-		func localizedShortName(in calendar: Calendar) -> String {
-			calendar.shortWeekdaySymbols[calendarWeekday - 1]
-				.capitalized(with: calendar.locale ?? .current)
-		}
-
-		private var calendarWeekday: Int {
-			switch self {
-			case .monday: 2
-			case .tuesday: 3
-			case .wednesday: 4
-			case .thursday: 5
-			case .friday: 6
-			case .saturday: 7
-			case .sunday: 1
-			}
-		}
-	}
-}
-
 
 // MARK: - Preview
 
 #Preview {
-	let container = DevPreview.shared.container
-	let interactor = CoreInteractor(container: container)
-	let builder = CoreBuilder(interactor: interactor)
-	
-	return RouterView { router in
-		ScheduleView(
-			presenter: SchedulePresenter(
-				interactor: interactor,
-				router: CoreRouter(router: router, builder: builder)
-			)
-		)
-	}
+    let container = DevPreview.shared.container
+    let interactor = CoreInteractor(container: container)
+    let builder = CoreBuilder(interactor: interactor)
+
+    return RouterView { router in
+        ScheduleView(
+            presenter: SchedulePresenter(
+                interactor: interactor,
+                router: CoreRouter(router: router, builder: builder)
+            )
+        )
+    }
 }

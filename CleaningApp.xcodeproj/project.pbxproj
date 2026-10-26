@@ -127,6 +127,7 @@
 		886E9A55308FC1CF00C79E8F /* ScheduleDaySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A54308FC1CF00C79E8F /* ScheduleDaySummaryView.swift */; };
 		886E9A57308FC1CF00C79E8F /* ScheduleDaySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A56308FC1CF00C79E8F /* ScheduleDaySummary.swift */; };
 		886E9A59308FC6B000C79E8F /* ScheduleTasksListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A58308FC6B000C79E8F /* ScheduleTasksListView.swift */; };
+		886E9A5B308FC85700C79E8F /* ScheduleWeekday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E9A5A308FC85700C79E8F /* ScheduleWeekday.swift */; };
 		888603AE70EBDD07281C290C /* center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4367AA79DD53134C2C3E29B7 /* center.svg */; };
 		89DC31823EE76FF28881636B /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749A8BFFF67D64AE8A0F3F0 /* RoomsView.swift */; };
 		8D9EAE7E454F2C46F18FE48E /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC96D5806BB285B6FAC8FC00 /* SettingsInteractor.swift */; };
@@ -400,6 +401,7 @@
 		886E9A54308FC1CF00C79E8F /* ScheduleDaySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDaySummaryView.swift; sourceTree = "<group>"; };
 		886E9A56308FC1CF00C79E8F /* ScheduleDaySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleDaySummary.swift; sourceTree = "<group>"; };
 		886E9A58308FC6B000C79E8F /* ScheduleTasksListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTasksListView.swift; sourceTree = "<group>"; };
+		886E9A5A308FC85700C79E8F /* ScheduleWeekday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleWeekday.swift; sourceTree = "<group>"; };
 		888FCA16EBB2BC22389FF88A /* OnbRoomSelectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnbRoomSelectionPresenter.swift; sourceTree = "<group>"; };
 		889AF99FDF4627D03B62EAB5 /* AppEntryPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryPoint.swift; sourceTree = "<group>"; };
 		8905881F713EA48443C403D7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -883,6 +885,7 @@
 				1F7DA6C92F992053E7CEF011 /* SchedulePresenter.swift */,
 				7CB13E24CABC15BE2FF5F9EB /* ScheduleView.swift */,
 				886E9A4D308B8A7500C79E8F /* Components */,
+				886E9A5A308FC85700C79E8F /* ScheduleWeekday.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -1741,6 +1744,7 @@
 				1D97EC665660AFA851BBA56C /* Room.swift in Sources */,
 				A4FDE7B5601D25083D4AEE8D /* RoomCardView.swift in Sources */,
 				66E20DDFEE9219F380E22AAD /* RoomEntity+Mock.swift in Sources */,
+				886E9A5B308FC85700C79E8F /* ScheduleWeekday.swift in Sources */,
 				3CF20CB765B5ABA6FF83FE85 /* RoomEntity.swift in Sources */,
 				55279F25D24801001992D565 /* RoomManager.swift in Sources */,
 				A34805429F822001BC54028F /* RoomMapper.swift in Sources */,

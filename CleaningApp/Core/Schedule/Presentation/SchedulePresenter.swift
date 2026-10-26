@@ -7,8 +7,8 @@ final class SchedulePresenter {
 
 	private let interactor: any ScheduleInteractor
 	private let router: any ScheduleRouter
-	private(set) var tasksByWeekday: [ScheduleView.Weekday: [ScheduleTaskRow]] = [:]
-	private(set) var currentWeekday: ScheduleView.Weekday = .monday
+	private(set) var tasksByWeekday: [ScheduleWeekday: [ScheduleTaskRow]] = [:]
+	private(set) var currentWeekday: ScheduleWeekday = .monday
 	private var hasPastPlannedOccurrences = false
 
 	// MARK: - Init
@@ -30,7 +30,7 @@ final class SchedulePresenter {
 			let tasks = try interactor.fetchAllRoomTasks()
 			let scheduledTasks = try interactor.fetchAllScheduledTasks()
 			let startDate = calendar.startOfDay(for: today)
-			currentWeekday = ScheduleView.Weekday(date: startDate, calendar: calendar)
+			currentWeekday = ScheduleWeekday(date: startDate, calendar: calendar)
 			hasPastPlannedOccurrences = scheduledTasks.contains { scheduledTask in
 				scheduledTask.status == .planned && scheduledTask.scheduledDate < startDate
 			}
@@ -69,11 +69,11 @@ final class SchedulePresenter {
 		refresh(today: today)
 	}
 
-	func tasks(for day: ScheduleView.Weekday) -> [ScheduleTaskRow] {
+	func tasks(for day: ScheduleWeekday) -> [ScheduleTaskRow] {
 		tasksByWeekday[day] ?? []
 	}
 
-	func summary(for day: ScheduleView.Weekday) -> ScheduleDaySummary {
+	func summary(for day: ScheduleWeekday) -> ScheduleDaySummary {
 		let tasks = tasks(for: day)
 		let completedTaskCount = tasks.filter { $0.status == .completed }.count
 		let plannedTaskCount = tasks.filter { $0.status == .planned }.count
@@ -183,11 +183,11 @@ final class SchedulePresenter {
 		scheduledTasks: [ScheduledTask],
 		startDate: Date,
 		calendar: Calendar
-	) -> [ScheduleView.Weekday: [ScheduleTaskRow]] {
+	) -> [ScheduleWeekday: [ScheduleTaskRow]] {
 		let roomsByID = Dictionary(uniqueKeysWithValues: rooms.map { ($0.id, $0) })
 		let tasksByID = Dictionary(uniqueKeysWithValues: tasks.map { ($0.id, $0) })
 
-		return scheduledTasks.reduce(into: [ScheduleView.Weekday: [ScheduleTaskRow]]()) { result, occurrence in
+		return scheduledTasks.reduce(into: [ScheduleWeekday: [ScheduleTaskRow]]()) { result, occurrence in
 			guard occurrence.scheduledDate >= startDate,
 				let task = tasksByID[occurrence.taskId],
 				let room = roomsByID[task.roomId]
@@ -195,7 +195,7 @@ final class SchedulePresenter {
 				return
 			}
 
-			let weekday = ScheduleView.Weekday(date: occurrence.scheduledDate, calendar: calendar)
+			let weekday = ScheduleWeekday(date: occurrence.scheduledDate, calendar: calendar)
 			result[weekday, default: []].append(
 				ScheduleTaskRow(
 					id: occurrence.id,
