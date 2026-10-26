@@ -11,6 +11,16 @@
         }
       }
     },
+    "%@ • %lld min" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ • %2$lld min"
+          }
+        }
+      }
+    },
     "%@ is intentionally light." : {
       "localizations" : {
         "pl" : {
