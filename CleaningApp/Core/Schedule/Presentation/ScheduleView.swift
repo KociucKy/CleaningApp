@@ -62,7 +62,10 @@ struct ScheduleView: View {
                 } label: {
                     Image(systemName: "arrow.clockwise")
                 }
-                .accessibilityLabel("Refresh schedule")
+				.accessibilityLabel(String(localized: .init(
+					"schedule.accessibility.refresh",
+					defaultValue: "Refresh schedule"
+				)))
             }
 
             ToolbarItem(placement: .topBarTrailing) {

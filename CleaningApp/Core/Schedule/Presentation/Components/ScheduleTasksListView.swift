@@ -44,7 +44,13 @@ struct ScheduleTasksListView: View {
             }
             .buttonStyle(.fkFade)
             .contextMenu {
-                Button("Skip task", systemImage: "arrowshape.turn.up.right") {
+				Button(
+					String(localized: .init(
+						"schedule.action.skip",
+						defaultValue: "Skip task"
+					)),
+					systemImage: "arrowshape.turn.up.right"
+				) {
                     onSkip(task)
                 }
             }
@@ -52,7 +58,13 @@ struct ScheduleTasksListView: View {
         case .skipped:
             taskCardContent(task)
                 .contextMenu {
-                    Button("Undo Skip", systemImage: "arrow.uturn.backward") {
+					Button(
+						String(localized: .init(
+							"schedule.action.undo_skip",
+							defaultValue: "Undo Skip"
+						)),
+						systemImage: "arrow.uturn.backward"
+					) {
                         onUndoSkip(task)
                     }
                 }

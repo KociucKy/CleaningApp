@@ -14,7 +14,10 @@ struct ScheduleTaskCardView: View {
 
     var body: some View {
         let isCompleted = task.status == .completed
-        let accessibilityLabel = "\(task.name), \(task.roomName), \(task.duration) minutes"
+		let accessibilityLabel = String(localized: .init(
+			"schedule.task.accessibility_label",
+			defaultValue: "\(task.name), \(task.roomName), \(task.duration) minutes"
+		))
 
         HStack(spacing: FKSpacing.large) {
             Image(systemName: isCompleted ? "checkmark.circle.fill" : task.symbolName)
@@ -30,7 +33,10 @@ struct ScheduleTaskCardView: View {
                     .strikethrough(isCompleted, color: .secondary)
                     .foregroundStyle(isCompleted ? .secondary : .primary)
 
-                Text("\(task.roomName) • \(task.duration) min")
+				Text(String(localized: .init(
+					"schedule.task.detail",
+					defaultValue: "\(task.roomName) • \(task.duration) min"
+				)))
                     .font(FKTypography.secondaryLabel)
                     .foregroundStyle(.secondary)
 
@@ -44,7 +50,10 @@ struct ScheduleTaskCardView: View {
             Spacer()
 
             if task.status == .skipped {
-                Button("Undo Skip") {
+				Button(String(localized: .init(
+					"schedule.action.undo_skip",
+					defaultValue: "Undo Skip"
+				))) {
                     onUndoSkipButtonTapped(task)
                 }
                 .buttonStyle(.borderless)

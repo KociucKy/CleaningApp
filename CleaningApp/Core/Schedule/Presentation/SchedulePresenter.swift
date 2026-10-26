@@ -82,10 +82,19 @@ final class SchedulePresenter {
 
 		return ScheduleDaySummary(
 			weekdayName: day.name,
-			completionText: "\(completedTaskCount)/\(totalTaskCount)",
+			completionText: String(localized: .init(
+				"schedule.summary.completion",
+				defaultValue: "\(completedTaskCount)/\(totalTaskCount)"
+			)),
 			taskDescription: totalTaskCount == 0
-				? "A clear day — enjoy the space."
-				: "\(totalTaskCount) tasks • \(totalMinutes) min planned",
+				? String(localized: .init(
+					"schedule.summary.empty_description",
+					defaultValue: "A clear day — enjoy the space."
+				))
+				: String(localized: .init(
+					"schedule.summary.task_details",
+					defaultValue: "\(totalTaskCount) tasks • \(totalMinutes) min planned"
+				)),
 			completedTaskCount: completedTaskCount,
 			progressTotal: max(totalTaskCount, 1),
 			showsEmptyState: plannedTaskCount == 0

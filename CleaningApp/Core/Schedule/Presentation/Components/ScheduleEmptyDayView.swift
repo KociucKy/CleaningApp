@@ -5,9 +5,18 @@ struct ScheduleEmptyDayView: View {
 
 	var body: some View {
 		ContentUnavailableView {
-			Label("Nothing planned", systemImage: "sparkles")
-		} description: {
-			Text("\(weekdayName) is intentionally light.")
+				Label(
+					String(localized: .init(
+						"schedule.empty.title",
+						defaultValue: "Nothing planned"
+					)),
+					systemImage: "sparkles"
+				)
+			} description: {
+				Text(String(localized: .init(
+					"schedule.empty.description",
+					defaultValue: "\(weekdayName) is intentionally light."
+				)))
 		}
 		.frame(maxWidth: .infinity)
 		.padding(.vertical, 44)

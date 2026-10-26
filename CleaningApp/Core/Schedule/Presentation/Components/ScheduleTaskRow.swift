@@ -15,11 +15,11 @@ struct ScheduleTaskRow: Identifiable, Equatable {
 
     var statusDescription: String {
         switch status {
-        case .planned: "Planned"
-        case .completed: "Completed"
-        case .skipped: "Skipped"
-        case .postponed: "Backlog"
-        case .cancelled: "Cancelled"
+		case .planned: String(localized: .init("schedule.status.planned", defaultValue: "Planned"))
+		case .completed: String(localized: .init("schedule.status.completed", defaultValue: "Completed"))
+		case .skipped: String(localized: .init("schedule.status.skipped", defaultValue: "Skipped"))
+		case .postponed: String(localized: .init("schedule.status.postponed", defaultValue: "Backlog"))
+		case .cancelled: String(localized: .init("schedule.status.cancelled", defaultValue: "Cancelled"))
         }
     }
 
