@@ -32,15 +32,8 @@ struct ScheduleView: View {
 							daySummary(for: day)
 								.removeListRowFormatting()
 						}
-						Section {
-							let tasks = presenter.tasks(for: day)
-							if tasks.isNotEmpty {
-								ForEach(tasks) { task in
-									taskCard(task)
-								}
-							} else {
-								ScheduleEmptyDayView(weekdayName: day.name)
-							}
+							Section {
+								taskSection(for: day)
 						}
 					}
 					.containerRelativeFrame(.horizontal)
@@ -118,9 +111,22 @@ struct ScheduleView: View {
 		.background(FKColor.Background.canvas)
 		.accessibilityElement(children: .combine)
 	}
-	
+
 	@ViewBuilder
-	private func taskCard(_ task: ScheduleTask) -> some View {
+	private func taskSection(for day: Weekday) -> some View {
+		let tasks = presenter.tasks(for: day)
+
+		if tasks.isNotEmpty {
+			ForEach(tasks) { task in
+				taskCard(task)
+			}
+		} else {
+			ScheduleEmptyDayView(weekdayName: day.name)
+		}
+	}
+
+	@ViewBuilder
+	private func taskCard(_ task: ScheduleTaskRow) -> some View {
 		if task.status == .planned {
 			Button {
 				presenter.complete(task)
@@ -152,52 +158,13 @@ struct ScheduleView: View {
 		}
 	}
 
-	private func taskCardContent(_ task: ScheduleTask) -> some View {
-		let isCompleted = task.status == .completed
-		let detail = "\(task.room) • \(task.duration) min"
-		let accessibilityLabel = "\(task.name), \(task.room), \(task.duration) minutes"
-		return HStack(spacing: FKSpacing.large) {
-				Image(systemName: isCompleted ? "checkmark.circle.fill" : task.symbolName)
-					.font(FKTypography.sectionHeader)
-					.foregroundStyle(.accent.gradient)
-					.padding(FKSpacing.default)
-					.background(.accent.opacity(0.2), in: .circle)
-					.frame(width: 28)
-				
-				VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
-					Text(task.name)
-						.font(FKTypography.ctaLabel)
-						.strikethrough(isCompleted, color: .secondary)
-						.foregroundStyle(isCompleted ? .secondary : .primary)
-					
-					Text(detail)
-						.font(FKTypography.secondaryLabel)
-						.foregroundStyle(.secondary)
-
-					if task.status != .planned {
-						Text(task.statusDescription)
-							.font(FKTypography.secondaryLabel)
-							.foregroundStyle(task.status == .postponed ? .orange : .secondary)
-					}
-				}
-				
-				Spacer()
-
-				if task.status == .skipped {
-					Button("Undo Skip") {
-						presenter.undoSkip(task)
-					}
-					.buttonStyle(.borderless)
-				} else {
-					Image(systemName: "circle")
-						.font(FKTypography.sectionHeader)
-						.foregroundStyle(.tertiary)
-						.opacity(isCompleted ? 0 : 1)
-				}
-		}
-		.frame(maxWidth: .infinity)
-		.accessibilityLabel(accessibilityLabel)
-		.accessibilityValue(task.statusDescription)
+	private func taskCardContent(_ task: ScheduleTaskRow) -> some View {
+		ScheduleTaskCardView(
+			task: task,
+			onUndoSkipButtonTapped: { task in
+				presenter.undoSkip(task)
+			}
+		)
 	}
 }
 
@@ -282,46 +249,7 @@ extension ScheduleView {
 	}
 }
 
-// MARK: - ScheduleView.ScheduleTask
-
-extension ScheduleView {
-	struct ScheduleTask: Identifiable {
-		let id: UUID
-		let name: String
-		let room: String
-		let duration: Int
-		let symbolName: String
-		let status: ScheduledTaskStatus
-
-		var statusDescription: String {
-			switch status {
-			case .planned: "Planned"
-			case .completed: "Completed"
-			case .skipped: "Skipped"
-			case .postponed: "Backlog"
-			case .cancelled: "Cancelled"
-			}
-		}
-		
-		init(
-			id: UUID,
-			name: String,
-			room: String,
-			duration: Int,
-			symbolName: String,
-			status: ScheduledTaskStatus
-		) {
-			self.id = id
-			self.name = name
-			self.room = room
-			self.duration = duration
-			self.symbolName = symbolName
-			self.status = status
-		}
-	}
-}
-
-private extension Array where Element == ScheduleView.ScheduleTask {
+private extension Array where Element == ScheduleTaskRow {
 	var totalMinutes: Int {
 		reduce(0) { $0 + $1.duration }
 	}
@@ -344,4 +272,3 @@ private extension Array where Element == ScheduleView.ScheduleTask {
 		)
 	}
 }
-
