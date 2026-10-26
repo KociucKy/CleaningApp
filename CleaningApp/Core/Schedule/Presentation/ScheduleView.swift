@@ -127,7 +127,8 @@ struct ScheduleView: View {
 
 	@ViewBuilder
 	private func taskCard(_ task: ScheduleTaskRow) -> some View {
-		if task.status == .planned {
+		switch task.status {
+		case .planned:
 			Button {
 				presenter.complete(task)
 			} label: {
@@ -139,21 +140,21 @@ struct ScheduleView: View {
 					presenter.skip(task)
 				}
 			}
-		} else if task.status == .skipped {
+		case .skipped:
 			taskCardContent(task)
 				.contextMenu {
 					Button("Undo Skip", systemImage: "arrow.uturn.backward") {
 						presenter.undoSkip(task)
 					}
 				}
-		} else if task.status == .completed {
+		case .completed:
 			taskCardContent(task)
 				.contextMenu {
 					Button("schedule.action.uncomplete", systemImage: "arrow.uturn.backward") {
 						presenter.uncomplete(task)
 					}
 				}
-		} else {
+		case .postponed, .cancelled:
 			taskCardContent(task)
 		}
 	}
