@@ -73,6 +73,23 @@ final class SchedulePresenter {
 		tasksByWeekday[day] ?? []
 	}
 
+	func summary(for day: ScheduleView.Weekday) -> ScheduleDaySummary {
+		let tasks = tasks(for: day)
+		let completedTaskCount = tasks.filter { $0.status == .completed }.count
+		let totalTaskCount = tasks.count
+		let totalMinutes = tasks.reduce(0) { $0 + $1.duration }
+
+		return ScheduleDaySummary(
+			weekdayName: day.name,
+			completionText: "\(completedTaskCount)/\(totalTaskCount)",
+			taskDescription: totalTaskCount == 0
+				? "A clear day — enjoy the space."
+				: "\(totalTaskCount) tasks • \(totalMinutes) min planned",
+			completedTaskCount: completedTaskCount,
+			progressTotal: max(totalTaskCount, 1)
+		)
+	}
+
 	func complete(_ task: ScheduleTaskRow, completedAt: Date = Date()) {
 		guard task.status == .planned else {
 			return
