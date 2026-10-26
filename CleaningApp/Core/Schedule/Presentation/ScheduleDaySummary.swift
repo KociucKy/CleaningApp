@@ -11,6 +11,7 @@ struct ScheduleDaySummary: Equatable {
     let taskDescription: String
     let completedTaskCount: Int
     let progressTotal: Int
+    let showsEmptyState: Bool
 
     // MARK: - Init
 
@@ -19,12 +20,14 @@ struct ScheduleDaySummary: Equatable {
         completionText: String,
         taskDescription: String,
         completedTaskCount: Int,
-        progressTotal: Int
+        progressTotal: Int,
+        showsEmptyState: Bool
     ) {
         self.weekdayName = weekdayName
         self.completionText = completionText
         self.taskDescription = taskDescription
         self.completedTaskCount = completedTaskCount
         self.progressTotal = progressTotal
+        self.showsEmptyState = showsEmptyState
     }
 }

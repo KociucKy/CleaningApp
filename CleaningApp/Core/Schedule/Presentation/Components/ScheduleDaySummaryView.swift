@@ -12,33 +12,37 @@ struct ScheduleDaySummaryView: View {
     // MARK: - Body
 
     var body: some View {
-        VStack(alignment: .leading, spacing: FKSpacing.default) {
-            HStack(alignment: .firstTextBaseline) {
-                Text(summary.weekdayName)
-                    .font(FKTypography.statValue)
+        if summary.showsEmptyState {
+            ScheduleEmptyDayView(weekdayName: summary.weekdayName)
+        } else {
+            VStack(alignment: .leading, spacing: FKSpacing.default) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text(summary.weekdayName)
+                        .font(FKTypography.statValue)
 
-                Spacer()
+                    Spacer()
 
-                Text(summary.completionText)
+                    Text(summary.completionText)
+                        .font(FKTypography.secondaryLabel)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.accent)
+                }
+
+                Text(summary.taskDescription)
                     .font(FKTypography.secondaryLabel)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.accent)
+                    .foregroundStyle(.secondary)
+
+                ProgressView(
+                    value: Double(summary.completedTaskCount),
+                    total: Double(summary.progressTotal)
+                )
+                .tint(.accent)
             }
-
-            Text(summary.taskDescription)
-                .font(FKTypography.secondaryLabel)
-                .foregroundStyle(.secondary)
-
-            ProgressView(
-                value: Double(summary.completedTaskCount),
-                total: Double(summary.progressTotal)
-            )
-            .tint(.accent)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(FKSpacing.large)
+            .background(FKColor.Background.canvas)
+            .accessibilityElement(children: .combine)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(FKSpacing.large)
-        .background(FKColor.Background.canvas)
-        .accessibilityElement(children: .combine)
     }
 }
 
@@ -51,7 +55,21 @@ struct ScheduleDaySummaryView: View {
             completionText: "2/4",
             taskDescription: "4 tasks • 35 min planned",
             completedTaskCount: 2,
-            progressTotal: 4
+            progressTotal: 4,
+            showsEmptyState: false
+        )
+    )
+}
+
+#Preview("Empty") {
+    ScheduleDaySummaryView(
+        summary: ScheduleDaySummary(
+            weekdayName: "Friday",
+            completionText: "0/0",
+            taskDescription: "A clear day — enjoy the space.",
+            completedTaskCount: 0,
+            progressTotal: 1,
+            showsEmptyState: true
         )
     )
 }

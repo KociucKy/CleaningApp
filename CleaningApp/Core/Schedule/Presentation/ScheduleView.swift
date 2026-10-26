@@ -86,14 +86,8 @@ struct ScheduleView: View {
 	
 	@ViewBuilder
 	private func taskSection(for day: Weekday) -> some View {
-		let tasks = presenter.tasks(for: day)
-
-		if tasks.isNotEmpty {
-			ForEach(tasks) { task in
-				taskCard(task)
-			}
-		} else {
-			ScheduleEmptyDayView(weekdayName: day.name)
+		ForEach(presenter.tasks(for: day)) { task in
+			taskCard(task)
 		}
 	}
 
