@@ -3075,6 +3075,7 @@
       }
     },
     "schedule.action.uncomplete" : {
+      "extractionState" : "stale",
       "localizations" : {
         "pl" : {
           "stringUnit" : {
