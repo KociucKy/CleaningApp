@@ -3041,7 +3041,7 @@
       }
     },
     "schedule.accessibility.refresh" : {
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

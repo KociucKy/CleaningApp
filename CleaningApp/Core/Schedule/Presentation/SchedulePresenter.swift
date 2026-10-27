@@ -59,14 +59,14 @@ final class SchedulePresenter {
 			guard let hasActivePlan = fetchSchedule(today: today, calendar: calendar), !hasActivePlan else {
 				return
 			}
-			refresh(today: today)
+				generateSchedule(today: today)
 			return
 		}
 		guard !hasActivePlan else {
 			return
 		}
 
-		refresh(today: today)
+		generateSchedule(today: today)
 	}
 
 	func tasks(for day: ScheduleWeekday) -> [ScheduleTaskRow] {
@@ -157,7 +157,7 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
-	func refresh(today: Date = Date()) {
+	private func generateSchedule(today: Date) {
 		do {
 			_ = try interactor.refreshSchedule(
 				today: today,
