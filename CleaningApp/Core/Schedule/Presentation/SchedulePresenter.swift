@@ -7,8 +7,8 @@ final class SchedulePresenter {
 
 	private let interactor: any ScheduleInteractor
 	private let router: any ScheduleRouter
-	private(set) var tasksByWeekday: [ScheduleView.Weekday: [ScheduleView.ScheduleTask]] = [:]
-	private(set) var currentWeekday: ScheduleView.Weekday = .monday
+	private(set) var tasksByWeekday: [ScheduleWeekday: [ScheduleTaskRow]] = [:]
+	private(set) var currentWeekday: ScheduleWeekday = .monday
 	private var hasPastPlannedOccurrences = false
 
 	// MARK: - Init
@@ -30,7 +30,7 @@ final class SchedulePresenter {
 			let tasks = try interactor.fetchAllRoomTasks()
 			let scheduledTasks = try interactor.fetchAllScheduledTasks()
 			let startDate = calendar.startOfDay(for: today)
-			currentWeekday = ScheduleView.Weekday(date: startDate, calendar: calendar)
+			currentWeekday = ScheduleWeekday(date: startDate, calendar: calendar)
 			hasPastPlannedOccurrences = scheduledTasks.contains { scheduledTask in
 				scheduledTask.status == .planned && scheduledTask.scheduledDate < startDate
 			}
@@ -59,21 +59,49 @@ final class SchedulePresenter {
 			guard let hasActivePlan = fetchSchedule(today: today, calendar: calendar), !hasActivePlan else {
 				return
 			}
-			refresh(today: today)
+				generateSchedule(today: today)
 			return
 		}
 		guard !hasActivePlan else {
 			return
 		}
 
-		refresh(today: today)
+		generateSchedule(today: today)
 	}
 
-	func tasks(for day: ScheduleView.Weekday) -> [ScheduleView.ScheduleTask] {
+	func tasks(for day: ScheduleWeekday) -> [ScheduleTaskRow] {
 		tasksByWeekday[day] ?? []
 	}
 
-	func complete(_ task: ScheduleView.ScheduleTask, completedAt: Date = Date()) {
+	func summary(for day: ScheduleWeekday) -> ScheduleDaySummary {
+		let tasks = tasks(for: day)
+		let completedTaskCount = tasks.filter { $0.status == .completed }.count
+		let plannedTaskCount = tasks.filter { $0.status == .planned }.count
+		let totalTaskCount = tasks.count
+		let totalMinutes = tasks.reduce(0) { $0 + $1.duration }
+
+		return ScheduleDaySummary(
+			weekdayName: day.name,
+			completionText: String(localized: .init(
+				"schedule.summary.completion",
+				defaultValue: "\(completedTaskCount)/\(totalTaskCount)"
+			)),
+			taskDescription: totalTaskCount == 0
+				? String(localized: .init(
+					"schedule.summary.empty_description",
+					defaultValue: "A clear day — enjoy the space."
+				))
+				: String(localized: .init(
+					"schedule.summary.task_details",
+					defaultValue: "\(totalTaskCount) tasks • \(totalMinutes) min planned"
+				)),
+			completedTaskCount: completedTaskCount,
+			progressTotal: max(totalTaskCount, 1),
+			showsEmptyState: plannedTaskCount == 0
+		)
+	}
+
+	func complete(_ task: ScheduleTaskRow, completedAt: Date = Date()) {
 		guard task.status == .planned else {
 			return
 		}
@@ -88,7 +116,7 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
-	func uncomplete(_ task: ScheduleView.ScheduleTask, uncompletedAt: Date = Date()) {
+	func uncomplete(_ task: ScheduleTaskRow, uncompletedAt: Date = Date()) {
 		guard task.status == .completed else {
 			return
 		}
@@ -103,7 +131,7 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
-	func skip(_ task: ScheduleView.ScheduleTask, skippedAt: Date = Date()) {
+	func skip(_ task: ScheduleTaskRow, skippedAt: Date = Date()) {
 		guard task.status == .planned else {
 			return
 		}
@@ -118,7 +146,7 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
-	func undoSkip(_ task: ScheduleView.ScheduleTask, restoredAt: Date = Date()) {
+	func undoSkip(_ task: ScheduleTaskRow, restoredAt: Date = Date()) {
 		guard task.status == .skipped else {
 			return
 		}
@@ -129,7 +157,7 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
-	func refresh(today: Date = Date()) {
+	private func generateSchedule(today: Date) {
 		do {
 			_ = try interactor.refreshSchedule(
 				today: today,
@@ -164,11 +192,11 @@ final class SchedulePresenter {
 		scheduledTasks: [ScheduledTask],
 		startDate: Date,
 		calendar: Calendar
-	) -> [ScheduleView.Weekday: [ScheduleView.ScheduleTask]] {
+	) -> [ScheduleWeekday: [ScheduleTaskRow]] {
 		let roomsByID = Dictionary(uniqueKeysWithValues: rooms.map { ($0.id, $0) })
 		let tasksByID = Dictionary(uniqueKeysWithValues: tasks.map { ($0.id, $0) })
 
-		return scheduledTasks.reduce(into: [ScheduleView.Weekday: [ScheduleView.ScheduleTask]]()) { result, occurrence in
+		return scheduledTasks.reduce(into: [ScheduleWeekday: [ScheduleTaskRow]]()) { result, occurrence in
 			guard occurrence.scheduledDate >= startDate,
 				let task = tasksByID[occurrence.taskId],
 				let room = roomsByID[task.roomId]
@@ -176,12 +204,12 @@ final class SchedulePresenter {
 				return
 			}
 
-			let weekday = ScheduleView.Weekday(date: occurrence.scheduledDate, calendar: calendar)
+			let weekday = ScheduleWeekday(date: occurrence.scheduledDate, calendar: calendar)
 			result[weekday, default: []].append(
-				ScheduleView.ScheduleTask(
+				ScheduleTaskRow(
 					id: occurrence.id,
 					name: task.name,
-					room: room.name,
+					roomName: room.name,
 					duration: task.learnedDuration ?? task.estimatedDuration.rawValue,
 					symbolName: room.kind.symbolName,
 					status: occurrence.status
