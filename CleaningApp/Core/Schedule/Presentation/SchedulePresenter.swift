@@ -76,7 +76,6 @@ final class SchedulePresenter {
 	func summary(for day: ScheduleWeekday) -> ScheduleDaySummary {
 		let tasks = tasks(for: day)
 		let completedTaskCount = tasks.filter { $0.status == .completed }.count
-		let plannedTaskCount = tasks.filter { $0.status == .planned }.count
 		let totalTaskCount = tasks.count
 		let totalMinutes = tasks.reduce(0) { $0 + $1.duration }
 
@@ -97,7 +96,7 @@ final class SchedulePresenter {
 				)),
 			completedTaskCount: completedTaskCount,
 			progressTotal: max(totalTaskCount, 1),
-			showsEmptyState: plannedTaskCount == 0
+			showsEmptyState: totalTaskCount == 0
 		)
 	}
 

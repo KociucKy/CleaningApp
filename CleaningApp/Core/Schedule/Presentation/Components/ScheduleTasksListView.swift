@@ -21,7 +21,7 @@ struct ScheduleTasksListView: View {
 				ScheduleDaySummaryView(summary: summary)
 					.removeListRowFormatting()
 			}
-			
+
 			Section {
 				ForEach(tasks) { task in
 					taskCard(task)
@@ -29,65 +29,75 @@ struct ScheduleTasksListView: View {
 			}
 		}
 		.containerRelativeFrame(.horizontal)
+		.animation(.snappy, value: tasks)
 	}
-	
+
 	// MARK: - Views
 	
 	@ViewBuilder
 	private func taskCard(_ task: ScheduleTaskRow) -> some View {
-		switch task.status {
-		case .planned:
-			Button {
-				withAnimation {
-					onComplete(task)
+		taskCardContent(task)
+			.contentShape(.rect)
+			.overlay {
+				if task.status == .planned || task.status == .completed {
+					taskInteractionButton(task)
 				}
-			} label: {
-				taskCardContent(task)
-					.contentShape(.rect)
 			}
-			.buttonStyle(.fkFade)
 			.contextMenu {
-				Button(
-					String(localized: .init(
-						"schedule.action.skip",
-						defaultValue: "Skip task"
-					)),
-					systemImage: "arrowshape.turn.up.right"
-				) {
-					withAnimation {
-						onSkip(task)
-					}
-				}
+				taskContextMenu(task)
 			}
-			
-		case .skipped:
-			taskCardContent(task)
-				.contextMenu {
-					Button(
-						String(localized: .init(
-							"schedule.action.undo_skip",
-							defaultValue: "Undo Skip"
-						)),
-						systemImage: "arrow.uturn.backward"
-					) {
-						withAnimation {
-							onUndoSkip(task)
-						}
-					}
-				}
-			
-		case .completed:
-			Button {
-				withAnimation {
+	}
+
+	@ViewBuilder
+	private func taskInteractionButton(_ task: ScheduleTaskRow) -> some View {
+		Button {
+			withAnimation(.snappy) {
+				if task.status == .planned {
+					onComplete(task)
+				} else {
 					onUncomplete(task)
 				}
-			} label: {
-				taskCardContent(task)
-					.contentShape(.rect)
 			}
-			
-		case .postponed, .cancelled:
-			taskCardContent(task)
+		} label: {
+			Rectangle()
+				.fill(.clear)
+				.contentShape(.rect)
+		}
+		.buttonStyle(.fkFade)
+		.accessibilityLabel(task.name)
+	}
+
+	@ViewBuilder
+	private func taskContextMenu(_ task: ScheduleTaskRow) -> some View {
+		switch task.status {
+		case .planned:
+			Button(
+				String(localized: .init(
+					"schedule.action.skip",
+					defaultValue: "Skip task"
+				)),
+				systemImage: "arrowshape.turn.up.right"
+			) {
+				withAnimation(.snappy) {
+					onSkip(task)
+				}
+			}
+
+		case .skipped:
+			Button(
+				String(localized: .init(
+					"schedule.action.undo_skip",
+					defaultValue: "Undo Skip"
+				)),
+				systemImage: "arrow.uturn.backward"
+			) {
+				withAnimation(.snappy) {
+					onUndoSkip(task)
+				}
+			}
+
+		case .completed, .postponed, .cancelled:
+			EmptyView()
 		}
 	}
 	

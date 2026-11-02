@@ -28,6 +28,8 @@ struct ScheduleTaskCardView: View {
                 .padding(FKSpacing.default)
                 .background((isSkipped ? Color.secondary : Color.accentColor).opacity(0.2), in: .circle)
                 .frame(width: 28)
+                .scaleEffect(isInactive ? 0.9 : 1)
+                .symbolEffect(.bounce, value: task.status)
 
             VStack(alignment: .leading, spacing: FKSpacing.extraSmall) {
                 Text(task.name)
@@ -54,6 +56,13 @@ struct ScheduleTaskCardView: View {
             trailingAction
         }
         .frame(maxWidth: .infinity)
+        .animation(.snappy, value: task.status)
+        .keyframeAnimator(initialValue: 1.0, trigger: task.status) { content, scale in
+            content.scaleEffect(scale)
+        } keyframes: { _ in
+            CubicKeyframe(0.96, duration: 0.08)
+            SpringKeyframe(1.0, duration: 0.32, spring: .bouncy)
+        }
         .accessibilityLabel(accessibilityLabel)
         .accessibilityValue(task.statusDescription)
     }
@@ -62,25 +71,24 @@ struct ScheduleTaskCardView: View {
 
     @ViewBuilder
     private var trailingAction: some View {
-        switch task.status {
-        case .completed:
-            Image(systemName: "checkmark")
-                .font(FKTypography.sectionHeader)
-                .foregroundStyle(.accent.gradient)
-
-        case .skipped:
-            Button(String(localized: .init(
-                "schedule.action.undo_skip",
-                defaultValue: "Undo Skip"
-            ))) {
-                onUndoSkipButtonTapped(task)
+        ZStack {
+            if task.status == .skipped {
+                Button(String(localized: .init(
+                    "schedule.action.undo_skip",
+                    defaultValue: "Undo Skip"
+                ))) {
+                    onUndoSkipButtonTapped(task)
+                }
+                .buttonStyle(.borderless)
+                .transition(.scale.combined(with: .opacity))
+            } else {
+                Image(systemName: task.status == .completed ? "checkmark" : "circle")
+                    .font(FKTypography.sectionHeader)
+                    .foregroundStyle(task.status == .completed ? AnyShapeStyle(.accent.gradient) : AnyShapeStyle(.tertiary))
+                    .contentTransition(.symbolEffect(.replace, options: .speed(2)))
+                    .symbolEffect(.bounce, options: .speed(2), value: task.status)
+                    .transition(.scale.combined(with: .opacity))
             }
-            .buttonStyle(.borderless)
-
-        case .planned, .postponed, .cancelled:
-            Image(systemName: "circle")
-                .font(FKTypography.sectionHeader)
-                .foregroundStyle(.tertiary)
         }
     }
 }
