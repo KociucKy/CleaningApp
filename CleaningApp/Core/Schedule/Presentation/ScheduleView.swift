@@ -32,7 +32,7 @@ struct ScheduleView: View {
 						onSkip: { task in
 							presenter.skip(task)
 						},
-						onUndoSkip: { task in
+						onRetry: { task in
 							presenter.undoSkip(task)
 						},
 						onUncomplete: { task in

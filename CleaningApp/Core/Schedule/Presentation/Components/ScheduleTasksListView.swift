@@ -10,7 +10,7 @@ struct ScheduleTasksListView: View {
 	let tasks: [ScheduleTaskRow]
 	let onComplete: (ScheduleTaskRow) -> Void
 	let onSkip: (ScheduleTaskRow) -> Void
-	let onUndoSkip: (ScheduleTaskRow) -> Void
+	let onRetry: (ScheduleTaskRow) -> Void
 	let onUncomplete: (ScheduleTaskRow) -> Void
 	
 	// MARK: - Body
@@ -86,13 +86,13 @@ struct ScheduleTasksListView: View {
 		case .skipped:
 			Button(
 				String(localized: .init(
-					"schedule.action.undo_skip",
-					defaultValue: "Undo Skip"
+					"schedule.action.retry",
+					defaultValue: "Retry"
 				)),
 				systemImage: "arrow.uturn.backward"
 			) {
 				withAnimation(.snappy) {
-					onUndoSkip(task)
+					onRetry(task)
 				}
 			}
 
@@ -104,7 +104,7 @@ struct ScheduleTasksListView: View {
 	private func taskCardContent(_ task: ScheduleTaskRow) -> some View {
 		ScheduleTaskCardView(
 			task: task,
-			onUndoSkipButtonTapped: onUndoSkip
+			onRetryButtonTapped: onRetry
 		)
 	}
 }
@@ -133,7 +133,7 @@ struct ScheduleTasksListView: View {
 		],
 		onComplete: { _ in },
 		onSkip: { _ in },
-		onUndoSkip: { _ in },
+		onRetry: { _ in },
 		onUncomplete: { _ in }
 	)
 }

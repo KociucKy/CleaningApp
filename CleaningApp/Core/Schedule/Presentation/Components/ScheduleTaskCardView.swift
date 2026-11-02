@@ -8,7 +8,7 @@ struct ScheduleTaskCardView: View {
 	// MARK: - Properties
 	
 	let task: ScheduleTaskRow
-	let onUndoSkipButtonTapped: (ScheduleTaskRow) -> Void
+	let onRetryButtonTapped: (ScheduleTaskRow) -> Void
 	
 	// MARK: - Body
 	
@@ -72,13 +72,16 @@ struct ScheduleTaskCardView: View {
 	private var trailingAction: some View {
 		ZStack {
 			if task.status == .skipped {
-				Button(String(localized: .init(
-					"schedule.action.undo_skip",
-					defaultValue: "Undo Skip"
-				))) {
-					onUndoSkipButtonTapped(task)
-				}
-				.buttonStyle(.borderless)
+					Button {
+						onRetryButtonTapped(task)
+					} label: {
+						Image(systemName: "arrow.clockwise")
+					}
+					.buttonStyle(.borderless)
+					.accessibilityLabel(String(localized: .init(
+						"schedule.action.retry",
+						defaultValue: "Retry"
+					)))
 				.transition(.scale.combined(with: .opacity))
 			} else {
 				Image(systemName: task.status == .completed ? "checkmark" : "circle")
@@ -104,6 +107,6 @@ struct ScheduleTaskCardView: View {
 			symbolName: "sofa.fill",
 			status: .planned
 		),
-		onUndoSkipButtonTapped: { _ in }
+		onRetryButtonTapped: { _ in }
 	)
 }
