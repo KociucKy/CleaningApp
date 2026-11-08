@@ -28,9 +28,12 @@ final class SchedulePresenter {
 		do {
 			let rooms = try interactor.fetchAllRooms()
 			let tasks = try interactor.fetchAllRoomTasks()
-			let scheduledTasks = try interactor.fetchAllScheduledTasks()
-			let startDate = calendar.startOfDay(for: today)
-			currentWeekday = ScheduleWeekday(date: startDate, calendar: calendar)
+				let scheduledTasks = try interactor.fetchAllScheduledTasks()
+				let startDate = calendar.startOfDay(for: today)
+				guard let currentWeek = currentWeek(containing: startDate, calendar: calendar) else {
+					return nil
+				}
+				currentWeekday = ScheduleWeekday(date: startDate, calendar: calendar)
 			hasPastPlannedOccurrences = scheduledTasks.contains { scheduledTask in
 				scheduledTask.status == .planned && scheduledTask.scheduledDate < startDate
 			}
@@ -38,7 +41,7 @@ final class SchedulePresenter {
 				rooms: rooms,
 				tasks: tasks,
 				scheduledTasks: scheduledTasks,
-				startDate: startDate,
+					week: currentWeek,
 				calendar: calendar
 			)
 
@@ -73,31 +76,32 @@ final class SchedulePresenter {
 		tasksByWeekday[day] ?? []
 	}
 
+	func isReadOnly(_ day: ScheduleWeekday) -> Bool {
+		day.rawValue < currentWeekday.rawValue
+	}
+
 	func summary(for day: ScheduleWeekday) -> ScheduleDaySummary {
 		let tasks = tasks(for: day)
-		let completedTaskCount = tasks.filter { $0.status == .completed }.count
-		let plannedTaskCount = tasks.filter { $0.status == .planned }.count
-		let totalTaskCount = tasks.count
-		let totalMinutes = tasks.reduce(0) { $0 + $1.duration }
+		let activeTasks = tasks.filter {
+			$0.status == .planned || $0.status == .completed
+		}
+		let completedTaskCount = activeTasks.filter { $0.status == .completed }.count
+		let activeTaskCount = activeTasks.count
+		let totalMinutes = activeTasks.reduce(0) { $0 + $1.duration }
 
 		return ScheduleDaySummary(
 			weekdayName: day.name,
 			completionText: String(localized: .init(
 				"schedule.summary.completion",
-				defaultValue: "\(completedTaskCount)/\(totalTaskCount)"
+				defaultValue: "\(completedTaskCount)/\(activeTaskCount)"
 			)),
-			taskDescription: totalTaskCount == 0
-				? String(localized: .init(
-					"schedule.summary.empty_description",
-					defaultValue: "A clear day — enjoy the space."
-				))
-				: String(localized: .init(
+				taskDescription: String(localized: .init(
 					"schedule.summary.task_details",
-					defaultValue: "\(totalTaskCount) tasks • \(totalMinutes) min planned"
+					defaultValue: "\(activeTaskCount) tasks • \(totalMinutes) min planned"
 				)),
 			completedTaskCount: completedTaskCount,
-			progressTotal: max(totalTaskCount, 1),
-			showsEmptyState: plannedTaskCount == 0
+			progressTotal: activeTaskCount,
+			showsEmptyState: tasks.isEmpty
 		)
 	}
 
@@ -186,18 +190,25 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
+	private func currentWeek(containing date: Date, calendar: Calendar) -> DateInterval? {
+		var mondayFirstCalendar = calendar
+		mondayFirstCalendar.firstWeekday = 2
+
+		return mondayFirstCalendar.dateInterval(of: .weekOfYear, for: date)
+	}
+
 	private func makeTasksByWeekday(
 		rooms: [Room],
 		tasks: [RoomTask],
 		scheduledTasks: [ScheduledTask],
-		startDate: Date,
+		week: DateInterval,
 		calendar: Calendar
 	) -> [ScheduleWeekday: [ScheduleTaskRow]] {
 		let roomsByID = Dictionary(uniqueKeysWithValues: rooms.map { ($0.id, $0) })
 		let tasksByID = Dictionary(uniqueKeysWithValues: tasks.map { ($0.id, $0) })
 
 		return scheduledTasks.reduce(into: [ScheduleWeekday: [ScheduleTaskRow]]()) { result, occurrence in
-			guard occurrence.scheduledDate >= startDate,
+				guard week.contains(occurrence.scheduledDate),
 				let task = tasksByID[occurrence.taskId],
 				let room = roomsByID[task.roomId]
 			else {

@@ -8,9 +8,10 @@ struct ScheduleTasksListView: View {
 	
 	let summary: ScheduleDaySummary
 	let tasks: [ScheduleTaskRow]
+	let isReadOnly: Bool
 	let onComplete: (ScheduleTaskRow) -> Void
 	let onSkip: (ScheduleTaskRow) -> Void
-	let onUndoSkip: (ScheduleTaskRow) -> Void
+	let onRetry: (ScheduleTaskRow) -> Void
 	let onUncomplete: (ScheduleTaskRow) -> Void
 	
 	// MARK: - Body
@@ -21,7 +22,7 @@ struct ScheduleTasksListView: View {
 				ScheduleDaySummaryView(summary: summary)
 					.removeListRowFormatting()
 			}
-			
+
 			Section {
 				ForEach(tasks) { task in
 					taskCard(task)
@@ -29,72 +30,85 @@ struct ScheduleTasksListView: View {
 			}
 		}
 		.containerRelativeFrame(.horizontal)
+		.animation(.snappy, value: tasks)
 	}
-	
+
 	// MARK: - Views
 	
 	@ViewBuilder
 	private func taskCard(_ task: ScheduleTaskRow) -> some View {
-		switch task.status {
-		case .planned:
-			Button {
-				withAnimation {
-					onComplete(task)
+		taskCardContent(task)
+			.contentShape(.rect)
+			.overlay {
+				if !isReadOnly, task.status == .planned || task.status == .completed {
+					taskInteractionButton(task)
 				}
-			} label: {
-				taskCardContent(task)
-					.contentShape(.rect)
 			}
-			.buttonStyle(.fkFade)
 			.contextMenu {
-				Button(
-					String(localized: .init(
-						"schedule.action.skip",
-						defaultValue: "Skip task"
-					)),
-					systemImage: "arrowshape.turn.up.right"
-				) {
-					withAnimation {
-						onSkip(task)
-					}
+				if !isReadOnly {
+					taskContextMenu(task)
 				}
 			}
-			
-		case .skipped:
-			taskCardContent(task)
-				.contextMenu {
-					Button(
-						String(localized: .init(
-							"schedule.action.undo_skip",
-							defaultValue: "Undo Skip"
-						)),
-						systemImage: "arrow.uturn.backward"
-					) {
-						withAnimation {
-							onUndoSkip(task)
-						}
-					}
-				}
-			
-		case .completed:
-			Button {
-				withAnimation {
+	}
+
+	@ViewBuilder
+	private func taskInteractionButton(_ task: ScheduleTaskRow) -> some View {
+		Button {
+			withAnimation(.snappy) {
+				if task.status == .planned {
+					onComplete(task)
+				} else {
 					onUncomplete(task)
 				}
-			} label: {
-				taskCardContent(task)
-					.contentShape(.rect)
 			}
-			
-		case .postponed, .cancelled:
-			taskCardContent(task)
+		} label: {
+			Rectangle()
+				.fill(.clear)
+				.contentShape(.rect)
+		}
+		.buttonStyle(.fkFade)
+		.accessibilityLabel(task.name)
+	}
+
+	@ViewBuilder
+	private func taskContextMenu(_ task: ScheduleTaskRow) -> some View {
+		switch task.status {
+		case .planned:
+			Button(
+				String(localized: .init(
+					"schedule.action.skip",
+					defaultValue: "Skip task"
+				)),
+				systemImage: "arrowshape.turn.up.right"
+			) {
+				withAnimation(.snappy) {
+					onSkip(task)
+				}
+			}
+
+		case .skipped:
+			Button(
+				String(localized: .init(
+					"schedule.action.retry",
+					defaultValue: "Retry"
+				)),
+				systemImage: "arrow.uturn.backward"
+			) {
+				withAnimation(.snappy) {
+					onRetry(task)
+				}
+			}
+
+		case .completed, .postponed, .cancelled:
+			EmptyView()
 		}
 	}
 	
 	private func taskCardContent(_ task: ScheduleTaskRow) -> some View {
 		ScheduleTaskCardView(
 			task: task,
-			onUndoSkipButtonTapped: onUndoSkip
+			isReadOnly: isReadOnly,
+			onRetryButtonTapped: onRetry
 		)
 	}
 }
@@ -103,15 +117,15 @@ struct ScheduleTasksListView: View {
 
 #Preview {
 	ScheduleTasksListView(
-		summary: ScheduleDaySummary(
+			summary: ScheduleDaySummary(
 			weekdayName: "Monday",
 			completionText: "0/1",
 			taskDescription: "1 task • 15 min planned",
 			completedTaskCount: 0,
 			progressTotal: 1,
 			showsEmptyState: false
-		),
-		tasks: [
+			),
+			tasks: [
 			ScheduleTaskRow(
 				id: UUID(),
 				name: "Vacuum the floor",
@@ -120,10 +134,11 @@ struct ScheduleTasksListView: View {
 				symbolName: "sofa.fill",
 				status: .planned
 			)
-		],
-		onComplete: { _ in },
+			],
+			isReadOnly: false,
+			onComplete: { _ in },
 		onSkip: { _ in },
-		onUndoSkip: { _ in },
+		onRetry: { _ in },
 		onUncomplete: { _ in }
 	)
 }

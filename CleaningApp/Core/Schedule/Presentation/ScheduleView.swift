@@ -26,13 +26,14 @@ struct ScheduleView: View {
 					ScheduleTasksListView(
 						summary: presenter.summary(for: day),
 						tasks: presenter.tasks(for: day),
+							isReadOnly: presenter.isReadOnly(day),
 						onComplete: { task in
 							presenter.complete(task)
 						},
 						onSkip: { task in
 							presenter.skip(task)
 						},
-						onUndoSkip: { task in
+						onRetry: { task in
 							presenter.undoSkip(task)
 						},
 						onUncomplete: { task in

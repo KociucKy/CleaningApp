@@ -26,18 +26,18 @@ struct ScheduleDaySummaryView: View {
 						.font(FKTypography.secondaryLabel)
 						.fontWeight(.semibold)
 						.foregroundStyle(.accent)
+						.contentTransition(.numericText(value: Double(summary.completedTaskCount)))
+						.animation(.smooth(duration: 0.35), value: summary.completionText)
 				}
 				
 				Text(summary.taskDescription)
 					.font(FKTypography.secondaryLabel)
 					.foregroundStyle(.secondary)
 				
-				ProgressView(
-					value: Double(summary.completedTaskCount),
-					total: Double(summary.progressTotal)
-				)
-				.tint(.accent)
-				.animation(.bouncy, value: summary.completedTaskCount)
+					ScheduleProgressView(
+						completedTaskCount: summary.completedTaskCount,
+						total: summary.progressTotal
+					)
 			}
 			.frame(maxWidth: .infinity, alignment: .leading)
 			.padding(FKSpacing.large)

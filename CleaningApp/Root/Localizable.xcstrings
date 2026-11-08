@@ -3057,6 +3057,23 @@
         }
       }
     },
+    "schedule.action.retry" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Retry"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Spróbuj ponownie"
+          }
+        }
+      }
+    },
     "schedule.action.skip" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -3086,7 +3103,7 @@
       }
     },
     "schedule.action.undo_skip" : {
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3273,7 +3290,7 @@
       }
     },
     "schedule.summary.empty_description" : {
-      "extractionState" : "extracted_with_value",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
