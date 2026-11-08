@@ -75,28 +75,26 @@ final class SchedulePresenter {
 
 	func summary(for day: ScheduleWeekday) -> ScheduleDaySummary {
 		let tasks = tasks(for: day)
-		let completedTaskCount = tasks.filter { $0.status == .completed }.count
-		let totalTaskCount = tasks.count
-		let totalMinutes = tasks.reduce(0) { $0 + $1.duration }
+		let activeTasks = tasks.filter {
+			$0.status == .planned || $0.status == .completed
+		}
+		let completedTaskCount = activeTasks.filter { $0.status == .completed }.count
+		let activeTaskCount = activeTasks.count
+		let totalMinutes = activeTasks.reduce(0) { $0 + $1.duration }
 
 		return ScheduleDaySummary(
 			weekdayName: day.name,
 			completionText: String(localized: .init(
 				"schedule.summary.completion",
-				defaultValue: "\(completedTaskCount)/\(totalTaskCount)"
+				defaultValue: "\(completedTaskCount)/\(activeTaskCount)"
 			)),
-			taskDescription: totalTaskCount == 0
-				? String(localized: .init(
-					"schedule.summary.empty_description",
-					defaultValue: "A clear day — enjoy the space."
-				))
-				: String(localized: .init(
+				taskDescription: String(localized: .init(
 					"schedule.summary.task_details",
-					defaultValue: "\(totalTaskCount) tasks • \(totalMinutes) min planned"
+					defaultValue: "\(activeTaskCount) tasks • \(totalMinutes) min planned"
 				)),
 			completedTaskCount: completedTaskCount,
-			progressTotal: max(totalTaskCount, 1),
-			showsEmptyState: totalTaskCount == 0
+			progressTotal: activeTaskCount,
+			showsEmptyState: tasks.isEmpty
 		)
 	}
 

@@ -27,7 +27,7 @@ struct ScheduleDaySummaryView: View {
 						.fontWeight(.semibold)
 						.foregroundStyle(.accent)
 						.contentTransition(.numericText(value: Double(summary.completedTaskCount)))
-						.animation(.smooth(duration: 0.35), value: summary.completedTaskCount)
+						.animation(.smooth(duration: 0.35), value: summary.completionText)
 				}
 				
 				Text(summary.taskDescription)
