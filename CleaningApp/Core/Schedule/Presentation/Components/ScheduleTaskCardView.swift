@@ -8,6 +8,7 @@ struct ScheduleTaskCardView: View {
 	// MARK: - Properties
 	
 	let task: ScheduleTaskRow
+	let isReadOnly: Bool
 	let onRetryButtonTapped: (ScheduleTaskRow) -> Void
 	
 	// MARK: - Body
@@ -71,18 +72,20 @@ struct ScheduleTaskCardView: View {
 	@ViewBuilder
 	private var trailingAction: some View {
 		ZStack {
-			if task.status == .skipped {
-					Button {
-						onRetryButtonTapped(task)
-					} label: {
-						Image(systemName: "arrow.clockwise")
+				if task.status == .skipped {
+					if !isReadOnly {
+						Button {
+							onRetryButtonTapped(task)
+						} label: {
+							Image(systemName: "arrow.clockwise")
+						}
+						.buttonStyle(.borderless)
+						.accessibilityLabel(String(localized: .init(
+							"schedule.action.retry",
+							defaultValue: "Retry"
+						)))
+						.transition(.scale.combined(with: .opacity))
 					}
-					.buttonStyle(.borderless)
-					.accessibilityLabel(String(localized: .init(
-						"schedule.action.retry",
-						defaultValue: "Retry"
-					)))
-				.transition(.scale.combined(with: .opacity))
 			} else {
 				Image(systemName: task.status == .completed ? "checkmark" : "circle")
 					.font(FKTypography.sectionHeader)
@@ -106,7 +109,8 @@ struct ScheduleTaskCardView: View {
 			duration: 15,
 			symbolName: "sofa.fill",
 			status: .planned
-		),
-		onRetryButtonTapped: { _ in }
+			),
+			isReadOnly: false,
+			onRetryButtonTapped: { _ in }
 	)
 }

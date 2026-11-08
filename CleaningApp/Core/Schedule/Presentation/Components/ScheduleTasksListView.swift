@@ -8,6 +8,7 @@ struct ScheduleTasksListView: View {
 	
 	let summary: ScheduleDaySummary
 	let tasks: [ScheduleTaskRow]
+	let isReadOnly: Bool
 	let onComplete: (ScheduleTaskRow) -> Void
 	let onSkip: (ScheduleTaskRow) -> Void
 	let onRetry: (ScheduleTaskRow) -> Void
@@ -39,12 +40,14 @@ struct ScheduleTasksListView: View {
 		taskCardContent(task)
 			.contentShape(.rect)
 			.overlay {
-				if task.status == .planned || task.status == .completed {
+				if !isReadOnly, task.status == .planned || task.status == .completed {
 					taskInteractionButton(task)
 				}
 			}
 			.contextMenu {
-				taskContextMenu(task)
+				if !isReadOnly {
+					taskContextMenu(task)
+				}
 			}
 	}
 
@@ -104,6 +107,7 @@ struct ScheduleTasksListView: View {
 	private func taskCardContent(_ task: ScheduleTaskRow) -> some View {
 		ScheduleTaskCardView(
 			task: task,
+			isReadOnly: isReadOnly,
 			onRetryButtonTapped: onRetry
 		)
 	}
@@ -113,15 +117,15 @@ struct ScheduleTasksListView: View {
 
 #Preview {
 	ScheduleTasksListView(
-		summary: ScheduleDaySummary(
+			summary: ScheduleDaySummary(
 			weekdayName: "Monday",
 			completionText: "0/1",
 			taskDescription: "1 task • 15 min planned",
 			completedTaskCount: 0,
 			progressTotal: 1,
 			showsEmptyState: false
-		),
-		tasks: [
+			),
+			tasks: [
 			ScheduleTaskRow(
 				id: UUID(),
 				name: "Vacuum the floor",
@@ -130,8 +134,9 @@ struct ScheduleTasksListView: View {
 				symbolName: "sofa.fill",
 				status: .planned
 			)
-		],
-		onComplete: { _ in },
+			],
+			isReadOnly: false,
+			onComplete: { _ in },
 		onSkip: { _ in },
 		onRetry: { _ in },
 		onUncomplete: { _ in }

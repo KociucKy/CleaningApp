@@ -26,6 +26,7 @@ struct ScheduleView: View {
 					ScheduleTasksListView(
 						summary: presenter.summary(for: day),
 						tasks: presenter.tasks(for: day),
+							isReadOnly: presenter.isReadOnly(day),
 						onComplete: { task in
 							presenter.complete(task)
 						},
