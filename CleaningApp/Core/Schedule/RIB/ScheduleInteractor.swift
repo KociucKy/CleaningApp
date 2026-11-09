@@ -8,6 +8,11 @@ protocol ScheduleInteractor {
 	func completeScheduledTask(id: UUID, completedAt: Date, measuredDuration: Int?) throws
 	func uncompleteScheduledTask(id: UUID, uncompletedAt: Date, dailyLimit: Int) throws -> ScheduleMutation
 	func skipScheduledTask(id: UUID, skippedAt: Date, dailyLimit: Int) throws -> ScheduleMutation
+	func rescheduleScheduledTask(
+		id: UUID,
+		for scheduledDate: Date,
+		rescheduledAt: Date
+	) throws
 	func undoSkipScheduledTask(id: UUID, restoredAt: Date) throws
 	func endScheduleDay(endedAt: Date, dailyLimit: Int) throws -> ScheduleMutation
 	func refreshSchedule(today: Date, dailyLimit: Int) throws -> ScheduleMutation

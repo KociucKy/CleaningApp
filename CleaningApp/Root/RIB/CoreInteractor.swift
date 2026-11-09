@@ -150,6 +150,18 @@ struct CoreInteractor {
 		)
 	}
 
+	func rescheduleScheduledTask(
+		id: UUID,
+		for scheduledDate: Date,
+		rescheduledAt: Date
+	) throws {
+		try cleaningScheduleCoordinator.reschedule(
+			scheduledTaskId: id,
+			for: scheduledDate,
+			rescheduledAt: rescheduledAt
+		)
+	}
+
 	func undoSkipScheduledTask(id: UUID, restoredAt: Date) throws {
 		try cleaningScheduleCoordinator.undoSkip(scheduledTaskId: id, restoredAt: restoredAt)
 	}
