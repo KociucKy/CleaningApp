@@ -9,6 +9,7 @@ struct ScheduleTaskRow: Identifiable, Equatable {
     let id: UUID
     let name: String
     let roomName: String
+    let scheduledDate: Date
     let duration: Int
     let symbolName: String
     let status: ScheduledTaskStatus
@@ -29,6 +30,7 @@ struct ScheduleTaskRow: Identifiable, Equatable {
         id: UUID,
         name: String,
         roomName: String,
+        scheduledDate: Date = .now,
         duration: Int,
         symbolName: String,
         status: ScheduledTaskStatus
@@ -36,6 +38,7 @@ struct ScheduleTaskRow: Identifiable, Equatable {
         self.id = id
         self.name = name
         self.roomName = roomName
+        self.scheduledDate = scheduledDate
         self.duration = duration
         self.symbolName = symbolName
         self.status = status
