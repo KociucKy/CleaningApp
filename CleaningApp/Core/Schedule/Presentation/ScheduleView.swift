@@ -33,6 +33,9 @@ struct ScheduleView: View {
 						onSkip: { task in
 							presenter.skip(task)
 						},
+						onReschedule: { task, scheduledDate in
+							presenter.reschedule(task, for: scheduledDate)
+						},
 						onRetry: { task in
 							presenter.undoSkip(task)
 						},

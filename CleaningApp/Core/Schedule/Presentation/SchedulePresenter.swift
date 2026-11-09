@@ -150,6 +150,25 @@ final class SchedulePresenter {
 		} catch {}
 	}
 
+	func reschedule(
+		_ task: ScheduleTaskRow,
+		for scheduledDate: Date,
+		rescheduledAt: Date = Date()
+	) {
+		guard task.status == .planned else {
+			return
+		}
+
+		do {
+			try interactor.rescheduleScheduledTask(
+				id: task.id,
+				for: scheduledDate,
+				rescheduledAt: rescheduledAt
+			)
+			fetchSchedule(today: rescheduledAt)
+		} catch {}
+	}
+
 	func undoSkip(_ task: ScheduleTaskRow, restoredAt: Date = Date()) {
 		guard task.status == .skipped else {
 			return
@@ -221,6 +240,7 @@ final class SchedulePresenter {
 					id: occurrence.id,
 					name: task.name,
 					roomName: room.name,
+					scheduledDate: occurrence.scheduledDate,
 					duration: task.learnedDuration ?? task.estimatedDuration.rawValue,
 					symbolName: room.kind.symbolName,
 					status: occurrence.status
