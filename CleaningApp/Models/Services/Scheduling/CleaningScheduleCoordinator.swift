@@ -196,6 +196,38 @@ final class CleaningScheduleCoordinator {
         try skippedTaskManager.delete(skippedTask)
     }
 
+    func reschedule(
+        scheduledTaskId: UUID,
+        for scheduledDate: Date,
+        rescheduledAt: Date
+    ) throws {
+        guard var scheduledTask = try scheduledTaskManager.fetchSingle(for: scheduledTaskId) else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskNotFound
+        }
+        guard scheduledTask.status == .planned else {
+            throw CleaningScheduleCoordinatorError.scheduledTaskIsNotPlanned
+        }
+
+        let targetDate = calendar.startOfDay(for: scheduledDate)
+        guard targetDate != calendar.startOfDay(for: scheduledTask.scheduledDate) else {
+            throw CleaningScheduleCoordinatorError.rescheduleDateMatchesOriginalDate
+        }
+
+        scheduledTask.status = .postponed
+        scheduledTask.updatedAt = rescheduledAt
+        try scheduledTaskManager.update(scheduledTask)
+        try scheduledTaskManager.save(
+            ScheduledTask(
+                taskId: scheduledTask.taskId,
+                scheduledDate: targetDate,
+                originalScheduledDate: scheduledTask.originalScheduledDate,
+                sourceOccurrenceId: scheduledTask.id,
+                createdAt: rescheduledAt,
+                updatedAt: rescheduledAt
+            )
+        )
+    }
+
     @discardableResult
     func endDay(endedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
         let endDate = calendar.startOfDay(for: endedAt)

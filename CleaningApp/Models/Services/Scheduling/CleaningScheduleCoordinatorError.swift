@@ -8,6 +8,7 @@ enum CleaningScheduleCoordinatorError: Error {
     case scheduledTaskIsNotPlanned
     case scheduledTaskIsNotCompleted
     case scheduledTaskIsNotSkipped
+    case rescheduleDateMatchesOriginalDate
     case completedTaskHistoryNotFound
     case skippedTaskHistoryNotFound
     case roomTaskNotFound
