@@ -3057,6 +3057,17 @@
         }
       }
     },
+    "schedule.action.reschedule" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reschedule task"
+          }
+        }
+      }
+    },
     "schedule.action.retry" : {
       "extractionState" : "extracted_with_value",
       "localizations" : {
@@ -3183,6 +3194,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Harmonogram"
+          }
+        }
+      }
+    },
+    "schedule.reschedule.date" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "New date"
+          }
+        }
+      }
+    },
+    "schedule.reschedule.title" : {
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reschedule %@"
           }
         }
       }

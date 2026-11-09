@@ -352,6 +352,42 @@ struct CleaningScheduleCoordinatorTests {
         #expect(try skippedTaskManager.fetchAll().isEmpty)
     }
 
+    @Test func reschedule_postponesOriginalAndCreatesOccurrenceOnSelectedDate() throws {
+        let originalDate = try makeDate(day: 25)
+        let selectedDate = try makeDate(day: 28)
+        let scheduledTaskManager = ScheduledTaskManager(repository: MockScheduledTaskRepository())
+        let original = ScheduledTask(
+            taskId: UUID(),
+            scheduledDate: originalDate,
+            createdAt: originalDate,
+            updatedAt: originalDate
+        )
+        try scheduledTaskManager.save(original)
+        let coordinator = CleaningScheduleCoordinator(
+            roomTaskManager: RoomTaskManager(
+                taskRepository: MockRoomTaskRepository(items: []),
+                roomRepository: MockRoomRepository(items: [])
+            ),
+            scheduledTaskManager: scheduledTaskManager,
+            completedTaskManager: CompletedTaskManager(repository: MockCompletedTaskRepository()),
+            skippedTaskManager: SkippedTaskManager(repository: MockSkippedTaskRepository()),
+            calendar: calendar
+        )
+
+        try coordinator.reschedule(
+            scheduledTaskId: original.id,
+            for: selectedDate,
+            rescheduledAt: originalDate
+        )
+
+        let occurrences = try scheduledTaskManager.fetchAll()
+        let rescheduled = try #require(occurrences.first { $0.sourceOccurrenceId == original.id })
+        #expect(try scheduledTaskManager.fetchSingle(for: original.id)?.status == .postponed)
+        #expect(rescheduled.status == .planned)
+        #expect(rescheduled.scheduledDate == selectedDate)
+        #expect(rescheduled.originalScheduledDate == originalDate)
+    }
+
     @Test func endDay_postponesIncompleteWorkAndSchedulesOneSuccessor() throws {
         let endedAt = try makeDate(day: 25)
         let tomorrow = try makeDate(day: 26)

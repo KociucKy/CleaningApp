@@ -116,6 +116,12 @@ struct SchedulePresenterTests {
             ScheduleMutation()
         }
 
+        func rescheduleScheduledTask(
+            id: UUID,
+            for scheduledDate: Date,
+            rescheduledAt: Date
+        ) throws {}
+
         func undoSkipScheduledTask(id: UUID, restoredAt: Date) throws {}
 
         func endScheduleDay(endedAt: Date, dailyLimit: Int) throws -> ScheduleMutation {
