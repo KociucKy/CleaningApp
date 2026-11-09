@@ -11,8 +11,10 @@ struct ScheduleTasksListView: View {
 	let isReadOnly: Bool
 	let onComplete: (ScheduleTaskRow) -> Void
 	let onSkip: (ScheduleTaskRow) -> Void
+	let onReschedule: (ScheduleTaskRow, Date) -> Void
 	let onRetry: (ScheduleTaskRow) -> Void
 	let onUncomplete: (ScheduleTaskRow) -> Void
+	@State private var taskToReschedule: ScheduleTaskRow?
 	
 	// MARK: - Body
 	
@@ -31,6 +33,13 @@ struct ScheduleTasksListView: View {
 		}
 		.containerRelativeFrame(.horizontal)
 		.animation(.snappy, value: tasks)
+		.sheet(item: $taskToReschedule) { task in
+			ScheduleTaskRescheduleView(task: task) { scheduledDate in
+				withAnimation(.snappy) {
+					onReschedule(task, scheduledDate)
+				}
+			}
+		}
 	}
 
 	// MARK: - Views
@@ -74,6 +83,16 @@ struct ScheduleTasksListView: View {
 	private func taskContextMenu(_ task: ScheduleTaskRow) -> some View {
 		switch task.status {
 		case .planned:
+			Button(
+				String(localized: .init(
+					"schedule.action.reschedule",
+					defaultValue: "Reschedule task"
+				)),
+				systemImage: "calendar.badge.clock"
+			) {
+				taskToReschedule = task
+			}
+
 			Button(
 				String(localized: .init(
 					"schedule.action.skip",
@@ -138,6 +157,7 @@ struct ScheduleTasksListView: View {
 			isReadOnly: false,
 			onComplete: { _ in },
 		onSkip: { _ in },
+		onReschedule: { _, _ in },
 		onRetry: { _ in },
 		onUncomplete: { _ in }
 	)
